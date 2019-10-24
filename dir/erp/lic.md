@@ -38,10 +38,10 @@ The Licensing Service provides the operations required to support the ERP licens
 
 | Environment | Address |
 | - | - |
-| Production | <https://lithium-licensing.primaverabss.com/> |
-| Preview (WE) | <https://lithiumlicensingpdwe-lithiumlicensingpdwe-preview.azurewebsites.net/> |
-| Preview (NE) | <https://lithiumlicensingpdne-lithiumlicensingpdne-preview.azurewebsites.net/> |
-| Staging (WE) | <https://stg-licensing.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

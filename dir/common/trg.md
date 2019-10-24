@@ -21,12 +21,12 @@ The Triggers Service allows executing Web actions (calling a Web API) based on p
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-filestore.primaverabss.com/> |
-| Preview (WE) | <https://lithiumfilestorepdwe-lithiumfilestorepdwe-preview.azurewebsites.net/> |
+| Production | --- |
+| Preview (WE) | --- |
 | Preview (NE) | --- |
-| Staging (WE) | <https://stg-triggers.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

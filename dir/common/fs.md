@@ -21,12 +21,12 @@ The File Store Service provides a centralized store for files that allows distri
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-filestore.primaverabss.com/> |
-| Preview (WE) | <https://lithiumfilestorepdwe-lithiumfilestorepdwe-preview.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://stg-filestore.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

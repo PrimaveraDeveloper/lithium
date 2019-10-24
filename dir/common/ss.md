@@ -21,12 +21,12 @@ The Settings Service allows storing name/value settings per user, per product, a
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-settings.primaverabss.com/> |
-| Preview (WE) | <https://lithiumsettingspdwe-lithiumsettingspdwe-preview.azurewebsites.net/> |
-| Preview (NE) | <https://lithiumsettingspdne-lithiumsettingspdne-preview.azurewebsites.net/> |
-| Staging (WE) | <https://stg-settings.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

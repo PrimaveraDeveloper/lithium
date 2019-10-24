@@ -23,12 +23,12 @@ Both the microservice and the respective client library implement multiple cache
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-certificates.primaverabss.com/> |
-| Preview (WE) | <https://lithiumcertificatespdwe-lithiumcertificatespdwe-preview.azurewebsites.net/> |
-| Preview (NE) | <https://lithiumcertificatespdne-lithiumcertificatespdne-preview.azurewebsites.net/> |
-| Staging (WE) | <https://stg-certificates.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

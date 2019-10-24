@@ -23,14 +23,14 @@ The templates are defined previously and set the sender of notifications, priori
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-notification.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-notification-we-wap-lithium-pd-notification-we-w.azurewebsites.net/> |
-| Preview (NE) | <https://lithium-pd-notification-ne-wap-lithium-pd-notification-ne-w.azurewebsites.net/> |
-| Staging (WE) | <https://lithium-st-notification-we-wap.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-notification-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

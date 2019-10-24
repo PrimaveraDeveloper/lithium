@@ -21,14 +21,14 @@ The Postman Service allows presenting reports, built from templates, to users.
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-postman.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-postman-we-wap-lithium-pd-postman-we-wap.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://lithium-st-postman-we-wap.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-postman-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

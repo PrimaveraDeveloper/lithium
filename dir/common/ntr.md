@@ -21,14 +21,14 @@ The Nitrogen Service provides the support services for the cloud products app st
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://apps.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-appsnitrogen-we-wap-lithium-pd-appsnitrogen-we-w.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://lithium-st-appsnitrogen-we-wap.azurewebsites.net> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-appsnitrogen-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

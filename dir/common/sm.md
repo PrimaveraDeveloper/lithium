@@ -21,7 +21,7 @@ The Service Management Service allows invoking the operations in the Service Man
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
 | Production | --- |
 | Preview (WE) | --- |

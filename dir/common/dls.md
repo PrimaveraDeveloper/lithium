@@ -29,12 +29,12 @@ The client library also includes validation algorithms for VAT numbers according
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-datalookup.primaverabss.com/> |
-| Preview (WE) | <https://datalookuppdwe-datalookuppdwe-preview.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://stg-datalookup.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

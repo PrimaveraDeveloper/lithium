@@ -22,14 +22,14 @@ The Fiscal Reports Service allows producing fiscal reports (for Tax Authorities)
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-frs.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-frs-we-wap-lithium-pd-frs-we-wap-preview.azurewebsites.net/> |
-| Preview (NE) | <https://lithium-pd-frs-ne-wap-lithium-pd-frs-ne-wap-preview.azurewebsites.net/> |
-| Staging (WE) | <https://lithium-st-frs-we-wap.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-frs-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

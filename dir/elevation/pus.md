@@ -21,14 +21,14 @@ The Product Upgrade Service provides operations to upgrade cloud product version
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-productupgr.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-productupgr-we-wap-lithium-pd-productupgr-we-wap.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://lithium-st-productupgr-we-wap.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-productupgr-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

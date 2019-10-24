@@ -67,7 +67,7 @@ When using entities that following types are also supported (although stored as 
 - `TimeSpan` and `TimeSpan?`
 - `Enum` and `Enum?`
 
-NOTE: The `DateTimeOffset` values will always be stored in UTC.
+> NOTE: The `DateTimeOffset` values will always be stored in UTC.
 
 ### Retrieving Data
 
@@ -95,7 +95,7 @@ IList<TableRecord> records = await service.RetrieveRecordsAsync(query).Configure
 IList<MyEntity> entities = await service.RetrieveEntitiesAsync<MyEntity>(query).ConfigureAwait(false);
 ```
 
-NOTE: How you create ITableQuery instances depends on the concrete implementation of the service. See that documentation for more details.
+> NOTE: How you create `ITableQuery` instances depends on the concrete implementation of the service. See that documentation for more details.
 
 ### Modeling Entities
 
@@ -137,7 +137,7 @@ public class MyEntity : TableEntity
 }
 ```
 
-NOTE: Any table entity must always have a parameter-less constructor.
+> NOTE: Any table entity must always have a parameter-less constructor.
 
 Properties in a table entity can be ignored by annotating them with the IgnorePropertyAttribute, like this:
 
@@ -177,7 +177,7 @@ IBlockBlobReference blob = container.GetBlockBlob("myblob");
 (...)
 ```
 
-NOTE: Both `IContainerReference` and `IBlockBlobReference` provide asynchronous methods - e.g. `CreateIfNotExistsAsync()` - and synchronous methods - e.g. `Delete()`.
+>  Both `IContainerReference` and `IBlockBlobReference` provide asynchronous methods - e.g. `CreateIfNotExistsAsync()` - and synchronous methods - e.g. `Delete()`.
 
 ## Manipulating Blobs
 

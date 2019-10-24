@@ -21,7 +21,7 @@ The Provisioning Center Service provides mechanisms to automate the management o
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
 | Production | --- |
 | Preview (WE) | --- |

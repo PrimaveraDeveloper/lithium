@@ -25,12 +25,12 @@ The current version includes the following third-party APIs:
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-hub.primaverabss.com/> |
-| Preview (WE) | <https://lithiumhubpdwe-lithiumhubpdwe-preview.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
 | Preview (NE) | --- |
-| Staging (WE) | <https://stg-hub.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

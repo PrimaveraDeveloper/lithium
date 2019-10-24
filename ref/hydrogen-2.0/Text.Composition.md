@@ -21,7 +21,7 @@ If you want to parse and render the text template in one step, you should call `
 string output = TextTemplate.Render(CultureInfo.CurrentCulture, "This is a value {0}.", value);
 ```
 
-NOTE: This form will configure `TextTemplate` to use the default options.
+> NOTE: This form will configure `TextTemplate` to use the default options.
 
 You can access reuse the input and customize options by first calling `Parse` and then `Render`:
 
@@ -73,7 +73,7 @@ string output = TextTemplate.Render(
     myobject);
 ```
 
-NOTE: When using named arguments, by default, the values will be retrieved from the first
+> NOTE: When using named arguments, by default, the values will be retrieved from the first
 argument in the call to `Render`.
 
 ### Mixing Indexed and Named Arguments

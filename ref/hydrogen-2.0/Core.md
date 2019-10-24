@@ -94,9 +94,7 @@ StaticMemoryCache cache2 = new StaticMemoryCache();
 object value2 = cache2.Get("key"); // value1 and value2 will be the same
 ```
 
-NOTE:
-
-Since this cache is static it is even more important to pay attention to the cache keys used to avoid unintended conflicts and cache its, even if
+> NOTE: Since this cache is static it is even more important to pay attention to the cache keys used to avoid unintended conflicts and cache its, even if
 using distinct instances of `StaticMemoryCache`.
 
 ## Configuration
@@ -439,9 +437,7 @@ public void MyMethod()
 }
 ```
 
-NOTE:
-
-`DefaultAzureServiceTokenService` uses `LoggerWrapper`.
+> NOTE: `DefaultAzureServiceTokenService` uses `LoggerWrapper`.
 
 ### NetworkTimeClient
 

@@ -25,7 +25,7 @@ The current version supports the following Tax Authority services:
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
 | Production | --- |
 | Preview (WE) | --- |

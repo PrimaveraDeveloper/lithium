@@ -23,14 +23,14 @@ The Accounting Automation Service allows PAA to configure access to Jasmin subsc
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://lithium-accauto.primaverabss.com/> |
-| Preview (WE) | <https://lithium-pd-accauto-we-wap-lithium-pd-accauto-we-wap-preview.azurewebsites.net/> |
-| Preview (NE) | <https://lithium-pd-accauto-ne-wap-lithium-pd-accauto-ne-wap-preview.azurewebsites.net/> |
-| Staging (WE) | <https://lithium-st-accauto-we-wap.azurewebsites.net/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | <https://lithium-dv-accauto-we-wap.azurewebsites.net/> |
+| Development | Yes |
 
 ## Reference Documentation
 

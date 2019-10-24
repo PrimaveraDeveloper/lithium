@@ -20,12 +20,12 @@ The Metrics Service allows saving and serving metrics to applications from the C
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
 | Production | --- |
 | Preview (WE) | --- |
 | Preview (NE) | --- |
-| Staging (WE) | <https://lithium-st-carbonmtr-we-wap.azurewebsites.net/> |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 

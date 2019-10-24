@@ -36,7 +36,7 @@ ServiceSpec spec1 = ServiceSpec.FromJson(new string[] { json1 });
 ServiceSpec spec2 = ServiceSpec.FromJsonFile(new string[] { file1 });
 ```
 
-NOTE: A microservice specification can be contained in multiple JSON files (to allow for part of the specification to be automatically generated and other parts to be specified by developers).
+> NOTE: A microservice specification can be contained in multiple JSON files (to allow for part of the specification to be automatically generated and other parts to be specified by developers).
 
 ## Application Settings Specification (`AppSettingsSpec`)
 

@@ -25,12 +25,12 @@ It also includes a Web API for managing its resources.
 
 ## Environments
 
-| Environment | Address |
+| Environment | Available |
 | - | - |
-| Production | <https://identity.primaverabss.com/> |
-| Preview (WE) | <https://identitypdwe-identitypdwe-preview.azurewebsites.net/> |
-| Preview (NE) | <https://identitypdne-identitypdne-preview.azurewebsites.net/> |
-| Staging (WE) | <https://stg-identity.primaverabss.com/> |
+| Production | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | Yes |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
 
