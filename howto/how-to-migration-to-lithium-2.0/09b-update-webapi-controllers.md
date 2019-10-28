@@ -4,7 +4,7 @@
 
 ### 9b.1 - `ServiceProvider`
 
-The generated API controllers no longer have a ServiceProvider property.
+The generated API controllers no longer have a `ServiceProvider` property.
 
 Code like this:
 

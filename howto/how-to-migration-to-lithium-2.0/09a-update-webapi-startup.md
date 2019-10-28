@@ -4,9 +4,7 @@
 
 ### 9a.1 - `UseStaticFiles()`
 
-Remove any override of `Startup.UseStaticFiles()` if that override was only intended to configure the MVC default route (`app.UseMvcWithDefaultRoute()`).
-
-That behavior is already added in the generated code.
+Remove any override of `Startup.UseStaticFiles()` if that override was only intended to configure the MVC default route (`app.UseMvcWithDefaultRoute()`). That behavior is already added in the generated code.
 
 If an override is needed nevertheless, the signature should be as follows:
 
@@ -16,9 +14,7 @@ protected override void UseStaticFiles(IApplicationBuilder app, HostConfiguratio
 
 ### 9a.2 - `UseErrorHandling()`
 
-Remove any override of `Startup.UseErrorHandling()` if that override was only intended to add behavior like status code re-execute (`builder.UseStatusCodePagesWithReExecute()`).
-
-That behavior is already added in the generated code.
+Remove any override of `Startup.UseErrorHandling()` if that override was only intended to add behavior like status code re-execute (`builder.UseStatusCodePagesWithReExecute()`). That behavior is already added in the generated code.
 
 If an override is needed nevertheless, the signature should be as follows:
 
@@ -28,7 +24,7 @@ protected override void UseErrorHandling(IApplicationBuilder app, HostConfigurat
 
 ### 9a.3 - `ValidateConfiguration()`
 
-Change the signature of the override of `Startup.ValidateConfiguration()` to the following:
+Change the signature of ANY override of `Startup.ValidateConfiguration()` to:
 
 ```csharp
 protected override void ValidateConfiguration(IApplicationBuilder app, HostConfiguration hostConfiguration)

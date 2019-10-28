@@ -40,7 +40,7 @@ private AzureTableStorageOptions TableStorageServiceConfiguration
 }
 ```
 
-> NOTE: Most references to the table storage configuration can simply be removed after changing how the `ITableStorageService` is instantiated (because that dependency will be automatically injected).
+> NOTE: Most references to the table storage configuration can simply be removed after changing how `ITableStorageService` is instantiated (because that dependency will be automatically injected).
 
 ## Next
 

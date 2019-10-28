@@ -13,7 +13,7 @@
 </packageSources>
 ```
 
-### 1.3 - Create a folder named `.nuget` (mind the dot) and create there a file named `nuget.config` with the following contents:**
+### 1.3 - Create a folder named `.nuget` (mind the dot) and create there a file named `nuget.config` with the following contents:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

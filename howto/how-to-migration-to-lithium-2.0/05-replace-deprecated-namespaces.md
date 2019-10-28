@@ -1,15 +1,15 @@
 # How to Upgrade a Microservice from Lithium v1.0 to Lithium v2.0
 
-## 5 - Remove Deprecated Namespaces
+## 5 - Replace Deprecated Namespaces
 
-### 5.1 - Remove all using statements that reference the following namespaces.
+### 5.1 - Remove all using statements that reference the following namespaces:
 
 | Namespace |
 | - |
 | `Primavera.Hydrogen.Collections` |
 | `Primavera.Hydrogen.Web` |
 
-### 5.2 - Replace the references to the specified namespaces:
+### 5.2 - Replace the references to the following namespaces:
 
 | Namespace | Replace with |
 | - | - |

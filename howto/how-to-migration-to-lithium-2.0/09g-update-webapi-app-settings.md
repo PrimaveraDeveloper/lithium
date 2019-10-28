@@ -4,31 +4,31 @@
 
 ### 9g.1 - Remove Deprecated Configuration Sections/Keys
 
-Remove the following sections and keys from the application settings custom files (`appsettings.json` and `appsettings-development.json`):
+Remove the following sections/keys from the application settings custom files (`appsettings.json` and `appsettings-development.json`):
 
 | Section/Key | Obs. |
 | - | - |
-| `HostConfiguration::RedisCacheEnabled` | |
-| `HostConfiguration::RedisCacheAbsoluteExpiration` | |
+| `HostConfiguration::RedisCacheEnabled` | No longer available. |
+| `HostConfiguration::RedisCacheAbsoluteExpiration` | No longer available. |
 | `HostConfiguration::RedisCacheConnectionString` | This setting is defined in a new section named `RedisCacheOptions`. |
 
 ### 9g.2 - Update Modified Configuration Sections/Keys
 
-Update the following sections and keys in the application settings custom files:
+Update the following sections/keys in the application settings custom files:
 
-| Section/Key | Replace with | Obs. |
+| Section/Key | Replace with
 | - | - | - |
-| `BlobStorageServiceConfiguration::*` | `AzureBlobStorageOptions::*` | |
-| `TableStorageServiceConfiguration::*` | `AzureTableStorageOptions::*` | |
-| `TelemetryConfiguration::*` | `AzureInsightsTelemetryOptions::*` | |
+| `BlobStorageServiceConfiguration::*` | `AzureBlobStorageOptions::*` |
+| `TableStorageServiceConfiguration::*` | `AzureTableStorageOptions::*` |
+| `TelemetryConfiguration::*` | `AzureInsightsTelemetryOptions::*` |
 
 ### 9g.3 - Add the New Configuration Sections/Keys
 
-Add the following sections and keys to the application settings custom files:
+Add the following sections/keys to the application settings custom files:
 
 | Section/Key | Obs. |
 | - | - |
-| `RedisCacheOptions::ConnectionString` | Defines the connection string to the REDIS cache instance | |
+| `RedisCacheOptions::ConnectionString` | Defines the connection string to the REDIS cache instance. |
 
 ## Next
 

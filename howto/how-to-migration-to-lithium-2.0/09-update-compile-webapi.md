@@ -2,7 +2,7 @@
 
 ## 9 - Update and Compile WebApi
 
-### 9.1 - Compile the `WebApi.csproj` project individually.**
+### 9.1 - Compile the `WebApi.csproj` project individually.
 
 Depending on the service design, one or more of the following fixes may be required in the custom code.
 

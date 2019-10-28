@@ -7,8 +7,8 @@
 | Property | Replace With | Obs. |
 | - | - | - |
 | `ApiVersions.DefaultVersion.Literal` | --- | Replace with the service API version literal (e.g. "1.0") |
-| `OperationResult.IsNotFound` | `OperationResult.IsFailureWith(string)` | Parameter `errorCode` should be a specific error code of the operation being called that corresponds to a not found error (as passed by `OperationResult.Failure(OperationError)`. |
-| `OperationResult<T>.IsNotFound` | `OperationResult<T>.IsFailureWith(string)` | Parameter `errorCode` should be a specific error code of the operation being called that corresponds to a not found error (as passed by `OperationResult<T>.Failure(OperationError)`.
+| `OperationResult.IsNotFound` | `OperationResult.IsFailureWith(string)` | Parameter `errorCode` should be a specific error code of the operation being called that corresponds to a not found error, as passed by `OperationResult.Failure(OperationError)`. |
+| `OperationResult<T>.IsNotFound` | `OperationResult<T>.IsFailureWith(string)` | Parameter `errorCode` should be a specific error code of the operation being called that corresponds to a not found error, as passed by `OperationResult<T>.Failure(OperationError)`.
 | `OperationResult.IsSucess` | `OperationResult.IsSuccess` | |
 | `OperationResult<T>.IsSucess` | `OperationResult<T>.IsSuccess` | |
 
@@ -31,7 +31,7 @@
 
 | Property | Obs. |
 | - | - |
-| `HttpResponseMessageSurrogate.Headers.Location` | `HttpResponseMessageSurrogate.Headers` is now a read-only dictionary with a `string key`. |
+| `HttpResponseMessageSurrogate.Headers.Location` | `HttpResponseMessageSurrogate.Headers` is now a read-only dictionary with a `string` key. |
 
 ## Next
 

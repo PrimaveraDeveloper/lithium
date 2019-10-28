@@ -40,7 +40,7 @@ private AzureBlobStorageOptions BlobStorageServiceConfiguration
 }
 ```
 
-> NOTE: Most references to the blob storage configuration can simply be removed after changing how the `IBlobStorageService` is instantiated (because that dependency will be automatically injected).
+> NOTE: Most references to the blob storage configuration can simply be removed after changing how `IBlobStorageService` is instantiated (because that dependency will be automatically injected).
 
 ## Next
 

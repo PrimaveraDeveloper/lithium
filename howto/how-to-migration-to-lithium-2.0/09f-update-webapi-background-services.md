@@ -4,7 +4,7 @@
 
 ### 9f.1 - Update Queued Background Services Custom Code
 
-If the service includes a queued background service with a worker, an override for `QueuedBackgroundService<TWorkItem>.Queue` will be required like in the following example:
+If the service includes a queued background service with a worker, an override for `QueuedBackgroundService<TWorkItem>.Queue` will be required. The code should be like this:
 
 ```csharp
 /// <inheritdoc />

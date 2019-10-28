@@ -2,7 +2,7 @@
 
 ## 2 - Configure the Projects in the Service Solution
 
-### 2.1 - Make sure that `TargetFramework` for each `.csproj` is according to this list:
+### 2.1 - Make sure that the `TargetFramework` for each `.csproj` is according to this list:
 
 - Design: `<TargetFramework>netstandard2.0</TargetFramework>`
 - Client.Console: `<TargetFramework>netcoreapp3.0</TargetFramework>`

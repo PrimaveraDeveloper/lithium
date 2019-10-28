@@ -4,11 +4,11 @@
 
 ### 4a.1 - Queued Background Services
 
-If the service includes a Queued Background Service, make the property "Use Worker" is true and the property "Worker" points to the correct background worker.
+If the service includes a Queued Background Service, make sure that the property "Use Worker" is true and the property "Worker" points to the correct background worker.
 
 ### 4a.2 - Timed Background Services
 
-If the service includes a Timed Background Service, make the property "Use Worker" is true and the property "Worker" points to the correct background worker.
+If the service includes a Timed Background Service, make sure that the property "Use Worker" is true and the property "Worker" points to the correct background worker.
 
 ## Next
 
