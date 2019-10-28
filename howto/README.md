@@ -6,7 +6,7 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Development Environment
 
-- How to setup a development machine to use the Lithium Framework
+- [How to **setup a development machine** to use the Lithium Framework](./howto-setup-devopment-machine.md)
 
 ## Creating Microservices
 
@@ -43,4 +43,4 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Upgrades
 
-- How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**
+- [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./how-to-migration-to-lithium-2.0/README.md)
