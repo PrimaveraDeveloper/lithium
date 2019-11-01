@@ -14,6 +14,10 @@ Compare `Models\GeneratedCode\Routes.gen.cs` with its previous version (before t
 
 You can use Postman to test the service Web API. As part of the upgrade, a Postman collection is now generated - see `Design\GeneratedCode\Postman.gen.postman_collection.json` - and it can be used for that purpose.
 
+> The service should support two versions in the API (the one before the upgrade and the new one). You can verify that by editing the `apiVersion` collection variable and performing requests on the Web API using the two versions.
+
+>This behavior is CRITICAL to ensure backward compatibility of the service after the upgrade.
+
 ### 13.3 - Test the Service using the Console Client
 
 The console client is another way to test the behavior of the service. It should work as it worked before the upgrade.

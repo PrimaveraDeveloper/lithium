@@ -21,10 +21,10 @@
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.17">
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Console" Version="2.0.1.5" />
+    <PackageReference Include="Primavera.Hydrogen.Console" Version="2.0.1.10" />
 </ItemGroup>
 ```
 
@@ -34,10 +34,10 @@
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.17">
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Rest.Client" version="2.0.1.5" />
+    <PackageReference Include="Primavera.Hydrogen.Rest.Client" version="2.0.1.10" />
 </ItemGroup>
 ```
 
@@ -47,10 +47,10 @@
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.17">
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Rest" version="2.0.1.5" />
+    <PackageReference Include="Primavera.Hydrogen.Rest" version="2.0.1.10" />
 </ItemGroup>
 ```
 
@@ -60,16 +60,10 @@
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.17">
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.AspNetCore" version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.AspNetCore.Authentication" Version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.AspNetCore.Azure" Version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.Pipelines" version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.Security.Azure" version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.Storage.Azure" version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.Telemetry.Azure" version="2.0.1.5" />
+    <PackageReference Include="Primavera.Hydrogen.AspNetCore.Azure" Version="2.0.1.10" />
 </ItemGroup>
 ```
 
@@ -91,11 +85,11 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.17">
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.5" />
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.5" />
+    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.10" />
 </ItemGroup>
 ```
 
