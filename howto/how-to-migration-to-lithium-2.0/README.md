@@ -10,17 +10,19 @@ This guide describes the steps required to convert a microservice solution built
 | [2 - Configure the Projects in the Service Solution](./02-configure-projects.md) | |
 | [3 - Update NuGet Package References in the Service Solution](./03-update-nuget-packages.md) | |
 | [4 - Update the Service Model](./04-update-service-model.md) | |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4a - Update Versioning](./04a-update-versioning.md) | |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4b - Update Background Services](./04b-update-service-model-background-services.md) | Required if the service uses background services |
 | [5 - Replace Deprecated Namespaces](./05-replace-deprecated-namespaces.md) | |
 | [6 - Replace Deprecated Types](./06-replace-deprecated-types.md) | |
 | [7 - Replace Deprecated Members](./07-replace-deprecated-members.md) | |
 | [8 - Update and Compile Models](./08-update-compile-models.md) | |
 | [9 - Update and Compile WebApi](./09-update-compile-webapi.md) | |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9a - Update Startup Custom Code](./09a-update-webapi-startup.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9b - Update Controllers](./09b-update-webapi-controllers.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9c - Update Web UI Custom Code](./09c-update-webapi-webui.md) | Required if the service includes custom ASP.NET Web UI with OIDC |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9d - Update References to Table Storage](./09d-update-webapi-table-storage.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9e - Update References to Blob Storage](./09e-update-webapi-blob-storage.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9f - Update Background Services Custom Code](./09f-update-webapi-background-services.md) | Required if the service includes background services |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9b - Update Controllers](./09b-update-webapi-controllers.md) | |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9c - Update Web UI Custom Code](./09c-update-webapi-webui.md) | Required if the service includes custom ASP.NET Web UI with OIDC |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9d - Update References to Table Storage](./09d-update-webapi-table-storage.md) | |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9e - Update References to Blob Storage](./09e-update-webapi-blob-storage.md) | |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9f - Update Background Services Custom Code](./09f-update-webapi-background-services.md) | Required if the service includes background services |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9g - Update Application Settings](./09g-update-webapi-app-settings.md) | |
 | [10 - Update and Compile ClientLib](./10-update-compile-clientlib.md) | |
 | [11. Update and Compile Client.Console](./10-update-compile-clientconsole.md) | |
