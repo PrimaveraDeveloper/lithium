@@ -75,7 +75,7 @@ When using entities that following types are also supported (although stored as 
 - `TimeSpan` and `TimeSpan?`
 - `Enum` and `Enum?`
 
-> NOTE: The `DateTimeOffset` values will always be stored in UTC.
+> The `DateTimeOffset` values will always be stored in UTC.
 
 ### Retrieving Data
 
@@ -115,7 +115,7 @@ IList<MyEntity> entities = await service
     .ConfigureAwait(false);
 ```
 
-> NOTE: How you create `ITableQuery` instances depends on the concrete implementation of the service. See that documentation for more details.
+> How you create `ITableQuery` instances depends on the concrete implementation of the service. See that documentation for more details.
 
 ### Modeling Entities
 
@@ -157,7 +157,7 @@ public class MyEntity : TableEntity
 }
 ```
 
-> NOTE: Any table entity must always have a parameter-less constructor.
+> Any table entity must always have a parameter-less constructor.
 
 Properties in a table entity can be ignored by annotating them with the IgnorePropertyAttribute, like this:
 

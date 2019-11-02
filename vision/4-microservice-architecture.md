@@ -52,4 +52,4 @@ The Lithium Modeling Framework allows modeling the microservice endpoints and be
 
 ## Next
 
-> [Designing Microservices](./5-designing-microservices.md)
+[Designing Microservices](./5-designing-microservices.md)

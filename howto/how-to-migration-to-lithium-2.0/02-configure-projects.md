@@ -2,7 +2,9 @@
 
 ## 2 - Configure the Projects in the Service Solution
 
-### 2.1 - Make sure that the `TargetFramework` for each `.csproj` is according to this list:
+### Target Framework
+
+Make sure that the `TargetFramework` for each `.csproj` is according to this list:
 
 - Design: `<TargetFramework>netstandard2.0</TargetFramework>`
 - Client.Console: `<TargetFramework>netcoreapp3.0</TargetFramework>`
@@ -13,11 +15,15 @@
 - Models.Tests: `<TargetFramework>netcoreapp3.0</TargetFramework>`
 - WebApi.Tests: `<TargetFramework>netcoreapp3.0</TargetFramework>`
 
-### 2.2 - Remove `<IsPackable>false</IsPackable>` from any `.csproj` files that includes it.
+### IsPackable
 
-### 2.3 - Remove any package reference from `Design.csproj`.
+Remove `<IsPackable>false</IsPackable>` from any `.csproj` files that includes it.
 
-### 2.4 - The package references for `ClientConsole.csproj` should be:
+### Package References
+
+Remove any package reference from `Design.csproj`.
+
+The package references for `ClientConsole.csproj` should be:
 
 ```xml
 <ItemGroup>
@@ -28,9 +34,9 @@
 </ItemGroup>
 ```
 
-> NOTE: Remove any other package reference that is not specific to the service.
+> Remove any other package reference that is not specific to the service.
 
-### 2.5 - The package references for `ClientLib.csproj` should be:
+The package references for `ClientLib.csproj` should be:
 
 ```xml
 <ItemGroup>
@@ -41,9 +47,9 @@
 </ItemGroup>
 ```
 
-> NOTE: Remove any other package reference that is not specific to the service.
+> Remove any other package reference that is not specific to the service.
 
-### 2.6 - The package references for `Models.csproj` should be:
+The package references for `Models.csproj` should be:
 
 ```xml
 <ItemGroup>
@@ -54,9 +60,9 @@
 </ItemGroup>
 ```
 
-> NOTE: Remove any other package reference that is not specific to the service.
+> Remove any other package reference that is not specific to the service.
 
-### 2.7 - The package references for `WebApi.csproj` should be:
+The package references for `WebApi.csproj` should be:
 
 ```xml
 <ItemGroup>
@@ -67,9 +73,9 @@
 </ItemGroup>
 ```
 
-> NOTE: Remove any other package reference that is not specific to the service.
+> Remove any other package reference that is not specific to the service.
 
-### 2.8 - The package references for `ClientLib.Tests.csproj`, `Models.Tests.csproj` and `WebApi.Tests.csproj` should be:
+The package references for `ClientLib.Tests.csproj`, `Models.Tests.csproj` and `WebApi.Tests.csproj` should be:
 
 ```xml
 <ItemGroup>
@@ -93,8 +99,8 @@
 </ItemGroup>
 ```
 
-> NOTE: Remove any other package reference that is not specific to the service.
+> Remove any other package reference that is not specific to the service.
 
 ## Next
 
-> [3 - Update NuGet Package References in the Service Solution](./03-update-nuget-packages.md)
+[3 - Update NuGet Package References in the Service Solution](./03-update-nuget-packages.md)

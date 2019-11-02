@@ -2,7 +2,7 @@
 
 This chapter includes "how to" guides to help the development with the Lithium Framework.
 
-> NOTE: The guides without a link are not yet available.
+> The guides without a link are not yet available.
 
 ## Development Environment
 

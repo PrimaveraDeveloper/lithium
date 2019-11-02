@@ -149,7 +149,7 @@ The default behavior for serialization is implemented in `HttpRequestMessageExte
 
 The default behavior for deserialization is implemented in `ServiceClientActions.DeserializeResponseAsync()`.
 
-> NOTE: The current version of `System.Text.Json` does not support `TimeSpan` values by default. That is why the default `SerializationOptions` and `DeserializationOptions` add two custom converters (`Iso8601TimeSpanConverter` and `Iso8601TimeSpanNullableConverter`). These converter also need to be configured on the REST service server, using `RestApiMvcBuilderExtensions.AddJsonOptionsForWebApi()`.
+> The current version of `System.Text.Json` does not support `TimeSpan` values by default. That is why the default `SerializationOptions` and `DeserializationOptions` add two custom converters (`Iso8601TimeSpanConverter` and `Iso8601TimeSpanNullableConverter`). These converter also need to be configured on the REST service server, using `RestApiMvcBuilderExtensions.AddJsonOptionsForWebApi()`.
 
 ## Transient Faults
 

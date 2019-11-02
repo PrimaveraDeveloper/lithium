@@ -32,4 +32,4 @@ On the other hand, the microservices architecture put in place by Lithium embodi
 
 ## Next
 
-> [What IS a Microservice?](./1-what-is-a-microservice.md)
+[What IS a Microservice?](./1-what-is-a-microservice.md)

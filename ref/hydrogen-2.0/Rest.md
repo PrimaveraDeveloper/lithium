@@ -27,7 +27,7 @@ These include the following converters for the `System.Text.Json` serializer:
 - `Iso8601TimeSpanConverter`: serializes `TimeSpan` values according to the ISO 8601 specification.
 - `Iso8601TimeSpanNullableConverter`: serializes `TimeSpan?` values according to the ISO 8601 specification.
 
-> NOTE: These converters are configured by default in the `ServiceClient` serialization and deserialization options.
+> These converters are configured by default in the `ServiceClient` serialization and deserialization options.
 
 ## Routing
 
@@ -59,7 +59,7 @@ Like in MVC, routes can have optional arguments, arguments with default values, 
 "api/test/action10/{value1}/search/{value2}?pageIndex={pageIndex}&pageSize={pageSize}&address={address}"
 ```
 
-> NOTE: Arguments in the query string cannot be optional or have default values.
+> Arguments in the query string cannot be optional or have default values.
 
 Route values - the values of the arguments - can be specified either by:
 

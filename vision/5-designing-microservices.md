@@ -36,4 +36,4 @@ Using the Lithium SDK is crucial, because it provides the designer and accelerat
 
 ## Next
 
-> [Deploying Microservices](6-deploying-microservices.md)
+[Deploying Microservices](6-deploying-microservices.md)

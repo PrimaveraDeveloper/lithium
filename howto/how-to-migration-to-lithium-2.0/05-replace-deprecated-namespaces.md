@@ -2,14 +2,14 @@
 
 ## 5 - Replace Deprecated Namespaces
 
-### 5.1 - Remove all using statements that reference the following namespaces:
+Remove all using statements that reference the following namespaces:
 
 | Namespace |
 | - |
 | `Primavera.Hydrogen.Collections` |
 | `Primavera.Hydrogen.Web` |
 
-### 5.2 - Replace the references to the following namespaces:
+Replace the references to the following namespaces:
 
 | Namespace | Replace with |
 | - | - |
@@ -18,4 +18,4 @@
 
 ## Next
 
-> [6 - Replace Deprecated Types](./06-replace-deprecated-types.md)
+[6 - Replace Deprecated Types](./06-replace-deprecated-types.md)

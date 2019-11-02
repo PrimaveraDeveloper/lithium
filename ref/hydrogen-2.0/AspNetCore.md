@@ -219,7 +219,7 @@ After this the default route analyzer route (`/.routes`) will product a JSON out
 ]
 ```
 
-> NOTE: You can customize the route analyzer route by passing a different `route` value to `MapRouteAnalyzer()`.
+> You can customize the route analyzer route by passing a different `route` value to `MapRouteAnalyzer()`.
 
 ## Throttling
 
@@ -238,7 +238,7 @@ that are blocked by the throttling components.
 
 The best way to achieve that is to use the middleware mode and add the middleware as or one of the first middleware in the pipeline.
 
-> NOTE: Since the throttling components rely on the authentication middleware to identify client applications, it needs to be added after that middleware (when authentication is in place).
+> Since the throttling components rely on the authentication middleware to identify client applications, it needs to be added after that middleware (when authentication is in place).
 
 ### Throttling Handlers
 
@@ -259,7 +259,7 @@ The middleware needs to be added too:
 app.UseThrottling();
 ```
 
-NOTE: The moment when the middleware is called is determined by its order in the `Configure()` method.
+> The moment when the middleware is called is determined by its order in the `Configure()` method.
 
 ### Client-rate Limiting
 
@@ -269,7 +269,7 @@ of time.
 You can define rules per endpoint (HttpVerb + Path) stating the maximum number of requests accepted during a given period of time. These rules
 can be applied to any client application or to a specific client (based on its client identifier).
 
-> NOTE: Beware that client-rate limiting means that if multiple users use the same client application to access the Web API, they will all add to
+> Beware that client-rate limiting means that if multiple users use the same client application to access the Web API, they will all add to
 the same counter. If, for example, you have a limit of 100 requests per second, then if user A executes 100 requests and then user B executes a single
 request, the request from user B will still be blocked because it would exceed the rule for that client application.
 
@@ -283,7 +283,7 @@ services
     .AddClientRateHandler();
 ```
 
-> NOTE: Both `AddThrottling()` and `AddClientRateHandler()` provide multiple overloads that allow you to set configuration for `ThrottlingOptions`
+> Both `AddThrottling()` and `AddClientRateHandler()` provide multiple overloads that allow you to set configuration for `ThrottlingOptions`
 and `ClientRateThrottlingOptions`.
 
 (2) Then add the throttling middleware as described above.
@@ -304,7 +304,7 @@ By default these collections contain the following values:
 If the client identifier is not found in the request, the client will be considered anonymous and the client id will be `anon`. This allows you to define
 specific rules for "anonymous calls" using that client id.
 
-> NOTE: There is a setting in `ThrottlingOptions` that allows you to disable anonymous calls. If `AllowAnonymousCalls` is false, any request with client id `anon`
+> There is a setting in `ThrottlingOptions` that allows you to disable anonymous calls. If `AllowAnonymousCalls` is false, any request with client id `anon`
 will be blocked regardless of the matching rules.
 
 #### Defining Throttling Rules
@@ -416,7 +416,7 @@ services
     .AddCountersStore<IRateLimitCountersStore, MyCountersStore>();
 ```
 
-> NOTE: The class that implements the store should implement the `IRateLimitCountersStore` interface.
+> The class that implements the store should implement the `IRateLimitCountersStore` interface.
 
 You can also add a new throttling handler:
 
@@ -427,7 +427,7 @@ services
     .AddHandler<MyThrottlingHandler>();
 ```
 
-> NOTE: `MyThrottlingHandler` needs to implement `IThrottlingHandler`.
+> `MyThrottlingHandler` needs to implement `IThrottlingHandler`.
 
 ## Hosting
 

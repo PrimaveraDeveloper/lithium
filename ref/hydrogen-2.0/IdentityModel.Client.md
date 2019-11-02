@@ -176,7 +176,7 @@ TokenRequest request = new TokenRequest()
 }
 ```
 
-> NOTE: If `TokenRequest.DiscoveryPolicy` is set to null, then the default discovery policy will be used by `DiscoveryClient`.
+> If `TokenRequest.DiscoveryPolicy` is set to null, then the default discovery policy will be used by `DiscoveryClient`.
 
 ### Caching
 

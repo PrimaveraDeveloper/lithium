@@ -2,15 +2,15 @@
 
 ## 13. Verify and Test the Service
 
-### 13.1 - Verify the Service Routes
+### Service Routes
 
 If the service generates a Web API it is very important that the API routes remain unchanged after the upgrade.
 
 Compare `Models\GeneratedCode\Routes.gen.cs` with its previous version (before the upgrade) and make sure that none of the routes have changed.
 
-> NOTE: The `v{apiVersion:apiVersion}` part of the routes is expected to change to `v{version:apiVersion}`.
+> The `v{apiVersion:apiVersion}` part of the routes is expected to change to `v{version:apiVersion}`.
 
-### 13.2 - Test the Service using Postman
+### Testing with Postman
 
 You can use Postman to test the service Web API. As part of the upgrade, a Postman collection is now generated - see `Design\GeneratedCode\Postman.gen.postman_collection.json` - and it can be used for that purpose.
 
@@ -18,11 +18,13 @@ You can use Postman to test the service Web API. As part of the upgrade, a Postm
 
 >This behavior is CRITICAL to ensure backward compatibility of the service after the upgrade.
 
-### 13.3 - Test the Service using the Console Client
+### Testing with the Console Client
 
 The console client is another way to test the behavior of the service. It should work as it worked before the upgrade.
 
-### 13.4 - The following aspects of service behavior should be tested with extra attention:
+### Attention
+
+The following aspects of service behavior should be tested with extra attention:
 
 - Authorization scopes and authorization policies.
 - Background services and background workers.
@@ -31,4 +33,4 @@ The console client is another way to test the behavior of the service. It should
 - REDIS cache.
 - Table storage and blob storage.
 
-### 13.5 - THAT'S IT!
+### THAT'S IT! The microservice is upgraded to Lithium 2.0.

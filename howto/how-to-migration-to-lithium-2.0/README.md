@@ -2,33 +2,31 @@
 
 This guide describes the steps required to convert a microservice solution built with Lithium 1.0 to Lithium 2.0 and .NET Core 3.0. 
 
-> NOTE: The may not include the instructions required to upgrade some edge scenarios. If you find any of these scenarios in the service you are trying to upgrade, please contact the Lithium development team.
+- [1 - Configure NuGet in the Service Solution](./01-configure-nuget.md)
+- [2 - Configure the Projects in the Service Solution](./02-configure-projects.md)
+- [3 - Update NuGet Package References in the Service Solution](./03-update-nuget-packages.md)
+- [4 - Update the Service Model](./04-update-service-model.md)
+    - [4.1 - Update Versioning](./04a-update-versioning.md)
+    - [4.2 - Update Background Services](./04b-update-service-model-background-services.md)
+- [5 - Replace Deprecated Namespaces](./05-replace-deprecated-namespaces.md)
+- [6 - Replace Deprecated Types](./06-replace-deprecated-types.md)
+- [7 - Replace Deprecated Members](./07-replace-deprecated-members.md)
+- [8 - Update and Compile Models](./08-update-compile-models.md)
+- [9 - Update and Compile WebApi](./09-update-compile-webapi.md)
+    - [9.1 - Update Startup Custom Code](./09.1-update-webapi-startup.md)
+    - [9.2 - Update Controllers](./09.2-update-webapi-controllers.md)
+    - [9.3 - Update Web UI Custom Code](./09.3-update-webapi-webui.md)
+    - [9.4 - Update References to Table Storage](./09.4-update-webapi-table-storage.md)
+    - [9.5 - Update References to Blob Storage](./09.5-update-webapi-blob-storage.md)
+    - [9.6 - Update Background Services Custom Code](./09.6-update-webapi-background-services.md)
+    - [9.7 - Update Application Settings](./09.7-update-webapi-app-settings.md)
+- [10 - Update and Compile ClientLib](./10-update-compile-clientlib.md)
+- [11 Update and Compile Client.Console](./10-update-compile-clientconsole.md)
+- [12 Update and Compile Tests Projects](./12-update-compile-testprojects.md)
+- [13 Verify and Test the Service](./13-verify-test.md)
 
-| Step | Obs. |
-| - | - |
-| [1 - Configure NuGet in the Service Solution](./01-configure-nuget.md) | |
-| [2 - Configure the Projects in the Service Solution](./02-configure-projects.md) | |
-| [3 - Update NuGet Package References in the Service Solution](./03-update-nuget-packages.md) | |
-| [4 - Update the Service Model](./04-update-service-model.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4a - Update Versioning](./04a-update-versioning.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4b - Update Background Services](./04b-update-service-model-background-services.md) | Required if the service uses background services |
-| [5 - Replace Deprecated Namespaces](./05-replace-deprecated-namespaces.md) | |
-| [6 - Replace Deprecated Types](./06-replace-deprecated-types.md) | |
-| [7 - Replace Deprecated Members](./07-replace-deprecated-members.md) | |
-| [8 - Update and Compile Models](./08-update-compile-models.md) | |
-| [9 - Update and Compile WebApi](./09-update-compile-webapi.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9a - Update Startup Custom Code](./09a-update-webapi-startup.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9b - Update Controllers](./09b-update-webapi-controllers.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9c - Update Web UI Custom Code](./09c-update-webapi-webui.md) | Required if the service includes custom ASP.NET Web UI with OIDC |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9d - Update References to Table Storage](./09d-update-webapi-table-storage.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9e - Update References to Blob Storage](./09e-update-webapi-blob-storage.md) | |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9f - Update Background Services Custom Code](./09f-update-webapi-background-services.md) | Required if the service includes background services |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [9g - Update Application Settings](./09g-update-webapi-app-settings.md) | |
-| [10 - Update and Compile ClientLib](./10-update-compile-clientlib.md) | |
-| [11. Update and Compile Client.Console](./10-update-compile-clientconsole.md) | |
-| [12. Update and Compile Tests Projects](./12-update-compile-testprojects.md) | |
-| [13. Verify and Test the Service](./13-verify-test.md) | |
+> The instructions required to upgrade some edge scenarios may not be included. If you find any of these scenarios in the service you are trying to upgrade, please contact the Lithium development team.
 
 ## Next
 
-> [1 - Configure NuGet in the Service Solution](./01-configure-nuget.md)
+[1 - Configure NuGet in the Service Solution](./01-configure-nuget.md)

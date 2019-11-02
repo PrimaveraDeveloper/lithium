@@ -2,7 +2,7 @@
 
 ## 6 - Replace Deprecated Types
 
-## 6.1 - Replace the following deprecated types:
+Replace the following deprecated types:
 
 | Type | Replace With | Obs. |
 | - | - | - |
@@ -12,4 +12,4 @@
 
 ## Next
 
-> [7 - Replace Deprecated Members](./07-replace-deprecated-members.md)
+[7 - Replace Deprecated Members](./07-replace-deprecated-members.md)

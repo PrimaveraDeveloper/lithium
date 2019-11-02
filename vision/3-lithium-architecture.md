@@ -10,4 +10,4 @@ Some of the microservices developed with Lithium are also part of the framework,
 
 ## Next
 
-> [Microservice Architecture](4-microservice-architecture.md)
+[Microservice Architecture](4-microservice-architecture.md)

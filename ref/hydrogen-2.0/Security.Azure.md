@@ -67,7 +67,7 @@ The following methods are available:
 - `Task<string> GetKeyVaultAccessTokenAsync(string authority, string resource, string scope, bool developerMode = false)`
 - `Task<string> TryGetKeyVaultAccessTokenAsync(string authority, string resource, string scope, bool developerMode = false)`
 
-> NOTE: None of the methods require any client identifier or client secret because the Azure Service Token is supposed to determine that automatically (or else fail). If developer mode
+> None of the methods require any client identifier or client secret because the Azure Service Token is supposed to determine that automatically (or else fail). If developer mode
 is on, then the credentials set in Visual Studio will be used.
 
 ## Configuration Secrets (AzureKeyVaultSecretsStorageConfigurationExtensions)
@@ -106,5 +106,5 @@ If you provide the secrets storage base URL it will use it. Otherwise it will us
 
 If no value is set in the options or provided when adding the configuration provider, this feature will not raise any error and will remain simply disabled.
 
-> NOTE: The configuration provider (`AzureKeyVaultSecretsStorageConfigurationProvider`) does not rely on dependency injection to resolve services and it will use
+> The configuration provider (`AzureKeyVaultSecretsStorageConfigurationProvider`) does not rely on dependency injection to resolve services and it will use
 `AzureKeyVaultSecretsStorageService` and `DefaultAzureServiceTokenService` directly.

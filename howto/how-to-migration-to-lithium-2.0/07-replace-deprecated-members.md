@@ -2,7 +2,9 @@
 
 ## 7 - Replace Deprecated Members
 
-### 7.1 - Replace the following deprecated properties:
+### Deprecated Properties
+
+Replace the following deprecated properties:
 
 | Property | Replace With | Obs. |
 | - | - | - |
@@ -12,7 +14,15 @@
 | `OperationResult.IsSucess` | `OperationResult.IsSuccess` | |
 | `OperationResult<T>.IsSucess` | `OperationResult<T>.IsSuccess` | |
 
-### 7.2 - Replace the following deprecated methods:
+Remove the following deprecated properties:
+
+| Property | Obs. |
+| - | - |
+| `HttpResponseMessageSurrogate.Headers.Location` | `HttpResponseMessageSurrogate.Headers` is now a read-only dictionary with a `string` key. |
+
+### Deprecated Methods
+
+Replace the following deprecated methods:
 
 | Method | Replace With | Obs. |
 | - | - | - |
@@ -27,12 +37,6 @@
 | `string.EqualsAny()` | `string.EqualsAnyNoCase()` | |
 | `string.EqualsWithoutCase(string)` | `string.EqualsNoCase(string)` | |
 
-### 7.3 - Remove the following deprecated properties:
-
-| Property | Obs. |
-| - | - |
-| `HttpResponseMessageSurrogate.Headers.Location` | `HttpResponseMessageSurrogate.Headers` is now a read-only dictionary with a `string` key. |
-
 ## Next
 
-> [8 - Update and Compile Models](./08-update-compile-models.md)
+[8 - Update and Compile Models](./08-update-compile-models.md)

@@ -15,4 +15,4 @@ Just as guide, when any of these conditions is found, probably using a microserv
 
 ## Next
 
-> [Lithium Architecture](3-lithium-architecture.md)
+[Lithium Architecture](3-lithium-architecture.md)

@@ -33,4 +33,4 @@ Since Lithium microservices are developed and managed in the context of a softwa
 
 ## Next
 
-> [What IS NOT a Microservice?](2-what-is-not-a-microservice.md)
+[What IS NOT a Microservice?](2-what-is-not-a-microservice.md)

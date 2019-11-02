@@ -30,7 +30,7 @@ Notice that the behavior of these extension methods can be configured using `Azu
 - `ApplicationName` - the unique of the application (used as the blob name, it must be unique within the machines that serve the application)
 - `UseBlobStorage` - allows disabling the behavior of storing the keys in blob storage, which means that the default configuration of the Data Protection services will be applied.
 
-> NOTE: This last setting is useful for Development environments, that typically will not run on a Web farm with  multiple servers.
+> This last setting is useful for Development environments, that typically will not run on a Web farm with  multiple servers.
 
 ### Dependency on Azure Blob Storage
 
