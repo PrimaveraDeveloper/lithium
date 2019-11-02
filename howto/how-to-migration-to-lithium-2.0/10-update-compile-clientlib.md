@@ -2,11 +2,11 @@
 
 ## 10 - Update and Compile ClientLib
 
-Compile the `ClentLib.csproj` project individually.
+Compile `ClentLib.csproj` individually.
 
 Depending on the service design, fixes may be required in the custom code.
 
-> Do not advance to the next step before this project is compiling without any error or warning.
+> Do not advance to the next project before this one is compiling without any error or warning.
 
 ## Next
 

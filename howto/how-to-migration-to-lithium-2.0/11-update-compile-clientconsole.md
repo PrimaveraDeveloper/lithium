@@ -2,7 +2,7 @@
 
 ## 11. Update and Compile Client.Console
 
-Compile the `Client.Console.csproj` project individually.
+Compile `Client.Console.csproj` individually.
 
 Depending on the service design, fixes may be required in the custom code.
 
@@ -10,7 +10,7 @@ Depending on the service design, fixes may be required in the custom code.
 
 If you have defined a property named `IdentityServerBaseUri`, remove it because it is already generated in the base class.
 
-> Do not advance to the next step before this project is compiling without any error or warning.
+> Do not advance to the next project before this one is compiling without any error or warning.
 
 ## Next
 

@@ -2,11 +2,11 @@
 
 ## 8 - Update and Compile Models
 
-Compile the `Models.csproj` project individually.
+Compile `Models.csproj` individually.
 
 Depending on the service design, fixes may be required in the custom code.
 
-> Do not advance to the next step before this project is compiling without any error or warning.
+> Do not advance to the next project before this one is compiling without any error or warning.
 
 ## Next
 

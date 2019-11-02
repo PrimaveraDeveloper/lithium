@@ -2,7 +2,7 @@
 
 ## 9 - Update and Compile WebApi
 
-Compile the `WebApi.csproj` project individually.
+Compile `WebApi.csproj` individually.
 
 Depending on the service design, one or more of the following fixes may be required in the custom code.
 
@@ -14,7 +14,7 @@ Depending on the service design, one or more of the following fixes may be requi
 - [9.6 - Update Background Services Custom Code](./09.6-update-webapi-background-services.md)
 - [9.7 - Update Application Settings](./09.7-update-webapi-app-settings.md)
 
-> Do not advance to the next step before this project is compiling without any error or warning.
+> Do not advance to the next project before this one is compiling without any error or warning.
 
 ## Next
 
