@@ -31,4 +31,4 @@ This will register the service using the specified configuration delegate, after
 This options class provides the following configuration options:
 
 - `ServiceName` (required) (no default value) - the name of the Azure search service.
-- `AdminApiKey` (required) (default is 5 seconds) - the API key that should be used to connect to the service.
+- `AdminApiKey` (required) (no default value) - the API key that should be used to connect to the service.
