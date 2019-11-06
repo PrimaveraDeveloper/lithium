@@ -1,18 +1,18 @@
 # Notifications Service (NS)
 
-The Notifications Service allows sending email notifications and SMS notifications, based on a template, to a set of receivers.
+The Notifications Service allows sending email notifications and SMS notifications, based on templates, to a set of receivers.
 
-The templates are defined previously and set the sender of notifications, priorities, and the notification contents.
+The templates are defined previously and set the sender of notifications, priorities, and the notification contents (subject, body, etc.).
 
 ## Specification
 
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.Notifications |
-| Version | 1.0 |
-| API Version | 1.0 |
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.Notifications.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Notifications/) |
-| Web UI | No |
+| Web UI | Yes |
 | Depends on | IDS
 
 ## Scopes
@@ -36,5 +36,5 @@ The templates are defined previously and set the sender of notifications, priori
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
+| Client Library | [Primavera.Lithium.Notifications](./clientlibs/Primavera.Lithium.Notifications.md) |
 | Web API | Not available yet |
