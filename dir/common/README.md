@@ -12,6 +12,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [IDS](./ids.md) | Identity Server | Provides identity management (user authentication and client applications authorization) for applications and microservices |
 | [NS](./ns.md) | Notifications Service | Allows sending email and SMS notifications using templates |
 | [NTR](./ntr.md) | Nitrogen Service | Supports the app store for cloud products |
+| [PNS](./common/pns.md) | Push Notifications Service | Allows receive, store and broadcast notifications to the connected clients. |
 | [SM](./sm.md) | Service Management Service | Provides a proxy for the Service Management Service |
 | [SS](./ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) |
 | [TAXES](./taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services |
