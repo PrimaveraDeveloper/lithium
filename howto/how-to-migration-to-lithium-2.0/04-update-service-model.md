@@ -8,10 +8,7 @@ Depending on how the service is modeled, one more of the following corrections m
 
 - [4.1 - Update Versioning](./04.1-update-versioning.md)
 - [4.2 - Update Background Services](./04.2-update-service-model-background-services.md)
-
-Validate the model.
-
-Transform all the text templates my choosing "Transform All Projects" from the Lithium menu.
+- [4.3 - Validate and Transform Text Templates](./04.3-validate-transform.md)
 
 ## Next
 

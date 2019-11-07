@@ -30,9 +30,7 @@ Create a folder named `.nuget` (mind the dot) and create there a file named `nug
 
 Open the service solution in Visual Studio.
 
-Add a solution folder named `.nuget` (mind the dot).
-
-Add the `nuget.config` file created in 1.3 to this solution folder.
+Add a solution folder named `.nuget` (mind the dot) and the previous file to it.
 
 ## Next
 

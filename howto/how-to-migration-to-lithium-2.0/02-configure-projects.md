@@ -6,14 +6,14 @@
 
 Make sure that the `TargetFramework` for each `.csproj` is according to this list:
 
-- Design: `<TargetFramework>netstandard2.0</TargetFramework>`
-- Client.Console: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- ClientLib: `<TargetFramework>netstandard2.0</TargetFramework>`
-- Models: `<TargetFramework>netstandard2.0</TargetFramework>`
-- WebApi: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- ClientLib.Tests: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- Models.Tests: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- WebApi.Tests: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `Design`: `<TargetFramework>netstandard2.0</TargetFramework>`
+- `Client.Console`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `ClientLib`: `<TargetFramework>netstandard2.0</TargetFramework>`
+- `Models`: `<TargetFramework>netstandard2.0</TargetFramework>`
+- `WebApi`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `ClientLib.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `Models.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `WebApi.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
 
 ### IsPackable
 
@@ -30,7 +30,7 @@ The package references for `ClientConsole.csproj` should be:
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Console" Version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.Console" Version="2.0.1.14" />
 </ItemGroup>
 ```
 
@@ -43,7 +43,7 @@ The package references for `ClientLib.csproj` should be:
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Rest.Client" version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.Rest.Client" version="2.0.1.14" />
 </ItemGroup>
 ```
 
@@ -56,7 +56,7 @@ The package references for `Models.csproj` should be:
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Rest" version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.Rest" version="2.0.1.14" />
 </ItemGroup>
 ```
 
@@ -69,7 +69,7 @@ The package references for `WebApi.csproj` should be:
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.AspNetCore.Azure" Version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.AspNetCore.Azure" Version="2.0.1.14" />
 </ItemGroup>
 ```
 
@@ -94,8 +94,8 @@ The package references for `ClientLib.Tests.csproj`, `Models.Tests.csproj` and `
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.18">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.10" />
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.10" />
+    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.14" />
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.14" />
 </ItemGroup>
 ```
 
