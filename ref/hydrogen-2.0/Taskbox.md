@@ -48,7 +48,7 @@ this.TaskboxHandler.Handle(events, pipelineConfigs);
 The `Handle` method subscribes all the event types received.
 
 
-### `EventHandlerTaskbox`
+### `EventTaskboxHandler`
 
 This handler is called in the `Handle` method, above, which implements the [IEventBusEventHandler<T>](EventBus.Abstractions.md), this will be triggered when the event is raised.
 
@@ -59,7 +59,7 @@ To know more about this implementation view [this](EventBus.Abstractions.md).
 
 ### `IWorkersEngine`
 
-This component is responsible for distributing events for the workers pool and for managing all the workers, starting and stoping them as necessary. The Workers Engine configuration is defined by the `ITaskboxConfiguration`. This implementation contains all the configurations needed to start the workers engine. Here you can define the number of workers that will be running simultaneously, the event waiting time for a worker and many oders.
+This component is responsible for distributing events for the workers pool and for managing all the workers, starting and stoping them as necessary. The Workers Engine configuration is defined by the `ITaskboxConfiguration`. This implementation contains all the configurations needed to start the workers engine. Here you can define the number of workers that will be running simultaneously, the event waiting time for a worker and many others.
 
 ### `IWorker`
 

@@ -14,7 +14,7 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.Core`](./Core.md) | Contains core types, helpers, and extension methods that can be used on all kinds of applications |
 | [`Primavera.Hydrogen.EventBus.Abstractions`](./EventBus.Abstractions.md) | Contains types that define abstractions for generic event bus services |
 | [`Primavera.Hydrogen.EventBus.Azure`](./EventBus.Azure.md) | Contains types that define generic event bus services that use Microsoft Azure Service Bus |
-| [`Primavera.Hydrogen.EventBus.InProcess`](./EventBus.InProcess.md) | Contains types that define generic event bus services that use an in-process implementation |
+| [`Primavera.Hydrogen.EventBus.InMemory`](./EventBus.InMemory.md) | Contains types that define generic event bus services that use an in-memory implementation |
 | [`Primavera.Hydrogen.IdentityModel`](./IdentityModel.md) | Contains core types and helpers for OpenID Connect, OAuth and claims-based Identity |
 | [`Primavera.Hydrogen.IdentityModel.Client`](./IdentityModel.Client.md) | Contains core types, helpers and client libraries for OpenID Connect, OAuth and claims-based Identity |
 | [`Primavera.Hydrogen.Pipelines`](./Pipelines.md) | Contains types that implement the Pipeline design pattern |
