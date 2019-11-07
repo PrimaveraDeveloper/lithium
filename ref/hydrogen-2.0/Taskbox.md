@@ -48,7 +48,7 @@ this.TaskboxHandler.Handle(events, pipelineConfigs);
 The `Handle` method subscribes all the event types received.
 
 
-### `EventHandlerTaskbox`
+### `EventTaskboxHandler`
 
 This handler is called in the `Handle` method, above, which implements the [IEventBusEventHandler<T>](EventBus.Abstractions.md), this will be triggered when the event is raised.
 
