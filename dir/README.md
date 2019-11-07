@@ -23,6 +23,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [SS](./common/ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) |
 | [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services |
 | [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services |
+| [TBX](./common/tbx.md) | Taskbox Service | Supports Elevation plataform asynchronous behavior |
 | [TRG](./common/trg.md)| Triggers Service | Allows executing Web actions based on schedules |
 
 ## Carbon
