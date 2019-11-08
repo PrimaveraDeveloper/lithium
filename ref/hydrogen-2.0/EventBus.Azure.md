@@ -154,6 +154,6 @@ Keep in mind that the above method will close the connection as soon as possible
 /// <param name="eventBus">The event bus.</param>
 private static void UnsubscribeMessageEvents(IEventBus eventBus)
 {
-    eventBus.Unsubscribe();
+    eventBus.Unsubscribe<string>();
 }
 ```
