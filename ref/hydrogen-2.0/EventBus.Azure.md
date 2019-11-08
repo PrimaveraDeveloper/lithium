@@ -143,7 +143,7 @@ private static void SubscribeMessageEvents(IEventBus eventBus)
 
 ## Unsubscribing from events
 
-Unsubscribing from events is done by simply invoking the `Unsubscribe` method of an `AzureEventBus` instance.
+Unsubscribing from a event type is done by invoking the `Unsubscribe` method of an `AzureEventBus` with the respective `T` type.
 
 Keep in mind that the above method will close the connection as soon as possible and will then dispose the subscriber client. A new instance needs to be created in order to subscribe to events again.
 
