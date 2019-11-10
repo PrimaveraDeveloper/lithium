@@ -16,7 +16,7 @@ The Metrics Service allows saving and serving metrics to applications from the C
 
 | Scope | Description |
 | - | - |
-| lithium-metrics | Access all the endpoints in the API |
+| `lithium-metrics` | Access all the endpoints in the API |
 
 ## Environments
 

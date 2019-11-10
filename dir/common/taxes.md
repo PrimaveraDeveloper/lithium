@@ -12,7 +12,7 @@ The current version supports the following Tax Authority services:
 | - | - |
 | Namespace | --- |
 | Version | --- |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | --- |
 | Web UI | No |
 | Depends on | --- |

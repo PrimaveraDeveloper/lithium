@@ -8,16 +8,16 @@ The Triggers Service allows executing Web actions (calling a Web API) based on p
 | - | - |
 | Namespace | Primavera.Lithium.Triggers |
 | Version | 1.0 |
-| API Version | 1.0 |
-| Client Library | [Primavera.Lithium.Triggers.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Triggers/) |
+| API Versions | 1.0 |
+| Client Library | Primavera.Lithium.Triggers.dll |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-triggers | Access all the endpoints in the API |
+| `lithium-triggers` | Access all the endpoints in the API |
 
 ## Environments
 
@@ -26,7 +26,7 @@ The Triggers Service allows executing Web actions (calling a Web API) based on p
 | Production | --- |
 | Preview (WE) | --- |
 | Preview (NE) | --- |
-| Staging (WE) | Yes |
+| Staging (WE) | --- |
 | Staging (NE) | --- |
 | Development | --- |
 
@@ -34,5 +34,5 @@ The Triggers Service allows executing Web actions (calling a Web API) based on p
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | Not available |
+| Web API | Not available |

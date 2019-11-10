@@ -13,13 +13,13 @@ The templates are defined previously and set the sender of notifications, priori
 | API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.Notifications.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Notifications/) |
 | Web UI | Yes |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-notifications | Access all the endpoints in the API |
+| `lithium-notifications` | Access all the endpoints in the API |
 
 ## Environments
 
@@ -36,5 +36,5 @@ The templates are defined previously and set the sender of notifications, priori
 
 | Documentation | Link |
 | - | - |
-| Client Library | [Primavera.Lithium.Notifications](./clientlibs/Primavera.Lithium.Notifications.md) |
+| Client Library | Not available yet |
 | Web API | Not available yet |

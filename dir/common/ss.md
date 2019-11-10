@@ -17,7 +17,7 @@ The Settings Service allows storing name/value settings per user, per product, a
 
 | Scope | Description |
 | - | - |
-| lithium-settings | Access all the endpoints in the API |
+| `lithium-settings` | Access all the endpoints in the API |
 
 ## Environments
 

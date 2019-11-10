@@ -13,7 +13,7 @@ The current version supports the following Tax Authority services:
 | - | - |
 | Namespace | Primavera.Lithium.TaxAuthority.Portugal |
 | Version | 1.0 |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal/) |
 | Web UI | No |
 | Depends on | IDS, CS |
@@ -22,7 +22,7 @@ The current version supports the following Tax Authority services:
 
 | Scope | Description |
 | - | - |
-| lithium-certificates | (*) |
+| `lithium-certificates` | (*) |
 
 (*) Because the client library uses the Certificates Service.
 

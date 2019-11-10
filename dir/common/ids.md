@@ -13,15 +13,15 @@ It also includes a Web API for managing its resources.
 | API Version | 4.0 |
 | Client Library | [Primavera.IdentityServer.dll](http://nuget.primaverabss.com:82/feeds/IdentityServer/Primavera.IdentityServer/) |
 | Web UI | Yes |
-| Depends on | SS, NS
+| Depends on | SS, NS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| identityserver4 | Access to the endpoints in the API that allow reading resources |
-| identityserver4-write | Access to the endpoints in the API that allows writing resources (not privileged) |
-| identityserver4-privileged | Access to the endpoints in the API that allows writing resources (privileged) |
+| `identityserver4` | Access to the endpoints in the API that allow reading resources |
+| `identityserver4-write` | Access to the endpoints in the API that allows writing resources (not privileged) |
+| `identityserver4-privileged` | Access to the endpoints in the API that allows writing resources (privileged) |
 
 ## Environments
 

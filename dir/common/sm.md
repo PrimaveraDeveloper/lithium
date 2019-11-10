@@ -8,7 +8,7 @@ The Service Management Service allows invoking the operations in the Service Man
 | - | - |
 | Namespace | Primavera.Lithium.ServiceManagement |
 | Version | 1.0 |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.ServiceManagement](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ServiceManagement/) |
 | Web UI | No |
 | Depends on | IDS |
@@ -17,7 +17,7 @@ The Service Management Service allows invoking the operations in the Service Man
 
 | Scope | Description |
 | - | - |
-| service-management | Access the basic endpoints in the API |
+| `service-management` | Access the basic endpoints in the API |
 
 ## Environments
 

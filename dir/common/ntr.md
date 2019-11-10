@@ -8,16 +8,16 @@ The Nitrogen Service provides the support services for the cloud products app st
 | - | - |
 | Namespace | Primavera.Lithium.Nitrogen |
 | Version | 1.0 |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | --- |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-nitrogen | Access all the endpoints in the API |
+| `lithium-nitrogen` | Access all the endpoints in the API |
 
 ## Environments
 

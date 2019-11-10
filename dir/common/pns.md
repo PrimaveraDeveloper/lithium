@@ -7,16 +7,17 @@ The Push Notifications Service allows receive, store and broadcast notifications
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.PushNotifications |
-| Current Version | 1.0 |
-| Client Library | n/a |
+| Version | 1.0 |
+| API Versions | 1.0 |
+| Client Library | Not available yet |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| n/a | n/a |
+| --- | --- |
 
 ## Environments
 

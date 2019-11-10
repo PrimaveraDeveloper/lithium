@@ -2,11 +2,7 @@
 
 **Class library that contains types that define generic event bus services that use Microsoft Azure Service Bus.**
 
-## About
-
 This class library is a concrete implementation of the [Primavera.Hydrogen.EventBus](EventBus.Abstractions.md) abstractions that uses [Microsoft Azure Service Bus](https://docs.microsoft.com/pt-pt/azure/service-bus-messaging/service-bus-messaging-overview).
-
-This document contains explanations and examples on how to consume the class library.
 
 ## Service options
 

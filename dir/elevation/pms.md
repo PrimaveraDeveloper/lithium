@@ -8,16 +8,16 @@ The Postman Service allows presenting reports, built from templates, to users.
 | - | - |
 | Namespace | Primavera.Lithium.Postman |
 | Version | 1.0 |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | --- |
 | Web UI | Yes |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-postman | Access all the endpoints in the API |
+| `lithium-postman` | Access all the endpoints in the API |
 
 ## Environments
 

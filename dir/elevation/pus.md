@@ -8,16 +8,16 @@ The Product Upgrade Service provides operations to upgrade cloud product version
 | - | - |
 | Namespace | Primavera.Lithium.ProductUpgrade |
 | Version | 1.0 |
-| API Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | --- |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-productupgrade | Access all the endpoints in the API |
+| `lithium-productupgrade` | Access all the endpoints in the API |
 
 ## Environments
 

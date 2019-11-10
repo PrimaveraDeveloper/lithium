@@ -7,17 +7,17 @@ The File Store Service provides a centralized store for files that allows distri
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.FileStore |
-| Version | 1.0 |
-| API Version | 1.0 |
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.FileStore.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.FileStore/) |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-filestore | Access all the endpoints in the API |
+| `lithium-filestore` | Access all the endpoints in the API |
 
 ## Environments
 

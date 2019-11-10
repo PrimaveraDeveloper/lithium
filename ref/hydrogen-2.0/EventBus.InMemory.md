@@ -2,13 +2,6 @@
 
 **Class library that contains types that define generic event bus services that use an in-memory implementation.**
 
-## About
-
-This class library is a concrete implementation of the [Primavera.Hydrogen.EventBus](EventBus.Abstractions.md) abstractions that uses an in-memory implementation.
-
-This document contains explanations and examples on how to consume the class library.
-
-
 ## Implementing the service
 
 The service can be implemented by simply instantiating the `InMemoryEventBus` class. There's no configuration associated.

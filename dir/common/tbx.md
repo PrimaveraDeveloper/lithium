@@ -1,22 +1,23 @@
 # Taskbox Service (TBX)
 
-Primavera.Lithium.Taskbox is a micro-service that supports Elevation plataform asynchronous behavior. 
+The Taskbox Service supports asynchronous behavior in the PRIMAVERA Elevation Platform. 
 
 ## Specification
 
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.Taskbox |
-| Current Version | 1.0 |
+| Version | 1.0 |
+| API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.Taskbox.dll]() |
 | Web UI | No |
-| Depends on | IDS
+| Depends on | IDS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| lithium-taskbox | Access all the endpoints in the API |
+| `lithium-taskbox` | Access all the endpoints in the API |
 
 ## Environments
 
