@@ -8,45 +8,45 @@ This is the most basic library of PRIMAVERA Hydrogen and is designed to be inten
 
 There is a set of extension methods for multiple purposes and on various types.
 
-### Byte[]
+### `Byte[]`
 
 `ByteExtensions` provides extension methods on `byte[]` such as:
 
 - `GetString()`: returns the string corresponding to the byte array (using any Encoding).
 
-### DateTime
+### `DateTime`
 
 `DateTimeExtensions` provides extension methods on `DateTime` and `DateTime?` such as:
 
 - `Transform().ToHumanLike()`: returns the "human readable" string corresponding to the date/time value.
 
-### DateTimeOffset
+### `DateTimeOffset`
 
 `DateTimeOffsetExtensions` provides extension methods on `DateTimeOffset` and `DateTimeOffset?` such as:
 
 - `Transform().ToHumanLike()`: returns the "human readable" string corresponding to the date/time value.
 
-### IEnumerable\<T\>
+### `IEnumerable<T>`
 
 `IEnumerableExtensions` provides extension methods on `IEnumerable\<T\>` such as:
 
 - `ForEach()`: allows iterating the enumerable to perform an action.
 
-### int
+### `int`
 
 `IntExtensions` provides extension methods on `int` such as:
 
 - `Bits().SetBitOn()`: sets the bit of the value at a given position to 1.
 - `Transform().ToWords()`: returns the words corresponding to the value (e.g.: 1 = one, 1000 = one thousand).
 
-### long
+### `long`
 
 `LongExtensions` provides extension methods on `long` such as:
 
 - `Bits().SetBitOn()`: sets the bit of the value at a given position to 1.
 - `Transform().ToWords()`: returns the words corresponding to the value (e.g.: 1 = one, 1000 = one thousand).
 
-### Socket
+### `Socket`
 
 `SocketsExtensions` provides extension methods on `System.Net.Sockets.Socket` such as:
 
@@ -54,7 +54,7 @@ There is a set of extension methods for multiple purposes and on various types.
 - `SendAsync()`: sends data to the specified socket with a timeout.
 - `ReceiveAsync()`: receives data from the specified socket with a timeout.
 
-### string
+### `string`
 
 `StringExtensions` provides extension methods on `string` such as:
 
@@ -75,33 +75,15 @@ PropertyInfo property = myType.Reflector().GetProperty("Name");
 
 The `Primavera.Hydrogen.Caching` namespace includes types that support caching.
 
-### Memoizer
+### `Memoizer`
 
 `Memoizer` allows caching the result of an expensive function.
-
-### StaticMemoryCache
-
-`StaticMemoryCache` is a very simple cache that stores cache item in a *static* concurrent dictionary (thread-safe).
-
-Since the dictionary is static, the cache contents will remain in memory for the whole life cycle of the application, regardless of the `StaticMemoryCache`
-instance lifestyle.
-
-```csharp
-StaticMemoryCache cache1 = new StaticMemoryCache();
-cache1.Set("key", value1);
-
-StaticMemoryCache cache2 = new StaticMemoryCache();
-object value2 = cache2.Get("key"); // value1 and value2 will be the same
-```
-
-> Since this cache is static it is even more important to pay attention to the cache keys used to avoid unintended conflicts and cache its, even if
-using distinct instances of `StaticMemoryCache`.
 
 ## Configuration
 
 The `Primavera.Hydrogen.Configuration` namespace provides types to manipulate configuration.
 
-### ServiceCollectionOptionsExtensions
+### `ServiceCollectionOptionsExtensions`
 
 `ServiceCollectionOptionsExtensions` provides extension methods for the `IServiceCollection` interface
 that simplify the use of `IOptions<T>`.
@@ -216,7 +198,7 @@ using (SmtpClientHandler handler = new SmtpClientHandler(host, credentials))
 - `services.AddSmtpClient()` - provides instances of `SmtpClient` using default configuration specified by `SmtpClientOptions` (e.g. in the `appsettings.json` file).
 - `services.AddSmtpClient(Action<SmtpClientOptions>)` - provides instances of `SmtpClient` using the configuration provided.
 
-## OperationResult
+## `OperationResult`
 
 `OperationResult` and `OperationResult<T>` allow modeling the results of operations as success or failures.
 
@@ -229,7 +211,7 @@ OperationResult result = OperationResult.Success();
 OperationResult result = OperationResult.Failure();
 OperationResult result = OperationResult.Failure(new OperationError(...));
 
-OperationResult<MyResult> result = OperationResult.Sucess(new MyResult(...));
+OperationResult<MyResult> result = OperationResult.Success(new MyResult(...));
 OperationResult<MyResult> result = OperationResult<MyResult>.Failure();
 OperationResult<MyResult> result = OperationResult.Failure(new OperationError(...), new MyResult(...));
 ```
@@ -307,7 +289,7 @@ MyValue result = await policy.ExecuteAsync(
 
 - `RetryPolicy.FixedInterval()`: initializes a retry policy that will use the `FixedIntervalRetryStrategy` strategy.
 - `RetryPolicy.Incremental()`: initializes a retry policy that will use the `IncrementalRetryStrategy` strategy.
-- `RetryPolicy.ExponentialBackoff()`: initializes a retry policy that will use the ExponentialBackoffRetryStrategy strategy.
+- `RetryPolicy.ExponentialBackoff()`: initializes a retry policy that will use the `ExponentialBackoffRetryStrategy` strategy.
 
 The `RetryPolicy<T>` generic type allows to create instances that use a specific error detection strategy:
 
@@ -337,7 +319,7 @@ Note that retry strategies allow to specify the maximum number of times the acti
 
 If, for example, that value is 3, the action can be executed up to 4 times. The first time and 3 retries.
 
-## SmartGuard
+## `SmartGuard`
 
 This type allows validating arguments and throw `ArgumentException` when the specified condition is not met.
 It includes multiple overloads for various types and supports many scenarios, such as:
@@ -363,27 +345,27 @@ Attributes like:
 
 Validating objects (models) can be performed with two types provided in this library. These classes should be used instead of `System.ComponentModel.DataAnnotations.Validator`.
 
-### ObjectValidator
+### `ObjectValidator`
 
 `ObjectValidator` validates an object pretty much as `Validator`, meaning that will only consider the main properties of the object and will not traverse complex object graphs (when a property of the project is itself an object that should be validated).
 
-### ObjectGraphValidator
+### `ObjectGraphValidator`
 
 This type should be used when the entire object graph needs to be validated.
 
 ## Other Classes
 
-### Base64
+### `Base64`
 
 `Base64` provides methods to encode and decode values (strings or byte arrays) to and from base64.
 
-### ComputeHash & ComputeHashString
+### `ComputeHash` & `ComputeHashString`
 
 `ComputeHash` provides methods to generate SHA256 and SHA512 hash values from an input (byte[] or string).
 
 `ComputeHashString` is similar but it produces strings from the results of `ComputeHash` (encoded in Base64).
 
-### ExecutionTimer
+### `ExecutionTimer`
 
 `ExecutionTimer` allows measuring the execution time of a function (piece of code).
 
@@ -395,7 +377,7 @@ using (ExecutionTimer timer = new ExecutionTimer("name", logger, (duration) => d
 }
 ```
 
-### HashCodes
+### `HashCodes`
 
 `HashCodes` provides methods to combine hash code values.
 
@@ -404,7 +386,7 @@ HashCodes.Combine(value1.GetHashCode(), value2.GetHashCode(), value3.GetHashCode
 HashCodes.Combine(value1, value2, value3, value4, value5);
 ```
 
-### LoggerWrapper
+### `LoggerWrapper`
 
 There are scenarios where a given component uses an `ILogger` that may be null depending on how that component is created.
 
@@ -439,7 +421,7 @@ public void MyMethod()
 
 > `DefaultAzureServiceTokenService` uses `LoggerWrapper`.
 
-### NetworkTimeClient
+### `NetworkTimeClient`
 
 `NetworkTimeClient` allows retrieving accurate date and times from a NTP server.
 
@@ -448,7 +430,7 @@ NetworkTimeClient client = new NetworkTimeClient("ntp02.oal.ul.pt");
 DateTime time = await client.RetrieveLocalTimeAsync().ConfigureAwait(false);
 ```
 
-### RijndaelCipher
+### `RijndaelCipher`
 
 `RijndaelCipher` provides methods to encrypt and decrypt values using the Rijndael algorithm.
 
@@ -464,7 +446,7 @@ using (new TransientThreadCulture("fr-FR"))
 }
 ```
 
-### UriHelper
+### `UriHelper`
 
 `UriHelper` provides helper methods to manipulate URL addresses.
 
