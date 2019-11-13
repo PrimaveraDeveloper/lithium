@@ -1,4 +1,4 @@
-# PRIMAVERA Hydrogen Design-time v2.0
+# PRIMAVERA Hydrogen DesignTime v2.0
 
 Hydrogen is the most fundamental part of the Lithium Framework as it includes a set of class libraries (for .NET Standard 2.0 and .NET Core 3.0) that provide common features used extensively by the framework and the Lithium microservices.
 
