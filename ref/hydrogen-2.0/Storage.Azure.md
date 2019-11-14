@@ -126,3 +126,6 @@ This options class provides the following configuration options:
 - `RetryPolicy` (optional) (default is Exponential) - the retry policy that should be applied to all requests to the storage server.
 - `RetryPolicyMaximumAttempts` (optional) (default is 3) - the maximum number of retries for all requests to the storage server.
 - `RetryPolicyBackoffTime` (optional) (default is 4 seconds) - the initial back-off time of the retry policy applied to all requests to the storage server.
+- `BlobNamingPolicy` (required) (default is `BlobNamingPolicy.CaseInsensitive`) - defines the naming policy to verify blob names.
+
+> Azure Blob Storage requires containers' names to be lower-case but blob names are case-sensitive. However, the original implementation of AzureBlockBlobReference enforced blob names to also be lower-case. Now you can modify that default behavior by setting `BlobNamingPolicy` to `BlobNamingPolicy.CaseSensitive`.

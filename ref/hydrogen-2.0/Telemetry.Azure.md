@@ -2,7 +2,7 @@
 
 **Class library that contains types that provide telemetry services that use Microsoft Azure Application Insights.**
 
-## AzureInsightsTelemetryOptions
+## `AzureInsightsTelemetryOptions`
 
 `AzureInsightsTelemetryOptions` provides the configuration options that control both the behavior of ITelemetryClient and of the server-based telemetry
 components when configured to use Application Insights.
@@ -24,6 +24,11 @@ For the specific case of tracking requests to the server, the following options 
 
 - `TrackRequestHeaders` (default is false) - when true, all the headers in the request will be appended to request telemetry record in the custom properties (named `RequestHeader-*`).
 - `TrackResponseHeaders` (default is false) - when true, all the headers in the response will be appended to request telemetry record in the custom properties (named `ResponseHeader-*`).
+- `IgnoreAvailabilityTestsRequests` (default is false), when true, any requests resulting from availability tests will not be collected.
+
+> Availability tests typically cause noise in the telemetry records that make it more difficult to diagnose problems because of the quantity of records produced. Simply ignoring those requests is usually a good idea.
+
+> `IgnoreAvailabilityTestsRequests` has effect only on requests telemetry. It as no effect on dependencies, traces, metrics, etc.
 
 ### Configuration
 
@@ -43,12 +48,13 @@ Here is an example of the configuration section in the settings file:
     },
     "RequestTracking": {
         "TrackRequestHeaders": true,
-        "TrackResponseHeaders": true
+        "TrackResponseHeaders": true,
+        "IgnoreAvailabilityTestsRequests": true
     }
 }
 ```
 
-## Telemetry Client (AzureInsightsTelemetryClientService)
+## Telemetry Client (`AzureInsightsTelemetryClientService`)
 
 The `AzureInsightsTelemetryClientService` implements the `ITelemetryClientService` using the Microsoft Azure Application Insights.
 
@@ -74,7 +80,7 @@ services.AddAzureInsightsTelemetryClient(
 
 This will register the service using the specified configuration delegate, after reading the default configuration section (if found).
 
-## Server-based Telemetry (AzureInsightsTelemetryServiceCollectionExtensions)
+## Server-based Telemetry (`AzureInsightsTelemetryServiceCollectionExtensions`)
 
 The following extension methods for `IServiceCollection` are available to setup Azure Application Insights on a hosted application:
 
@@ -143,7 +149,9 @@ The following telemetry initializers are available (and are used in specific way
 Either way, you can customize that behavior before adding server-based telemetry or you can add it to any application that configures those services without
 using the extension methods described before.
 
-#### RequestHeadersTelemetryInitializer
+> Telemetry initializers should be added to the service collection BEFORE the telemetry service is configured.
+
+#### `RequestHeadersTelemetryInitializer`
 
 `RequestHeadersTelemetryInitializer` allows adding the request headers to request telemetry records as custom properties named `RequestHeader-*`.
 
@@ -155,10 +163,11 @@ This is the same as adding the initializer yourself like this:
 
 ```csharp
 services.AddSingleton<ITelemetryInitializer, RequestHeadersTelemetryInitializer>();
+
 services.AddAzureInsightsTelemetry();
 ```
 
-If you want either to track specific headers and/or track them for specific requests, you need to add the service yourself before calling AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry:
+If you want either to track specific headers and/or track them for specific requests, you need to add the service yourself before calling `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry`:
 
 ```csharp
 services.AddSingleton<ITelemetryInitializer>(
@@ -180,10 +189,11 @@ services.AddSingleton<ITelemetryInitializer>(
             }
         };
     });
+
 services.AddAzureInsightsTelemetry();
 ```
 
-#### ResponseHeadersTelemetryInitializer
+#### `ResponseHeadersTelemetryInitializer`
 
 `ResponseHeadersTelemetryInitializer` allows adding the response headers to request telemetry records as custom properties named `ResponseHeader-*`.
 
@@ -195,10 +205,11 @@ This is the same as adding the initializer yourself like this:
 
 ```csharp
 services.AddSingleton<ITelemetryInitializer, ResponseHeadersTelemetryInitializer>();
+
 services.AddAzureInsightsTelemetry();
 ```
 
-If you want either to track specific headers and/or track them for specific requests, you need to add the service yourself before calling AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry:
+If you want either to track specific headers and/or track them for specific requests, you need to add the service yourself before calling `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry`:
 
 ```csharp
 services.AddSingleton<ITelemetryInitializer>(
@@ -220,5 +231,53 @@ services.AddSingleton<ITelemetryInitializer>(
             }
         };
     });
+
 services.AddAzureInsightsTelemetry();
+```
+
+### Telemetry Processors
+
+Telemetry processors are executed in a pipeline by the telemetry engine, one at a time. They provide extensibility for that engine and allow implementing things like filtering telemetry records based on their properties (after all initializers run).
+
+> Telemetry initializers should be added to the service collection AFTER the telemetry service is configured.
+
+#### `IgnoreAvailabilityRequestTelemetryProcessor`
+
+`IgnoreAvailabilityRequestTelemetryProcessor` allows simply ignoring (not tracking) any request telemetry record that is the result of an availability test (e.g. tests automated by Azure Insights, requests on the probe endpoints, etc.).
+
+Those kind of requests are identified by inspecting the `SyntheticSource` property of the request telemetry. When it has a value it means that the request originated from an availability test.
+
+If you want to all requests like these, you can simply rely on the default behavior of `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry` and set the `RequestTrackingOptions.IgnoreAvailabilityTestsRequests` to true.
+
+This is the same as adding the initializer yourself like this:
+
+```csharp
+services.AddAzureInsightsTelemetry();
+
+services.AddApplicationInsightsTelemetryProcessor<IgnoreAvailabilityRequestTelemetryProcessor>();
+```
+
+If you want to have that behavior only on specified requests routes, you should add the processor, like this, after invoking `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry`:
+
+```csharp
+services.AddAzureInsightsTelemetry();
+
+services.AddSingleton<ITelemetryProcessorFactory>(
+    (provider) =>
+    {
+        return new TelemetryProcessorFactory<IgnoreAvailabilityRequestTelemetryProcessor>(
+        {
+            (next) =>
+            {
+                return new IgnoreAvailabilityRequestTelemetryProcessor(next)
+                {
+                    Requests = RequestTelemetryProcessorBehavior.Specified,
+                    RequestPaths = new List<string>()
+                    {
+                        "*/probe",
+                    }
+                }
+            }
+        };
+    });
 ```
