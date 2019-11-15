@@ -18,15 +18,16 @@ You can manipulate the records in a table using the general-purpose `TableRecord
 For example:
 
 ```csharp
-ITableStorageService service = services.GetRequiredService<ITableStorageService>();
-ITableReference table = service.GetTable("MyTable");
+ITableStorageService service = provider
+    .GetRequiredService<ITableStorageService>();
+ITableReference table = service
+    .GetTable("MyTable");
 
 TableRecord record = new TableRecord("Key1", "Key2");
 record["Property1"] = "value1";
 record["Property2"] = 10;
 
-await table.InsertRecordAsync(record
-    ).ConfigureAwait(false);
+await table.InsertRecordAsync(record).ConfigureAwait(false);
 
 TableRecord retrieved = await table
     .RetrieveRecordAsync("Key1", "Key2")
@@ -37,8 +38,10 @@ You can also model a table entity, which is a class that derives from `TableEnti
 to manipulate the records:
 
 ```csharp
-ITableStorageService service = services.GetRequiredService<ITableStorageService>();
-ITableReference table = service.GetTable("MyTable");
+ITableStorageService service = provider
+    .GetRequiredService<ITableStorageService>();
+ITableReference table = service
+    .GetTable("MyTable");
 
 MyEntity entity = new MyEntity("Key1", "Key2")
 {
@@ -46,7 +49,8 @@ MyEntity entity = new MyEntity("Key1", "Key2")
     Property2 = 10
 };
 
-await table.InsertEntityAsync(entity)
+await table
+    .InsertEntityAsync(entity)
     .ConfigureAwait(false);
 
 MyEntity retrieved = await table
@@ -84,10 +88,10 @@ The service provides multiple functions to retrieve records or entities from the
 You can retrieve all records:
 
 ```csharp
-IList<TableRecord> records = await service
+IList<TableRecord> records = await table
     .RetrieveRecordsAsync()
     .ConfigureAwait(false);
-IList<MyEntity> entities = await service
+IList<MyEntity> entities = await table
     .RetrieveEntitiesAsync<MyEntity>()
     .ConfigureAwait(false);
 ```
@@ -95,10 +99,10 @@ IList<MyEntity> entities = await service
 Retrieve all the retrieve the records for specific first key:
 
 ```csharp
-IList<TableRecord> records = await service
+IList<TableRecord> records = await table
     .RetrieveRecordsAsync("key1")
     .ConfigureAwait(false);
-IList<MyEntity> entities = await service
+IList<MyEntity> entities = await table
     .RetrieveEntitiesAsync<MyEntity>("key1")
     .ConfigureAwait(false);
 ```
@@ -107,10 +111,10 @@ Retrieve the records that satisfy a given query:
 
 ```csharp
 ITableQuery query = (...)
-IList<TableRecord> records = await service
+IList<TableRecord> records = await table
     .RetrieveRecordsAsync(query)
     .ConfigureAwait(false);
-IList<MyEntity> entities = await service
+IList<MyEntity> entities = await table
     .RetrieveEntitiesAsync<MyEntity>(query)
     .ConfigureAwait(false);
 ```
@@ -190,7 +194,7 @@ Once a reference container is obtained, the container can be created, deleted, a
 Example:
 
 ```csharp
-IAzureBlobStorageService service = serviceProvider
+IAzureBlobStorageService service = provider
     .GetRequiredService<IAzureBlobStorageService>();
 IContainerReference container = service
     .GetContainer("mycontainer");
@@ -257,7 +261,8 @@ Once a reference to a store is obtained, it allows creating files, deleting file
 Example:
 
 ```csharp
-IIsolatedStorageService service = services.GetRequiredService<IIsolatedStorageService>();
+IIsolatedStorageService service = provider
+    .GetRequiredService<IIsolatedStorageService>();
 IIsolatedStore store = service.GetMachineStoreForApplication();
 store.CreateFile("MyFile.txt", contents);
 ```
