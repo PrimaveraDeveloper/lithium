@@ -1,6 +1,6 @@
 # How to model a Hello World microservice
 
-This guide describes the steps required to model a "Hello World" microservice using the service designer and added the necessary custom code.
+This guide describes the steps required to model a "Hello World" microservice using the service designer and add the necessary custom code.
 
 For the purpose of this guide, the Hello World Service (HWS) should accept a request containing a person's name (e.g. "John Doe") and respond with a hello response (e.g. "Hello John Doe").
 
@@ -10,18 +10,16 @@ To achieve that, we will model a controller action (operation) accepting a param
 
 Create a new microservice project named "HWS".
 
-### Modeling
+## Modeling
 
 ### Service Properties
 
-Open the service designer file (`Service.lsm`) and set the following properties for the entire model:
+Open the service designer file (`Service.lsm`) and set the following properties for the service:
 
 - `Identifier`: HWS
 - `Name`: HelloWorld
 - `Authorization Mode`: off
 - `Summary`: Provides hello world operations.
-
-Save the model.
 
 ### Controller
 
@@ -40,7 +38,7 @@ Select the controller that you just created in the designer and, using the conte
 - `Return Value Type`: String
 - `Summary`: Returns a hello world message based on the input name.
 
-Having this new action select, use the context menu again to add a "Scalar Parameter" and set the following properties:
+Having selected this new action, use the context menu again to add a "Scalar Parameter" and set the following properties:
 
 - `Name`: InputName
 - `Type`: String
@@ -50,13 +48,13 @@ The model is done. Save it.
 
 ## Transform Text Templates (Generate Code)
 
-Transform the text templates for all projects using the command available in the "Lithium" menu and wait until its done.
+Transform the text templates for all projects using the command available in the "Lithium" menu and await until the transformation is completed.
 
 ## Add Custom Code
 
-Now you need to add the custom code for the service action that you just created before you can run the service.
+Now you need to add the custom code for the service action that you just created.
 
-> As with any other service just created, the monitoring controller and the console client logic will also need to be implemented.
+> As with any other new service, the monitoring controller and the console client logic will also need to be implemented.
 
 ### Hello World Controller
 
@@ -84,7 +82,7 @@ namespace Primavera.Lithium.Helloworld.WebApi.Controllers
 }
 ```
 
-> Validation on the input name is not required because it is already implemented in the generated code. Open the `Controllers.gen.cs` file under `GeneratedCode` and locate the method `GetHelloWorldAsync()` method in `HelloWorldControllerBase`. Notice how the code is generated and how the custom method `GetHelloWorldCoreAsync()` is invoked.
+> Validation of the input is not required because it is already implemented in the generated code. Open the `Controllers.gen.cs` file under `GeneratedCode` and locate the method `GetHelloWorldAsync()` method in `HelloWorldControllerBase`. Review how the code is generated and how the custom method `GetHelloWorldCoreAsync()` is invoked.
 
 ### Monitoring Controller
 
@@ -251,8 +249,10 @@ Now you can compile the solution.
 
 Set the startup projects to `Client.Console` and `WebApi`.
 
-Now hit F5 and run the service.
+Hit F5 and run the service.
 
-Now you can use this console client to check that the service is actually responding.
+Now you can use the console client to check that the service is actually responding correctly.
 
-Select the 1 ("Hello World") and then 1 again ("Get Hello World"). Enter a name (e.g. "Joe") and wait for the response ("Hello Joe").
+Select 1 ("Hello World") in the menu and then 1 again ("Get Hello World").
+
+Enter a name (e.g. "Joe") and await for the response ("Hello Joe").

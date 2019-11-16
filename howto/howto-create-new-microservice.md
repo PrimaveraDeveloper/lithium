@@ -6,11 +6,11 @@ This guide describes the steps required to create a new microservice, compile it
 
 Start by creating a new project in Visual Studio using the "PRIMAVERA Lithium Microservice" project template.
 
-> The "Create a new project" window is organized in Visual Studio does not allow to view custom templates categories. You need to enter "Lithium" in the search box to view the Lithium solution templates.
+> The "Create a new project" window in Visual Studio does not allow to view the templates organized by custom categories. You need to enter "Lithium" in the search box to view the Lithium solution templates.
 
 Enter the microservice identifier in the "Project name" box, select the solution location, check "Place solution and project in the same directory" and click "Create".
 
-> The microservice identifier should be from 2 to 3 chars long in uppercase (e.g. "PS"). This identifier should be different from any other service.
+> The microservice identifier should be 2 to 3 chars long in uppercase (e.g. "PS"). This identifier should be different from any other service (see the directory available in this documentation).
 
 Once the solution is created it should include 4 solution folders:
 
@@ -23,13 +23,15 @@ Once the solution is created it should include 4 solution folders:
 
 For this example we just want to have the microservice running without really any feature, so it is only required to set the most basic properties in the model so that the service can be compiled and executed.
 
-Open the `Service.lsm` file in the `Design` project to open the service designer and change the service model.
+Open the `Service.lsm` file in the `Design` project to view the service designer and change the service model.
 
 > Notice that the service model is empty.
 
-Locate the properties window and enter the microservice identifier - the one that you used to create the solution - in the `Identifier` property.
+Locate the properties window and enter the microservice identifier - the same you used to create the solution - in the `Identifier` property.
 
-Enter the service name in the `Name` property (e.g. `Ping`). Make sure that property `Namespace` and `Default Scope` changed accordingly (e.g. `Primavera.Lithium.Ping` and `lithium-ping`).
+Enter the service name in the `Name` property (e.g. `Ping`).
+
+Make sure that property `Namespace` and `Default Scope` changed accordingly (e.g. `Primavera.Lithium.Ping` and `lithium-ping`).
 
 Enter a detailed description of the service in the `Summary` property (e.g. "Executes a ping operation in the infrastructure.").
 
@@ -47,14 +49,14 @@ Wait until a message box appears indicating that the text transformation termina
 
 ## Add Minimal Custom Code
 
-If you compile the solution now it will fail with 4 errors indicating that the following methods are need to be implemented (overridden):
+If you compile the solution now it will fail with 4 errors indicating that the following methods need to be implemented (overridden):
 
 - `MonitoringController.ProbeAsync()`
 - `MonitoringController.DiagnosticsAsync()`
 - `Application.PrintCustomMenuOptions()`
 - `Application.HandleCustomMenuOptions()`
 
-The first two are related with the controller that implements health checks for the service. The other two are the implementation of the console client. We need to add minimal implementations for these methods.
+The first two are related with the controller that implements health checks for the service. The other two are the implementation of the console client. You need to add minimal implementations for these methods.
 
 ### Monitoring Controller
 
@@ -89,7 +91,7 @@ namespace Primavera.Lithium.Ping.WebApi.Controllers
 }
 ```
 
-> Notice the namespace used and how the two methods are overridden. For the time being they don't do much but it is enough to monitor the service in the beginning. Later you will need to evolve these implementations for check specific service behaviors.
+> Notice the namespace used and how the two methods are overridden. For the time being they don't do much but it is enough to monitor the service in the beginning. Later you will need to evolve these implementations to check specific service behaviors.
 
 ### Client Console Application
 
@@ -131,7 +133,7 @@ namespace Primavera.Lithium.Ping.Client.Console
 }
 ```
 
-> Notice the namespace and the two methods are overridden. The commented lines of code are there just to show how that class should be incremented in the future.
+> Notice the namespace and how the two methods are overridden. The commented lines of code are there just to show how this class should be modified in the future.
 
 Now you can compile the solution and it will succeed.
 
@@ -139,13 +141,13 @@ Now you can compile the solution and it will succeed.
 
 Before you run it, select "Set Startup Projects..." in the solution context menu, choose "Multiple startup projects", change "Console.Client" and "WebApi" to "Start" and click "OK".
 
-Now hit F5 and run the service. Two console windows will appear:
+Now hit F5 and run the service. Two console windows should appear:
 
 - `WebApi`: shows the output of the Web API host.
 - `Client.Console.exe`: shows the console client.
 
-Now you can use this console client to check that the service is actually responding.
+Now you can use the console client to verify that the service is actually responding.
 
 Select the "Monitoring" menu (9) and then "Probe" (1).
 
-This will execute the probe endpoint (the one implemented before in the monitoring controller) and should respond with "OK".
+This will execute the probe endpoint (the one implemented before in the monitoring controller) and it should respond with "OK", meaning the service is up and running.
