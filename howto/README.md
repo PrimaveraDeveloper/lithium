@@ -6,11 +6,11 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Development Environment
 
-- [How to **setup a development machine** to use the Lithium Framework](./howto-setup-devopment-machine.md)
+- [How to **setup the development environment** to use the Lithium Framework](./howto-setup-devopment-environment.md)
 
 ## Creating Microservices
 
-- How to **create a new microservice** in Visual Studio
+- [How to **create a new microservice** in Visual Studio](./howto-create-new-microservice.md)
 - How to **organize the source code** of a microservice
 - How to create a **microservice that does not require a client library**
 - How to create a **client library for an existing Web API** (not developed with Lithium)
@@ -18,7 +18,7 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Modeling a Microservice
 
-- How to model a **Hello World microservice**
+- [How to model a **Hello World microservice**](./howto-model-hello-world.md)
 - How to **define complex actions** on microservices
 - How to **add complex models** to microservices
 - How to **define validation rules** on microservices models and actions parameters

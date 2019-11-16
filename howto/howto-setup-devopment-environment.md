@@ -1,4 +1,6 @@
-# How to Setup a Development Machine to use the Lithium Framework
+# How to setup the development environment to use the Lithium Framework
+
+This guide describes how development environments need to be configured to use the Lithium Framework. 
 
 To use the Lithium Framework to its full extent you will the following components installed in the development machine.
 
