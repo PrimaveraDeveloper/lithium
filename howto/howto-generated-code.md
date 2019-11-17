@@ -6,16 +6,16 @@ This guide describes how the generated code is created and organized in a micros
 
 Code generation is a fundamental aspect of the Lithium Framework because it allows:
 
-- Accelerating the development of the microservices because developers don't need to implement cross-cutting features each they develop a new microservice.
+- Accelerating the development of the microservices as developers won't need to implement cross-cutting features each time they develop a new microservice.
 - Standardization of the features, implementations, and code across multiple services.
-- A simpler path to upgrade technology when necessary because the most important technology-dependent features are implemented and/or enforced by the generated code shape.
+- A simpler path to upgrade technology when necessary as the most important technology-dependent features are implemented and/or enforced by the generated code shape.
 - Guiding good design approaches and code quality by providing examples to implement custom code.
 
 ## `GeneratedCode` Folder
 
 All projects in a microservice solution include a folder named `GeneratedCode`. This is where all the generated files will be produced every time the text templates are transformed (code is generated). Organizing all generated code in a single folder has benefits:
 
-- Generated code is clearly separated from custom code (the code that the developer produces to implement the specific logic of the service)-
+- Generated code is clearly separated from custom code (the code that the developer produces to implement the specific logic of the service).
 - This folder can easily be deleted and recreated, allowing for a simpler evolution of the code generators themselves.
 
 ## Code Generator
@@ -24,15 +24,19 @@ The Lithium Framework includes a single code generator - named `ServiceDesignerC
 
 ## Text Templates
 
-A text template in the [T4 technology](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates) used by the Visual Studio Modeling SDK (DSL Tools) is the source file the includes the "instructions" to produce a single generated code file from the source model.
+A text template in the [T4 technology](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates) used by the Visual Studio Modeling SDK (DSL Tools) is the source file that includes the "instructions" to produce a single generated code file from the source model.
 
-In the Lithium Framework the text templates are more complex than that because they allow to generate multiple files from a single text template. This is achieved in reality by producing intermediary text templates at runtime during the text transformation session. The most important benefit of this approach is that the real text template used for each generated file does not need to exist physically in the Visual Studio solution, which allows the framework to add, update, or remove such templates without requiring any change to the microservices' solutions.
+In the Lithium Framework the text templates are more complex than that because they allow generating multiple files from a single text template.
 
-> You can view these intermediary text templates in Visual Studio from a microservice solution. If you activate "Show All Files" in one of the projects, a folder named `TextTemplates` will be revealed under `GeneratedCode`. These files should never be included in the project or in the solution (or in source control) because they will be replaced every time the text templates are transformed.
+This is achieved, in practice, by producing intermediary text templates at runtime during the text transformation session.
 
-Each project in a microservice solution includes a file named `Template.lsmx` that is the root microservice for that project.
+The most important benefit of this approach is that the real text template used for each generated file does not need to exist physically in the Visual Studio solution, which allows the framework to add, update, or remove such templates without requiring any change to the microservices' solutions.
 
-The contents of that file for the Models project is:
+> You can view these intermediary text templates in Visual Studio from a microservice solution. If you activate "Show All Files" in one of the projects, a folder named `TextTemplates` will be revealed under `GeneratedCode`. These files should never be included in the project or in the solution (or in source control) because they will be recreated every time the text templates are transformed.
+
+Each project in a microservice solution includes a file named `Template.lsmx` that is the root text template for that project.
+
+The contents of each of these files is like this:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -42,12 +46,12 @@ The contents of that file for the Models project is:
 </template>
 ```
 
-This file provides two very important pieces of information to make the code generator work correctly to determine exactly which files it should generate for each project in the solution:
+This XML provides two very important pieces of information to make the code generator work correctly to determine exactly which files it should generate for each project in the solution:
 
 - The project where this template is located (to know which files should be generated).
-- The location of the source service model (used to read it when generating code).
+- The location of the source service model (to read it when generating code).
 
-> These files should never be modified or removed from the projects.
+> These files should never be modified or removed from the solution.
 
 ## Transforming Templates (Generating Code)
 
@@ -57,7 +61,7 @@ You can also generate only the code for the "current project" (that is the proje
 
 ### Generated Code
 
-The code generated for microservices as multiple forms and multiple languages:
+The code generated for microservices has multiple forms and multiple languages:
 
 - C# code
 - XML files
@@ -143,9 +147,9 @@ public partial class MonitoringController : MonitoringControllerBase
 }
 ```
 
-Notice that the class that we are generating - `MonitoringController` - has in fact no code generated, it just derives from a base class - `MonitoringControllerBase` - that includes the real generated code.
+Notice that the class that is generated - `MonitoringController` - has in fact no code generated, it just derives from a base class - `MonitoringControllerBase` - that includes the real generated code.
 
-This design allows to override the generated code, by overriding `MonitoringControllerBase` like in the following example:
+This design allows overriding the generated code, by overriding the base class implementations like in the following example:
 
 ```csharp
 using System.Diagnostics.CodeAnalysis;
@@ -172,7 +176,7 @@ namespace Primavera.Lithium.Ping.WebApi.Controllers
 
 ## Partial Classes
 
-All code files are also always generated as partial classes. This simplifies overrides but also allows extending generated code with new properties or methods.
+All code files are also generated always as partial classes. This allows overrides but also allows extending generated code with new properties, methods, etc.
 
 Here is an example:
 
