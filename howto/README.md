@@ -12,8 +12,8 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 - [How to **create a new microservice** in Visual Studio](./howto-create-new-microservice.md)
 - How to **organize the source code** of a microservice
-- How to create a **microservice that does not require a client library**
-- How to create a **client library for an existing Web API** (not developed with Lithium)
+- [How to create a **microservice that does not require a client library**](./howto-create-microservice-without-clientlib.md)
+- [How to create a **client library for an existing Web API** (not developed with Lithium)](./howto-create-clientlib-only.md)
 - How to **add support for user interface** to a microservice
 
 ## Modeling a Microservice
@@ -31,8 +31,8 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Adding Custom Code to a Microservice
 
-- How is **code generated** for a microservice
-- How to **add custom code** to a microservice
+- [How is **code generated** for a microservice](./howto-generated-code.md)
+- [How to **add custom code** to a microservice](./howto-add-custom-code.md)
 - How to specify **custom application settings**
 - How to **create unit tests** for a microservice
 
@@ -43,4 +43,4 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Upgrades
 
-- [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./how-to-migration-to-lithium-2.0/README.md)
+- [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
