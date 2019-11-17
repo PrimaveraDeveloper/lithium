@@ -4,7 +4,7 @@ This sample shows an implementation of the Monitoring Controller endpoints (Prob
 
 ## Health Checks (Monitoring)
 
-A good design pattern for microservices is to have Web API endpoints to check the health (monitor) of the microservice.
+A good design pattern for microservices is to have Web API endpoints to check (monitor) the health of the microservice.
 
 The Lithium Framework defines two such endpoints as part of the monitoring controller. The service will be monitored in the production environment using these endpoints to trigger healing actions (scaling, reboots, etc.).
 
@@ -26,7 +26,7 @@ The objective of the diagnostics endpoint is to identify situations where the se
 
 ## Example
 
-This Notifications Service is a service that sends notifications by email and or SMS to users. It relies on some dependencies that need to be verifying in the probe endpoint (cache, table storage).
+The Notifications Service is a service that sends notifications by email and/or SMS to users. It relies on some dependencies that need to be verified in the probe endpoint (cache, table storage, etc.).
 
 The probe and diagnostics endpoint are implemented like this in NS:
 
@@ -56,7 +56,7 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
         public override async Task<IActionResult> ProbeAsync()
         {
             // NOTE:
-            // The probe endpoint tests the following dependencies byt
+            // The probe endpoint tests the following dependencies by
             // saving, retrieving, and deleting an email template:
             // - Distributed Caching
             // - Table Storage
@@ -90,8 +90,8 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
             {
                 // Something went wrong
 
-                ServiceError error = new ServiceError(result1.Error.Code, result1.Error.Description);
-                return this.BadRequest(error);
+                 return this.BadRequest(
+                    ServiceError.FromOperationResult(result2));
             }
             else
             {
@@ -110,8 +110,8 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
             {
                 // Something went wrong
 
-               ServiceError error = new ServiceError(result2.Error.Code, result2.Error.Description);
-                return this.BadRequest(error);
+                return this.BadRequest(
+                    ServiceError.FromOperationResult(result2));
             }
 
             // Logging
@@ -128,8 +128,8 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
             {
                 // Something went wrong
 
-                ServiceError error = new ServiceError(result3.Error.Code, result3.Error.Description);
-                return this.BadRequest(error);
+                return this.BadRequest(
+                    ServiceError.FromOperationResult(result3));
             }
 
             // Logging
@@ -145,8 +145,8 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
         public override async Task<IActionResult> DiagnosticsAsync()
         {
             // NOTE:
-            // The diagnostics endpoint tests the same as probe but also tests that
-            // SMS notifications are not getting queueing.
+            // The diagnostics endpoint tests the same as probe but it also tests that
+            // SMS notifications are not queueing.
 
             // Use probe
 
@@ -161,7 +161,7 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
                 return probeResult;
             }
 
-            // Get the email template
+            // Get the number of SMS notifications queued
 
             OperationResult<int> result = await this.SmsNotificationsManager
                 .CountQueuedAsync()
@@ -171,16 +171,18 @@ namespace Primavera.Lithium.Notifications.WebApi.Controllers
             {
                 // Something went wrong
 
-                ServiceError error = new ServiceError(result.Error.Code, result.Error.Description);
-                return this.BadRequest(error);
+                return this.BadRequest(
+                    ServiceError.FromOperationResult(result));
             }
 
             if (result2.Body > 10)
             {
                 // Something went wrong
 
-                ServiceError error = new ServiceError("TooManyQueuedSmsNotifications", "There are more than 10 SMS notifications queued.");
-                return this.BadRequest(error);
+                return this.BadRequest(
+                    new ServiceError(
+                        "TooManyQueuedSmsNotifications",
+                        "There are more than 10 SMS notifications queued."));
             }
 
             // Result OK
