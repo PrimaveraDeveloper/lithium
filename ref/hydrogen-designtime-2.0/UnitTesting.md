@@ -75,11 +75,26 @@ IEventBusEventStore store = MocksService.BuildMockObjectOf<IEventBusEventStore>(
 If you want to include a unit test that runs only on debug builds, you can use the `[FactDebugOnly] `attribute instead of `[Fact]`.
 
 ```csharp
-[FactDebugOnly]
+[FactDebugOnly(true)]
 public async Task SmtpHostCredentials_Real_SendAsync_Handler_Dispose()
 {
     // (...)
 }
+```
+
+This only works inside the Hydrogen solution. It has no effect on other projects that reference `Primavera.Hydrogen.DesignTime.UnitTesting`. For those projects the only solution is to put the tests inside #if directives like in the following example:
+
+```csharp
+#if DEBUG
+public sealed partial class MyTestClass
+{
+    [Fact]
+    public void MyTest1()
+    {
+        // (...)
+    }
+}
+#endif
 ```
 
 ### Culture-specific Test Classes

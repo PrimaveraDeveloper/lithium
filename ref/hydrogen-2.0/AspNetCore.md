@@ -135,11 +135,24 @@ services
 
 Versioning REST Web APIs is very important and is implemented in Hydrogen through the [`Microsoft.AspNetCore.Mvc.Versioning`](https://github.com/Microsoft/aspnet-api-versioning/) package.
 
-`ApiVersioningServiceCollectionExtensions` provides a extension methods that allow configuring the versioning services using standard options:
+`ApiVersioningServiceCollectionExtensions` provides extension methods that allow configuring the versioning services using standard options or configuration delegates:
 
 ```csharp
 services
     .AddApiVersioning(new ApiVersion(1, 0));
+
+services
+    .AddApiVersioning(
+        new ApiVersion(2, 0),
+        (options1) =>
+        {
+            // (...)
+        },
+        (options2) =>
+        {
+            // (...)
+        }
+    )
 ```
 
 ### Routing
@@ -499,7 +512,7 @@ services.AddBackgroundServiceTimed<MyTimedBackgroundService();
 `QueuedBackgroundService<TWorkItem>` allows building background services that execute work when work items become available in a queue. This is particularlly useful when you want to
 have the background service act on response of some event hapenning in the application. The work item itself can be a class of any kind and can be used to pass in contextual data to drive the execution of the background service.
 
-The actual work should be implemented in `ExecuteWorkAsync`:
+The actual work should be implemented in ExecuteWorkAsync:
 
 ```csharp
 public class MyQueuedBackgroundService : QueuedBackgroundService<string>

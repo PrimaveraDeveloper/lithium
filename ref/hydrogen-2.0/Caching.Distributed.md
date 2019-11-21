@@ -96,9 +96,9 @@ services.AddResilientDistributedCache(
 
 ### IDistributedCache (Resilient Extension Methods)
 
-`ResilentDistributedCacheExtensions` provides a set of extension methods that allow for resilience when using `IDistributedCache,` even when the resilient cache service (see above is not used).
+`ResilentDistributedCacheExtensions` provides a set of extension methods that allow for resilience when using `IDistributedCache,` even when the resilient cache service (see above) is not used.
 
-These methods allow controlling whether `IDistributedCache` should raise any exception (parameter `throwErrors`) and even return default values when the cache items do not exist (parameter `defaultValue`).
+These methods allow controlling whether `IDistributedCache` should raise exceptions (parameter `throwErrors`) and even return default values when the cache items do not exist (parameter `defaultValue`).
 
 - `byte[] Get(this IDistributedCache cache, string key, bool throwErrors)`
 - `Task<byte[]> GetAsync(this IDistributedCache cache, string key, bool throwErrors, CancellationToken token = default)`
@@ -118,3 +118,5 @@ These methods allow controlling whether `IDistributedCache` should raise any exc
 - `Task RefreshAsync(this IDistributedCache cache, string key, bool throwErrors, CancellationToken token = default)`
 - `void Remove(this IDistributedCache cache, string key, bool throwErrors)`
 - `Task RemoveAsync(this IDistributedCache cache, string key, bool throwErrors, CancellationToken token = default)`
+
+> Only timeout exceptions raised by REDIS will be ignored. Connection exception will not be ignored.
