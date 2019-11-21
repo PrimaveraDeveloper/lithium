@@ -13,10 +13,8 @@ The `AzureEventBusOptions` entity defines the configuration for both publication
 | ConnectionString                                         | The Azure Service Bus instance connection string.                                                      | No.       |
 | PublisherOptions.PublicationTopic                        | The Azure Service Bus topic that the events should be published to.                                    | No.       |
 | SubscriberOptions.SubscriptionTopic                      | The Azure Service Bus topic whose events should be subscribed.                                         | No.       |
-| SubscriberOptions.SubscriptionIdentifier                 | The unique identifier of the client that subscribes to the Azure Service Bus topic.                    | No.       |
 | SubscriberOptions.EventHandlerOptions.AutoComplete       | Flag that defines if a received event will be marked as processed as soon as it arrives to the client. | No.       |
 | SubscriberOptions.EventHandlerOptions.MaxConcurrentCalls | The maximum number of concurrent calls to the Azure Service Bus instance.                              | No.       |
-
 
 ## Implementing the service
 
@@ -40,7 +38,7 @@ private static IEventBus GetEventBusService()
 
             options.ConnectionString = "my-connection-string";
             options.PublisherOptions = new AzureEventBusPublisherOptions("my-topic");
-            options.SubscriberOptions = new AzureEventBusSubscriberOptions("my-topic", "my-topic-subscription-identifier", eventHandlerOptions);
+            options.SubscriberOptions = new AzureEventBusSubscriberOptions("my-topic", eventHandlerOptions);
         });
 
     return services.BuildServiceProvider().GetRequiredService<IEventBus>();
@@ -55,10 +53,10 @@ The respective `AzureEventBusEvent` entity should then be passed as an argument 
 
 ```csharp
 /// <summary>
-/// Publishes an event containing a message.
+/// Publishes an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static async void PublishMessageEventAsync(IEventBus eventBus)
+private static void PublishVersionedMessageEvent(IEventBus eventBus)
 {
     string myMessage = "Hack the planet!";
 
@@ -67,13 +65,15 @@ private static async void PublishMessageEventAsync(IEventBus eventBus)
         Body = myMessage // Since we are typing the event as a string, we need to provide a string to the event body.
     };
 
-    await eventBus.PublishAsync(@event).ConfigureAwait(false);
+    @event.Properties.Add("Version", "1");
+
+    eventBus.Publish(@event);
 }
 ```
 
 ## Subscribing to events
 
-The event subscription operation involves the creation of a typed handler class, implemented through  the `IEventBusEventHandler`, that will be responsible for handling incoming events of the same type.
+The event subscription operation involves the creation of a typed handler class, implemented through the `IEventBusEventHandler`, that will be responsible for handling incoming events of the same type.
 
 ```csharp
 /// <summary>
@@ -122,34 +122,43 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 }
 ```
 
-An instance of the typed handler class should then be passed to the `Subscribe` method of the `AzureEventBus` instance to be properly registered.
+An instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBus` instance to be properly registered.
+
+A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
 ```csharp
 /// <summary>
-/// Subscribes the message events.
+/// Subscribes versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void SubscribeMessageEvents(IEventBus eventBus)
+private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
 {
     IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
+    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
 
-    eventBus.Subscribe(messageEventHandler);
+    messageFilters.Filters.Add("Version", "1");
+
+    eventBus.Subscribe(messageEventHandler, messageFilters);
 }
 ```
 
 ## Unsubscribing from events
 
-Unsubscribing from a event type is done by invoking the `Unsubscribe` method of an `AzureEventBus` with the respective `T` type.
+Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBus` with the respective `T`. 
 
-Keep in mind that the above method will close the connection as soon as possible and will then dispose the subscriber client. A new instance needs to be created in order to subscribe to events again.
+A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
 ```csharp
 /// <summary>
-/// Unsubscribes from message events.
+/// Unsubscribes from versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void UnsubscribeMessageEvents(IEventBus eventBus)
+private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
 {
-    eventBus.Unsubscribe<string>();
+    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
+
+    messageFilters.Filters.Add("Version", "1");
+
+    eventBus.Unsubscribe(messageFilters);
 }
 ```

@@ -46,6 +46,14 @@ The interface is implemented by `EventSubscriberOptionsBase`. Both are empty as 
 
 The concrete implementation of an event bus service is responsible for implementing this handler.
 
+### `IEventBusEventFilters`
+
+`IEventBusEventFilters` defines a collection of filters that can be associated with a operation that handles a subscription. 
+
+A subscription associated with such filters will only receive events whose properties have a exact match for each of the key-value pairs contained in the filters.
+
+The interface is implemented by an abstract base class named `EventBusEventFiltersBase`.
+
 ## Supplementary types
 
 ### `EventBusException`
