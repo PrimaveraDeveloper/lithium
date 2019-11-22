@@ -9,8 +9,9 @@ The design-time libraries provide features specifically designed to support the 
 | Library | Description |
 | - | - |
 | [Primavera.Hydrogen.DesignTime.Configuration](./Configuration.md) | Provides a NuGet package that configures Lithium components and microservices according to a set of rules |
-| [Primavera.Hydrogen.DesignTime.UnitTesting](./UnitTesting.md) | Contains types that provide features to develop unit tests for Lithium components and microservices |
 | [Primavera.Hydrogen.DesignTime.IntegrationTesting](./IntegrationTesting.md) | Contains types that provide features to develop integration tests for Lithium components and microservices |
+| [Primavera.Hydrogen.DesignTime.Specs](./Specs.md) | Contains types that define specifications used in the Lithium Framework |
+| [Primavera.Hydrogen.DesignTime.UnitTesting](./UnitTesting.md) | Contains types that provide features to develop unit tests for Lithium components and microservices |
 
 ## NuGet Packages
 

@@ -35,6 +35,7 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.Text.Composition`](./Text.Composition.md) | Contains types that support string composition and string formatting |
 | [`Primavera.Hydrogen.TextMessaging.Abstractions`](./TextMessaging.Abstractions.md) | Contains types that define abstraction for text messages (SMS) |
 | [`Primavera.Hydrogen.TextMessaging.Twilio`](./TextMessaging.Twilio.md) | Contains types that allow managing text messages (SMS) using the Twilio gateway |
+| [`Primavera.Hydrogen.Wcf.Client`](./Wcf.Client.md) | Contains types that allow communication with WCF Web services |
 
 ## NuGet Packages
 

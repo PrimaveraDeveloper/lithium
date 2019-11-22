@@ -1,6 +1,6 @@
-# Primavera.Lithium.Meta.Specs
+# Primavera.Hydrogen.DesignTime.Specs
 
-**Class library that contains types that provide specifications of micro services developed with the Lithium Framework.**
+**Class library that contains types that define specifications used in the Lithium Framework.**
 
 ## Service Specification (`ServiceSpec`)
 
@@ -43,4 +43,4 @@ ServiceSpec spec2 = ServiceSpec.FromJsonFile(new string[] { file1 });
 
 `AppSettingsSpec` allows serializing a set of application settings for a microservice.
 
-It is used by `ServiceSpec` but it is also used by the Lithium SDK code generation text templates to produce the application settings files (e.g. appsettings.json).
+It is used by `ServiceSpec` but it is also used by the Lithium SDK code generation text templates to produce the application settings files (e.g. `appsettings.json`).

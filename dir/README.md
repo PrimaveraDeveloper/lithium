@@ -26,7 +26,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services | --- |
 | [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services | --- |
 | [TBX](./common/tbx.md) | Taskbox Service | Supports asynchronous behavior in the PRIMAVERA Elevation Platform | --- |
-| [TRG](./common/trg.md)| Triggers Service | Allows executing Web actions based on schedules | [2.0](./common/trg-spec-2.0.md) |
+| [TRG](./common/trg.md)| Triggers Service | Allows executing Web actions based on schedules | [2.0](./common/specs/trg-spec-2.0.md) |
 
 ### Carbon
 
