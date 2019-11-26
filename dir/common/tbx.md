@@ -1,6 +1,6 @@
 # Taskbox Service (TBX)
 
-The Taskbox Service supports asynchronous behavior in the PRIMAVERA Elevation Platform. 
+Provides asynchronous multi-task processing for applications or services that need to improve performance, scalability and reusability. This is main component that implements the asynchronous operations in the PRIMAVERA Elevation Platform.
 
 ## Specification
 
