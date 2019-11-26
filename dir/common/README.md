@@ -17,4 +17,4 @@ These services are core to the Lithium Framework and provide common features, ap
 | [SS](./ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) |
 | [TAXES](./taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services |
 | [TAXPT](./taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services |
-| [TBX](./tbx.md) | Taskbox Service | Supports asynchronous behavior in the PRIMAVERA Elevation Platform |
+| [TBX](./tbx.md) | Taskbox Service | Provides asynchronous multitask processing to improve performance, scalability and reusability |
