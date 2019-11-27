@@ -1,11 +1,10 @@
 # Primavera.Hydrogen.Taskbox
 
-**Class library that contains types that implement the task box design patterns.**
+**Class library that contains types that implement asynchronous multi-task processing.**
 
 ## About
 
-This class library contains interfaces, abstract classes and supplementary types needed for a taskbox implementation.
-This document explains the purpose of each component.
+This class library contains concrete classes and supplementary types that implement the taskbox abstraction, that is asynchronous multi-task processing for applications or services that need to improve performance, scalability and reusability. This document explains the purpose of each component.
 
 ## Workers
 
