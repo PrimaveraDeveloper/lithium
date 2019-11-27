@@ -6,7 +6,7 @@
 
 # Pipebox
 
-This abstraction defines the interfaces needed to transform the processing of a complex or time-consuming operation into a set of small tasks that combine to form an asynchronous unit of work. This approach improves the performance, scalability, and reuse of components of an application or service.
+This abstraction defines the interfaces needed to transform the processing of a complex or time-consuming operation into a set of small tasks that combined together form an asynchronous unit of work. This approach improves the performance, scalability, and reuse of components of any application or service.
 
 ## Abstractions
 
