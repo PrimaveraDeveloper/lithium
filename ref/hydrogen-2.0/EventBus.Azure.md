@@ -8,13 +8,18 @@ This class library is a concrete implementation of the [Primavera.Hydrogen.Event
 
 The `AzureEventBusOptions` entity defines the configuration for both publication and subscription operations. The below table provides a brief description of each property of the entity:
 
-| Property                                                 | Description                                                                                            | Optional? |
-|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------|
-| ConnectionString                                         | The Azure Service Bus instance connection string.                                                      | No.       |
-| PublisherOptions.PublicationTopic                        | The Azure Service Bus topic that the events should be published to.                                    | No.       |
-| SubscriberOptions.SubscriptionTopic                      | The Azure Service Bus topic whose events should be subscribed.                                         | No.       |
-| SubscriberOptions.EventHandlerOptions.AutoComplete       | Flag that defines if a received event will be marked as processed as soon as it arrives to the client. | No.       |
-| SubscriberOptions.EventHandlerOptions.MaxConcurrentCalls | The maximum number of concurrent calls to the Azure Service Bus instance.                              | No.       |
+| Property                                                 | Description                                                                                                                                                                     | Optional? |
+|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| ConnectionString                                         | The Azure Service Bus instance connection string.                                                                                                                               | No.       |
+| PublisherOptions.PublicationTopic                        | The Azure Service Bus topic that the events should be published to.                                                                                                             | No.       |
+| SubscriberOptions.SubscriptionTopic                      | The Azure Service Bus topic whose events should be subscribed.                                                                                                                  | No.       |
+| SubscriberOptions.EventHandlerOptions.AutoComplete       | Flag that defines if a received event will be marked as processed as soon as it arrives to the client.                                                                          | No.       |
+| SubscriberOptions.EventHandlerOptions.MaxConcurrentCalls | The maximum number of concurrent calls to the Azure Service Bus instance.                                                                                                       | No.       |
+| RetryStrategy                                            | The [exponential back-off retry strategy](Core.md#retry-strategies) to be applied to the Azure Service Bus instance. If null, a default strategy will be implemented.           | Yes.      |
+| RetryStrategy.RetryCount                                 | The maximum number of retry attempts.                                                                                                                                           | Yes.      |
+| RetryStrategy.MinBackoff                                 | The minimum backoff time.                                                                                                                                                       | Yes.      |
+| RetryStrategy.MaxBackoff                                 | The maximum backoff time.                                                                                                                                                       | Yes.      |
+| RetryStrategy.DeltaBackoff                               | The value that will be used to calculate a random delta in the exponential delay.                                                                                               | Yes.      |
 
 ## Implementing the service
 
@@ -39,6 +44,7 @@ private static IEventBus GetEventBusService()
             options.ConnectionString = "my-connection-string";
             options.PublisherOptions = new AzureEventBusPublisherOptions("my-topic");
             options.SubscriberOptions = new AzureEventBusSubscriberOptions("my-topic", eventHandlerOptions);
+            options.RetryStrategy = new ExponentialBackoffRetryStrategy();
         });
 
     return services.BuildServiceProvider().GetRequiredService<IEventBus>();
