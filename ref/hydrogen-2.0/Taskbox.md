@@ -4,7 +4,11 @@
 
 ## About
 
-This class library contains concrete classes and supplementary types that implement the taskbox abstraction, that is asynchronous multi-task processing for applications or services that need to improve performance, scalability and reusability. This document explains the purpose of each component.
+This class library is the default implementation of the [Taskbox.Abstractions][TBXA].
+
+## Pipebox
+
+The pipebox transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
 
 ## Workers
 
@@ -66,3 +70,6 @@ As the name implies, this is the worker component, it implements the [Background
 
 The worker actions are `StartAsync`, `StopAsync` and `ExecuteAsync`.
 
+---
+
+[TBXA]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.Abstractions.md
