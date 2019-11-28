@@ -10,7 +10,50 @@ This class library is the default implementation of the [Taskbox.Abstractions][T
 
 ## Pipebox
 
-The pipebox transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
+The `Pipeline Design Pattern` redefines the processing of a complex or time consuming operation into a set of small tasks (`Handlers`) that combine together to form an asynchronous unit of work (`Pipeline`), with the aim of improving performance, scalability and component reusability in any application or service. This pattern is implemented here by the `Pipebox` set of classes and supplementary types.
+
+## `Pipebox`
+
+This classe implements the engine that runs a `Pipeline` with a specified `PipelineContext<T>`.
+
+Hello world example:
+```csharp
+using System.IO;
+using System.Text.Json;
+
+// Arrange the pipebox configuration
+
+var json = File.ReadAllText("PipeboxConfig.json");
+var config = PipeboxConfig.Create(json);
+
+// Arrange the service provider
+
+var services = new ServiceCollection();
+services.AddTransient<DefaultPipelineHandler<string>, DefaultPipelineHandler<string>>();
+var provider = services.BuildServiceProvider();
+
+// Arrange the pipebox context
+
+var data = "Hello";
+using var context = new PipeboxContext<string>();
+context.UseData(data);
+
+// Arrange the pipebox engine
+
+using var pipebox = new Pipebox<string>();
+pipebox.UseProvider(provider).UseConfig(config).UsePipeline("p1");
+
+// Run the pipebox to execute the pipeline "p1"
+
+pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
+
+// Get the pipeline result
+
+string result = context.Data;
+```
+
+
+### `PipeboxContext`
 
 ## Workers (this content needs a full revision)
 
