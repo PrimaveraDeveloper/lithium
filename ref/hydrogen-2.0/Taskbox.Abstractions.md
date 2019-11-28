@@ -20,4 +20,4 @@ The `IPipeboxHandler` interface defines the abstraction for the small tasks (als
 
 ## Supplementary types
 
-Always use the base classes provided by concrete implementations to create, customize, or extend the behavior of this design pattern.
+Use the base classes provided by concrete implementations to create, customize, or extend the behavior of this design pattern.
