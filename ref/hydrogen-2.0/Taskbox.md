@@ -12,7 +12,7 @@ This class library is the default implementation of the [Taskbox.Abstractions][T
 
 The `Pipeline Design Pattern` redefines the processing of a complex or time consuming operation into a set of small tasks (`Handlers`) that combine together to form an asynchronous unit of work (`Pipeline`), with the aim of improving performance, scalability and component reusability in any application or service. This pattern is implemented here by the `Pipebox` set of classes and supplementary types.
 
-Let's start with an Hello World example:
+Startup example:
 ```csharp
 using System.IO;
 using System.Text.Json;
@@ -50,39 +50,41 @@ string result = context.Data;
 
 ### `Pipebox<T>`
 
-This class implements the engine that runs a `Pipeline<T>` with a specified `PipelineContext<T>`.
+This class provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
 
 ### `PipeboxContext<T>`
 
-This class implements the data context that is processed along the pipeline execution.
+This class provides the implementation of `IPipeboxContext{T}`, which is the data context that is processed along the pipeline execution.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
 
 ### `PipeboxConfig`
 
-This class implements the pipebox configuration that defines one or more pipelines and their corresponding handlers.
+This class provides the implementation of `<TConfig>`, which is the pipebox configuration that defines one or more pipelines and their corresponding handlers.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
 
 ### `DefaultPipelineHandler<T>`
 
-This class implements ...
+This class provides a default implementation of `IPipelineHandler<TContext, TConfig>` with useful features for debugging and prototyping.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
 
 ### `PipelineHandlerBase<T>`
 
-This class implements ...
+This class provides the base implementation of `IPipelineHandler<TContext, TConfig>`.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
 
 ### `PipeboxState`
 
-This class implements ...
+This class provides the implementation of the state of execution for the `Pipebox<T>`.
 
-(todo: table of properties and methods with examples)
+(todo: table of properties and methods, remarks and examples)
+
+---
 
 ## Workers (this content needs a full revision)
 
