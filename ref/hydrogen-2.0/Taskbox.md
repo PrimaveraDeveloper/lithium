@@ -58,17 +58,18 @@ Markdown | Less | Pretty
 *Still* | `renders` | **nicely**
 1 | 2 | 3
 
-Properties
-| Property | Description | Optional? |
-|---|---|---|
-| UseProvider | bla | bla
-| UseProvider | bla | bla
+**Properties**
+Property | Description | Optional?
+---|---|---
+UseProvider | bla | bla
+UseProvider | bla | bla
 
-Methods
-| Methods | Description | Optional? |
-|---|---|---|
-| UseProvider | bla | bla
-| UseProvider | bla | bla
+**Methods**
+Property | Description | Optional?
+---|---|---
+UseProvider | bla | bla
+UseProvider | bla | bla
+
 
 (todo: table of properties and methods, remarks and examples)
 
