@@ -6,11 +6,13 @@
 
 This class library is the default implementation of the [Taskbox.Abstractions][TBXA].
 
+[TBXA]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.Abstractions.md
+
 ## Pipebox
 
 The pipebox transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
 
-## Workers
+## Workers (this content needs a full revision)
 
 This library also contains a group of components that will help deploying and managing the taskbox workers.
 
@@ -69,7 +71,3 @@ This component is responsible for distributing events for the workers pool and f
 As the name implies, this is the worker component, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0). 
 
 The worker actions are `StartAsync`, `StopAsync` and `ExecuteAsync`.
-
----
-
-[TBXA]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.Abstractions.md
