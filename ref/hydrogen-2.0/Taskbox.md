@@ -59,12 +59,14 @@ Markdown | Less | Pretty
 1 | 2 | 3
 
 **Properties**
+
 Property | Description | Optional?
 --- | --- | ---
 UseProvider | bla | bla
 UseProvider | bla | bla
 
 **Methods**
+
 Property | Description | Optional?
 --- | --- | ---
 UseProvider | bla | bla
