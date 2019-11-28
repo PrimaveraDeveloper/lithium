@@ -2,11 +2,11 @@
 
 **Class library that contains types that implement asynchronous multi-task processing.**
 
+[REF_Taskbox_Abstractions]: Taskbox.Abstractions.md
+
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][TBXA].
-
-[TBXA]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.Abstractions.md
+This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][REF_Taskbox_Abstractions].
 
 ## Pipebox
 
@@ -53,9 +53,7 @@ string result = context.Data;
 
 The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-See the [IPipebox<TContext, TConfig>][PipeboxRef] for more information about the interface members.
-
-[PipeboxRef]: Taskbox.Abstractions.md
+See the [IPipebox<TContext, TConfig>][REF_Taskbox_Abstractions] for more information about the interface members.
 
 ### PipeboxContext
 
