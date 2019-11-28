@@ -60,13 +60,13 @@ Markdown | Less | Pretty
 
 **Properties**
 Property | Description | Optional?
----|---|---
+--- | --- | ---
 UseProvider | bla | bla
 UseProvider | bla | bla
 
 **Methods**
 Property | Description | Optional?
----|---|---
+--- | --- | ---
 UseProvider | bla | bla
 UseProvider | bla | bla
 
