@@ -8,15 +8,37 @@ This abstraction defines the `Pipeline Design Pattern` interfaces that transform
 
 ## Abstractions
 
-### `IPipeBox`
+### `IPipebox`
 
 The `IPipebox` interface defines the abstraction for the engine that runs a pipeline.
 
-### `IPipeBoxContext`
+**Methods**
+
+Method | Description
+:--- | :---
+UseProvider | Configures the pipebox to use the specified configuration.
+UseConfig | Configures the pipebox to use the specified service provider.
+UsePipeline | Configures the pipebox to execute the specified pipeline.
+ExecuteAsync | Executes the specified pipeline asynchronously.
+Execute | Executes the specified pipeline.
+
+### `IPipeboxContext`
 
 The `IPipeBoxContext` interface defines the abstraction for the context that is processed along the pipeline execution.
 
-### `IPipeBoxHandler`
+**Properties**
+
+Property | Description
+:--- | :---
+Data | Gets the data to be processed along the pipeline.
+
+**Methods**
+
+Method | Description
+:--- | :---
+UseData | Configures the pipebox to use the specified data.
+
+### `IPipeboxHandler`
 
 The `IPipeboxHandler` interface defines the abstraction for the small tasks (also known as `Handlers`) that compose a pipeline.
 
