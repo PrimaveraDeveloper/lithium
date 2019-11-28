@@ -2,22 +2,22 @@
 
 **Class library that contains types that define abstractions for asynchronous multi-task processing.**
 
-> This documentation is under construction.
-
-# Pipebox
-
-This abstraction defines the interfaces needed to transform the processing of a complex or time-consuming operation into a set of small tasks that combined together form an asynchronous unit of work. This approach improves the performance, scalability, and reuse of components of any application or service.
+This abstraction defines the `Pipeline Design Pattern` interfaces that transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
 
 ## Abstractions
 
 ### `IPipeBox`
 
-The `IPipebox` interface defines an abstraction of the `Pipeline Design Pattern`. 
+The `IPipebox` interface defines the abstraction for the engine that runs a pipeline.
 
-### `IEventBus`
+### `IPipeBoxContext`
 
-The `IEventBus` interface defines the elemental operations that should be implemented in order to use an event bus service.
+The `IPipeBoxContext` interface defines the abstraction for the context that is processed along the pipeline execution.
 
-This interface is implemented by an abstract base class named `EventBusBase`. A further implementation should inherit from `EventBusBase`.
+### `IPipeBoxHandler`
 
+The `IPipeboxHandler` interface defines the abstraction for the small tasks (also known as `Handlers`) that compose a pipeline.
 
+## Supplementary types
+
+Use the base classes provided by the concrete implementation to customize or extend the behavior of this design pattern.
