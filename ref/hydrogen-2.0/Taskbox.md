@@ -53,26 +53,22 @@ string result = context.Data;
 
 The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-**Properties**
-
-Property | Description | Optional
-:--- | :--- | :---:
-UseProvider | bla | bla
-UseProvider | bla | bla
-
 **Methods**
 
-Property | Description | Optional
-:--- | :--- | :---:
-UseProvider | bla | bla
-UseProvider | bla | bla
+Method | Description
+:--- | :---
+UseProvider | Configures the pipebox to use the specified configuration.
+UseConfig | Configures the pipebox to use the specified service provider.
+UsePipeline | Configures the pipebox to execute the specified pipeline.
+ExecuteAsync | Executes the specified pipeline asynchronously.
+Execute | Executes the specified pipeline.
 
-
-(todo: table of properties and methods, remarks and examples)
+**Remarks**
+(todo)
 
 ### PipeboxContext
 
-The `PipeboxContext<T>` provides the implementation of `IPipeboxContext{T}`, which is the data context that is processed along the pipeline execution.
+The `PipeboxContext<T>` provides the implementation of `IPipeboxContext<T>`, which is the data context that is processed along the pipeline execution.
 
 (todo: table of properties and methods, remarks and examples)
 
