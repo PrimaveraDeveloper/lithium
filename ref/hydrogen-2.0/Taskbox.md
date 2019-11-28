@@ -53,22 +53,17 @@ string result = context.Data;
 
 This class provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-
 **Properties**
 
-Property | Description | Optional?
---- | --- | ---
+Property | Description | Optional
+:--- | :--- | :---:
 UseProvider | bla | bla
 UseProvider | bla | bla
 
 **Methods**
 
-Property | Description | Optional?
---- | --- | ---
+Property | Description | Optional
+:--- | :--- | :---:
 UseProvider | bla | bla
 UseProvider | bla | bla
 
