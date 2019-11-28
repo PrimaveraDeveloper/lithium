@@ -51,7 +51,7 @@ string result = context.Data;
 
 ### Pipebox
 
-The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
+The `Pipebox<T>` provides the implementation of `IPipebox<TContext, PipeboxConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
 See the [IPipebox<TContext, TConfig>][REF_Taskbox_Abstractions] for more information about the interface members.
 
@@ -75,7 +75,13 @@ The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineH
 
 ### PipelineHandlerBase
 
-The `PipelineHandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, TConfig>`.
+The `PipelineHandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, HandlerConfig>`.
+
+(todo: table of properties and methods, remarks and examples)
+
+### HandlerConfig
+
+The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
 
 (todo: table of properties and methods, remarks and examples)
 
