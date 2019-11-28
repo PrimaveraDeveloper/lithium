@@ -53,10 +53,9 @@ string result = context.Data;
 
 The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-See the (IPipebox<TContext, TConfig>)[Taskbox.Abstractions.md] for more information about the interface members.
-See the [IPipebox<TContext, TConfig>](Taskbox.Abstractions.md) for more information about the interface members.
+See the [IPipebox<TContext, TConfig>][PipeboxRef] for more information about the interface members.
 
-[PipeboxRef]: /Taskbox.Abstractions.md
+[PipeboxRef]: Taskbox.Abstractions.md
 
 ### PipeboxContext
 
