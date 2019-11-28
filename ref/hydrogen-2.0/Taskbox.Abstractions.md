@@ -42,6 +42,15 @@ UseData | Configures the pipebox to use the specified data.
 
 The `IPipeboxHandler` interface defines the abstraction for the small tasks (also known as `Handlers`) that compose a pipeline.
 
+**Methods**
+
+Method | Description
+:--- | :---
+UseProvider | Configures the handler to use the specified configuration.
+UseConfig | Configures the handler to use the specified service provider.
+ExecuteAsync | Executes the specified handler asynchronously.
+Execute | Executes the handler pipeline.
+
 ## Supplementary types
 
 Use the base classes provided by concrete implementations to create, customize, or extend the behavior of this design pattern.
