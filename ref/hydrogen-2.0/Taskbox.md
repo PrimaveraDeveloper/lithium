@@ -49,9 +49,9 @@ pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
 string result = context.Data;
 ```
 
-### `Pipebox<T>`
+### Pipebox
 
-This class provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
+The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
 **Properties**
 
@@ -70,33 +70,33 @@ UseProvider | bla | bla
 
 (todo: table of properties and methods, remarks and examples)
 
-### `PipeboxContext<T>`
+### PipeboxContext
 
-This class provides the implementation of `IPipeboxContext{T}`, which is the data context that is processed along the pipeline execution.
-
-(todo: table of properties and methods, remarks and examples)
-
-### `PipeboxConfig`
-
-This class provides the implementation of `<TConfig>`, which is the pipebox configuration that defines one or more pipelines and their corresponding handlers.
+The `PipeboxContext<T>` provides the implementation of `IPipeboxContext{T}`, which is the data context that is processed along the pipeline execution.
 
 (todo: table of properties and methods, remarks and examples)
 
-### `DefaultPipelineHandler<T>`
+### PipeboxConfig
 
-This class provides a default implementation of `IPipelineHandler<TContext, TConfig>` with useful features for debugging and prototyping.
-
-(todo: table of properties and methods, remarks and examples)
-
-### `PipelineHandlerBase<T>`
-
-This class provides the base implementation of `IPipelineHandler<TContext, TConfig>`.
+The `PipeboxConfig` provides the implementation of `<TConfig>`, which is the pipebox configuration that defines one or more pipelines and their corresponding handlers.
 
 (todo: table of properties and methods, remarks and examples)
 
-### `PipeboxState`
+### DefaultPipelineHandler
 
-This class provides the implementation of the state of execution for the `Pipebox<T>`.
+The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineHandler<TContext, TConfig>` with useful features for debugging and prototyping.
+
+(todo: table of properties and methods, remarks and examples)
+
+### PipelineHandlerBase
+
+The `PipelineHandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, TConfig>`.
+
+(todo: table of properties and methods, remarks and examples)
+
+### PipeboxState
+
+The `PipeboxState` provides the implementation of the state of execution for the `Pipebox<T>`.
 
 (todo: table of properties and methods, remarks and examples)
 
