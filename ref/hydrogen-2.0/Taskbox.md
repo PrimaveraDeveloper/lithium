@@ -4,7 +4,7 @@
 
 ## About
 
-This class library is the default implementation of the [Taskbox.Abstractions][TBXA].
+This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][TBXA].
 
 [TBXA]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.Abstractions.md
 
@@ -53,7 +53,7 @@ string result = context.Data;
 
 The `Pipebox<T>` provides the implementation of `IPipebox<TContext, TConfig>`, which is the engine that runs a specified pipeline with a `PipelineContext<T>`.
 
-See more information about the members of `IPipebox<TContext, TConfig>`.
+See the [IPipebox<TContext, TConfig>] for more information about the interface members.
 
 ### PipeboxContext
 
