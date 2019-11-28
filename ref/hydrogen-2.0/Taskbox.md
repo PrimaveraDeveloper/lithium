@@ -12,11 +12,7 @@ This class library is the default implementation of the [Taskbox.Abstractions][T
 
 The `Pipeline Design Pattern` redefines the processing of a complex or time consuming operation into a set of small tasks (`Handlers`) that combine together to form an asynchronous unit of work (`Pipeline`), with the aim of improving performance, scalability and component reusability in any application or service. This pattern is implemented here by the `Pipebox` set of classes and supplementary types.
 
-## `Pipebox`
-
-This classe implements the engine that runs a `Pipeline` with a specified `PipelineContext<T>`.
-
-Hello world example:
+Let's start with an Hello World example:
 ```csharp
 using System.IO;
 using System.Text.Json;
@@ -52,8 +48,41 @@ pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
 string result = context.Data;
 ```
 
+### `Pipebox<T>`
 
-### `PipeboxContext`
+This class implements the engine that runs a `Pipeline<T>` with a specified `PipelineContext<T>`.
+
+(todo: table of properties and methods with examples)
+
+### `PipeboxContext<T>`
+
+This class implements the data context that is processed along the pipeline execution.
+
+(todo: table of properties and methods with examples)
+
+### `PipeboxConfig`
+
+This class implements the pipebox configuration that defines one or more pipelines and their corresponding handlers.
+
+(todo: table of properties and methods with examples)
+
+### `DefaultPipelineHandler<T>`
+
+This class implements ...
+
+(todo: table of properties and methods with examples)
+
+### `PipelineHandlerBase<T>`
+
+This class implements ...
+
+(todo: table of properties and methods with examples)
+
+### `PipeboxState`
+
+This class implements ...
+
+(todo: table of properties and methods with examples)
 
 ## Workers (this content needs a full revision)
 
