@@ -6,6 +6,17 @@
 
 This abstraction defines the `Pipeline Design Pattern` interfaces that transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
 
+## When to use this pattern
+
+Use when:
+- The operation the application needs to perform can be divided into asynchronous and independent units of work (Pipelines).
+- The unit of work can be broken down into a set of smaller tasks (Handlers) that are complementary and reusable.
+- Tasks have different scalability requirements and can benefit from distributed processing.
+
+May not be useful when:
+- Tasks must be performed as part of the same transaction. In such cases, the unit of work must be designed to be reversible with another compensation unit of work.
+- The amount of data that needs to be transported to be able to perform operation makes this approach inefficient.
+
 ## Abstractions
 
 ### `IPipebox`
@@ -48,9 +59,9 @@ Method | Description
 :--- | :---
 UseProvider | Configures the handler to use the specified configuration.
 UseConfig | Configures the handler to use the specified service provider.
-ExecuteAsync | Executes the specified handler asynchronously.
-Execute | Executes the handler pipeline.
+ExecuteAsync | Executes the handler asynchronously.
+Execute | Executes the handler.
 
 ## Supplementary types
 
-Use the base classes provided by concrete implementations to create, customize, or extend the behavior of this design pattern.
+Use the base classes provided in the concrete implementations to create, customize, or extend the behavior of this design pattern.
