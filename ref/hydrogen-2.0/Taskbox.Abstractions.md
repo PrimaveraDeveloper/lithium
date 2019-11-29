@@ -62,6 +62,12 @@ UseConfig | Configures the handler to use the specified service provider.
 ExecuteAsync | Executes the handler asynchronously.
 Execute | Executes the handler.
 
-## Supplementary types
+### Supplementary types
 
 Use the base classes provided in the concrete implementations to create, customize, or extend the behavior of this design pattern.
+
+## Implementations
+
+[Primavera.Hydrogen.Taskbox][REF_PHT]
+
+[REF_PHT]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.md
