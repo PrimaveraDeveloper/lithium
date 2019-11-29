@@ -1,6 +1,6 @@
 # Data Lookup Service (DLS)
 
-The Data Lookup Service provides a centralized store for reference data, automatically updated, when applicable, from external sources (e.g. InformaDB). 
+The Data Lookup Service provides a centralized store for reference data, automatically updated (when applicable) from external sources (e.g. InformaDB). 
 
 The current version supports the following reference data:
 
@@ -14,8 +14,8 @@ The client library also includes validation algorithms for VAT numbers according
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.DataLookup |
-| Version | 1.0 |
-| API Versions | 1.0 |
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.DataLookup.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.DataLookup) |
 | Web UI | No |
 | Depends on | IDS |
@@ -42,5 +42,6 @@ The client library also includes validation algorithms for VAT numbers according
 
 | Documentation | Link |
 | - | - |
+| Spec | [2.0](./specs/dls-spec-2.0.md) |
 | Client Library | Not available yet |
 | Web API | Not available yet |

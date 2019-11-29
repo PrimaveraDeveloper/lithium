@@ -5,7 +5,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | Microservice | Name | Description | Spec |
 | - | - | - | - |
 | [CS](./cs.md) | Certificates Service | Allows distributing and automatically update certificates used by applications | [2.0](./specs/cs-spec-2.0.md) |
-| [DLS](./dls.md) | Data Lookup Service | Allows searching and updating reference data (e.g. VAT numbers) | --- |
+| [DLS](./dls.md) | Data Lookup Service | Allows searching and updating reference data (e.g. VAT numbers) | [2.0](./specs/dls-spec-2.0.md) |
 | [FRS](./frs.md) | Fiscal Reports Service | Allows producing fiscal reports (for Tax Authorities) from predefined models | --- |
 | [FS](./fs.md) | File Store Service | Allows sharing and automatically update files used by applications | --- |
 | [HUB](./hub.md) | Hub Service | Nanoservices that act as proxies to third-party APIs | --- |

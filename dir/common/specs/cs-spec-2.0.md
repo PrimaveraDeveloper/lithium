@@ -51,3 +51,39 @@ catch (ServiceException ex)
 ```
 
 > The `GetCertificateAsync()` operation accepts a parameter called `requiresPrivateKey` that allows specifying if the certificate is expected to include a private key. When set to true, if the certificate retrieved from the service does not include a private key, an exception will be raise (with error code `CertificateHasNoPrivateKey`).
+
+## Storage
+
+All the certificates managed by the service are stored in a secrets storage (Azure KeyVault).
+
+By default the service retrieves all certificates from a single storage set in configuration:
+
+```json
+"HostConfiguration": {
+    "SecretsStorageAddresses": [
+        {
+            "CertificateName": "*",
+            "StorageUrl": "https://myvault.vault.azure.net/"
+        }
+    ],
+}
+```
+
+This configuration allows configuring different storages based on the certificate name:
+
+```json
+"HostConfiguration": {
+    "SecretsStorageAddresses": [
+        {
+            "CertificateName": "xpto*",
+            "StorageUrl": "https://xptovault.vault.azure.net/"
+        },
+        {
+            "CertificateName": "*",
+            "StorageUrl": "https://myvault.vault.azure.net/"
+        }
+    ],
+}
+```
+
+> The `CertificateName` property supports glob patterns. The order of items under `SecretsStorageAddresses` is obviously significant and the first match with the certificate name will determine the `StorageUrl` used.
