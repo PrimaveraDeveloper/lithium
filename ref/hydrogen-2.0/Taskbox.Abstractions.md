@@ -51,7 +51,7 @@ UseData | Configures the pipebox to use the specified data.
 
 ### IPipeboxHandler
 
-The `IPipeboxHandler` interface defines the abstraction for the small tasks (also known as `Handlers`) that compose a pipeline.
+The `IPipeboxHandler` interface defines the abstraction for the small tasks (Handlers) that compose a pipeline.
 
 **Methods**
 
