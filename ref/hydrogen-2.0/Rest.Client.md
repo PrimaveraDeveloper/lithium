@@ -2,7 +2,7 @@
 
 **Class library that contains types that allow communication with REST services.**
 
-## ServiceClient
+## `ServiceClient`
 
 `ServiceClient<T>` is the base class that should be used by any service client - the entry point of a client library to communicate with the REST service.
 
@@ -16,7 +16,7 @@ This base class ensures multiple standard behaviors for the client library, like
 - Throttling.
 - Etc.
 
-## ServiceClientActions
+## `ServiceClientActions`
 
 `ServiceClientActions<T>` is used by `ServiceClient<T>` to perform the actual requests to the REST service and ensures the correct handling of every kind of action, including serialization and deserialization of responses.
 
@@ -35,7 +35,7 @@ The following methods are available:
 - `ExecutePutNoResultAsync<TRequestBody>()` - PUT with request body and without result body.
 - `ExecutePutNoResultAsync()` - PUT without request body or result body.
 
-## ServiceOperationResult
+## `ServiceOperationResult`
 
 Every operation (action) on a service client should always return a `ServiceOperationResult` or a `ServiceOperationResult<T>` (if the result has a body).
 This type will contain information both about the HTTP request and the HTTP response.
@@ -46,7 +46,7 @@ Task<ServiceOperationResult<EmployeeData>> GetEmployeeAsync(string employeeId, C
 Task<ServiceOperationResult> DeleteDepartmentAsync(string departmentId, CancellationToken cancellationToken = default)
 ```
 
-## ServiceException
+## `ServiceException`
 
 When a service operation does not return a valid response - that is, returns an unexpected status code - a `ServiceException` will be raised, including also
 information about the HTTP request and the HTTP response and the `ServiceError` returned by the operation.
@@ -75,7 +75,7 @@ Typically these credentials are defined by an instance of `ServiceClientCredenti
 
 This library provides a set of different credentials that can be used.
 
-### AccessTokenCredentials
+### `AccessTokenCredentials`
 
 `AccessTokenCredentials` allows authenticating the client application by providing the access token, previously obtained from the authority server:
 
@@ -87,7 +87,7 @@ using (MyServiceClient client = new MyServiceClient(baseUri, new AccessTokenCred
 }
 ```
 
-### ClientCredentials
+### `ClientCredentials`
 
 `ClientCredentials` allows authenticating the client application using the client credentials flow by providing the client identifier, the client secret and an optional scope. The service client will use that identity to obtain the correct access token when needed.
 
@@ -105,7 +105,7 @@ using (MyServiceClient client = new MyServiceClient(
 }
 ```
 
-### AuthenticationCallbackCredentials
+### `AuthenticationCallbackCredentials`
 
 AuthenticationCallbackCredentials allows providing a callback that will be invoked every time the service client needs to obtain the access token. Then the client application provides that access token from that callback using the arguments received (that include the address of the authority server).
 
@@ -129,7 +129,7 @@ using (MyServiceClient client = new MyServiceClient(
 }
 ```
 
-### NoCredentials
+### `NoCredentials`
 
 On some scenarios it may be useful to pass no credentials to a service client. This can be achieved by the `NoCredentials` service client credentials, like in the following example:
 
@@ -157,7 +157,7 @@ On a Web server it is common that some transient errors may occur. Transient err
 
 ServiceClient supports the notion of a retry policy to allow the client application to specify how these transient errors should be handler.
 
-### SetRetryPolicy()
+### `SetRetryPolicy()`
 
 `ServiceClient<T>.SetRetryPolicy()` allows the client application to specify which retry policy is applied for all operations.
 
