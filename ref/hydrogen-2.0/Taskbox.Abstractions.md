@@ -19,7 +19,7 @@ May not be useful when:
 
 ## Abstractions
 
-### `IPipebox`
+### IPipebox
 
 The `IPipebox` interface defines the abstraction for the engine that runs a pipeline.
 
@@ -33,7 +33,7 @@ UsePipeline | Configures the pipebox to execute the specified pipeline.
 ExecuteAsync | Executes the specified pipeline asynchronously.
 Execute | Executes the specified pipeline.
 
-### `IPipeboxContext`
+### IPipeboxContext
 
 The `IPipeBoxContext` interface defines the abstraction for the context that is processed along the pipeline execution.
 
@@ -49,7 +49,7 @@ Method | Description
 :--- | :---
 UseData | Configures the pipebox to use the specified data.
 
-### `IPipeboxHandler`
+### IPipeboxHandler
 
 The `IPipeboxHandler` interface defines the abstraction for the small tasks (also known as `Handlers`) that compose a pipeline.
 
