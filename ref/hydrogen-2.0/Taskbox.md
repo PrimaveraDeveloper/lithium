@@ -59,6 +59,100 @@ See the [IPipebox<TContext, TConfig>][REF_Taskbox_Abstractions] for more informa
 
 The `PipeboxConfig` provides the implementation of `<TConfig>`, which is the pipebox configuration that defines one or more pipelines and their corresponding handlers.
 
+**Create a Configuration**
+
+Consider the following configuration file:
+
+```json
+{
+  "version": "1.0",
+  "expressions": [
+    {
+      "pattern": "%p2p3%",
+      "value": "p2=v2; p3=v3"
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "p1", 
+      "tag": "pipeline 1",
+      "handlers": [
+        {
+          "id": "h1",
+          "tag": "handler 1",
+          "configStr": "p1=v1; %p2p3%"
+        },
+        {
+          "id": "h2",
+          "tag": "handler 2",
+          "configStr": "p1={ p11=v11; p12=v12 }; %p2p3%"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This configuration can be created at run-time, and serialized to be used later like a regular setting. See the example that loads the configuration:
+
+```csharp
+var json = File.ReadAllText("PipeboxConfig.json");
+var config = PipeboxConfig.Create(json);
+```
+
+**Missing and Default Settings**
+
+In the previous example, the `Create` method deserializes the configuration and implicitly executes two more operations:
+*  applies (regular) expression replacements to the `configStr` values
+*  applies default settings to the configuration if required values are missing
+  
+The end result is as follows:
+
+```json
+{
+  "version": "1.0",
+  "expressions": [
+    {
+      "pattern": "%p2p3%",
+      "value": "p2=v2; p3=v3"
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "p1",
+      "active": "True",
+      "tag": "pipeline 1",
+      "handlers": [
+        {
+          "id": "h1",
+          "order": "1",
+          "tag": "handler 1",
+          "type": "Primavera.Hydrogen.Taskbox.Pipeliners.DefaultPipelineHandler\u00601[[System.Object, System.Private.CoreLib]], Primavera.Hydrogen.Taskbox",
+          "configStr": "p1=v1; p2=v2; p3=v3",
+          "active": "True"
+        },
+        {
+          "id": "h2",
+          "order": "2",
+          "tag": "handler 2",
+          "type": "Primavera.Hydrogen.Taskbox.Pipeliners.DefaultPipelineHandler\u00601[[System.Object, System.Private.CoreLib]], Primavera.Hydrogen.Taskbox",
+          "configStr": "p1={ p11=v11; p12=v12 }; p2=v2; p3=v3",
+          "active": "True"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Config String**
+
+Use the handler's `configStr` to pass custom configuration for each handler. This configuration will them be parsed and strong typed into `ConfigString` that's a dictionary of key/value pairs.
+
+**Default Type**
+
+When the configuration does not defines the handler's type - the middleware class that implements that handler - it assumes the default value of `DefaultPipelineHandler`. This handler is explained with more details in the corresponding section below.
+
 ### PipeboxContext
 
 The `PipeboxContext<T>` provides the implementation of `IPipeboxContext<T>`, which is the data context that is processed along the pipeline execution.
@@ -85,6 +179,9 @@ The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineH
 
 See the [IPipelineHandler<TContext, TConfig>][REF_Taskbox_Abstractions] for more information about the interface members.
 
+
+---
+> INFO: THE FOLLOWING CONTENT NEEDS A FULL REVISION
 ---
 
 ## Workers (this content needs a full revision)
