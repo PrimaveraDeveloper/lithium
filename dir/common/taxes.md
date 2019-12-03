@@ -6,13 +6,17 @@ The current version supports the following Tax Authority services:
 
 - SII
 
+> This service provides only a client library that acts as a proxy for the Tax Authority Web services. It does not include a Web API.
+
+> This service is still under development.
+
 ## Specification
 
 | Metadata | Value |
 | - | - |
 | Namespace | --- |
-| Version | --- |
-| API Versions | 1.0 |
+| Version | 1.0 |
+| API Versions | N/A |
 | Client Library | --- |
 | Web UI | No |
 | Depends on | --- |
@@ -27,12 +31,12 @@ The current version supports the following Tax Authority services:
 
 | Environment | Available |
 | - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | --- |
-| Staging (NE) | --- |
-| Development | --- |
+| Production | N/A |
+| Preview (WE) | N/A |
+| Preview (NE) | N/A |
+| Staging (WE) | N/A |
+| Staging (NE) | N/A |
+| Development | N/A |
 
 ## Reference Documentation
 

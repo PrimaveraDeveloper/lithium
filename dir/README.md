@@ -24,7 +24,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [SM](./common/sm.md) | Service Management Service | Provides a proxy for the Service Management Service | --- |
 | [SS](./common/ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) | --- |
 | [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services | --- |
-| [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services | --- |
+| [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services | [2.0](./common/specs/taxpt-spec-2.0.md) |
 | [TBX](./common/tbx.md) | Taskbox Service | Provides asynchronous multi-task processing for applications | --- |
 | [TRG](./common/trg.md)| Triggers Service | Allows executing Web actions based on schedules | [2.0](./common/specs/trg-spec-2.0.md) |
 

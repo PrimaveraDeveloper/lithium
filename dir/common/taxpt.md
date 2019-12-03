@@ -7,39 +7,40 @@ The current version supports the following Tax Authority services:
 - Invoices
 - Dispatches
 
+> This service provides only a client library that acts as a proxy for the Tax Authority Web services. It does not include a Web API.
+
 ## Specification
 
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.TaxAuthority.Portugal |
-| Version | 1.0 |
-| API Versions | 1.0 |
+| Version | 2.0 |
+| API Versions | N/A |
 | Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal/) |
-| Web UI | No |
+| Web UI | N/A |
 | Depends on | IDS, CS |
 
 ## Scopes
 
 | Scope | Description |
 | - | - |
-| `lithium-certificates` | (*) |
-
-(*) Because the client library uses the Certificates Service.
+| `lithium-certificates` | Required to access the Certificates Service endpoints |
 
 ## Environments
 
 | Environment | Available |
 | - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | --- |
-| Staging (NE) | --- |
-| Development | --- |
+| Production | N/A |
+| Preview (WE) | N/A |
+| Preview (NE) | N/A |
+| Staging (WE) | N/A |
+| Staging (NE) | N/A |
+| Development | N/A |
 
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
+| Spec | [2.0](./specs/taxpt-spec-2.0.md) |
+| Client Library | [ClientLibDoc.gen.md (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?_a=preview&path=%24%2FLithium%2FMicroservices%2FCommon%2FTAXPT%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) |
 | Web API | Not available yet |
