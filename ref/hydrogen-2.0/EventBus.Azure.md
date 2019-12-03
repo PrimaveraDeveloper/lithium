@@ -11,10 +11,8 @@ The `AzureEventBusOptions` entity defines the configuration for both publication
 | Property                                                 | Description                                                                                                                                                                     | Optional? |
 |----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | ConnectionString                                         | The Azure Service Bus instance connection string.                                                                                                                               | No.       |
-| PublisherOptions.PublicationTopic                        | The Azure Service Bus topic that the events should be published to.                                                                                                             | No.       |
-| SubscriberOptions.SubscriptionTopic                      | The Azure Service Bus topic whose events should be subscribed.                                                                                                                  | No.       |
-| SubscriberOptions.EventHandlerOptions.AutoComplete       | Flag that defines if a received event will be marked as processed as soon as it arrives to the client.                                                                          | No.       |
-| SubscriberOptions.EventHandlerOptions.MaxConcurrentCalls | The maximum number of concurrent calls to the Azure Service Bus instance.                                                                                                       | No.       |
+| EventHandlerOptions.AutoComplete                         | Flag that defines if a received event will be marked as processed as soon as it arrives to the client.                                                                          | No.       |
+| EventHandlerOptions.MaxConcurrentCalls                   | The maximum number of concurrent calls to the Azure Service Bus instance.                                                                                                       | No.       |
 | RetryStrategy                                            | The [exponential back-off retry strategy](Core.md#retry-strategies) to be applied to the Azure Service Bus instance. If null, a default strategy will be implemented.           | Yes.      |
 | RetryStrategy.RetryCount                                 | The maximum number of retry attempts.                                                                                                                                           | Yes.      |
 | RetryStrategy.MinBackoff                                 | The minimum backoff time.                                                                                                                                                       | Yes.      |
@@ -39,11 +37,8 @@ private static IEventBus GetEventBusService()
     services.AddAzureEventBus(
         (options) =>
         {
-            AzureEventBusEventHandlerOptions eventHandlerOptions = new AzureEventBusEventHandlerOptions(false, 10);
-
             options.ConnectionString = "my-connection-string";
-            options.PublisherOptions = new AzureEventBusPublisherOptions("my-topic");
-            options.SubscriberOptions = new AzureEventBusSubscriberOptions("my-topic", eventHandlerOptions);
+            options.EventHandlerOptions = = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
             options.RetryStrategy = new ExponentialBackoffRetryStrategy();
         });
 
@@ -53,16 +48,18 @@ private static IEventBus GetEventBusService()
 
 ## Publishing an event
 
-In order to publish an event, a typed `AzureEventBusEvent` entity needs to be instantiated.
+In order to publish an event, a typed `AzureEventBusEvent` entity needs to be instantiated. The entity must be serializable through `System.Text.Json`.
 
 The respective `AzureEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `AzureEventBus` instance.
 
+If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
+
 ```csharp
 /// <summary>
-/// Publishes an event containing a versioned message.
+/// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void PublishVersionedMessageEvent(IEventBus eventBus)
+private static void BroadcastVersionedMessageEvent(IEventBus eventBus)
 {
     string myMessage = "Hack the planet!";
 
@@ -128,7 +125,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 }
 ```
 
-An instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBus` instance to be properly registered.
+The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBus` instance.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -144,13 +141,13 @@ private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Subscribe(messageEventHandler, messageFilters);
+    eventBus.Subscribe("my-path", messageEventHandler, messageFilters);
 }
 ```
 
 ## Unsubscribing from events
 
-Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBus` with the respective `T`. 
+Unsubscribing from an event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBus` with the subscription source path and the respective `T`. 
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -165,6 +162,6 @@ private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Unsubscribe(messageFilters);
+    eventBus.Unsubscribe("my-path", messageFilters);
 }
 ```
