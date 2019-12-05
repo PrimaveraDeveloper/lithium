@@ -23,12 +23,14 @@ In order to publish an event, a typed `InMemoryEventBusEvent` entity needs to be
 
 The respective `InMemoryEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `InMemoryEventBus` instance.
 
+If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
+
 ```csharp
 /// <summary>
-/// Publishes an event containing a versioned message.
+/// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void PublishVersionedMessageEvent(IEventBus eventBus)
+private static void BroadcastVersionedMessageEvent(IEventBus eventBus)
 {
     string myMessage = "Hack the planet!";
 
@@ -39,7 +41,7 @@ private static void PublishVersionedMessageEvent(IEventBus eventBus)
 
     @event.Properties.Add("Version", "1");
 
-    await eventBus.Publish(@event);
+    eventBus.Publish(@event);
 }
 ```
 
@@ -94,7 +96,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 }
 ```
 
-An instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBus` instance to be properly registered.
+The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBus` instance.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -106,17 +108,17 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
 {
     IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
-    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
+    IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Subscribe(messageEventHandler, messageFilters);
+    eventBus.Subscribe("my-path", messageEventHandler, messageFilters);
 }
 ```
 
 ## Unsubscribing from events
 
-Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBus` with the respective `T` type.
+Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBus` with the with the subscription source path and respective `T` type.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -127,10 +129,10 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// <param name="eventBus">The event bus.</param>
 private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
 {
-    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
+    IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Unsubscribe(messageFilters);
+    eventBus.Unsubscribe("my-path", messageFilters);
 }
 ```
