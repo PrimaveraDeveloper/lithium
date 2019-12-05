@@ -18,7 +18,7 @@ This base class ensures multiple standard behaviors for the client library, like
 
 ## `ServiceClientActions`
 
-`ServiceClientActions<T>` is used by `ServiceClient<T>` to perform the actual requests to the REST service and ensures the correct handling of every kind of action, including serialization and deserialization of responses.
+`ServiceClientActions<T>` is used by `ServiceClient<T>` to perform the actual requests to the REST service and ensures the correct handling of every kind of action, including serialization or requests and deserialization of responses.
 
 The following methods are available:
 
@@ -41,28 +41,36 @@ Every operation (action) on a service client should always return a `ServiceOper
 This type will contain information both about the HTTP request and the HTTP response.
 
 ```csharp
-Task<ServiceOperationResult<EmployeeData>> GetEmployeeAsync(string employeeId, CancellationToken cancellationToken = default)
+Task<ServiceOperationResult<EmployeeData>> GetEmployeeAsync(
+    string employeeId, 
+    CancellationToken cancellationToken = default)
 
-Task<ServiceOperationResult> DeleteDepartmentAsync(string departmentId, CancellationToken cancellationToken = default)
+Task<ServiceOperationResult> DeleteDepartmentAsync(
+    string departmentId, 
+    CancellationToken cancellationToken = default)
 ```
 
 ## `ServiceException`
 
-When a service operation does not return a valid response - that is, returns an unexpected status code - a `ServiceException` will be raised, including also
-information about the HTTP request and the HTTP response and the `ServiceError` returned by the operation.
+When a service operation does not return a valid response - it returns an unexpected status code - a `ServiceException` will be raised, including also information about the HTTP request and the HTTP response and the `ServiceError` returned by the operation.
 
 This means that using the service client to call a service operation requires a specific pattern to handle the possible exceptions:
 
 ```csharp
 try
 {
-    ServiceOperationResult<EmployeeData> result = await client.GetEmployeeAsync("id").ConfigureAwait(false);
+    ServiceOperationResult<EmployeeData> result = await client
+        .GetEmployeeAsync("id")
+        .ConfigureAwait(false);
+    
     EmployeeData employee = result.Body;
+    
     // (...)
 }
 catch (ServiceException ex)
 {
     ServiceError error = ex.Body;
+    
     // (...)
 }
 ```
@@ -105,11 +113,26 @@ using (MyServiceClient client = new MyServiceClient(
 }
 ```
 
+```csharp
+using (MyServiceClient client = new MyServiceClient(
+    baseUri,
+    ClientCredentials
+        .ForAllScopes(
+            authorityServerUri,
+            clientId,
+            clientSecret))
+{
+    // (...)
+}
+```
+
 ### `AuthenticationCallbackCredentials`
 
-AuthenticationCallbackCredentials allows providing a callback that will be invoked every time the service client needs to obtain the access token. Then the client application provides that access token from that callback using the arguments received (that include the address of the authority server).
+`AuthenticationCallbackCredentials` allows providing a callback that will be invoked every time the service client needs to obtain the access token. 
 
-This form of specifying the service client credentials has the benefit of not requiring the client application to know the address of the authority server in advance (and, depending on how the REST service is configure, not even knowing the scopes required to use each specific service operation).
+The client application then provides the access token from that callback using the arguments received (that include the address of the authority server).
+
+This form of specifying the service client credentials has the benefit of not requiring the client application to know the address of the authority server in advance. More, depending on how the REST service is configured, the client application may not even be required to know (hard-code) the scopes required to use each specific service operation).
 
 ```csharp
 using (MyServiceClient client = new MyServiceClient(
@@ -131,7 +154,7 @@ using (MyServiceClient client = new MyServiceClient(
 
 ### `NoCredentials`
 
-On some scenarios it may be useful to pass no credentials to a service client. This can be achieved by the `NoCredentials` service client credentials, like in the following example:
+On some scenarios it may be useful to pass void to a service client. This can be achieved by the `NoCredentials` service client credentials, like in the following example:
 
 ```csharp
 using (MyServiceClient client = new MyServiceClient(baseUri, ServiceClientCredentials.NoCredentials)
@@ -142,26 +165,27 @@ using (MyServiceClient client = new MyServiceClient(baseUri, ServiceClientCreden
 
 ## Serialization
 
-Request body and response bodies in a REST service are serialized to JSON. The current version of Hydrogen uses the `System.Text.Json` libraries
-to perform serialization and deserialization and those operations are controlled by the options set in the `ServiceClient<T>` (`SerializationOptions` and `DeserializationOptions`).
+Request body and response bodies in a REST service are serialized to JSON.
+
+The current version of Hydrogen uses the `System.Text.Json` libraries to perform serialization and deserialization and those operations are controlled by the options set in the `ServiceClient<T>` (`SerializationOptions` and `DeserializationOptions`).
 
 The default behavior for serialization is implemented in `HttpRequestMessageExtensions.AddJsonContent()`.
 
 The default behavior for deserialization is implemented in `ServiceClientActions.DeserializeResponseAsync()`.
 
-> The current version of `System.Text.Json` does not support `TimeSpan` values by default. That is why the default `SerializationOptions` and `DeserializationOptions` add two custom converters (`Iso8601TimeSpanConverter` and `Iso8601TimeSpanNullableConverter`). These converter also need to be configured on the REST service server, using `RestApiMvcBuilderExtensions.AddJsonOptionsForWebApi()`.
+> The current version of `System.Text.Json` does not support `TimeSpan` values by default. That is why the default `SerializationOptions` and `DeserializationOptions` add two custom converters (`Iso8601TimeSpanConverter` and `Iso8601TimeSpanNullableConverter`). These converters also need to be configured on the REST service server, using `RestApiMvcBuilderExtensions.AddJsonOptionsForWebApi()`.
 
 ## Transient Faults
 
-On a Web server it is common that some transient errors may occur. Transient errors are those that may occur in a point in time but will repeat if the request is retried.
+On a Web server it is common that some transient errors may occur. Transient errors are those that may occur in a point in time but will not repeat if the request is retried.
 
-ServiceClient supports the notion of a retry policy to allow the client application to specify how these transient errors should be handler.
+`ServiceClient` supports the notion of a retry policy to allow the client application to specify how these transient errors should be handled.
 
 ### `SetRetryPolicy()`
 
 `ServiceClient<T>.SetRetryPolicy()` allows the client application to specify which retry policy is applied for all operations.
 
-By default, the service client will be configured to use `ExponentialBackoffRetryStrategy` retry strategy with the `HttpStatusCodeErrorDetectionStrategy` error detection strategy.
+By default, the service client will be configured to use the `ExponentialBackoffRetryStrategy` retry strategy with the `HttpStatusCodeErrorDetectionStrategy` error detection strategy.
 
 For more information on the retry strategies and error detection strategies available, see the documentation on `Primavera.Hydrogen.Policies`.
 
