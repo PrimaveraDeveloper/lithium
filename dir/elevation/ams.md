@@ -11,7 +11,7 @@ The Account Management Service allows menaging subscriptions and provides onboar
 | API Versions | 1.0 |
 | Client Library | Not available yet |
 | Web UI | Yes |
-| Depends on | IDS | SMS |
+| Depends on | IDS, SMS |
 
 ## Scopes
 
