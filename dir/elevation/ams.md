@@ -1,6 +1,6 @@
 # Account Management Service (AMS)
 
-The Account Management Service allows menaging subscriptions and provides onboarding and subscription selection, to products.
+The Account Management Service allows managing subscriptions and provides onboarding and subscription selection to products.
 
 ## Specification
 
@@ -11,7 +11,7 @@ The Account Management Service allows menaging subscriptions and provides onboar
 | API Versions | 1.0 |
 | Client Library | Not available yet |
 | Web UI | Yes |
-| Depends on | IDS, SMS |
+| Depends on | IDS, SM |
 
 ## Scopes
 
@@ -24,8 +24,10 @@ The Account Management Service allows menaging subscriptions and provides onboar
 | Environment | Available |
 | - | - |
 | Production | Yes |
-| Preview | Yes |
-| Staging | Yes |
+| Preview (WE) | Yes |
+| Preview (NE) | --- |
+| Staging (WE) | Yes |
+| Staging (NE) | --- |
 | Development | Yes |
 
 ## Reference Documentation
