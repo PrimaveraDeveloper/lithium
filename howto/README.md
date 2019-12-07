@@ -22,9 +22,9 @@ This chapter includes "how to" guides to help the development with the Lithium F
 - How to **define complex actions** on microservices
 - How to **add complex models** to microservices
 - How to **define validation rules** on microservices models and actions parameters
-- How to add **support for distributed caching** to a microservice
-- How to add **support for Table Storage** to a microservice
-- How to add **support for Blob Storage** to a microservice
+- [How to add **support for distributed caching** to a microservice](./howto-add-distributed-cache.md)
+- [How to add **support for Table Storage** to a microservice](./howto-add-table-storage.md)
+- [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - How to **specify documentation** on a microservice
 - How to **add a background service** to a microservice
 - How to **define multiple scopes** in a microservice
