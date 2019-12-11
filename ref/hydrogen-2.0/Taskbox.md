@@ -20,8 +20,8 @@ using System.Text.Json;
 
 // Arrange the pipebox configuration
 
-var json = File.ReadAllText("PipeboxConfig.json");
-var config = PipeboxConfig.Create(json);
+string json = File.ReadAllText("PipeboxConfig.json");
+PipeboxConfig config = PipeboxConfig.Create(json);
 
 // Arrange the service provider
 
@@ -31,14 +31,15 @@ var provider = services.BuildServiceProvider();
 
 // Arrange the pipebox context
 
-var data = "Hello";
-using var context = new PipeboxContext<string>();
-context.UseData(data);
+string data = "Hello";
+using var context = new PipeboxContext<string>(data);
 
 // Arrange the pipebox engine
 
 using var pipebox = new Pipebox<string>();
-pipebox.UseProvider(provider).UseConfig(config).UsePipeline("p1");
+pipebox.UseProvider(provider)
+       .UseConfig(config)
+       .UsePipeline("p1");
 
 // Run the pipebox to execute the pipeline "p1"
 
@@ -76,6 +77,7 @@ Consider the following configuration file:
     {
       "id": "p1", 
       "tag": "pipeline 1",
+      "configStr": "[{\"p1\":\"v1\"},{\"p2\":\"v2\"}]",      
       "handlers": [
         {
           "id": "h1",
@@ -93,11 +95,11 @@ Consider the following configuration file:
 }
 ```
 
-This configuration can be created at run-time, and serialized to be used later like a regular setting. See the example that loads the configuration:
+This configuration can be created at run time and serialized for later use like any other application setting. See the example that loads the configuration:
 
 ```csharp
-var json = File.ReadAllText("PipeboxConfig.json");
-var config = PipeboxConfig.Create(json);
+string json = File.ReadAllText("PipeboxConfig.json");
+PipeboxConfig config = PipeboxConfig.Create(json);
 ```
 
 **Missing and Default Settings**
@@ -122,6 +124,7 @@ The end result is as follows:
       "id": "p1",
       "active": "True",
       "tag": "pipeline 1",
+      "configStr": "[{\"p1\":\"v1\"},{\"p2\":\"v2\"}]",
       "handlers": [
         {
           "id": "h1",
@@ -145,9 +148,41 @@ The end result is as follows:
 }
 ```
 
-**Config String**
+**Configuration String**
 
-Use the handler's `configStr` to pass custom configuration for each handler. This configuration will them be parsed and strong typed into `ConfigString` that's a dictionary of key/value pairs.
+The `configStr` property is used to set the custom configuration of pipelines and handlers in a format that only their implementation knows. Still, there are two known formats that are easily supported:
+
+Using the `ConfigString` class (dictionary of key/value pairs):
+
+```csharp
+// For the configuration string
+string configStr = "p1=v1; p2={ p21=v21; p22=v22 }; p3=v3";
+
+// Create the configuration string objet
+var config = new ConfigString(configStr);
+
+// Get the value of p1
+string p1 = config.GetValue<string>("p1");
+
+// Get the value of p2
+ConfigStr p2 = config.GetValue<ConfigString>("p2");
+string p21 = config.GetValue<string>("p21");
+string p22 = config.GetValue<string>("p22");
+
+// Get the value of p3
+string p1 = config.GetValue<string>("p3");
+```
+
+Using a stringified JSON:
+
+```csharp
+// For the stringified JSON
+string configStr = "[{\"p1\":\"v1\"},{\"p2\":\"v2\"}]"
+
+// Create the JSON document
+var jsonDoc = JsonDocument.Parse(configStr);
+var jsonText = jsonDoc.RootElement.GetRawText();
+```
 
 **Default Type**
 
@@ -179,9 +214,7 @@ The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineH
 
 See the [IPipelineHandler<TContext, TConfig>][REF_Taskbox_Abstractions] for more information about the interface members.
 
-
 ## Pipebox Workers
-
 
 ### `IPipeboxWorkersManager`
 The `IPipeboxWorkersManager` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
