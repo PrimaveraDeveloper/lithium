@@ -183,6 +183,8 @@ public class Startup
 }
 ```
 
+> Route Analyzer should on be active on the development environment.
+
 After this the default route analyzer route (`/.routes`) will product a JSON output like the following:
 
 ```json
@@ -229,10 +231,259 @@ After this the default route analyzer route (`/.routes`) will product a JSON out
     "actionName": "Employees.GetEmployee",
     "displayName": "Primavera.Hydrogen.AspNetCore.Tests.Controllers.EmployeesApiController.GetEmployee (Primavera.Hydrogen.AspNetCore.Tests)"
   }
+  (...)
 ]
 ```
 
 > You can customize the route analyzer route by passing a different `route` value to `MapRouteAnalyzer()`.
+
+## Configuration
+
+### Configuration Analyzer
+
+Configuration Analyzer allows retrieving information about the active configuration options in an application.
+
+You can map a route that will output the result of configuration analyzer as JSON.
+
+`ConfigurationAnalyzerIEndpointRouteBuilderExtensions` allows that using `MapConfigurationAnalyzer()` like this:
+
+```csharp
+public class Startup
+{
+    // (...)
+
+    public void Configure(IApplicationBuilder app)
+    {
+        // (...)
+        app.UseRouting();
+        // (...)
+        app.UseEndpoints(
+            (endpoints) =>
+            {
+                // (...)
+                endpoints.MapConfigurationAnalyzer();
+            });
+    }
+}
+```
+
+> Configuration Analyzer should on be active on the development environment.
+
+After this the default configuration analyzer route (`/.config`) will product a JSON output like the following, containing a dictionary with all the active configuration options:
+
+```json
+[
+  {
+    "Key": "ALLUSERSPROFILE",
+    "Value": "C:\\ProgramData"
+  },
+  {
+    "Key": "APPDATA",
+    "Value": "C:\\Users\\machine\\AppData\\Roaming"
+  },
+  {
+    "Key": "applicationName",
+    "Value": "Primavera.Lithium.Settings.WebApi"
+  },
+  {
+    "Key": "ASPNETCORE_ENVIRONMENT",
+    "Value": "Development"
+  },
+  {
+    "Key": "ASPNETCORE_URLS",
+    "Value": "http://localhost:20000/"
+  },
+  (...)
+]
+```
+
+> You can customize the configuration analyzer route by passing a different `route` value to `MapConfigurationAnalyzer()`.
+
+## Hosting
+
+### Background Services
+
+For more information on ASP.NET Core hosted services: [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services).
+
+#### Simple Background Services
+
+`BackgroundService` allows defining a simple background service that starts when the host starts, executed immediately and is stopped gracefully when the host stops.
+
+The code that corresponds to the background service should be implemented in `ExecuteAsync()`. `StartAsync()` and `StopAsync()` are already implemented but can be overridden.
+
+```csharp
+public class MyBackgroundService : BackgroundService
+{
+    protected override Task ExecuteAsync(CancellationToken cancellationToken)
+    {
+        // (do work)
+    }
+}
+```
+
+This kind of background services should be registered in the application startup using the extension methods available in `BackgroundServicesServiceCollectionExtensions`:
+
+```csharp
+services.AddBackgroundService<MyBackgroundService();
+```
+
+#### Timed Background Services
+
+`TimedBackgroundService` allows building timed background services, which are background services that execute work repeatedly, with a wait interval between executions, until their are stopped.
+
+The actual work should be implemented in `ExecuteWorkAsync`:
+
+```csharp
+public class MyTimedBackgroundService : TimedBackgroundService
+{
+    protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
+    {
+        // (do work)
+    }
+}
+```
+
+The wait interval needs to be defined in the `WaitPeriod` property:
+
+```csharp
+public class MyTimedBackgroundService : TimedBackgroundService
+{
+    public override TimeSpan WaitPeriod
+    {
+        get
+        {
+            return TimeSpan.FromSeconds(1);
+        }
+    }
+}
+```
+
+Timed background services should be registered like this:
+
+```csharp
+services.AddBackgroundServiceTimed<MyTimedBackgroundService();
+```
+
+#### Queued Background Services
+
+`QueuedBackgroundService<TWorkItem>` allows building background services that execute work when work items become available in a queue. This is particularlly useful when you want to
+have the background service act on response of some event hapenning in the application. The work item itself can be a class of any kind and can be used to pass in contextual data to drive the execution of the background service.
+
+The actual work should be implemented in ExecuteWorkAsync:
+
+```csharp
+public class MyQueuedBackgroundService : QueuedBackgroundService<string>
+{
+    protected override Task ExecuteWorkAsync(string workItem, CancellationToken cancellationToken)
+    {
+        // (do work)
+    }
+}
+```
+
+The background service requires a queue to get its work items. This is defined in the Queue property and tipically (not necessarilly) it should be provided via dependency injection (to allow the external sources to queue work items):
+
+```csharp
+public class MyQueuedBackgroundService : QueuedBackgroundService<string>
+{
+    public override IBackgroundWorkQueue<string> Queue
+    {
+        get
+        {
+            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<string>>();
+        }
+    }
+}
+```
+
+Queued background services should be registered like this:
+
+```csharp
+services.AddBackgroundServiceQueued<MyQueuedBackgroundService, string>();
+```
+
+#### Background Workers
+
+Background workers allow "sharing" the code that executes work between different background services.
+
+A worker is any class derived from `BackgroundWorker`:
+
+```csharp
+public class MyWorker : BackgroundWorker
+{
+    public override Task ExecuteAsync(CancellationToken cancellationToken)
+    {
+        // (do work)
+    }
+}
+```
+
+This concept allows creating timed and queued background services that share a common background worker. The following base classes allow defining background services with workers:
+
+- `BackgroundServiceWithWorker<TWorker>`
+- `TimedBackgroundServiceWithWorker<TWorker>`
+- `QueuedBackgroundServiceWithWorker<TWorker>`
+
+The extension methods for IServiceCollection are:
+
+- `AddBackgroundServiceWithWorker<TBackgroundService, TBackgroundWorker>()`
+- `AddBackgroundServiceTimedWithWorker<TTimedBackgroundService, TBackgroundWorker>()`
+- `AddBackgroundServiceQueuedWithWorker<TQueuedBackgroundService, TBackgroundWorker>()`
+
+Here is an example:
+
+```csharp
+public class BackgroundServiceTimed : TimedBackgroundService
+{
+    public override TimeSpan WaitPeriod
+    {
+        get
+        {
+            return TimeSpan.FromSeconds(1);
+        }
+    }
+
+    private IBackgroundWorkQueue<MyWorker> Queue
+    {
+        get
+        {
+            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<MyWorker>>();
+        }
+    }
+
+    protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
+    {
+        MyWorker worker = this.ServiceProvider.GetRequiredService<MyWorker>();
+
+        this.Queue.Enqueue(worker);
+
+        return Task.CompletedTask;
+    }
+}
+
+public class BackgroundServiceQueued : QueuedBackgroundServiceWithWorker<MyWorker>
+{
+    public override IBackgroundWorkQueue<MyWorker> Queue
+    {
+        get
+        {
+            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<MyWorker>>();
+        }
+    }
+}
+```
+
+In this example, the services would be registered like in this:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<MyWorker>();
+    services.AddSingleton<IBackgroundWorkQueue<MyWorker>>(new BackgroundWorkQueue<MyWorker>());
+    services.AddBackgroundServiceTimed<BackgroundServiceTimed>();
+    services.AddBackgroundServiceQueuedWithWorker<BackgroundServiceQueued, MyWorker>();
+}
+```
 
 ## Throttling
 
@@ -441,189 +692,3 @@ services
 ```
 
 > `MyThrottlingHandler` needs to implement `IThrottlingHandler`.
-
-## Hosting
-
-### Background Services
-
-For more information on ASP.NET Core hosted services: [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services).
-
-#### Simple Background Services
-
-`BackgroundService` allows defining a simple background service that starts when the host starts, executed immediately and is stopped gracefully when the host stops.
-
-The code that corresponds to the background service should be implemented in `ExecuteAsync()`. `StartAsync()` and `StopAsync()` are already implemented but can be overridden.
-
-```csharp
-public class MyBackgroundService : BackgroundService
-{
-    protected override Task ExecuteAsync(CancellationToken cancellationToken)
-    {
-        // (do work)
-    }
-}
-```
-
-This kind of background services should be registered in the application startup using the extension methods available in `BackgroundServicesServiceCollectionExtensions`:
-
-```csharp
-services.AddBackgroundService<MyBackgroundService();
-```
-
-#### Timed Background Services
-
-`TimedBackgroundService` allows building timed background services, which are background services that execute work repeatedly, with a wait interval between executions, until their are stopped.
-
-The actual work should be implemented in `ExecuteWorkAsync`:
-
-```csharp
-public class MyTimedBackgroundService : TimedBackgroundService
-{
-    protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
-    {
-        // (do work)
-    }
-}
-```
-
-The wait interval needs to be defined in the `WaitPeriod` property:
-
-```csharp
-public class MyTimedBackgroundService : TimedBackgroundService
-{
-    public override TimeSpan WaitPeriod
-    {
-        get
-        {
-            return TimeSpan.FromSeconds(1);
-        }
-    }
-}
-```
-
-Timed background services should be registered like this:
-
-```csharp
-services.AddBackgroundServiceTimed<MyTimedBackgroundService();
-```
-
-#### Queued Background Services
-
-`QueuedBackgroundService<TWorkItem>` allows building background services that execute work when work items become available in a queue. This is particularlly useful when you want to
-have the background service act on response of some event hapenning in the application. The work item itself can be a class of any kind and can be used to pass in contextual data to drive the execution of the background service.
-
-The actual work should be implemented in ExecuteWorkAsync:
-
-```csharp
-public class MyQueuedBackgroundService : QueuedBackgroundService<string>
-{
-    protected override Task ExecuteWorkAsync(string workItem, CancellationToken cancellationToken)
-    {
-        // (do work)
-    }
-}
-```
-
-The background service requires a queue to get its work items. This is defined in the Queue property and tipically (not necessarilly) it should be provided via dependency injection (to allow the external sources to queue work items):
-
-```csharp
-public class MyQueuedBackgroundService : QueuedBackgroundService<string>
-{
-    public override IBackgroundWorkQueue<string> Queue
-    {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<string>>();
-        }
-    }
-}
-```
-
-Queued background services should be registered like this:
-
-```csharp
-services.AddBackgroundServiceQueued<MyQueuedBackgroundService, string>();
-```
-
-#### Background Workers
-
-Background workers allow "sharing" the code that executes work between different background services.
-
-A worker is any class derived from `BackgroundWorker`:
-
-```csharp
-public class MyWorker : BackgroundWorker
-{
-    public override Task ExecuteAsync(CancellationToken cancellationToken)
-    {
-        // (do work)
-    }
-}
-```
-
-This concept allows creating timed and queued background services that share a common background worker. The following base classes allow defining background services with workers:
-
-- `BackgroundServiceWithWorker<TWorker>`
-- `TimedBackgroundServiceWithWorker<TWorker>`
-- `QueuedBackgroundServiceWithWorker<TWorker>`
-
-The extension methods for IServiceCollection are:
-
-- `AddBackgroundServiceWithWorker<TBackgroundService, TBackgroundWorker>()`
-- `AddBackgroundServiceTimedWithWorker<TTimedBackgroundService, TBackgroundWorker>()`
-- `AddBackgroundServiceQueuedWithWorker<TQueuedBackgroundService, TBackgroundWorker>()`
-
-Here is an example:
-
-```csharp
-public class BackgroundServiceTimed : TimedBackgroundService
-{
-    public override TimeSpan WaitPeriod
-    {
-        get
-        {
-            return TimeSpan.FromSeconds(1);
-        }
-    }
-
-    private IBackgroundWorkQueue<MyWorker> Queue
-    {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<MyWorker>>();
-        }
-    }
-
-    protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
-    {
-        MyWorker worker = this.ServiceProvider.GetRequiredService<MyWorker>();
-
-        this.Queue.Enqueue(worker);
-
-        return Task.CompletedTask;
-    }
-}
-
-public class BackgroundServiceQueued : QueuedBackgroundServiceWithWorker<MyWorker>
-{
-    public override IBackgroundWorkQueue<MyWorker> Queue
-    {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<MyWorker>>();
-        }
-    }
-}
-```
-
-In this example, the services would be registered like in this:
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddTransient<MyWorker>();
-    services.AddSingleton<IBackgroundWorkQueue<MyWorker>>(new BackgroundWorkQueue<MyWorker>());
-    services.AddBackgroundServiceTimed<BackgroundServiceTimed>();
-    services.AddBackgroundServiceQueuedWithWorker<BackgroundServiceQueued, MyWorker>();
-}
-```
