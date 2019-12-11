@@ -231,7 +231,6 @@ After this the default route analyzer route (`/.routes`) will product a JSON out
     "actionName": "Employees.GetEmployee",
     "displayName": "Primavera.Hydrogen.AspNetCore.Tests.Controllers.EmployeesApiController.GetEmployee (Primavera.Hydrogen.AspNetCore.Tests)"
   }
-  // (...)
 ]
 ```
 
@@ -293,7 +292,6 @@ After this the default configuration analyzer route (`/.config`) will product a 
     "Key": "ASPNETCORE_URLS",
     "Value": "http://localhost:20000/"
   },
-  // (...)
 ]
 ```
 
