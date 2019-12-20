@@ -38,7 +38,7 @@ private static IEventBus GetEventBusService()
         (options) =>
         {
             options.ConnectionString = "my-connection-string";
-            options.EventHandlerOptions = = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
+            options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
             options.RetryStrategy = new ExponentialBackoffRetryStrategy();
         });
 
