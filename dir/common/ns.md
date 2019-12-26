@@ -2,7 +2,7 @@
 
 The Notifications Service allows sending email notifications and SMS notifications, based on templates, to a set of receivers.
 
-The templates are defined previously and set the sender of notifications, priorities, and the notification contents (subject, body, etc.).
+The templates should be defined previously and define the notification properties (the sender, priority, subject, body, etc.).
 
 ## Specification
 
@@ -36,5 +36,6 @@ The templates are defined previously and set the sender of notifications, priori
 
 | Documentation | Link |
 | - | - |
+| Spec | [2.0](./specs/ns-spec-2.0.md) |
 | Client Library | Not available yet |
 | Web API | Not available yet |

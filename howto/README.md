@@ -24,7 +24,7 @@ This chapter includes "how to" guides to help the development with the Lithium F
 - How to **specify documentation** on a microservice
 - How to **setup authorization** in a microservice
 
-## Adding custom Code to a microservice
+## Adding custom code to a microservice
 
 - [How is **code generated** for a microservice](./howto-generated-code.md)
 - [How to **add custom code** to a microservice](./howto-add-custom-code.md)

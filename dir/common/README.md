@@ -10,7 +10,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [FS](./fs.md) | File Store Service | Allows sharing and automatically update files used by applications | --- |
 | [HUB](./hub.md) | Hub Service | Nanoservices that act as proxies to third-party APIs | --- |
 | [IDS](./ids.md) | Identity Server | Provides identity management (user authentication and client applications authorization) for applications and microservices | --- |
-| [NS](./ns.md) | Notifications Service | Allows sending email and SMS notifications using templates | --- |
+| [NS](./ns.md) | Notifications Service | Allows sending email and SMS notifications using templates | [2.0](./specs/ns-spec-2.0.md) |
 | [NTR](./ntr.md) | Nitrogen Service | Supports the app store for cloud products | --- |
 | [PNS](./pns.md) | Push Notifications Service | Allows receive, store and broadcast notifications to the connected clients. | --- |
 | [SM](./sm.md) | Service Management Service | Provides a proxy for the Service Management Service | --- |
