@@ -28,14 +28,14 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 - [How is **code generated** for a microservice](./howto-generated-code.md)
 - [How to **add custom code** to a microservice](./howto-add-custom-code.md)
-- How to **add custom application settings**
+- [How to **add custom application settings**](./howto-add-custom-appsettings.md)
 
 ## Adding features to a micro service
 
 - [How to add **support for distributed caching** to a microservice](./howto-add-distributed-cache.md)
 - [How to add **support for Table Storage** to a microservice](./howto-add-table-storage.md)
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
-- How to **add a background service** to a microservice
+- [How to **add a background service** to a microservice](./howto-add-background-service.md)
 - How to **add support for user interface** to a microservice
 
 ## Testing a microservice

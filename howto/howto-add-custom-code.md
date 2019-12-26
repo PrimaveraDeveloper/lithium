@@ -30,7 +30,7 @@ Typically, the `CustomCode` folder will contain folders like these:
 
 ## Overriding Generated Code
 
-To override generated code, you create a partial class/interface under the CustomCode folder with the name of the derived class (e.g. MonitoringController) and implement the overridden methods.
+To override generated code, you create a partial class/interface under the `CustomCode` folder with the name of the derived class (e.g. `MonitoringController`) and implement the overridden methods.
 
 Example:
 
