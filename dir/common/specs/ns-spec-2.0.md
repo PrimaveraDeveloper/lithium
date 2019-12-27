@@ -216,6 +216,7 @@ An email notification may have the following states:
 - `Queued` - the notification is queued to be sent.
 - `Sent` - the notification has been sent to the receiver.
 - `Failed` - the notification could not be sent to the receiver.
+- `Canceled` - the notification was canceled.
 
 Then it sends SMS notifications using a SMS gateway.
 
@@ -227,6 +228,7 @@ A SMS notification may have the following states:
 - `Sending` - the notification has been transmitted to the SMS gateway but there is no information yet about if it has been sent to the receiver.
 - `Sent` - the notification has been sent to the receiver by the SMS gateway.
 - `Failed` - the notification could not be sent to the receiver.
+- `Canceled` - the notification was canceled.
 
 ## Configuration
 

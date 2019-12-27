@@ -21,7 +21,7 @@ This chapter includes "how to" guides to help the development with the Lithium F
 - [How to **add complex models** to microservices](./howto-add-complex-models.md)
 - [How to **define complex actions** on microservices](./howto-add-complex-actions.md)
 - [How to **define validation rules** on microservices models and actions parameters](./howto-define-validation-rules.md)
-- How to **specify documentation** on a microservice
+- [How to **specify documentation** on a microservice](./howto-specify-documentation.md)
 - How to **setup authorization** in a microservice
 
 ## Adding custom code to a microservice
@@ -40,8 +40,8 @@ This chapter includes "how to" guides to help the development with the Lithium F
 
 ## Testing a microservice
 
-- How to **create unit tests** for a microservice
-- How to **create integration tests** for a microservice
+- [How to **create unit tests** for a microservice](./howto-create-unit-tests.md)
+- [How to **create integration tests** for a microservice](./howto-create-integration-tests.md)
 
 ## Deploying a microservice
 
