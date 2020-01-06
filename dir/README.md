@@ -1,8 +1,8 @@
 # Services Directory
 
-This chapter includes reference a directory of all the Lithium microservices available.
+This chapter includes a directory of all the Lithium microservices available.
 
-Microservices are classified, for the purpose of logical organization, in categories.
+The microservices are classified, for the purpose of logical organization, in categories.
 
 ## Categories
 

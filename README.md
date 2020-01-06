@@ -8,7 +8,7 @@ This documentation includes information about the vision and architectural princ
 
 It is a work in progress.
 
-## Project Structure
+## Documentation Structure
 
 This project is structured in a way that reflects the different kinds of documentation available.
 
@@ -21,11 +21,13 @@ Currently it contains the following chapters:
 - [**dir**](./dir/README.md) - a directory of all the microservices currently available.
 - [**ref**](./ref/README.md) - reference documentation for all the framework components, including the SDK, Hydrogen, and other packages.
 
+## Jump Start
+
+If you wish to start developing a microservice while going through the documentation, start with the [howto](./howto/README.md) and [samples](./samples/README.md) sections. You will need to [setup your machine](./howto-setup-devopment-environment.md) before using the Lithium SDK.
+
 ## Major Releases
 
-The current version of the Lithium Framework is version 2.0.
-
-The major releases were the following.
+The current version of the Lithium Framework is **version 2.0**.
 
 ### Lithium 2.0
 
@@ -35,7 +37,7 @@ Given the changes in .NET Core, this release includes various changes in the cod
 
 ### Lithium 1.0
 
-This was the first release of the framework that evolved for almost 2 years since 2017. It supported the development of microservices on .NET Core 2.0 and Visual Studio 2017.
+This was the first release of the framework that evolved for almost 2 years since 2018. It supported the development of microservices on .NET Core 2.0 and Visual Studio 2017.
 
 ## Contributing and Feedback
 

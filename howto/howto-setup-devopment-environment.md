@@ -2,7 +2,7 @@
 
 This guide describes how development environments need to be configured to use the Lithium Framework. 
 
-To use the Lithium Framework to its full extent you will the following components installed in the development machine.
+To use the Lithium Framework to its full extent you will need the following components installed in the development machine.
 
 ## Visual Studio 2019
 
@@ -21,7 +21,7 @@ The following workloads and components are required:
 
 ## Lithium SDK
 
-Install the **latest version of the Lithium SDK** using the setup available.
+Install the **latest version of the Lithium SDK** using the setup available in the internal storage.
 
 After installed, two new extensions with the following names should be available in Visual Studio 2019:
 

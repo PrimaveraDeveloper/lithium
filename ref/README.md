@@ -1,6 +1,6 @@
 # Documentation Reference
 
-This chapter includes reference documentation about most the framework components.
+This chapter includes reference documentation about most of the framework components.
 
 ## Libraries
 

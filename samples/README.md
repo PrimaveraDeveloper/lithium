@@ -1,6 +1,6 @@
 # Samples
 
-This chapter includes samples to jump start the development with the Lithium Framework.
+This chapter includes samples to jump start the development of microservices using the Lithium Framework.
 
 ## Sample Projects
 

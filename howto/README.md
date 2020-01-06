@@ -1,8 +1,8 @@
 # How To...
 
-This chapter includes "how to" guides to help the development with the Lithium Framework.
+This chapter includes "how to" guides to help developing microservices with the Lithium Framework.
 
-> The guides without a link are not yet available.
+> The guides without link are not yet available. If you want to suggest new guides, please use the Issues section.
 
 ## Development environment
 
