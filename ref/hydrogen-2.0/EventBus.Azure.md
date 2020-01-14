@@ -54,6 +54,10 @@ The respective `AzureEventBusEvent` entity should then be passed as an argument 
 
 If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
 
+![Unicasting scenario](_assets/azure-eventbus-unicasting.png)
+
+![Broadcasting scenario](_assets/azure-eventbus-broadcasting.png)
+
 ```csharp
 /// <summary>
 /// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
@@ -165,3 +169,9 @@ private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
     eventBus.Unsubscribe("my-path", messageFilters);
 }
 ```
+
+## Service redundancy
+
+Short lived outages are mitigated thought the [exponential back-off retry strategy](Core.md#retry-strategies) that this library implements.
+
+In order to mitigate long lived outages or even disasters, a service that consumes this library should expose a monitoring endpoint that is able to probe the health status of the respective cloud message broker instance.
