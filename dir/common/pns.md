@@ -9,7 +9,7 @@ The Push Notifications Service allows receive, store and broadcast notifications
 | Namespace | Primavera.Lithium.PushNotifications |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | Not available yet |
+| Client Library | No |
 | Web UI | No |
 | Depends on | IDS |
 
@@ -17,7 +17,8 @@ The Push Notifications Service allows receive, store and broadcast notifications
 
 | Scope | Description |
 | - | - |
-| --- | --- |
+| lithium-pushnotifications | Auth scope used to make api calls |
+| lithium-pushnotifications-hub | Auth scope used to connect to the signalR hub |
 
 ## Environments
 
@@ -34,5 +35,5 @@ The Push Notifications Service allows receive, store and broadcast notifications
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
-| Web API | [TFS](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview) |
+| Spec | Not available yet |
+| Web API | [readme.md (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview) |
