@@ -13,7 +13,6 @@ This base class ensures multiple standard behaviors for the client library, like
 - Authentication and authorization of client applications.
 - Localization.
 - Specific request headers.
-- Throttling.
 - Etc.
 
 ## `ServiceClientActions`

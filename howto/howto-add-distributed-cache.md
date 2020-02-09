@@ -92,17 +92,15 @@ protected virtual HostConfiguration AddConfiguration(IServiceCollection services
         .Configure<HostConfiguration>(
             this.Configuration.GetSection(nameof(HostConfiguration)))
         .Configure<AzureInsightsTelemetryOptions>(
-            this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)))
-        .Configure<ThrottlingOptions>(
-            this.Configuration.GetSection(nameof(ThrottlingOptions)))
-        .Configure<ClientRateThrottlingOptions>(
-            this.Configuration.GetSection(nameof(ClientRateThrottlingOptions)));
+            this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)));
 
     // REDIS cache options
 
     services
         .Configure<RedisCacheOptions>(
-            this.Configuration.GetSection(nameof(RedisCacheOptions)));
+            this.Configuration.GetSection(nameof(RedisCacheOptions)))
+        .Configure<RedisCacheOptions>(
+            this.Configuration.GetSection(nameof(ResilientCacheOptions)));
 
     // Host configuration snapshot
 
@@ -116,7 +114,7 @@ protected virtual HostConfiguration AddConfiguration(IServiceCollection services
 }
 ```
 
-> This sets up configuration to recognize the options required by the REDIS cache service (`RedisCacheOptions`).
+> This sets up configuration to recognize the options required by the REDIS cache service (`RedisCacheOptions`) and the resilient cache service (`ResilientCacheOptions`).
 
 ## Configuration
 
@@ -131,6 +129,17 @@ Next you only need to set the connection string for the REDIS cache instance you
 ```
 
 > For more configuration options, check the Hydrogen documentation on `RedisCacheOptions`.
+
+Optionally, you can set the resilient cache options also:
+
+```json
+{
+    "ResilientCacheOptions": {
+        "MaxRetries": 2,
+        "MinRetryBackoff": "00:00:00.500",
+    }
+}
+```
 
 ## Using the Distributed Cache
 

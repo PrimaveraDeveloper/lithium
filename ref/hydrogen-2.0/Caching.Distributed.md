@@ -9,14 +9,22 @@ A REDIS cache service can be added to the application services and configured us
 Examples:
 
 ```
-services.Configure<RedisCacheOptions>(configuration.GetSection(nameof(RedisCacheOptions)));
+services.Configure<RedisCacheOptions>(
+    configuration.GetSection(
+        nameof(RedisCacheOptions)));
+
 // (...)
+
 services.AddRedisCache();
 ```
 
 ```
-services.Configure<RedisCacheOptions>(configuration.GetSection(nameof(RedisCacheOptions)));
+services.Configure<RedisCacheOptions>(
+    configuration.GetSection(
+        nameof(RedisCacheOptions)));
+
 // (...)
+
 services.AddRedisCache(
     (options) =>
     {
@@ -34,7 +42,7 @@ services.AddRedisCache(
 
 Distributed cache services - like REDIS - tend to be subject to transient errors (timeouts) which affect applications behavior (performance and stability).
 
-`IResilientDistributeCache` and `ResilientDistributeCache` provide a mechanism to add resilience to `IDistributedCache` my means of a retry policy that detects transient exceptions (with `RetryPolicy`).
+`IResilientDistributeCache` and `ResilientDistributeCache` provide a mechanism to add resilience to `IDistributedCache` by means of a retry policy that detects transient exceptions (with `RetryPolicy`).
 
 This service is not designed to be used directly. Instead it is designed to "replace" the configured implementation of the distributed cache using a dependency injection decorator.
 
@@ -70,8 +78,11 @@ public class MyComponent
 
 ### Retry Policy
 
-By default the resilient cache is configured to use a retry policy set with an `ExponentialBackoffRetryStrategy` (up to 2 retries with a minimum back-off of 200ms and a maximum back-off of 3s). This retry policy uses an error detection strategy that recognizes the following exceptions as transient:
+By default the resilient cache is configured to use a retry policy set with an `ExponentialBackoffRetryStrategy` (with a number of retries and minimum back-off time set by `ResilientCacheOptions`).
 
+This retry policy uses an error detection strategy that recognizes the following exceptions as transient:
+
+- `StackExchange.Redis.RedisConnectionException`
 - `StackExchange.Redis.RedisTimeoutException`
 
 You can configure the behavior of the resilient cache retry policy by setting `ResilientCacheOptions` when adding the decorator:
@@ -88,9 +99,28 @@ services.AddResilientDistributedCache(
 services.AddResilientDistributedCache(
     (options) =>
     {
-        // Replace only the error detection strategy predicate, keeping the default retry strategy
+        // Keep the default retry policy and replace the error detection strategy predicate
 
         options.ErrorDetectionPredicate = (...);
+    });
+
+services.AddResilientDistributedCache(
+    (options) =>
+    {
+        // Keep the default retry policy and configure the maximum number of retries and the minimum back-off time
+
+        options.MaxRetries = 1;
+        options.MinRetryBackoff = TimeSpan.FromSeconds(1);
+    });
+
+services.AddResilientDistributedCache(
+    (options) =>
+    {
+        // Keep the default retry policy, replace the error detection strategy predicate, and configure the maximum number of retries and the minimum back-off time
+
+        options.ErrorDetectionPredicate = (...);
+        options.MaxRetries = 1;
+        options.MinRetryBackoff = TimeSpan.FromSeconds(1);
     });
 ```
 

@@ -81,11 +81,7 @@ protected virtual HostConfiguration AddConfiguration(IServiceCollection services
         .Configure<HostConfiguration>(
             this.Configuration.GetSection(nameof(HostConfiguration)))
         .Configure<AzureInsightsTelemetryOptions>(
-            this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)))
-        .Configure<ThrottlingOptions>(
-            this.Configuration.GetSection(nameof(ThrottlingOptions)))
-        .Configure<ClientRateThrottlingOptions>(
-            this.Configuration.GetSection(nameof(ClientRateThrottlingOptions)));
+            this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)));
 
     // Blob storage options
 
