@@ -156,7 +156,8 @@ using (MyServiceClient client = new MyServiceClient(
 On some scenarios it may be useful to pass void to a service client. This can be achieved by the `NoCredentials` service client credentials, like in the following example:
 
 ```csharp
-using (MyServiceClient client = new MyServiceClient(baseUri, ServiceClientCredentials.NoCredentials)
+using (MyServiceClient client =
+    new MyServiceClient(baseUri, ServiceClientCredentials.NoCredentials)
 {
     // (...)
 }
@@ -199,3 +200,12 @@ using (MyServiceClient client = new MyServiceClient(...))
     // (...)
 }
 ```
+
+## Custom Headers
+
+`ServiceClient<T>` adds custom headers to the requests to support diagnosing authentication and correlating requests. The following custom headers may be added to the requests:
+
+- `x-li-c-request-id`: the request identifier (can be used to correlate multiple requests to the service, resulting from authentication and/or retries).
+- `x-li-c-credentials-kind`: the kind of credentials provided to the server for authentication (possible values are: `none`, `access-token`, `client-credentials`, and `authentication-callback`).
+- `x-li-c-client-id`: the client identifier (available only when `x-li-c-credentials-kind` is `client-credentials`).
+- `x-li-c-client-challenge`: indicates whether the request may be an authentication challenge (available only when `x-li-c-credentials-kind` is `authentication-callback`).
