@@ -27,7 +27,7 @@ The service can be resolved as any other service but it is also available as an 
 ```csharp
 using Primavera.Hydrogen.AspNetCore.Extensions.DeviceDetection;
 
-IDeviceDetection service = serviceProvider.GetRequiredService();
+IDeviceDetection service = serviceProvider.GetRequiredService<IDeviceDetection>();
 
 IDeviceDetection service = this.Request.DeviceDetection;
 ```
