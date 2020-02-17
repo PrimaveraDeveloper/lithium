@@ -1,6 +1,6 @@
 # Push Notifications Service (PNS)
 
-The Push Notifications Service allows receive, store and broadcast real-time notifications to the connected clients.
+The Push Notifications Service allows to receive, store and broadcast real-time notifications to the connected clients.
 
 ## Specification
 
