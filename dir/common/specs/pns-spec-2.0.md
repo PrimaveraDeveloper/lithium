@@ -82,6 +82,8 @@ More information about the notification structure can be found [here](https://tf
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
 
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this documentation example](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview) in the EventBus section.
+
 # Configuration
 
 ## Notifications Time To Live
