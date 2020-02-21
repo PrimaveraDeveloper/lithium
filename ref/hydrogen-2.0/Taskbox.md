@@ -214,7 +214,11 @@ The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineH
 
 See the [IPipelineHandler<TContext, TConfig>][REF_Taskbox_Abstractions] for more information about the interface members.
 
-## Pipebox Workers
+### HttpHandler
+The `HttpHandler<T>` it's an abstract class to help the implementation of an handler to perform http requests.
+
+
+## Pipebox Workers Manager
 
 ### `IPipeboxWorkersManager`
 The `IPipeboxWorkersManager` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
@@ -313,3 +317,24 @@ IPipeboxWorkersManager engine = provider.GetRequiredService<IPipeboxWorkersManag
 await engine.StopEngine().ConfigureAwait(false);
 
 ```
+
+## Deployment
+
+This section holds all the components related to the deployment of a Taskbox.
+
+### Configuration Class's
+
+- `EventBusConfiguration` it's a class to help the implementation of an EventBus with the Taskbox.
+- `PipeboxWorkersConfig` it's a class that holds the configurations for the workers manager.
+
+### `EventBusHandler<T>`
+It's an abstract handler that implements the [`IEventBusEventHandler<T>`](EventBus.Abstractions.md), to help build an handler for the taskbox in a way that is easier and faster.
+
+
+
+### EventTrigger
+It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps managing a list of events. It's recommended  to use it in the implementation of the taskbox.
+
+### EventBusManager
+
+It's a generic subscribe and unsubscribe, it can do both operations for any event type that is given. This manager works with a event 
