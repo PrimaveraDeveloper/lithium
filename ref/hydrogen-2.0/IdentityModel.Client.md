@@ -81,7 +81,12 @@ using (TokenClient client = new TokenClient())
         ClientSecret = "myclientsecret"
     };
 
-    TokenResponse response = await client.GetClientCredentialsAsync("https://server.io/connect/token", options, scope).ConfigureAwait(false);
+    TokenResponse response = await client.GetClientCredentialsAsync(
+        "https://server.io/connect/token", 
+        options, 
+        scope)
+        .ConfigureAwait(false);
+    
     if (!response.IsError)
     {
         string tokenEndpoint = response.TokenEndpoint;
@@ -104,22 +109,32 @@ Depending on the grant type requested, other properties - like the client identi
 If the address provided in the request is the authority server, then the token client will use `DiscoveryClient` to determine the actual token endpoint address.
 
 ```csharp
-client.GetClientCredentialsTokenAsync("https://server.io", options).ConfigureAwait(false);
-client.GetClientCredentialsTokenAsync("https://server.io/connect/token", options).ConfigureAwait(false);
+client.GetClientCredentialsTokenAsync(
+    "https://server.io", 
+    options)
+    .ConfigureAwait(false);
+
+client.GetClientCredentialsTokenAsync(
+    "https://server.io/connect/token", 
+    options)
+    .ConfigureAwait(false);
 
 client.GetTokenAsync(
     new ClientCredentialsTokenRequest("https://server.io")
     {
         // ...
-    }).ConfigureAwait(false);
+    })
+    .ConfigureAwait(false);
+
 client.GetTokenAsync(
     new ClientCredentialsTokenRequest("https://server.io/connect/token")
     {
         // ...
-    }).ConfigureAwait(false);
+    })
+    .ConfigureAwait(false);
 ```
 
-There cases however where will want to send an address in the request that is the authority server base but than token client will not be able
+There are cases where will want to send an address in the request that is the authority server base but than token client will not be able
 to detect as such because it is not a normal base URL (e.g.: https://login.windows.net/ab96bea5-d5d5-4cb2-a841-5eda0da9ada1).
 
 `TokenClient` allows you to indicate these scenarios both in `TokenClientOptions` and in `TokenRequest`:
@@ -142,17 +157,17 @@ TokenRequest request = new TokenRequest()
 
 The following types model requests to `ITokenClient`:
 
-#### ClientCredentialsTokenRequest
+#### `ClientCredentialsTokenRequest`
 
 `ClientCredentialsTokenRequest` performs a request to obtain an access token for the client credentials grant type.
 
 Typically the following values will be required:
 
-- ClientId
-- ClientSecret
-- Scope
+- `ClientId`
+- `ClientSecret`
+- `Scope` (optional)
 
-#### AzureClientCredentialsTokenRequest
+#### `AzureClientCredentialsTokenRequest`
 
 `AzureClientCredentialsTokenRequest` is basically the same as `ClientCredentialsTokenRequest` but is designed to be used against
 an Azure Active Directory authority server because it allows setting the Resource parameter directly (usually required
@@ -160,9 +175,73 @@ by Azure AD).
 
 Typically the following values will be required:
 
-- ClientId
-- ClientSecret
-- Resource
+- `ClientId`
+- `ClientSecret`
+- `Resource` (optional)
+
+#### `AuthorizationCodeTokenRequest`
+
+`AuthorizationCodeTokenRequest` performs a request to obtain an access token for the authorization code grant type.
+
+Typically the following values will be required:
+
+- `ClientId`
+- `ClientSecret`
+- `Code`
+- `RedirectUri`
+- `CodeVerifier` (optional)
+
+#### `PasswordTokenRequest`
+
+`PasswordTokenRequest` performs a request to obtain an access token for the password grant type.
+
+Typically the following values will be required:
+
+- `ClientId`
+- `ClientSecret`
+- `UserName`
+- `Password`
+- `Scope` (optional)
+
+#### `RefreshTokenRequest`
+
+`RefreshTokenRequest` performs a request to obtain an access token for the refresh token grant type.
+
+Typically the following values will be required:
+
+- `ClientId`
+- `ClientSecret`
+- `RefreshToken`
+- `Scope` (optional)
+
+### Custom Requests
+
+It is also possible to perform custom requests (requests where all the parameters are set by the caller) using the `GetTokenAsync()`:
+
+Example:
+
+```csharp
+using (TokenClient client = new TokenClient())
+{
+    TokenRequest request = new TokenRequest("https://server.io/connect/token")
+    {
+        GrantType = "delegation",
+        ClientId = "myclientid",
+        ClientSecret = "myclientsecret"
+        Parameters = new Dictionary<string, string>()
+        {
+            ["scope"] = "myscope",
+            ["token"] = (...),
+        }
+    };
+
+    TokenResponse response = await client.GetTokenAsync(
+        tokenRequest)
+        .ConfigureAwait(false);
+    
+    (...)
+}
+```
 
 ### Discovery Policy
 
