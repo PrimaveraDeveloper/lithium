@@ -1,4 +1,4 @@
-# How to add support for user interface (ASP.NET MVC) to a microservice
+# How to add support for ASP.NET MVC user interface to a microservice
 
 This guide describes the steps required to include ASP.NET MVC user interface in a microservice.
 
