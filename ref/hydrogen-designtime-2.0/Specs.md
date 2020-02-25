@@ -9,12 +9,13 @@
 It includes the following information about a microservice:
 
 - `Description`: contains the service description (including the identifier, the name, display name, etc.).
-- `ApiVersions`: a list indicating the versions supported by the microservice Web API.
-- `Dependencies`: a list containing the service dependencies (e.g. distributed cache, table storage, etc.).
-- `BackgroundServices`: a list describing the background services contained in the microservice.
-- `AppSettings`: a list containing the applications settings used by the microservice.
 - `ApiResource`: describes the API resource (for IdentityManagement) for the microservice Web API.
+- `ApiVersions`: a list indicating the versions supported by the microservice Web API.
+- `AppSettings`: a list containing the applications settings used by the microservice.
+- `AuthorizationPolicies`: a list containing the authorization policies defined in the microservice.
+- `BackgroundServices`: a list describing the background services contained in the microservice.
 - `Clients`: describes the clients (for Identity Management) that should exist to support the development of the microservice.
+- `Dependencies`: a list containing the service dependencies (e.g. distributed cache, table storage, etc.).
 - `Endpoints`: describes the microservice endpoints (routes).
 - `Features`: describes the features supported by the microservice.
 

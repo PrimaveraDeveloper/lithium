@@ -36,17 +36,13 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to add **support for Table Storage** to a microservice](./howto-add-table-storage.md)
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
-- How to **add support for user interface** to a microservice
+- [How to **add support for user interface (ASP.NET MVC)**] to a microservice(./howto-add-user-interface-mvc.md)
+- How to **add support for user interface (Angular)** to a microservice
 
 ## Testing a microservice
 
 - [How to **create unit tests** for a microservice](./howto-create-unit-tests.md)
 - [How to **create integration tests** for a microservice](./howto-create-integration-tests.md)
-
-## Deploying a microservice
-
-- How to **set up environments** in a microservice
-- How to **organize the releases** of a microservice
 
 ## Upgrading a microservice
 

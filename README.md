@@ -15,7 +15,7 @@ This project is structured in a way that reflects the different kinds of documen
 Currently it contains the following chapters:
 
 - [**vision**](./vision/README.md) - the vision behind Lithium and the general principles and technologies that drive its development.
-- [**howto**](./howto/README.md) - how to guides to help the development with the Lithium Framework.
+- [**howto**](./howto/README.md) - how to guides to help development with the Lithium Framework.
 - [**samples**](./samples/README.md) - samples to jump start the development with the Lithium Framework.
 - [**training**](./training/README.md) - training material about the Lithium Framework.
 - [**dir**](./dir/README.md) - a directory of all the microservices currently available.
