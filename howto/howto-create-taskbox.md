@@ -1,9 +1,9 @@
-# Build a Taskbox with Hydrogen 2 from scratch
-With the Lithium SDK, you can easly create and run an WebApi. Starting with this scenario, this document will help with the necessary customization to transform it into a TaskBox.
+# How to create a Taskbox as a microservice
+With the Lithium SDK, you can easily create and run an WebApi. Starting with this scenario, this document will help with the necessary customization to transform it into a TaskBox.
 
 ## Packages 
 
-**First you need to install the following packages:**
+**First, you need to install the following packages:**
  - Primavera.Hydrogen.Taskbox
  - Primavera.Hydrogen.Taskbox.Abstractions
  - Primavera.Hydrogen.EventBus.Azure
@@ -14,7 +14,7 @@ After installing the packages, you have all the tools to create a taskbox.
 ## Startup
 
 ### Configurations
-The Taskbox supplies a class to help implement the configurations for the `EventBus` called **EventBusConfiguration** and for the `IPipeboxWorkersManager` one called **PipeboxWorkersConfig**, here you can set the maximum number of workers that will be working simultaneously and the worker waiting time when the pool of workers is full.
+The Taskbox provides a class to help implement the configurations for the `EventBus` called **EventBusConfiguration** and for the `IPipeboxWorkersManager` one called **PipeboxWorkersConfig**, here you can set the maximum number of workers that will be working simultaneously and the worker waiting time when the pool of workers is full.
 
 ```json
   "PipeboxWorkersConfig": {
@@ -37,7 +37,7 @@ To add the configuration do as follows:
 ```
 
 ### Services
- In the startup is necessary to register all the services required to this implementation.
+ In the startup is necessary to register all the services required for this implementation.
  ```csharp
     services.AddSingleton<IPipeboxWorkersManager, PipeboxWorkersManager>();
 
@@ -53,21 +53,21 @@ To add the configuration do as follows:
  ```
 
  - The [`IPipeBoxWorkersManager`](../ref/hydrogen-2.0/Taskbox.md) is responsible for managing a pool of workers.
- - The [`PipeboxWorker<T>`](../ref/hydrogen-2.0/Taskbox.md) is the type of a Worker present in the pool of workers.
+ - The [`PipeboxWorker<T>`](../ref/hydrogen-2.0/Taskbox.md) is the type of  Worker present in the pool of workers.
  - The [`MyCustomHandler<>`](../ref/hydrogen-2.0/Taskbox.md) is the handler that receives the event, it will be created further on.
- - The [`AzureEventBusEventFilters<>`](../ref/hydrogen-2.0/EventBus.Abstractions.md) is a component necessary to support filter in the event.
+ - The [`AzureEventBusEventFilters<>`](../ref/hydrogen-2.0/EventBus.Abstractions.md) is a component necessary to support filters in the event.
  - The [`IEventBusManager`](../ref/hydrogen-2.0/Taskbox.md) is a manager to subscribe and unsubscribe an event.
  - The [`MyCustomHttpHandler<>`](../ref/hydrogen-2.0/Taskbox.md) is the handler that will be defined in the configuration and created further on.
 
 
  ## Configuration
 
- First you need to define what configuration will run in this taskbox sample. The `PipeboxConfig` is a configuration that holds all the events, pipelines and handlers.
+ First, you need to define what configuration will run in this taskbox sample. The `PipeboxConfig` is a configuration that holds all the events, pipelines and handlers.
 
- See the [PipeboxConfig](../ref/hydrogen-2.0/Taskbox.md) to know more on how to create a configuration.
+ See the [PipeboxConfig](../ref/hydrogen-2.0/Taskbox.md) to know more about how to create a configuration.
 
 Let's assume that this is our configuration, it consists in:
-- a Event called *MyEventType*. Notice that it's possible to add properties to the event.
+- an Event called *MyEventType*. Notice that it's possible to add properties to the event.
 - a Pipeline that is triggered by the EventType.
 - a Handler inside the pipeline that will do something with the event.
 
@@ -103,14 +103,14 @@ Let's assume that this is our configuration, it consists in:
   ]
 }
 ```
-In this scenario our event is string typed and the topic where its published is myTopic.
+In this scenario our event is string typed and the topic where it's published is myTopic.
 
 ## Subscribe an Event
-Now, the Taskbox must subscribe this eventType. To accomplish this, you can use the lithium to help us modulate a worker that, when the TaskBox host is starting, will subscribe all the events in the configuration.
+Now, the Taskbox must subscribe to this eventType. To accomplish this, you can use the lithium to help us modulate a worker that, when the TaskBox host is starting, will subscribe to all the events in the configuration.
 
-The code bellow shows a way on how to get the configurations and subscribe the events.
-The TaskBox supplies a set of tools to make it easier to implement. The first one is after creating the `PipeboxConfig` it's possible to get the list of triggers by an extension method `.GetEventTypes()`.
-Other tool supplied by the TaskBox is a Manager, `EventBusManager`, which makes it easier for subscribe and unsubscribe a event.
+The code below shows a way on how to get the configurations and subscribe to the events.
+TaskBox supplies a set of tools to make it easier to implement. The first one is after creating the `PipeboxConfig` it's possible to get the list of triggers by an extension method `.GetEventTypes()`.
+Another tool supplied by the TaskBox is a Manager, `EventBusManager`, which makes it easier to subscribe and unsubscribe an event.
 
 ```csharp
     public override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -132,7 +132,7 @@ Other tool supplied by the TaskBox is a Manager, `EventBusManager`, which makes 
 
 ### `EventBusHandler<T>`
 
- To receive the event when it's raised, it necessary to create an handler. So to accomplish this, it's necessary to create a new item/class, let's call it, **MyCustomHandler**,  that will inherit from the `EventBusHandler<T>` which is an abstract handler present in the Taskbox to help implement this type of handler by the obligation to override certain properties and methods.
+ To receive the event when it's raised, it necessary to create a handler. So to accomplish this, it's necessary to create a new item/class, let's call it, **MyCustomHandler**,  that will inherit from the `EventBusHandler<T>` which is an abstract handler present in the Taskbox to help implement this type of handler by the obligation to override certain properties and methods.
 
 ```csharp
     public class MyCustomHandler : EventBusHandler<string>
@@ -176,13 +176,13 @@ The `EventBusHandler<T>` is an abstract class, so it's necessary to override som
     }
 ```
 - In the constructor, is imperative to inject the service provider.
-- IEventBus, see also the [Primavera.Hydrogen.EventBus.Azure](../ref/hydrogen-2.0/EventBus.Azure.md) documentation to help configuring the EventBus.
+- IEventBus, see also the [Primavera.Hydrogen.EventBus.Azure](../ref/hydrogen-2.0/EventBus.Azure.md) documentation to help to configure the EventBus.
 - Handle, is where the event will hit when raised. It is also here where all the logic related to the event should be.
 
 
 ### Pipeline Handler
 
-Next, in the Configuration chapter, the pipeline has an handler called `MyCustomHttpHandler`, and this was configured to be a post request, in the `configStr` section it's possible to set some properties, see [`PipeboxConfig`](../ref/hydrogen-2.0/Taskbox.md) documentation.
+Next, in the Configuration chapter, the pipeline has a handler called `MyCustomHttpHandler`, and this was configured to be a post request, in the `configStr` section it's possible to set some properties, see [`PipeboxConfig`](../ref/hydrogen-2.0/Taskbox.md) documentation.
 ```json
 {
     "id": "h1",
@@ -229,19 +229,19 @@ To create an HttpHandler, the Taskbox also supplies a way to make things easier,
     }
 ```
 
-- `SetEndpoint()` - is where its defined the endpoint for the Http request, note that, because you define the endpoint in the handler configuration, it's possible to acess directly to this configuration parameter.
+- `SetEndpoint()` - is where its defined the endpoint for the Http request, note that, because you define the endpoint in the handler configuration, it's possible to access directly to this configuration parameter.
 - `SetPostObject()` - is here where is built the post object. Based on the HttpMethod, provided in the handler config, this method is called or not.
-- `SaveResponse()` - here is where the httpResponse can be processed.
+- `SaveResponse()` - here is where the Http response can be processed.
 
 ### Workers Manager
 
-To start a worker, its necessary to have three parameters, the **PipeboxConfig**, the **PipeboxContext** and the **Pipeline Id** that will be executed. 
+To start a worker, it's necessary to have three parameters, the **PipeboxConfig**, the **PipeboxContext** and the **Pipeline Id** that will be executed. 
 
 ```csharp
 await this.WorkersManager.StartWorker(pipeboxConfig, pipeboxContext, pipelineId).ConfigureAwait(false);
 ```
 
-This will instantiate and start a worker with the given configurations. In a deeper level this worker will build a `Pipebox` with those input parameters and this `Pipebox` will execute the pipeline.
+This will instantiate and start a worker with the given configurations. On a deeper level, this worker will build a `Pipebox` with those input parameters and this `Pipebox` will execute the pipeline.
 
 Applying this logic to the handler, that was built, it would be similar to this.
 
