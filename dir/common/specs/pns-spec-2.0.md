@@ -11,7 +11,7 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 To have a persistent connection with the service, there are two client packages to choose from:
 
 * _@primavera/services_ - allows to create a persistent connection to the Push Notifications Service and receive real time notifications.
-* _@primavera/pushNotifications_ - allows to create a persistent connection to the Push Notifications Service and receive real time notifications with the [notifications central UI](_assets/notifications_v2.png).
+* _@primavera/pushNotifications_ - allows to create a persistent connection to the Push Notifications Service and receive real time notifications with the [notifications central UI](_assets/notifications_v3.png).
 
 # Push a notification
 
@@ -29,14 +29,14 @@ To push notifications via API, it must have the following example structure:
     },
     {
       "Key": "Message",
-      "Value": "This is a success message!",
+      "Value": "This is a success message and it will expire on 12 of February at 6:00PM!",
       "Culture": "en-US"
     }
   ],
   "Context": [
     {
-      "Key": "Uri",
-      "Value": "https://stg-identity.primaverabss.com/account/dummyuser"
+      "Key": "SomeContext",
+      "Value": "SomeContextValue"
     }
   ],
   "NotificationType": 1,
@@ -49,7 +49,7 @@ To push notifications via API, it must have the following example structure:
 ```
 
 > Note: 
-> * To correctly display the notifications in the [notifications central UI](_assets/notifications_v2.png), the message must have as key a ```Title``` and a ```Message```;
+> * To correctly display the notifications in the [notifications central UI](_assets/notifications_v3.png), the message must have as key a ```Title``` and a ```Message```;
 > * The notificationType, if not provided, default value will be 0 (Information);
 > * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter. 
 
@@ -69,7 +69,7 @@ The following example is the only required fields for a notification:
       "Culture": "en-US"
     }
   ],
-  "Source": "Alerts",
+  "Source": "Marketing",
   "Targets": [
     "dummyuser@mail.com"
   ]
@@ -93,10 +93,10 @@ Each notification has an expiration date that is defined by NotificationType, or
 ```json
 "ServiceConfiguration": {
     "NotificationTimeToLive": {
+      "Info": 86400,
       "Success": 86400,
-      "Error": 2592000,
       "Warning": 691200,
-      "Info": 86400
+      "Error": 2592000
     }
 }
 ```
