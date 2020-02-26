@@ -1,20 +1,20 @@
 # Build a Taskbox with Hydrogen 2 from scratch
-With the Lithium SDK, we can easly create and run an WebApi. Starting with this scenario, this document will help with the necessary customization to transform it into a TaskBox.
+With the Lithium SDK, you can easly create and run an WebApi. Starting with this scenario, this document will help with the necessary customization to transform it into a TaskBox.
 
 ## Packages 
 
-**First we need to install the following packages:**
+**First you need to install the following packages:**
  - Primavera.Hydrogen.Taskbox
  - Primavera.Hydrogen.Taskbox.Abstractions
  - Primavera.Hydrogen.EventBus.Azure
  - Primavera.Hydrogen.EvenBus.Abstractions
 
-After installing the packages, we have all the tools to create a taskbox.
+After installing the packages, you have all the tools to create a taskbox.
 
 ## Startup
 
 ### Configurations
-The Taskbox supplies a class to help implement the configurations for the `EventBus` called **EventBusConfiguration** and for the `IPipeboxWorkersManager` one called **PipeboxWorkersConfig**, here we can set the maximum number of workers that will be working simultaneously and the worker waiting time when the pool of workers is full.
+The Taskbox supplies a class to help implement the configurations for the `EventBus` called **EventBusConfiguration** and for the `IPipeboxWorkersManager` one called **PipeboxWorkersConfig**, here you can set the maximum number of workers that will be working simultaneously and the worker waiting time when the pool of workers is full.
 
 ```json
   "PipeboxWorkersConfig": {
@@ -62,7 +62,7 @@ To add the configuration do as follows:
 
  ## Configuration
 
- First we need to define what configuration will run in this taskbox sample. The `PipeboxConfig` is a configuration that holds all the events, pipelines and handlers.
+ First you need to define what configuration will run in this taskbox sample. The `PipeboxConfig` is a configuration that holds all the events, pipelines and handlers.
 
  See the [PipeboxConfig](../ref/hydrogen-2.0/Taskbox.md) to know more on how to create a configuration.
 
@@ -106,7 +106,7 @@ Let's assume that this is our configuration, it consists in:
 In this scenario our event is string typed and the topic where its published is myTopic.
 
 ## Subscribe an Event
-Now, the Taskbox must subscribe this eventType. To accomplish this, we can use the lithium to help us modulate a worker that, when the TaskBox host is starting, will subscribe all the events in the configuration.
+Now, the Taskbox must subscribe this eventType. To accomplish this, you can use the lithium to help us modulate a worker that, when the TaskBox host is starting, will subscribe all the events in the configuration.
 
 The code bellow shows a way on how to get the configurations and subscribe the events.
 The TaskBox supplies a set of tools to make it easier to implement. The first one is after creating the `PipeboxConfig` it's possible to get the list of triggers by an extension method `.GetEventTypes()`.
@@ -229,7 +229,7 @@ To create an HttpHandler, the Taskbox also supplies a way to make things easier,
     }
 ```
 
-- `SetEndpoint()` - is where its defined the endpoint for the Http request, note that, because we define the endpoint in the handler configuration, it's possible to acess directly to this configuration parameter.
+- `SetEndpoint()` - is where its defined the endpoint for the Http request, note that, because you define the endpoint in the handler configuration, it's possible to acess directly to this configuration parameter.
 - `SetPostObject()` - is here where is built the post object. Based on the HttpMethod, provided in the handler config, this method is called or not.
 - `SaveResponse()` - here is where the httpResponse can be processed.
 
