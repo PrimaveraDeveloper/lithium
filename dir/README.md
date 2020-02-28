@@ -36,6 +36,7 @@ These services are part of the Carbon Framework (Intelligent ERP).
 | - | - | - | - |
 | [DCS](./carbon/dcs.md) | Data Catalog Service | Allows access to reference data like currencies, countries, postal codes and Spain economic activities codes | --- |
 | [MTR](./carbon/mtr.md) | Metrics Service | Allows storing and producing metrics | --- |
+| [DCS](./carbon/dcs.md) | Data Catalog Service | Allows access to reference data like currencies, countries, postal codes and Spain economic activities codes | --- |
 
 ### Elevation
 
