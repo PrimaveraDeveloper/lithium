@@ -14,7 +14,7 @@ These services are core to the Lithium Framework and provide common features, ap
 | [NTR](./ntr.md) | Nitrogen Service | Supports the app store for cloud products | --- |
 | [PNS](./pns.md) | Push Notifications Service | Allows receive, store and broadcast notifications to the connected clients. | [2.0](./specs/pns-spec-2.0.md) |
 | [SM](./sm.md) | Service Management Service | Provides a proxy for the Service Management Service | --- |
-| [SS](./ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) | --- |
+| [SS](./ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) | [2.0](./specs/ss-spec-2.0.md) |
 | [TAXES](./taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services | --- |
 | [TAXPT](./taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services | [2.0](./specs/taxpt-spec-2.0.md) |
 | [TBX](./tbx.md) | Taskbox Service | Supports asynchronous behavior in the PRIMAVERA Elevation Platform | --- |

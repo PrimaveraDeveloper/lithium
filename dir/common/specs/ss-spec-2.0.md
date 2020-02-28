@@ -1,4 +1,4 @@
-# Settings Service (CS) Specification v2.0
+# Settings Service (SS) Specification v2.0
 
 The Settings Service allows storing name/value settings per user, per product, and per product/user. It also allows storing user pictures.
 
