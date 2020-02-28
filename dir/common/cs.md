@@ -11,7 +11,7 @@ Both the microservice and the respective client library implement multiple cache
 | Namespace | Primavera.Lithium.Certificates |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | [Primavera.Lithium.Certificates.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Certificates) |
+| Client Library | [Primavera.Lithium.Certificates](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Certificates) |
 | Web UI | No |
 | Depends on | IDS |
 

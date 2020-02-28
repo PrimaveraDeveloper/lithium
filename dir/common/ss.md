@@ -1,6 +1,6 @@
 # Settings Service (SS)
 
-The Settings Service allows storing name/value settings per user, per product, and per product/user.
+The Settings Service allows storing name/value settings per user, per product, and per product/user. It also allows storing user pictures.
 
 ## Specification
 
@@ -9,8 +9,8 @@ The Settings Service allows storing name/value settings per user, per product, a
 | Namespace | Primavera.Lithium.Settings |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | [Primavera.Lithium.Settings](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Settings/) |
-| Web UI | No |
+| Client Library | [Primavera.Lithium.Settings](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Settings/) (single assembly) |
+| Web UI | Yes |
 | Depends on | IDS |
 
 ## Scopes
@@ -28,11 +28,12 @@ The Settings Service allows storing name/value settings per user, per product, a
 | Preview (NE) | Yes |
 | Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | --- |
+| Development | Yes |
 
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
+| Spec | [2.0](./specs/ss-spec-2.0.md) |
 | Client Library | Not available yet |
 | Web API | Not available yet |
