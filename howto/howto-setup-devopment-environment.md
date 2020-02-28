@@ -6,18 +6,19 @@ To use the Lithium Framework to its full extent you will need the following comp
 
 ## Visual Studio 2019
 
-Install a version of **Visual Studio 2019 greater than 16.3.0** (so it includes support for .NET Core 3.0).
+Install a version of **Visual Studio 2019 greater than 16.3.0** (so it includes support for .NET Core 3.X).
 
 The following workloads and components are required:
 
 - ASP.NET and web development
-    - .NET Core 3.0 SDK
+    - .NET Core 3.1 SDK
 - Azure development
 - Visual Studio extension development
     - Modeling SDK
     - .NET Compiler Platform SDK
 - .NET Core cross-platform development
 
+> Be sure to always have installed the latest version of the .NET Core SDK in the development machine.
 
 ## Lithium SDK
 

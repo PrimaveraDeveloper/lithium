@@ -23,7 +23,9 @@ Currently it contains the following chapters:
 
 ## Jump Start
 
-If you wish to start developing a microservice while going through the documentation, start with the [howto](./howto/README.md) and [samples](./samples/README.md) sections. You will need to [setup your machine](./howto-setup-devopment-environment.md) before using the Lithium SDK.
+If you wish to start developing a microservice while going through the documentation, start with the [howto](./howto/README.md) and [samples](./samples/README.md) sections. You will need to [setup your machine](./howto/howto-setup-devopment-environment.md) before using the Lithium SDK.
+
+To model your microservice, check the [Service Designer](./ref/sdk-2.0/service-designer.md) reference.
 
 ## Major Releases
 

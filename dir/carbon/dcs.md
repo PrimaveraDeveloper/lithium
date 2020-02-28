@@ -9,7 +9,8 @@ The Data Catalog Service allows access to reference data like currencies, countr
 | Namespace | Primavera.Lithium.DataCatalog |
 | Current Version | 1.0 |
 | Client Library | [Primavera.Lithium.DataCatalog.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.DataCatalog) |
-| Web UI | No 
+| Web UI | Yes 
+| Depends on | IDS
 
 ## Scopes
 
@@ -27,3 +28,10 @@ The Data Catalog Service allows access to reference data like currencies, countr
 | Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | --- |
+
+## Reference Documentation
+
+| Documentation | Link |
+| - | - |
+| Client Library | Not available yet |
+| Web API | Not available yet |

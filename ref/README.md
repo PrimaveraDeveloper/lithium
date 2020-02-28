@@ -1,10 +1,20 @@
 # Documentation Reference
 
-This chapter includes reference documentation about most of the framework components.
+This chapter includes reference documentation about the framework components.
+
+## SDK
+
+The Lithium SDK includes two extensions for Visual Studio 2019 that provide the Service Designer and a set of additional tools.
+
+| Component | Description |
+| - | - | - |
+| [Solution Templates](./sdk-2.0/solution-templates.md) | Visual Studio solution templates|
+| [Service Designer](./sdk-2.0/service-designer.md) | Domain-specific language to model microservices |
+| [Code Generator](./sdk-2.0/code-generator.md) | Code generator, to generate code from the service model |
 
 ## Libraries
 
-The Lithium Modeling Framework includes the following set of general purpose libraries:
+The Lithium SDK and the Lithium Modeling Framework also provide the following general purpose libraries:
 
 | Library | Description | Version |
 | - | - | - |
