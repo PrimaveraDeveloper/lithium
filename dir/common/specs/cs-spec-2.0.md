@@ -1,10 +1,16 @@
 # Certificates Service (CS) Specification v2.0
 
-The Certificates Service provides a centralized store for certificates used by applications. This cloud store allows managing the certificates lifetimes and pushing updates automatically to the applications that use them without requiring to update those applications.
+The Certificates Service provides a centralized store for certificates used by applications.
+
+This cloud store allows managing the certificates lifetimes and pushing updates automatically to the applications that use them without the need to update those applications.
 
 ## Certificates
 
-Certificates retrieved by the Certificates Service are served as X509 certificates in a model called `X509Certificate` data with an instance of `X509Certificate2` inside.
+Certificates retrieved by the Certificates Service are served in a data object that contains the certificate bytes along with additional metadata.
+
+> It is the responsibility of the client application to use the received certificate bytes to initialize the correct object (e.g. `X509Certificate2`) to manipulate the certificate.
+
+> Version 1.0 of the client library used to return an object containing a `X509Certificate2`. This behavior was discontinued in version 2.0. This option was adopted to allow the client application to create the certificate object in the manner most appropriate for its use of the certificate.
 
 ## Caching
 
@@ -15,6 +21,8 @@ Since certificates do not change frequently and retrieving them from the CS serv
 
 When the certificate is not found in any of these cache instances, the client library will contact the CS service to retrieve it (and the store it the local cache).
 
+> Note that these caching mechanisms store the certificate bytes as received from the service. They do not instantiate the certificate at all.
+
 ### Configuration
 
 This client caching mechanism can be configured by the client application using the `CertificatesClientConfiguration` instance available from the `Configuration` property of the service client. The configuration options are the following:
@@ -24,7 +32,7 @@ This client caching mechanism can be configured by the client application using 
 - `LocalStorageCacheEnabled`: indicates whether the second-level client cache (in isolated storage) is enabled. The default value is true.
 - `LocalStorageCacheAbsoluteExpiration` sets the absolute expiration time (in seconds) of the second-level client cache. The default value is 24 hours.
 
-> The second-level cache should always be disabled when the client library is being used from Web server applications running on Azure (since isolated storage is not available).
+> Beware that the 2nd level cache uses the machine/assembly scope for the isolated storage.
 
 ## Retrieving a Certificate
 
@@ -33,8 +41,14 @@ using CertificatesClient client = new CertificatesClient(...);
 
 try
 {
-    ServiceOperationResult<X509CertificateData> result = await client.Certificates.GetCertificateAsync("MyCertificate").ConfigureAwait(false);
+    ServiceOperationResult<CertificateData> result = await client
+        .Certificates
+            .GetCertificateAsync(
+                "MyCertificate")
+            .ConfigureAwait(false);
+    
     X509Certificate2 certificate = result.Body.Certificate;
+    
     // (...)
 }
 catch (ServiceException ex)
@@ -63,7 +77,7 @@ By default the service retrieves all certificates from a single storage set in c
     "SecretsStorageAddresses": [
         {
             "CertificateName": "*",
-            "StorageUrl": "https://myvault.vault.azure.net/"
+            "StorageUrl": "(...)"
         }
     ],
 }
