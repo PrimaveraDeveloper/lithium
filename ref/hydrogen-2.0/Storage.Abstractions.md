@@ -256,13 +256,16 @@ Once the service is instantiated it allows retrieving a store to save and retrie
 
 Once a reference to a store is obtained, it allows creating files, deleting files and retrieving them.
 
-> Currently the Isolated Storage service supports a single kind of store: machine store per application. This store uses the current application identity to create the isolated store.
-
 Example:
 
 ```csharp
 IIsolatedStorageService service = provider
     .GetRequiredService<IIsolatedStorageService>();
-IIsolatedStore store = service.GetMachineStoreForApplication();
+
+IIsolatedStore store = service
+    .Machine
+        .GetStore(
+            StoreScope.Application);
+
 store.CreateFile("MyFile.txt", contents);
 ```
