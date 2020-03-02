@@ -158,33 +158,41 @@ services
 
 #### Route Analyzer
 
-`IRouteAnalyzer` allows retrieving information about all the routes configured in MVC (both set via controllers or Razor Pages).
+`IRouteAnalyzerService` allows retrieving information about all the routes configured in MVC (both set via controllers or Razor pages).
 
-You can map a route that will output the result of route analyzer as JSON. `RouteAnalyzerIEndpointRouteBuilderExtensions` allows that using `MapRouteAnalyzer()` like this:
+This service should be added to the application using dependency injection:
 
 ```csharp
+using Primavera.Hydrogen.AspNetCore.Mvc.Routing;
+
 public class Startup
 {
     // (...)
 
-    public void Configure(IApplicationBuilder app)
+    public void ConfigureServices(IServiceCollection services)
     {
         // (...)
-        app.UseRouting();
-        // (...)
-        app.UseEndpoints(
-            (endpoints) =>
-            {
-                // (...)
-                endpoints.MapRouteAnalyzer();
-            });
+
+        services.AddRouteAnalyzer();
     }
+
+    // (...)
 }
 ```
 
-> Route Analyzer should on be active on the development environment.
+This services produces a list of `RouteInfo` instances:
 
-After this the default route analyzer route (`/.routes`) will product a JSON output like the following:
+```csharp
+using Primavera.Hydrogen.AspNetCore.Mvc.Routing;
+using Primavera.Hydrogen.Rest.Routing;
+
+IRouteAnalyzerService service = this.ServiceProvider
+    .GetRequiredService<IRouteAnalyzerService>();
+
+IEnumerable<RouteInfo> routes = service.Analyze();
+```
+
+This list, serialized as JSON, would look like this:
 
 ```json
 [
@@ -215,86 +223,143 @@ After this the default route analyzer route (`/.routes`) will product a JSON out
     "controllerName": "Test",
     "actionName": "Test:Route",
     "displayName": "Primavera.Hydrogen.AspNetCore.Tests.Controllers.TestController.Route (Primavera.Hydrogen.AspNetCore.Tests)"
-  },
-  {
-    "path": "/api/test/route2/{id}",
-    "httpMethods": "?",
-    "controllerName": "Test",
-    "actionName": "AnotherRoute",
-    "displayName": "Primavera.Hydrogen.AspNetCore.Tests.Controllers.TestController.AnotherRouteAsync (Primavera.Hydrogen.AspNetCore.Tests)"
-  },
-  {
-    "path": "/api/v1/employees/{employeeId}",
-    "httpMethods": "GET",
-    "controllerName": "Employees",
-    "actionName": "Employees.GetEmployee",
-    "displayName": "Primavera.Hydrogen.AspNetCore.Tests.Controllers.EmployeesApiController.GetEmployee (Primavera.Hydrogen.AspNetCore.Tests)"
   }
 ]
 ```
 
-> You can customize the route analyzer route by passing a different `route` value to `MapRouteAnalyzer()`.
+#### Endpoint Analyzer
+
+Unlike `IRouteAnalyzerService`, which only outputs the routes configured in MVC, `IEndpointAnalyzerService` outputs all the endpoints (when endpoint routing is used).
+
+The service should be added to the application using dependency injection:
+
+```csharp
+using Primavera.Hydrogen.AspNetCore.Routing;
+
+public class Startup
+{
+    // (...)
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // (...)
+
+        services.AddEndpointAnalyzer();
+    }
+
+    // (...)
+}
+```
+
+It produces a list of `EndpointInfo` instances:
+
+```csharp
+using Primavera.Hydrogen.AspNetCore.Routing;
+using Primavera.Hydrogen.Rest.Routing;
+
+IEndpointAnalyzerService service = this.ServiceProvider
+    .GetRequiredService<IEndpointAnalyzerService>();
+
+IEnumerable<EndpointInfo> endpoints = service.Analyze();
+```
+
+This list, serialized as JSON, would look like this:
+
+```json
+[
+    {
+        "httpMethods": "GET",
+        "routePattern": "/api/v{version:apiVersion}/certificates/{certificateName}",
+        "endpointName": null,
+        "routeName": null,
+        "order": 0,
+        "displayName": "Primavera.Lithium.Certificates.WebApi.Controllers.CertificatesController.GetCertificateAsync (Primavera.Lithium.Certificates.WebApi)",
+        "controllerName": "Certificates",
+        "actionName": "GetCertificate",
+        "secured": true,
+        "apiVersions": null
+    },
+    {
+        "httpMethods": "GET",
+        "routePattern": "/.doc/clientlib",
+        "endpointName": null,
+        "routeName": null,
+        "order": 0,
+        "displayName": "Primavera.Lithium.Certificates.WebApi.Controllers.ClientLibDocumentationController.Documentation (Primavera.Lithium.Certificates.WebApi)",
+        "controllerName": "ClientLibDocumentation",
+        "actionName": "ClientLibDocumentation.Documentation",
+        "secured": false,
+        "apiVersions": null
+    }
+]
+```
 
 ## Configuration
 
 ### Configuration Analyzer
 
-Configuration Analyzer allows retrieving information about the active configuration options in an application.
+`IConfigurationAnalyzerService` allows retrieving information about the active configuration options in an application.
 
-You can map a route that will output the result of configuration analyzer as JSON.
-
-`ConfigurationAnalyzerIEndpointRouteBuilderExtensions` allows that using `MapConfigurationAnalyzer()` like this:
+The service should be added to the application using dependency injection:
 
 ```csharp
+using Primavera.Hydrogen.AspNetCore.Configuration;
+
 public class Startup
 {
     // (...)
 
-    public void Configure(IApplicationBuilder app)
+    public void ConfigureServices(IServiceCollection services)
     {
         // (...)
-        app.UseRouting();
-        // (...)
-        app.UseEndpoints(
-            (endpoints) =>
-            {
-                // (...)
-                endpoints.MapConfigurationAnalyzer();
-            });
+
+        services.AddConfigurationAnalyzer();
     }
+
+    // (...)
 }
 ```
 
-> Configuration Analyzer should on be active on the development environment.
+It produces a dictionary containing the configuration options:
 
-After this the default configuration analyzer route (`/.config`) will product a JSON output like the following, containing a dictionary with all the active configuration options:
+```csharp
+using Primavera.Hydrogen.AspNetCore.Configuration;
 
-```json
-[
-  {
-    "Key": "ALLUSERSPROFILE",
-    "Value": "C:\\ProgramData"
-  },
-  {
-    "Key": "APPDATA",
-    "Value": "C:\\Users\\machine\\AppData\\Roaming"
-  },
-  {
-    "Key": "applicationName",
-    "Value": "Primavera.Lithium.Settings.WebApi"
-  },
-  {
-    "Key": "ASPNETCORE_ENVIRONMENT",
-    "Value": "Development"
-  },
-  {
-    "Key": "ASPNETCORE_URLS",
-    "Value": "http://localhost:20000/"
-  },
-]
+IConfigurationAnalyzerService service = this.ServiceProvider
+    .GetRequiredService<IConfigurationAnalyzerService>();
+
+IDictionary<string, string> configuration = service.Analyze();
 ```
 
-> You can customize the configuration analyzer route by passing a different `route` value to `MapConfigurationAnalyzer()`.
+This dictionary, serialized as JSON, would look like this:
+
+```json
+{
+    "Logging": null,
+    "Logging:IncludeScopes": "False",
+    "Logging:Debug": null,
+    "Logging:Debug:LogLevel": null,
+    "Logging:Debug:LogLevel:Default": "Trace",
+    "Logging:Console": null,
+    "Logging:Console:LogLevel": null,
+    "Logging:Console:LogLevel:Default": "Trace",
+    "Logging:ApplicationInsights": null,
+    "Logging:ApplicationInsights:LogLevel": null,
+    "Logging:ApplicationInsights:LogLevel:Default": "Trace",
+    "HostConfiguration": null,
+    "HostConfiguration:XXX_RedisCacheAbsoluteExpiration": "7200",
+    "HostConfiguration:SecretsStorageAddresses": null,
+    "HostConfiguration:SecretsStorageAddresses:0": null,
+    "HostConfiguration:SecretsStorageAddresses:0:StorageUrl": "https://elevationdev.vault.azure.net/",
+    "HostConfiguration:SecretsStorageAddresses:0:CertificateName": "*",
+    "HostConfiguration:IdentityServerBaseUri": "https://stg-identity.primaverabss.com",
+    "ENVIRONMENT": "Development",
+    "ASPNETCORE_URLS": "http://localhost:20002;https://localhost:20003",
+    "ASPNETCORE_HTTPS_PORT": "20003",
+    "ASPNETCORE_ENVIRONMENT": "Development",
+    "applicationName": "Primavera.Lithium.Certificates.WebApi"
+}
+```
 
 ## Hosting
 

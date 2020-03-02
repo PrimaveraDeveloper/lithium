@@ -195,19 +195,6 @@ protected virtual void UseEndpoints(IApplicationBuilder app, HostConfiguration h
         // Map default controller route
 
         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
-        // On Development environment
-
-        if (this.CurrentEnvironment.IsDevelopment())
-        {
-            // Map route analyzer
-
-            endpoints.MapRouteAnalyzer();
-
-            // Map configuration analyzer
-
-            endpoints.MapConfigurationAnalyzer();
-        }
     });
 }
 ```
