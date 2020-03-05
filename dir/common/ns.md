@@ -11,7 +11,7 @@ The templates should be defined previously and define the notification propertie
 | Namespace | Primavera.Lithium.Notifications |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | [Primavera.Lithium.Notifications.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Notifications/) |
+| Client Library | [Primavera.Lithium.Notifications](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Notifications/) (single assembly) |
 | Web UI | Yes |
 | Depends on | IDS |
 
