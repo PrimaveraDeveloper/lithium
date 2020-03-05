@@ -71,7 +71,7 @@ These services provide features related with PRIMAVERA ROSE.
 
 | Microservice | Name | Description | Spec |
 | - | - | - | - |
-| [RPS](./rose/RPS.md) | ROSE People Service | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
+| [RPS](./rose/rps.md) | ROSE People Service | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
 
 ## Endpoints
 

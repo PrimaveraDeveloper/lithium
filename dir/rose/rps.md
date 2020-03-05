@@ -1,6 +1,6 @@
 # ROSE People Service (RPS)
 
-The ROSE People Service provides...
+Under development...
 
 ## Specification
 
