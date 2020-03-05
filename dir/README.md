@@ -65,6 +65,14 @@ These services provide features related with PRIMAVERA Accounting Automation.
 | - | - | - | - |
 | [AAS](./paa/aas.md) | Accounting Automation Service | Features to integrate PAA with cloud products (Jasmin) | --- |
 
+### ROSE
+
+These services provide features related with PRIMAVERA ROSE.
+
+| Microservice | Name | Description | Spec |
+| - | - | - | - |
+| [RPS](./rose/RPS.md) | ROSE People Service | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
+
 ## Endpoints
 
 A directory of the all the services endpoints is available [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2F_doc%2Flithium-endpoints.md).
