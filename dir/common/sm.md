@@ -7,9 +7,9 @@ The Service Management Service allows invoking the operations in the Service Man
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.ServiceManagement |
-| Version | 1.0 |
-| API Versions | 1.0 |
-| Client Library | [Primavera.Lithium.ServiceManagement](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ServiceManagement/) |
+| Version | 2.0 |
+| API Versions | N/A |
+| Client Library | [Primavera.Lithium.ServiceManagement](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ServiceManagement/) (single assembly) |
 | Web UI | No |
 | Depends on | IDS |
 
@@ -17,7 +17,7 @@ The Service Management Service allows invoking the operations in the Service Man
 
 | Scope | Description |
 | - | - |
-| `service-management` | Access the basic endpoints in the API |
+| `service-management` | Access the basic endpoints in the Service Management API |
 
 ## Environments
 
@@ -34,5 +34,6 @@ The Service Management Service allows invoking the operations in the Service Man
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Spec | [2.0](./specs/sm-spec-2.0.md) |
+| Client Library | [ClientLibDoc.gen.md (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FSS%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) |
+| Web API | N/A |
