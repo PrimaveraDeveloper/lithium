@@ -30,6 +30,8 @@ Create a folder named `.nuget` (mind the dot) and create there a file named `nug
 
 Open the service solution in Visual Studio.
 
+> For the time being, ignore any warning to upgrade the solution and to update the Hydrogen dependencies.
+
 Add a solution folder named `.nuget` (mind the dot) and the previous file to it.
 
 ## Next

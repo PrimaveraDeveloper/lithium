@@ -4,7 +4,7 @@
 
 Select "Manage NuGet Packages for Solution..." from the Visual Studio context menu.
 
-Update all the previous configured NuGet packages to their latest versions.
+Update all the previous configured Hydrogen NuGet packages to their latest versions.
 
 > Do NOT update any package that is added to the solution as a dependency of Hydrogen (e.g. `Microsoft.Extensions.Logging`). These will be updated correctly when new versions of Hydrogen become available.
 

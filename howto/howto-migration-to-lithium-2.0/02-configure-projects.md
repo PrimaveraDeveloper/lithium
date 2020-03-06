@@ -7,13 +7,13 @@
 Make sure that the `TargetFramework` for each `.csproj` is according to this list:
 
 - `Design`: `<TargetFramework>netstandard2.0</TargetFramework>`
-- `Client.Console`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `Client.Console`: `<TargetFramework>netcoreapp3.1</TargetFramework>`
 - `ClientLib`: `<TargetFramework>netstandard2.0</TargetFramework>`
 - `Models`: `<TargetFramework>netstandard2.0</TargetFramework>`
-- `WebApi`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- `ClientLib.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- `Models.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
-- `WebApi.Tests`: `<TargetFramework>netcoreapp3.0</TargetFramework>`
+- `WebApi`: `<TargetFramework>netcoreapp3.1</TargetFramework>`
+- `ClientLib.Tests`: `<TargetFramework>netcoreapp3.1</TargetFramework>`
+- `Models.Tests`: `<TargetFramework>netcoreapp3.1</TargetFramework>`
+- `WebApi.Tests`: `<TargetFramework>netcoreapp3.1</TargetFramework>`
 
 ### IsPackable
 
