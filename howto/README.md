@@ -53,6 +53,3 @@ This chapter includes "how to" guides to help developing microservices with the 
 ## Upgrading a microservice
 
 - [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
-
-## Adding advanced features to a microservice
-- [How to configure a **microservice** as a taskbox](./howto-configure-microservice-as-taskbox.md)

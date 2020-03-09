@@ -1,11 +1,6 @@
-<<<<<<< HEAD:howto/howto-configure-microservice-as-taskbox.md
-# How to configre a microservice as a task box
-With the Lithium SDK, you can easily create and run a WebApi. Starting with this scenario, this document will help with the necessary customization to configure a microservice as a TaskBox. To know more about how to create a new microservice in Visual Studio [see this.](howto-create-new-microservice.md).
-=======
 # How to include a task box in a micro service
 
-This guide describes the steps required to include a task box in a background service.
->>>>>>> 5c4403013c0bf609432a256e961c0fc1742a541f:howto/howto-include-taskbox.md
+Starting with the scenario where you already have a microservice, this document will help with the necessary steps to include a task box in a microservice. To know more about how to create a new microservice in Visual Studio [see this.](howto-create-new-microservice.md).
 
 ## Packages 
 
