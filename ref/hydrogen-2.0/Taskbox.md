@@ -247,12 +247,12 @@ IServiceCollection services = (...);
 services.AddSingleton<ITaskboxWorkersManager, TaskboxWorkersManager>()
         .AddSingleton(typeof(ITaskboxWorker<>), typeof(TaskboxWorker<>))
 ```
-It's also necessary to implement the `PipeboxWorkersConfig`, where will be defined necessary parameters for the workers to run.
+It's also necessary to implement the `TaskboxOptions`, where will be defined necessary parameters for the workers to run.
 
 ```csharp
-services.Configure<TaskboxWorkersConfig>(
-    this.Configuration.GetSection(nameof(PipeboxWorkersConfig)))
-    .AddOptionsSnapshot<TaskboxWorkersConfig>();
+services.Configure<TaskboxOptions>(
+    this.Configuration.GetSection(nameof(TaskboxOptions)))
+    .AddOptionsSnapshot<TaskboxOptions>();
 ```
 
 To start a `ITaskboxWorker` through the `ITaskboxWorkersManager`, consider the following example:
