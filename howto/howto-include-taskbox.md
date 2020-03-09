@@ -1,6 +1,6 @@
 # How to include a task box in a micro service
 
-Starting with the scenario where you already have a microservice, this document will help with the necessary steps to include a task box in a microservice. To know more about how to create a new microservice in Visual Studio [see this.](howto-create-new-microservice.md).
+Starting with the scenario where you already have a microservice, this document will help with the necessary steps to include a task box in a microservice. To know more about how to create a new microservice in Visual Studio [see this.](howto-create-new-microservice.md)
 
 ## Packages 
 
