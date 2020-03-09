@@ -218,24 +218,24 @@ See the [IPipelineHandler<TContext, TConfig>][REF_Taskbox_Abstractions] for more
 The `HttpHandler<T>` it's an abstract class to help the implementation of an handler to perform http requests.
 
 
-## Pipebox Workers Manager
+## Taskbox Workers Manager
 
-### `IPipeboxWorkersManager`
-The `IPipeboxWorkersManager` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
+### `ITaskboxWorkersManager`
+The `ITaskboxWorkersManager` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
 
-This component is responsible for distributing configurations to an `IPipeboxWorker` and for managing all the `IPipeboxWorkers`, starting and stoping them as necessary. It can also be defined as an engine of `IPipeboxWorkers`. The `IPipeboxWorkersManager` configuration is defined by the PipeboxWorkersConfig. This implementation contains all the configurations needed for the `IPipeboxWorkersManager` . Here you can define the number of `IPipeboxWorkers` that will be running simultaneously and the waiting time for `IPipeboxWorker` when the pool is full.
+This component is responsible for distributing configurations to an `ITaskboxWorker` and for managing all the `ITaskboxWorkers`, starting and stoping them as necessary. It can also be defined as an engine of `ITaskboxWorkers`. The `ITaskboxWorkersManager` configuration is defined by the TaskboxOptions. This implementation contains all the configurations needed for the `ITaskboxWorkersManager` . Here you can define the number of `ITaskboxWorkers` that will be running simultaneously and the waiting time for `ITaskboxWorker` when the pool is full.
 
 
-### `IPipeboxWorker`
+### `ITaskboxWorker`
 
 As the name implies, this is the worker component, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0). 
 
-When the `IPipeboxWorkersManager` starts a `IPipeboxWorker` it gives to the worker:
+When the `ITaskboxWorkersManager` starts a `ITaskboxWorker` it gives to the worker:
 - A `PipeboxConfig`
 - The event
 - The pipeline id to be executed
 
-The `IPipeboxWorker` is responsible for instantiating, configuring and executing a Pipebox.
+The `ITaskboxWorker` is responsible for instantiating, configuring and executing a Pipebox.
 
 The worker actions are `StartWorkerAsync`, `StopWorkerAsync`.
 
@@ -244,18 +244,18 @@ The service implementation should be registered using one of the following exten
 ```csharp
 IServiceCollection services = (...);
 
-services.AddSingleton<IPipeboxWorkersManager, PipeboxWorkersManager>()
-        .AddSingleton(typeof(IPipeboxWorker<>), typeof(PipeboxWorker<>))
+services.AddSingleton<ITaskboxWorkersManager, TaskboxWorkersManager>()
+        .AddSingleton(typeof(ITaskboxWorker<>), typeof(TaskboxWorker<>))
 ```
 It's also necessary to implement the `PipeboxWorkersConfig`, where will be defined necessary parameters for the workers to run.
 
 ```csharp
-services.Configure<PipeboxWorkersConfig>(
+services.Configure<TaskboxWorkersConfig>(
     this.Configuration.GetSection(nameof(PipeboxWorkersConfig)))
-    .AddOptionsSnapshot<PipeboxWorkersConfig>();
+    .AddOptionsSnapshot<TaskboxWorkersConfig>();
 ```
 
-To start a `IPipeboxWorker` through the `IPipeboxWorkersManager`, consider the following example:
+To start a `ITaskboxWorker` through the `ITaskboxWorkersManager`, consider the following example:
 
 ```csharp
 
@@ -265,17 +265,17 @@ IServiceProvider serviceProvider = this.BuildServiceProvider();
 
 var services = new ServiceCollection();
 
-services.Configure<PipeboxWorkersConfig>(
-    this.Configuration.GetSection(nameof(PipeboxWorkersConfig)))
-    .AddOptionsSnapshot<PipeboxWorkersConfig>();
+services.Configure<TaskboxOptions>(
+    this.Configuration.GetSection(nameof(TaskboxOptions)))
+    .AddOptionsSnapshot<TaskboxOptions>();
 
-services.AddSingleton<IPipeboxWorkersManager, PipeboxWorkersManager>()
-        .AddSingleton(typeof(IPipeboxWorker<>), typeof(PipeboxWorker<>));
+services.AddSingleton<ITaskboxWorkersManager, TaskboxWorkersManager>()
+        .AddSingleton(typeof(ITaskboxWorker<>), typeof(TaskboxWorker<>));
 
 var provider = services.BuildServiceProvider();
 
-// Get a new instance of a IPipeboxWorkersManager
-IPipeboxWorkersManager engine = provider.GetRequiredService<IPipeboxWorkersManager>();
+// Get a new instance of a ITaskboxWorkersManager
+ITaskboxWorkersManager engine = provider.GetRequiredService<ITaskboxWorkersManager>();
 
 // Arrange the configurations for the worker to execute
 var data = "hello";
@@ -288,7 +288,7 @@ var config = PipeboxConfig.Create(json);
 await engine.StartWorker(config, data, "p1").ConfigureAwait(false);
 
 ```
-To stop all the running `IPipeboxWorker`'s, consider the following example:
+To stop all the running `ITaskboxWorker`'s, consider the following example:
 
 ```csharp
 
@@ -298,43 +298,49 @@ IServiceProvider serviceProvider = this.BuildServiceProvider();
 
 var services = new ServiceCollection();
 
-services.Configure<PipeboxWorkersConfig>(
-    this.Configuration.GetSection(nameof(PipeboxWorkersConfig)))
-    .AddOptionsSnapshot<PipeboxWorkersConfig>();
+services.Configure<TaskboxOptions>(
+    this.Configuration.GetSection(nameof(TaskboxOptions)))
+    .AddOptionsSnapshot<TaskboxOptions>();
 
-services.AddSingleton<IPipeboxWorkersManager, PipeboxWorkersManager>()
-        .AddSingleton(typeof(IPipeboxWorker<>), typeof(PipeboxWorker<>));
+services.AddSingleton<ITaskboxWorkersManager, TaskboxWorkersManager>()
+        .AddSingleton(typeof(ITaskboxWorker<>), typeof(TaskboxWorker<>));
 
 var provider = services.BuildServiceProvider();
 
-// Get a new instance of a IPipeboxWorkersManager
-IPipeboxWorkersManager engine = provider.GetRequiredService<IPipeboxWorkersManager>();
+// Get a new instance of a ITaskboxWorkersManager
+ITaskboxWorkersManager engine = provider.GetRequiredService<ITaskboxWorkersManager>();
 
 // Starting the workers
 (...)
 
-// Stoping the engine
+// Stopping the engine
 await engine.StopEngine().ConfigureAwait(false);
 
 ```
 
-## Deployment
+## Dependency Injection
 
-This section holds all the components related to the deployment of a Taskbox.
+### Options Class's
 
-### Configuration Class's
+- `EventBusOptions` it's a class to help the implementation of an EventBus for the Taskbox.
+- `TaskboxOptions` it's a class that holds the configurations for the workers manager.
 
-- `EventBusConfiguration` it's a class to help the implementation of an EventBus with the Taskbox.
-- `PipeboxWorkersConfig` it's a class that holds the configurations for the workers manager.
+### Service collection extensions
+
+- `TaskboxServiceCollectionExtensions` this class provides methods to help add and configure a taskbox.
+
+## Event Handling
+
+This section holds all the components related to the event handling of a Taskbox.
 
 ### `EventBusHandler<T>`
 It's an abstract handler that implements the [`IEventBusEventHandler<T>`](EventBus.Abstractions.md), to help build an handler for the taskbox in a way that is easier and faster.
 
 
 
-### EventTrigger
-It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps managing a list of events. It's recommended  to use it in the implementation of the taskbox.
+### TriggeredEvent
+It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps managing a list of events.
 
 ### EventBusManager
 
-It's a generic subscribe and unsubscribe, it can do both operations for any event type that is given. This manager works with a event 
+It's a generic subscriber and unsubscriber, it can do both operations for any event type that is given. This manager works with the `TriggeredEvent` class.
