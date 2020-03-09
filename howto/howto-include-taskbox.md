@@ -1,13 +1,13 @@
-# How to create a Taskbox as a microservice
-With the Lithium SDK, you can easily create and run an WebApi. Starting with this scenario, this document will help with the necessary customization to transform it into a TaskBox.
+# How to include a task box in a micro service
+
+This guide describes the steps required to include a task box in a background service.
 
 ## Packages 
 
 **First, you need to install the following packages:**
+
  - Primavera.Hydrogen.Taskbox
- - Primavera.Hydrogen.Taskbox.Abstractions
  - Primavera.Hydrogen.EventBus.Azure
- - Primavera.Hydrogen.EvenBus.Abstractions
 
 After installing the packages, you have all the tools to create a taskbox.
 
