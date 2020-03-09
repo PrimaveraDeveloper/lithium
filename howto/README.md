@@ -14,7 +14,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to create a **microservice that does not require a client library**](./howto-create-microservice-without-clientlib.md)
 - [How to create a **client library for an existing Web API** (not developed with Lithium)](./howto-create-clientlib-only.md)
 - [How to **organize the source code** of a microservice](./howto-organize-source-code.md)
-- [How to **create a taskbox** as a microservice](./howto-create-taskbox.md)
 
 ## Modeling a microservice
 
@@ -48,3 +47,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 ## Upgrading a microservice
 
 - [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
+
+## Adding advanced features to a microservice
+- [How to configure a **microservice** as a taskbox](./howto-configure-microservice-as-taskbox.md)
