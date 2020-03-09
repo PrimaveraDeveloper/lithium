@@ -30,14 +30,20 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to **add custom code** to a microservice](./howto-add-custom-code.md)
 - [How to **add custom application settings**](./howto-add-custom-appsettings.md)
 
-## Adding features to a micro service
+## Adding basic features to a micro service
 
 - [How to add **support for distributed caching** to a microservice](./howto-add-distributed-cache.md)
 - [How to add **support for Table Storage** to a microservice](./howto-add-table-storage.md)
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
+- How to **add pipelines** to a microservice
+
+### Adding advanced features to a micro service
+
+- How to **setup authentication** in a microservice
 - [How to **add support for ASP.NET MVC user interface** to a microservice](./howto-add-user-interface-mvc.md)
 - How to **add support for Angular user interface** to a microservice
+- [How to **include a taskbox** in a microservice](./howto-include-taskbox.md)
 
 ## Testing a microservice
 
