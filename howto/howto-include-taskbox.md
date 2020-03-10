@@ -277,7 +277,7 @@ services.AddTransient<MyCustomHttpHandler>();
 
 ### Using the Workers Manager
 
-To start a worker you will be the `PipeboxConfig`, the `PipeboxContext` and the identifier of the pipeline that should be executed:
+To start a worker you will need the `PipeboxConfig`, the `PipeboxContext` and the identifier of the pipeline that should be executed:
 
 ```csharp
 await this.WorkersManager.StartWorker(
@@ -289,7 +289,7 @@ await this.WorkersManager.StartWorker(
 
 This will instantiate and start a worker with the given configuration options. On a deeper level, this worker will build a `Pipebox` with those input parameters and it will be that `Pipebox` that executes the pipeline.
 
-In the previous handler this would be be similar to the following:
+Implementing this to the previous handler, MyCustomHandler, would be similar to the following:
 
 ```csharp
 public override Task<bool> Handle(IEventBusEvent<string> eventBusEvent)
