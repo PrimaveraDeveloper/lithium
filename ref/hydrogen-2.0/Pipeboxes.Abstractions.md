@@ -1,16 +1,23 @@
+<!-- REFERENCES -->
+
+[REF_PHP]: ./Pipeboxes.md
+[REF_PHTA]: ./Taskox.Abstractions.md
+
+<!-- DOCUMENT -->
+
 # Primavera.Hydrogen.Pipeboxes.Abstractions
 
-**Class library that contains types that define abstractions for asynchronous multi-task processing.**
+**Class library that contains types that define abstractions for the Pipeline design pattern with multiple execution flows.**
 
 ## About
 
-This abstraction defines the `Pipeline Design Pattern` interfaces that transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service.
+This abstraction defines the `Pipeline` design pattern interfaces that transforms the processing of a complex or time consuming operation into a set of small tasks that combine together to form an asynchronous unit of work, with the aim of improving performance, scalability and component reusability in any application or service. The main objective of this abstraction is to support multiple flows for the execution of tasks, leaving that responsibility to the implementation.
 
 ## When to use this pattern
 
 Use when:
-- The operation the application needs to perform can be divided into asynchronous and independent units of work (Pipelines).
-- The unit of work can be broken down into a set of smaller tasks (Handlers) that are complementary and reusable.
+- The operation the application needs to perform can be divided into asynchronous and independent units of work (or Pipelines).
+- The unit of work can be broken down into a set of smaller tasks (or Handlers) that are complementary and reusable.
 - Tasks have different scalability requirements and can benefit from distributed processing.
 
 May not be useful when:
@@ -68,6 +75,8 @@ Use the base classes provided in the concrete implementations to create, customi
 
 ## Implementations
 
-[Primavera.Hydrogen.Taskbox][REF_PHT]
+[Primavera.Hydrogen.Pipeboxes][REF_PHP]
 
-[REF_PHT]: https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/Taskbox.md
+## Related
+
+To orchestrate the execution of multiple units of work you can use the [Primavera.Hydrogen.Taskbox.Abstractions][REF_PHTA].
