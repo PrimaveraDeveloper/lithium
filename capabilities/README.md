@@ -10,7 +10,7 @@ This the list of all the capabilities (order alphabetically):
 - [Background Services](./background-services.md)
 - Blobs (see [Storage](./storage.md))
 - [Caching](./caching.md)
-- [Client Libraries]
+- [Client Libraries](./client-libraries.md)
 - [Configuration]
 - [Console Applications]
 - [Data Protection]
@@ -23,8 +23,10 @@ This the list of all the capabilities (order alphabetically):
 - [Event-driven]
 - Files (see [Storage](./storage.md))
 - [Home Page]
+- [HttpClient and HttpClientFactory]
 - [HTTPS]
 - Identity Server (see [Authorization](./authorization.md))
+- [Integration Tests]
 - [Localization]
 - [Logging, Tracing and Telemetry]
 - [Monitoring and Health Checks]
@@ -34,15 +36,18 @@ This the list of all the capabilities (order alphabetically):
 - [Passwords]
 - [Phone Numbers]
 - [Pipelines]
+- [Postman]
 - [reCAPTCHA]
 - REST (see [Web API](./web-api.md))
 - [Search]
 - [Secrets]
 - [Serialization (JSON)]
+- [Service Specification]
 - [SMS]
 - [Storage](./storage.md)
 - Tables (see [Storage](./storage.md))
 - [Text Composition]
+- [Unit Tests]
 - [User-agent Parsing and Device Detection]
 - [User Interface]
 - [Validation]

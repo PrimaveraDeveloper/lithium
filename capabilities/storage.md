@@ -6,11 +6,11 @@ As any application, microservices often require the capability of storing data (
 
 The Lithium Framework supports the following kinds of storage:
 
-- Table storage: a NoSQL structured tabular storage, optimized for storing data indexed by only to columns (partition and row key).
-- Blob storage: a file-like storage system, optimized for storing raw data (bytes), text, images and files.
+- Table storage: a NoSQL structured tabular storage, optimized for storing data indexed by only 2 columns (partition and row key).
+- Blob storage: a file system-like storage system, optimized for storing raw data (bytes), text, images and files.
 - Isolated storage: a data storage mechanism with isolation and location abstraction.
 
-> Using relational databases (like SQL Server) for storage in microservices is not recommended, thus it is not supported out of the box in Lithium.
+> Using relational databases (like SQL Server) for storage in microservices is not recommended, thus it is not supported out of the box by the Lithium Framework.
 
 ## Table Storage
 
