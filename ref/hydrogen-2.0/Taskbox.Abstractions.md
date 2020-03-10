@@ -2,7 +2,6 @@
 
 **Class library that contains types that define abstractions for asynchronous multi-task processing.**
 
-
 ## Abstractions
 
 ### ITaskboxWorker

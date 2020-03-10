@@ -2,7 +2,7 @@
 
 This guide describes how support for storing data in Azure Blob Storage can be added to a microservice and how the Blob Storage Service should be used in custom code.
 
-Azure also provides a unstructured storage for objects called Blob Storage that allows storing objects, files, images, etc.
+Azure provides a unstructured storage for objects called Blob Storage that allows storing objects, files, images, etc.
 
 ## Adding the Blob Storage
 
