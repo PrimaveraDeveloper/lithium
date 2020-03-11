@@ -33,9 +33,9 @@ Allows obtaining a list of known microservices.
 Usage: li list [options]
 
 Options:
-  --help             Show help information (optional)
-  --filter <FILTER>  The filter that should be applied to the results
-  --deployments      Show deployment information
+  --help             Show help information (optional).
+  --filter <FILTER>  The filter that should be applied to the results (optional).
+  --deployments      Show deployment information (optional).
 ```
 
 To list all known microservices:
@@ -50,7 +50,7 @@ To list all known microservices, including information about their deployments (
 li list --deployments
 ```
 
-To list the known microservices that match a given search term (matching the service identifier and/or name):
+To list the known microservices that match a given search term (matching the service identifier, name or category):
 
 ```console
 li list --filter Notifications
@@ -64,14 +64,15 @@ Allows invoking the probe endpoints of a specific microservice.
 Usage: li probe [options]
 
 Options:
-  --help                         Show help information (optional)
-  --service <SERVICE>            The service that should be probed (required)
-  --deployment <DEPLOYMENT>      The deployment that should be probed (optional)
-  --diagnostics                  Invoke the diagnostics endpoint (optional)
-  --authority <ADDRESS>          The authority server address (optional only for --diagnostics)
-  --clientid <CLIENTID>          The client identifier (required only for --diagnostics)
-  --clientsecret <CLIENTSECRET>  The client secret (required only for --diagnostics)
-  --scope <SCOPE>                The scope (required only for --diagnostics)
+  --help                         Show help information (optional).
+  --service <SERVICE>            The service that should be probed (required if --all not specified).
+  --all                          Probe all services (if specified, --service and --diagnostics are ignored).
+  --deployment <DEPLOYMENT>      The deployment that should be probed (optional).
+  --diagnostics                  Invoke the diagnostics endpoint (optional).
+  --authority <ADDRESS>          The authority server address (optional only for --diagnostics).
+  --clientid <CLIENTID>          The client identifier (required only for --diagnostics).
+  --clientsecret <CLIENTSECRET>  The client secret (required only for --diagnostics).
+  --scope <SCOPE>                The scope (required only for --diagnostics).
 ```
 
 To probe a specific microservice (production deployment):
@@ -100,11 +101,11 @@ Allows obtaining access tokens from an authority server.
 Usage: li token [options]
 
 Options:
-  --help                         Show help information (optional)
-  --authority <ADDRESS>          The authority server address (optional)
-  --clientid <CLIENTID>          The client identifier (required)
-  --clientsecret <CLIENTSECRET>  The client secret (required)
-  --scope <SCOPE>                The scope (optional)
+  --help                         Show help information (optional).
+  --authority <ADDRESS>          The authority server address (optional).
+  --clientid <CLIENTID>          The client identifier (required).
+  --clientsecret <CLIENTSECRET>  The client secret (required).
+  --scope <SCOPE>                The scope (optional).
 ```
 
 To retrieve an access token for a given client application from the default authority server:
