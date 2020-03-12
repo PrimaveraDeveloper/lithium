@@ -2,7 +2,7 @@
 
 > Tags: REST, JSON, Models, Resources, HTTP
 
-The most important feature of the Lithium Framework is the capability of modeling and generating the microservice Web API.
+The most important feature of the Lithium Framework is the capability of modeling and generating the Web API for a microservice.
 
 The resulting Web API adheres to the [RESTful principles](https://restfulapi.net/) and includes a set of additional features "out of the box":
 
@@ -12,6 +12,7 @@ The resulting Web API adheres to the [RESTful principles](https://restfulapi.net
 - Common [errors are handled automatically](./error-handling.md).
 - The [documentation](./documentation.md) is automatically generated.
 - A C# [client library](./client-libraries.md) is automatically generated.
+- Etc.
 
 The Web API endpoint routes are generated using the following form:
 
