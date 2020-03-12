@@ -6,7 +6,7 @@ The Lithium SDK supports generating a client library in C# for the microservice 
 
 > Currently it is only generated a C# client library. In the future other programming languages may be supported. In the meantime, specific client libraries can also be generated from the Web API documentation that is automatically generated.
 
-The client library sets up a service client (see [Primavera.Hydrogen.Rest.Client documentation](../ref/hydrogen-2.0/Rest.Client.md)) that acts as the entry point for the API endpoints and deals with multiple features that standardize how these endpoints are invoked. Things like:
+The client library sets up a service client (see [Primavera.Hydrogen.Rest.Client](../ref/hydrogen-2.0/Rest.Client.md)) that acts as the entry point for the API endpoints and deals with multiple features that standardize how these endpoints are invoked. Things like:
 
 - Routing
 - Serialization

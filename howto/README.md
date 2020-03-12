@@ -43,6 +43,7 @@ This chapter includes "how to" guides to help developing microservices with the 
 - How to **setup authentication** in a microservice
 - [How to **add support for ASP.NET MVC user interface** to a microservice](./howto-add-user-interface-mvc.md)
 - [How to **add support for Angular user interface** to a microservice](./howto-add-user-interface-ngx.md)
+- How to **add data protection** in a microservice
 - [How to **include a taskbox** in a microservice](./howto-include-taskbox.md)
 
 ## Testing a microservice

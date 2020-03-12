@@ -56,4 +56,5 @@ The following extensions for Visual Studio are recommended but not required:
 The following applications are also recommended:
 
 - Visual Studio Code - for editing documentation markdown files (like this one) from Git.
+- Windows Terminal - a terminal emulator for Windows 10, supporting Command Prompt, PowerShell, etc.
 - Fork - a Windows client for Git.
