@@ -457,3 +457,9 @@ bool isBase = UriHelper.IsBaseAddress(uri);
 string uri = UriHelper.Combine("http://www.foo.com/", "/too/", "/many/", "/slashes/", "too", "few", "one/two/");
 string uri = UriHelper.Encode(input);
 ```
+
+### `Disposable`
+
+`Disposable` provides a base class for creating classes that implement the `IDisposable` interface. 
+
+See the [Disposable](./Core.Disposable.md) documentation for more information.

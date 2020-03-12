@@ -11,7 +11,7 @@
 
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Pipeboxes.Abstractions][REF_PHPA]. The main objective of this implementation is to support the `Pipeline` design pattern with multiple execution flows. Alternatively, you can use [Primavera.Hydrogen.Pipelines][REF_PHPL] which is a single implementation of the recursive flow.
+This class library is the default implementation of the [Primavera.Hydrogen.Pipeboxes.Abstractions][REF_PHPA]. The main purpose of this implementation is to support the `Pipeline` design pattern with multiple execution flows. Alternatively, you can use [Primavera.Hydrogen.Pipelines][REF_PHPL] which is a single implementation of the recursive flow.
 
 ## Pipebox
 
