@@ -19,40 +19,40 @@ This the list of all the capabilities (order alphabetically):
 - [Documentation (Web API)](./doc-web-api.md)
 - [Email](./email.md)
 - [Environments](./environments.md)
-- [Error Handling]./error-handling.md)
-- [Event-driven]
+- [Error Handling](./error-handling.md)
+- [Event-driven](./event-driven.md)
 - Files (see [Storage](./storage.md))
 - [Home Page](./home-page.md)
 - [HttpClient and HttpClientFactory](./httpclient.md)
 - [HTTPS](./https.md)
 - Identity Server (see [Authorization](./authorization.md))
-- [Integration Tests]
-- [Localization]
+- [Integration Tests](./integration-tests.md)
+- [Localization](./localization.md)
 - [Logging, Tracing and Telemetry](./telemetry.md)
 - [Monitoring and Health Checks]
-- [MVC]
+- [MVC](./mvc.md)
 - OAuth (see [Authentication](./authentication.md))
 - OpenID Connect (OIDC) (see [Authentication](./authentication.md))
 - [Phone Numbers](./phone-numbers.md)
-- [Pipelines]
-- [Postman]
-- [reCAPTCHA]
+- [Pipelines](./pipelines.md)
+- [Postman](./postman.md)
+- [reCAPTCHA](./recaptcha.md)
 - REST (see [Web API](./web-api.md))
-- [Search]
-- [Secrets]
-- [Serialization (JSON)]
-- [Service Specification]
-- [SMS]
+- [Search](./search.md)
+- [Secrets](./secrets.md)
+- [Serialization (JSON)](./serialization-json.md)
+- [Service Specification](./service-spec.md)
+- [SMS](./sms.md)
 - [Storage](./storage.md)
 - Tables (see [Storage](./storage.md))
-- [Text Composition]
-- [Unit Tests]
-- [User-agent Parsing and Device Detection]
-- [User Interface]
-- [Validation]
-- [Versioning]
-- [Versioning (Web API)]
-- [WCF]
+- [Text Composition](./text-composition.md))
+- [Unit Tests](./unit-tests.md))
+- [User-agent Parsing and Device Detection](./user-agent.md)
+- [User Interface](./ui.md)
+- [Validation](./validation.md)
+- [Versioning](./versioning.md)
+- [Versioning (Web API)](./versioning-web-api.md)
+- [WCF](./wcf.md)
 - [Web API](./web-api.md)
 
 These capabilities are provided in different forms:
