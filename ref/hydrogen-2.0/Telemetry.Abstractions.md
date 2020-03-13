@@ -21,7 +21,7 @@ This is the case when the application wants to explicitly record telemetry like 
 
 The application can do that by instantiating a telemetry client and making it record the desired telemetry (see Telemetry Client).
 
-## Telemetry Client (ITelemetryClientService)
+## Telemetry Client (`ITelemetryClientService`)
 
 The `ITelemetryClientService` service allows instantiating clients to record telemetry (events, metrics, exceptions, and traces).
 

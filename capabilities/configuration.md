@@ -97,6 +97,6 @@ protected override HostConfiguration AddConfiguration(IServiceCollection service
 
     // Default behavior
 
-    return base.AddConfigurtion(services);
+    return base.AddConfiguration(services);
 }
 ```

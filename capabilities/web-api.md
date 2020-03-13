@@ -10,7 +10,7 @@ The resulting Web API adheres to the [RESTful principles](https://restfulapi.net
 - All the endpoints use [versioning](./versioning-web-api.md).
 - [Validation](./validation.md) of arguments can be modeled and automatically generated.
 - Common [errors are handled automatically](./error-handling.md).
-- The [documentation](./documentation.md) is automatically generated.
+- The [documentation](./doc-web-api.md) is automatically generated.
 - A C# [client library](./client-libraries.md) is automatically generated.
 - Etc.
 

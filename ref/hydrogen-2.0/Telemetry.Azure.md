@@ -111,7 +111,7 @@ mechanisms provided by Application Insights (see Telemetry Initializers).
 
 ### Dependencies Tracking
 
-Dependency tracking is also automatically initialized after initializing the services.
+Dependency tracking is also automatically initialized after initializing the service.
 
 ### Logging
 
@@ -233,6 +233,36 @@ services.AddSingleton<ITelemetryInitializer>(
     });
 
 services.AddAzureInsightsTelemetry();
+```
+
+#### `StatusCodeTelemetryInitializer`
+
+`StatusCodeTelemetryInitializer` allows making App Insights treat a given status code response as success instead of error. This is useful, for example, for 404 return code, which are treated by default as errors but are normal responses for Web API endpoints.
+
+It is possible to handle all responses, regardless of the request path:
+
+```csharp
+services.AddSingleton<ITelemetryInitializer, StatusCodeTelemetryInitializer>();
+```
+
+> `HttpStatusCode.NotFound` is the default value for the `StatusCode` property of the initializer.
+
+Or handle specific status codes and request paths:
+
+```csharp
+services.AddSingleton<ITelemetryInitializer>(
+    (provider) =>
+    {
+        return new StatusCodeTelemetryInitializer(provider)
+         {
+             Requests = RequestTelemetryInitializerBehavior.Specified,
+             RequestPaths = new List<string>()
+             {
+                "/api/*",
+            },
+            StatusCode = HttpStatusCode.NotImplemented
+        };
+    });
 ```
 
 ### Telemetry Processors

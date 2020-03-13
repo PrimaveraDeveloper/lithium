@@ -18,8 +18,8 @@ This the list of all the capabilities (order alphabetically):
 - [Documentation (Client libraries)](./doc-client-lib.md)
 - [Documentation (Web API)](./doc-web-api.md)
 - [Email](./email.md)
-- [Environments]
-- [Error Handling]
+- [Environments](./environments.md)
+- [Error Handling]./error-handling.md)
 - [Event-driven]
 - Files (see [Storage](./storage.md))
 - [Home Page](./home-page.md)
@@ -28,7 +28,7 @@ This the list of all the capabilities (order alphabetically):
 - Identity Server (see [Authorization](./authorization.md))
 - [Integration Tests]
 - [Localization]
-- [Logging, Tracing and Telemetry]
+- [Logging, Tracing and Telemetry](./telemetry.md)
 - [Monitoring and Health Checks]
 - [MVC]
 - OAuth (see [Authentication](./authentication.md))
