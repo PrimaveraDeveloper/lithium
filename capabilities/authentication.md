@@ -6,4 +6,4 @@ By default, the Web API endpoints of a microservice do not require user authenti
 
 There are scenarios where a microservice might need to provide endpoints that require authenticating the user (for example, if the service provides a back-office to allow some users to manage it).
 
-The Lithium Framework supports such scenarios by allowing the developer to configure [OpenID Connect (OIDC)](https://openid.net/connect/), custom authorization policies and even endpoints that serve some kind of [user interface](./user-interface.md).
+The Lithium Framework supports such scenarios by allowing the developer to configure [OpenID Connect (OIDC)](https://openid.net/connect/), custom authorization policies and even endpoints that serve some kind of [user interface](./ui.md).

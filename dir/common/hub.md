@@ -13,7 +13,7 @@ The current version includes the following third-party APIs:
 | Namespace | Primavera.Lithium.HubServices |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | [Primavera.Lithium.HubServices.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.HubServices/) |
+| Client Library | Primavera.Lithium.HubServices.dll |
 | Web UI | No |
 | Depends on | IDS |
 

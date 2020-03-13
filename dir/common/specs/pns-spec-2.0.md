@@ -76,13 +76,17 @@ The following example is the only required fields for a notification:
 }
 ```
 
+<!-- markdown-link-check-disable -->
 More information about the notification structure can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
+<!-- markdown-link-check-enable -->
 
 ## By an event (EventBus)
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
 
+<!-- markdown-link-check-disable -->
 If there is the need to add a new listener to another notification event (external), the new listener can be added following [this documentation example](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview) in the EventBus section.
+<!-- markdown-link-check-enable -->
 
 # Configuration
 
@@ -101,7 +105,9 @@ Each notification has an expiration date that is defined by NotificationType, or
 }
 ```
 
+<!-- markdown-link-check-disable -->
 > Note: The ttl is defined in seconds. To turn off the ttl the value provided must be -1. More info about the ttl can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
+<!-- markdown-link-check-enable -->
 
 ## Eventbus filters
 

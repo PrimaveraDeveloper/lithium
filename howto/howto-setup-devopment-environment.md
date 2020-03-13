@@ -35,7 +35,7 @@ After installed, two new extensions with the following names should be available
 
 To compile the microservice developed with the Lithium Framework, access to the following internal services will also be necessary:
 
-- NuGet packages repository: [public-lithium-general](http://nuget.primaverabss.com:82/feeds/public-lithium-general)
+- NuGet packages repository: public-lithium-general (<span>https</span>://nuget.primaverabss.com:82/feeds/public-lithium-general)
 
 ## Additional Services
 

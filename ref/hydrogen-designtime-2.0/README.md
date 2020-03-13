@@ -15,4 +15,4 @@ The design-time libraries provide features specifically designed to support the 
 
 ## NuGet Packages
 
-All these libraries are available as NuGet packages from the following feed: [public-lithium-general](http://nuget.primaverabss.com:82/feeds/public-lithium-general).
+All these libraries are available as NuGet packages from the following feed: public-lithium-general.

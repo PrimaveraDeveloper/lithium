@@ -43,4 +43,4 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 
 ## NuGet Packages
 
-All these libraries are available as NuGet packages from the following feed: [public-lithium-general](http://nuget.primaverabss.com:82/feeds/public-lithium-general).
+All these libraries are available as NuGet packages from the following feed: public-lithium-general.

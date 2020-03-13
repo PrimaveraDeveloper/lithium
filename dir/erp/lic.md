@@ -9,7 +9,7 @@ The Licensing Service provides the operations required to support the ERP licens
 | Namespace | Primavera.Lithium.Licensing |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | [Primavera.Lithium.Licensing.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Licensing/) |
+| Client Library | Primavera.Lithium.Licensing.dll |
 | Web UI | Yes |
 | Depends on | IDS |
 
@@ -32,7 +32,9 @@ The Licensing Service provides the operations required to support the ERP licens
 
 ## Reference Documentation
 
+<!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
 | Client Library | [TFS](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FERP%2FLIC%2FMainline%2FReadme.md&version=T&_a=preview) |
 | Web API | [TFS](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FERP%2FLIC%2FMainline%2FReadme.md&version=T&_a=preview) |
+<!-- markdown-link-check-enable -->

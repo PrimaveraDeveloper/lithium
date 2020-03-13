@@ -11,7 +11,7 @@ It also includes a Web API for managing its resources.
 | Namespace | Primavera.Lithium.IdentityServer |
 | Version | 4.0 |
 | API Version | 4.0 |
-| Client Library | [Primavera.IdentityServer.dll](http://nuget.primaverabss.com:82/feeds/IdentityServer/Primavera.IdentityServer/) |
+| Client Library | Primavera.IdentityServer.dll |
 | Web UI | Yes |
 | Depends on | SS, NS |
 

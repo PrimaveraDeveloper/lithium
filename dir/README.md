@@ -75,4 +75,6 @@ These services provide features related with PRIMAVERA ROSE.
 
 ## Endpoints
 
+<!-- markdown-link-check-disable -->
 A directory of the all the services endpoints is available [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2F_doc%2Flithium-endpoints.md).
+<!-- markdown-link-check-enable -->

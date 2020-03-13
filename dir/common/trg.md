@@ -11,7 +11,7 @@ This is a way of executing batch jobs triggered by calls to given endpoints.
 | Namespace | Primavera.Lithium.Triggers |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | [Primavera.Lithium.Triggers](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Triggers/) |
+| Client Library | Primavera.Lithium.Triggers.dll |
 | Web UI | No |
 | Depends on | IDS |
 

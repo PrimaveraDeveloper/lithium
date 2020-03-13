@@ -9,7 +9,7 @@ The Accounting Automation Service allows PAA to configure access to Jasmin subsc
 | Namespace | Primavera.Lithium.AccountingAutomation |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | [Primavera.Lithium.AccountingAutomation.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.AccountingAutomation/) |
+| Client Library | Primavera.Lithium.AccountingAutomation.dll |
 | Web UI | Yes |
 | Depends on | IDS, NS, SM |
 

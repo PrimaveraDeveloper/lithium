@@ -227,4 +227,6 @@ private async Task<InvoicesServiceProxy> GetServiceProxyAsync(
 
 ## More Information
 
+<!-- markdown-link-check-disable -->
 Additional technical details about the service are available [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FTAXPT%2FMainline-v2%2F.doc%2FTAXPT-Reference.md&_a=preview) (TFS).
+<!-- markdown-link-check-enable -->

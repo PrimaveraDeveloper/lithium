@@ -135,7 +135,7 @@ client.GetTokenAsync(
 ```
 
 There are cases where will want to send an address in the request that is the authority server base but than token client will not be able
-to detect as such because it is not a normal base URL (e.g.: https://login.windows.net/ab96bea5-d5d5-4cb2-a841-5eda0da9ada1).
+to detect as such because it is not a normal base URL (e.g.: <span>https</span>://login.windows.net/ab96bea5-d5d5-4cb2-a841-5eda0da9ada1).
 
 `TokenClient` allows you to indicate these scenarios both in `TokenClientOptions` and in `TokenRequest`:
 
