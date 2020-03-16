@@ -2,76 +2,52 @@
 
 This chapter includes a directory of all the Lithium microservices available.
 
-The microservices are classified, for the purpose of logical organization, in categories.
-
 ## Categories
 
-### Common
+The microservices are classified, for the purpose of logical organization, in categories.
 
-These services are core to the Lithium Framework and provide common features, applicable to any kind of application.
+| Category | Description |
+| - | - |
+| [Common](./common/README.md) | These services are core to the Lithium Framework and provide common features, applicable to any kind of application. |
+| [Carbon](./carbon/README.md) | These services are part of the Carbon Framework (Intelligent ERP). |
+| [Elevation](./elevation/README.md) | These services provide features that are part of the Elevation Framework. |
+| [ERP](./erp/README.md) | These services were designed to integrate in the ERP. |
+| [Infrastructure](./infrastructure/README.md) | These services provide features for integration with the cloud infrastructure. |
+| [PAA](./pass/README.md) | These services provide features related with PRIMAVERA Accounting Automation. |
+| [ROSE](./rose/README.md) | These services provide features related with PRIMAVERA ROSE. |
 
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [CS](./common/cs.md) | Certificates Service | Allows distributing and automatically update certificates used by applications | [2.0](./common/specs/cs-spec-2.0.md) |
-| [DLS](./common/dls.md) | Data Lookup Service | Allows searching and updating reference data (e.g. VAT numbers) | [2.0](./common/specs/dls-spec-2.0.md) |
-| [FRS](./common/frs.md) | Fiscal Reports Service | Allows producing fiscal reports (for Tax Authorities) from predefined models | --- |
-| [FS](./common/fs.md) | File Store Service | Allows sharing and automatically update files used by applications | --- |
-| [HUB](./common/hub.md) | Hub Service | Nanoservices that act as proxies to third-party APIs | --- |
-| [IDS](./common/ids.md) | Identity Server | Provides identity management (user authentication and client applications authorization) for applications and microservices | --- |
-| [NS](./common/ns.md) | Notifications Service | Allows sending email and SMS notifications using templates | [2.0](./common/specs/ns-spec-2.0.md) |
-| [NTR](./common/ntr.md) | Nitrogen Service | Supports the app store for cloud products | --- |
-| [PNS](./common/pns.md) | Push Notifications Service | Allows to receive, store and broadcast real-time notifications to the connected clients | [2.0](./common/specs/pns-spec-2.0.md) |
-| [SM](./common/sm.md) | Service Management Service | Provides a proxy for the Service Management Service | [2.0](./common/specs/sm-spec-2.0.md) |
-| [SS](./common/ss.md) | Settings Service | Allows storing settings (per user, per product, and per product/user) | [2.0](./common/specs/ss-spec-2.0.md) |
-| [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Provides integration with the Spanish tax authority services | --- |
-| [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Provides integration with the Portuguese tax authority services | [2.0](./common/specs/taxpt-spec-2.0.md) |
-| [TBX](./common/tbx.md) | Taskbox Service | Provides asynchronous multi-task processing for applications | --- |
-| [TRG](./common/trg.md)| Triggers Service | Allows executing Web actions based on schedules | [2.0](./common/specs/trg-spec-2.0.md) |
+## Microservices
 
-### Carbon
+This is the list of all managed microservices:
 
-These services are part of the Carbon Framework (Intelligent ERP).
-
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [DCS](./carbon/dcs.md) | Data Catalog Service | Allows access to reference data like currencies, countries, postal codes and Spain economic activities codes | --- |
-| [MTR](./carbon/mtr.md) | Metrics Service | Allows storing and producing metrics | --- |
-| [DCS](./carbon/dcs.md) | Data Catalog Service | Allows access to reference data like currencies, countries, postal codes and Spain economic activities codes | --- |
-
-### Elevation
-
-These services provide features that are part of the Elevation Framework.
-
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [AMS](./elevation/ams.md) | Account Management Service | Allows managing subscriptions and provides onboarding and subscription selection to products | --- |
-| [PMS](./elevation/pms.md) | Postman Service | Allows presenting reports, built from templates, to users | --- |
-| [PUS](./elevation/pus.md) | Product Upgrade Service | Provides operations to upgrade cloud product versions | --- |
-
-### ERP
-
-These services were designed to integrate in the ERP.
-
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [LIC](./erp/lic.md) | Licensing Service | Features to support licensing in the ERP | --- |
-| [MV10](./erp/mv10.md) | Mobile V10 Service | Features to integrate the ERP with the Mobile V10 application | --- |
-
-### PAA
-
-These services provide features related with PRIMAVERA Accounting Automation.
-
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [AAS](./paa/aas.md) | Accounting Automation Service | Features to integrate PAA with cloud products (Jasmin) | --- |
-
-### ROSE
-
-These services provide features related with PRIMAVERA ROSE.
-
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [RPS](./rose/rps.md) | ROSE People Service | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
+| Microservice | Name | Category | Description | Spec |
+| - | - | - | - | - |
+| [AAS](./paa/aas.md) | Accounting Automation Service | PAA | Provides features to integrate PAA with cloud products (Jasmin) | --- |
+| [AMS](./elevation/ams.md) | Account Management Service | Elevation | Allows managing subscriptions and provides onboarding and subscription selection to products | --- |
+| [CS](./common/cs.md) | Certificates Service | Common | Allows distributing and automatically update certificates used by applications | [2.0](./common/specs/cs-spec-2.0.md) |
+| [DCS](./carbon/dcs.md) | Data Catalog Service | Carbon | Allows access to reference data like currencies, countries, postal codes and Spain economic activities codes | --- |
+| [DE](./infrastructure/de.md)| Discount Engine Service | Infrastructure | --- | --- || [DIS](./carbon/dis.md)| Data Ingestion Service | Carbon | --- | --- |
+| [DLS](./common/dls.md) | Data Lookup Service | Common | Allows searching and updating reference data (e.g. VAT numbers) | [2.0](./common/specs/dls-spec-2.0.md) |
+| [FRS](./common/frs.md) | Fiscal Reports Service | Common | Allows producing fiscal reports (for Tax Authorities) from predefined models | --- |
+| [FS](./common/fs.md) | File Store Service | Common | Allows sharing and automatically update files used by applications | [2.0](./common/specs/fs-spec-2.0.md) |
+| [HUB](./common/hub.md) | Hub Service | Common | Nanoservices that act as proxies to third-party APIs | --- |
+| [IDS](./common/ids.md) | Identity Server | Common | Provides identity management (user authentication and client applications authorization) for applications and microservices | --- |
+| [LIC](./common/lic.md) | Licensing Service | Common | Provides features to support licensing for the ERP and ROSE | --- |
+| [MTR](./carbon/mtr.md) | Metrics Service | Carbon | Allows storing and producing metrics | --- |
+| [MV10](./erp/mv10.md) | Mobile V10 Service | ERP | Features to integrate the ERP with the Mobile V10 application | --- || [NS](./common/ns.md) | Notifications Service | Common | Allows sending email and SMS notifications using templates | [2.0](./common/specs/ns-spec-2.0.md) |
+| [NTR](./common/ntr.md) | Nitrogen Service | Common | Supports the app store for cloud products | --- |
+| [PCS](./infrastructure/pcs.md)| Provisioning Center Service | Infrastructure | --- | --- |
+| [PMS](./elevation/pms.md) | Postman Service | Elevation | Allows presenting reports, built from templates, to users | --- |
+| [PNS](./common/pns.md) | Push Notifications Service | Common | Allows to receive, store and broadcast real-time notifications to the connected clients | [2.0](./common/specs/pns-spec-2.0.md) |
+| [PPS](./infrastructure/pps.md)| Pricing Policy Service | Infrastructure | --- | --- |
+| [PUS](./elevation/pus.md) | Product Upgrade Service | Elevation | Provides operations to upgrade cloud product versions | --- |
+| [RPS](./rose/rps.md) | ROSE People Service | ROSE | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
+| [SM](./common/sm.md) | Service Management Service | Common | Provides a proxy for the Service Management Service | [2.0](./common/specs/sm-spec-2.0.md) |
+| [SS](./common/ss.md) | Settings Service | Common | Allows storing settings (per user, per product, and per product/user) | [2.0](./common/specs/ss-spec-2.0.md) |
+| [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Common | Provides integration with the Spanish tax authority services | --- |
+| [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Common | Provides integration with the Portuguese tax authority services | [2.0](./common/specs/taxpt-spec-2.0.md) |
+| [TBX](./common/tbx.md) | Taskbox Service | Common | Provides asynchronous multi-task processing for applications | --- |
+| [TRG](./common/trg.md)| Triggers Service | Common | Allows executing Web actions based on schedules | [2.0](./common/specs/trg-spec-2.0.md) |
 
 ## Endpoints
 

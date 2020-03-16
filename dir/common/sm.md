@@ -4,14 +4,16 @@ The Service Management Service allows invoking the operations in the Service Man
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.ServiceManagement |
 | Version | 2.0 |
 | API Versions | N/A |
-| Client Library | Primavera.Lithium.ServiceManagement.dll (single assembly) |
+| Client Library | [Primavera.Lithium.ServiceManagement.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ServiceManagement) (single assembly) |
 | Web UI | No |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 

@@ -11,14 +11,16 @@ The current version supports the following Tax Authority services:
 
 ## Specification
 
-| Metadata | Value |
+<!-- markdown-link-check-disable -->
+|| Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.TaxAuthority.Portugal |
 | Version | 2.0 |
 | API Versions | N/A |
-| Client Library | Primavera.Lithium.TaxAuthority.Portugal.dll (single assembly) |
+| Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal)) (single assembly) |
 | Web UI | No |
 | Depends on | IDS, CS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
@@ -43,6 +45,6 @@ The current version supports the following Tax Authority services:
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/taxpt-spec-2.0.md) |
-| Client Library | [ClientLibDoc.gen.md (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?_a=preview&path=%24%2FLithium%2FMicroservices%2FCommon%2FTAXPT%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) |
+| Client Library | [2.0](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?_a=preview&path=%24%2FLithium%2FMicroservices%2FCommon%2FTAXPT%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) (TFS) |
 | Web API | N/A |
 <!-- markdown-link-check-enable -->

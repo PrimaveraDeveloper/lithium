@@ -6,14 +6,16 @@ The templates should be defined previously and define the notification propertie
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.Notifications |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | Primavera.Lithium.Notifications (single assembly) |
+| Client Library | [Primavera.Lithium.Notifications.dll]((http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Notifications)) (single assembly) |
 | Web UI | Yes |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 

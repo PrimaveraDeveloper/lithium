@@ -11,14 +11,16 @@ The client library also includes validation algorithms for VAT numbers according
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.DataLookup |
 | Version | 2.0 |
 | API Versions | 2.0, 1.0 |
-| Client Library | Primavera.Lithium.DataLookup.dll |
+| Client Library | [Primavera.Lithium.DataLookup.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.DataLookup) (single assembly) |
 | Web UI | No |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
