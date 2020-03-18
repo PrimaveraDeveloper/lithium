@@ -30,7 +30,7 @@ The extension method expects an `AzureEventBusOptions` entity as parameter.
 /// Gets the event bus service.
 /// </summary>
 /// <returns>The event bus service.</returns>
-private static IEventBus GetEventBusService()
+private static IEventBusService GetEventBusService()
 {
     IServiceCollection services = new ServiceCollection();
 
@@ -42,7 +42,7 @@ private static IEventBus GetEventBusService()
             options.RetryStrategy = new ExponentialBackoffRetryStrategy();
         });
 
-    return services.BuildServiceProvider().GetRequiredService<IEventBus>();
+    return services.BuildServiceProvider().GetRequiredService<IEventBusService>();
 }
 ```
 
@@ -50,7 +50,7 @@ private static IEventBus GetEventBusService()
 
 In order to publish an event, a typed `AzureEventBusEvent` entity needs to be instantiated. The entity must be serializable through `System.Text.Json`.
 
-The respective `AzureEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `AzureEventBus` instance.
+The respective `AzureEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `AzureEventBusService` instance.
 
 If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
 
@@ -63,7 +63,7 @@ If a path is specified in the `Publish` or `PublishAsync` method, the event will
 /// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void BroadcastVersionedMessageEvent(IEventBus eventBus)
+private static void BroadcastVersionedMessageEvent(IEventBusService eventBus)
 {
     string myMessage = "Hack the planet!";
 
@@ -117,7 +117,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 
             return Task.FromResult(true);
         }
-        catch (EventBusException e)
+        catch (EventBusServiceException e)
         {
             Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
 
@@ -129,7 +129,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 }
 ```
 
-The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBus` instance.
+The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBusService` instance.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -138,7 +138,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// Subscribes versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
+private static void SubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
     IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
     IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
@@ -151,7 +151,7 @@ private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
 
 ## Unsubscribing from events
 
-Unsubscribing from an event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBus` with the subscription source path and the respective `T`. 
+Unsubscribing from an event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBusService` with the subscription source path and the respective `T`. 
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -160,7 +160,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// Unsubscribes from versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
+private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
     IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
 

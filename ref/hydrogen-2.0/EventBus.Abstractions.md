@@ -8,37 +8,19 @@ All of the interfaces and abstract classes provide an abstraction from implement
 
 ## Abstractions
 
-### `IEventBus`
+### `IEventBusService`
 
-The `IEventBus` interface defines the elemental operations that should be implemented in order to use an event bus service.
+The `IEventBusService` interface defines the elemental operations that should be implemented in order to use an event bus service.
 
-This interface is implemented by an abstract base class named `EventBusBase`. A further implementation should inherit from `EventBusBase`.
+This interface is implemented by an abstract base class named `EventBusServiceBase`. A further implementation should inherit from `EventBusServiceBase`.
 
 ### `IEventBusEvent`
 
 The core properties of an event are defined by `IEventBusEvent` interface.
 
-The interface is also implemented by an abstract base class named `EventBusEvent`. Further properties and behavior should be extended from `EventBusBase`.
+The interface is also implemented by an abstract base class named `EventBusEventBase`. Further properties and behavior should be extended from `EventBusEventBase`.
 
-`IEventBusEvent` and `EventBusBase` are generic types since a concrete type needs to be passed in order to ease serialization and encoding operations related with the payload that the event transports.
-
-### `IEventBusOptions`
-
-The `IEventBusOptions` contains the options needed to configure an event bus service instance and is implemented by `EventBusOptionsBase`.
-
-As of writing of this document, since there's no base options for a generic event bus service, both the referred types are empty.
-
-### `IEventPublisherOptions`
-
-`IEventPublisherOptions` specifies the options related with the publication operations of an generic event bus service.
-
-The interface is implemented by `IEventPublisherOptions`. Both are empty as of the writing of this document.
-
-### `IEventSubscriberOptions`
-
-`IEventSubscriberOptions` specifies the options related with the subscription operations of an generic event bus service.
-
-The interface is implemented by `EventSubscriberOptionsBase`. Both are empty as of the writing of this document.
+`IEventBusEvent` and `EventBusEventBase` are generic types since a concrete type needs to be passed in order to ease serialization and encoding operations related with the payload that the event transports.
 
 ### `IEventBusEventHandler`
 
@@ -56,12 +38,12 @@ The interface is implemented by an abstract base class named `EventBusEventFilte
 
 ## Supplementary types
 
-### `EventBusException`
+### `EventBusServiceException`
 
-The `EventBusException` class defines the exception that should be raised from unexpected behavior by an event bus service instance.
+The `EventBusServiceException` class defines the exception that should be raised from unexpected behavior by an event bus service instance.
 
 The exception has several constructors that cover different needs.
 
-### `EventBusError`
+### `EventBusServiceError`
 
-`EventBusError` is an enumerator that exposes symbolic numeric error codes that should be associated with an `EventBusException`.
+`EventBusServiceError` is an enumerator that exposes symbolic numeric error codes that should be associated with an `EventBusServiceException`.

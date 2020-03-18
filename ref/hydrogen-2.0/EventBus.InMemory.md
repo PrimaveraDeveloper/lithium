@@ -4,16 +4,16 @@
 
 ## Implementing the service
 
-The service can be implemented by simply instantiating the `InMemoryEventBus` class. There's no configuration associated.
+The service can be implemented by simply instantiating the `InMemoryEventBusService` class. There's no configuration associated.
 
 ```csharp
 /// <summary>
 /// Gets the event bus service.
 /// </summary>
 /// <returns>The event bus service.</returns>
-private static IEventBus GetEventBusService()
+private static IEventBusService GetEventBusService()
 {
-    return new InMemoryEventBus();
+    return new InMemoryEventBusService();
 }
 ```
 
@@ -21,7 +21,7 @@ private static IEventBus GetEventBusService()
 
 In order to publish an event, a typed `InMemoryEventBusEvent` entity needs to be instantiated.
 
-The respective `InMemoryEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `InMemoryEventBus` instance.
+The respective `InMemoryEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `InMemoryEventBusService` instance.
 
 If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
 
@@ -34,7 +34,7 @@ If a path is specified in the `Publish` or `PublishAsync` method, the event will
 /// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void BroadcastVersionedMessageEvent(IEventBus eventBus)
+private static void BroadcastVersionedMessageEvent(IEventBusService eventBus)
 {
     string myMessage = "Hack the planet!";
 
@@ -88,7 +88,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 
             return Task.FromResult(true);
         }
-        catch (EventBusException e)
+        catch (EventBusServiceException e)
         {
             Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
 
@@ -100,7 +100,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
 }
 ```
 
-The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBus` instance.
+The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBusService` instance.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -109,7 +109,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// Subscribes versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
+private static void SubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
     IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
     IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
@@ -122,7 +122,7 @@ private static void SubscribeVersionedMessageEvents(IEventBus eventBus)
 
 ## Unsubscribing from events
 
-Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBus` with the with the subscription source path and respective `T` type.
+Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBusService` with the subscription source path and respective `T` type.
 
 A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
 
@@ -131,7 +131,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// Unsubscribes from versioned message events.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void UnsubscribeVersionedMessageEvents(IEventBus eventBus)
+private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
     IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
 
