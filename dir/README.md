@@ -13,7 +13,7 @@ The microservices are classified, for the purpose of logical organization, in ca
 | [Elevation](./elevation/README.md) | These services provide features that are part of the Elevation Framework. |
 | [ERP](./erp/README.md) | These services were designed to integrate in the ERP. |
 | [Infrastructure](./infrastructure/README.md) | These services provide features for integration with the cloud infrastructure. |
-| [PAA](./pass/README.md) | These services provide features related with PRIMAVERA Accounting Automation. |
+| [PAA](./paa/README.md) | These services provide features related with PRIMAVERA Accounting Automation. |
 | [ROSE](./rose/README.md) | These services provide features related with PRIMAVERA ROSE. |
 
 ## Microservices
@@ -44,7 +44,6 @@ This is the list of all managed microservices:
 | [RPS](./rose/rps.md) | ROSE People Service | ROSE | Provides features for ROSE People | [1.0](./rose/specs/rps-spec-1.0.md) |
 | [SM](./common/sm.md) | Service Management Service | Common | Provides a proxy for the Service Management Service | [2.0](./common/specs/sm-spec-2.0.md) |
 | [SS](./common/ss.md) | Settings Service | Common | Allows storing settings (per user, per product, and per product/user) | [2.0](./common/specs/ss-spec-2.0.md) |
-| [TAXES](./common/taxes.md) | Tax Authority (Spain) Service | Common | Provides integration with the Spanish tax authority services | --- |
 | [TAXPT](./common/taxpt.md) | Tax Authority (Portugal) Service | Common | Provides integration with the Portuguese tax authority services | [2.0](./common/specs/taxpt-spec-2.0.md) |
 | [TBX](./common/tbx.md) | Taskbox Service | Common | Provides asynchronous multi-task processing for applications | --- |
 | [TRG](./common/trg.md)| Triggers Service | Common | Allows executing Web actions based on schedules | [2.0](./common/specs/trg-spec-2.0.md) |

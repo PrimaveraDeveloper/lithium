@@ -4,7 +4,7 @@
 
 Authorization refers to the capability of validating the access of a client application (the caller of the Web API) to a given resource (route) of the microservice Web API.
 
-Lithium microservices use [OAuth](https://oauth.net/) to manage authorization and are configured by default to use PRIMAVERA's authorization server ([Identity Server](https://identity.primaverabss.com/about)).
+Lithium microservices use [OAuth](https://oauth.net/) to manage authorization and are configured by default to use PRIMAVERA's authorization server - [Identity Server](https://identity.primaverabss.com/about).
 
 The microservice developer needs to enable authorization in the service model (see [Service Designer](../ref/sdk-2.0/service-designer.md)), configure the authorization scope (or authorization policies) and associate it with controllers and/or controller actions. This ensures that the ASP.NET Core authorization handler is executed correctly (via the `Authorize` attribute) to enforce the OAuth authorization grants.
 

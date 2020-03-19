@@ -28,8 +28,8 @@ using DataLookupClient client = new DataLookupClient(...);
 
 try
 {
-    string countryCode = "XX";
-    string vatNumber = "XXX";
+    string countryCode = (...);
+    string vatNumber = (...);
     ServiceOperationResult<VatNumberValidationResult> result = await client.VatNumber
         .ValidateVatNumberAsync(
             countryCode, 
@@ -72,8 +72,8 @@ using DataLookupClient client = new DataLookupClient(...);
 
 try
 {
-    string countryCode = "XX";
-    string vatNumber = "XXX";
+    string countryCode = (...);
+    string vatNumber = (...);
     ServiceOperationResult<VatNumberInfo> result = await client.VatNumber
         .LookupVatNumberAsync(
             countryCode, 
@@ -118,8 +118,8 @@ using DataLookupClient client = new DataLookupClient(...);
 
 try
 {
-    string countryCode = "XX";
-    string searchTerm = "XXX";
+    string countryCode = (...);
+    string searchTerm = (...);
     ServiceOperationResult<VatNumberSearchResults> result = await client.VatNumber
         .SearchVatNumberAsync(
             countryCode, 
@@ -158,8 +158,8 @@ using DataLookupClient client = new DataLookupClient(...);
 
 try
 {
-    string sourceCurrency = "XX";
-    string targetCurrency = "XXX";
+    string sourceCurrency = (...);
+    string targetCurrency = (...);
     DateTime referenceData = DateTime.Now;
     ServiceOperationResult<ExchangeRateInfo> result = await client.ExchRate
         .LookupExchangeRateAsync(
@@ -176,6 +176,8 @@ catch (ServiceException ex)
     // (...)
 }
 ```
+
+> Although the client library accepts a DateTime as the reference date, the corresponding action in the Web API requires the reference date to be specified as an [Unix timestamp](https://www.unixtimestamp.com/).
 
 #### Result
 

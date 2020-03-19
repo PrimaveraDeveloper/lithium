@@ -41,5 +41,5 @@ Both the microservice and the respective client library implement multiple cache
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/cs-spec-2.0.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | [2.0](https://lithium-certificates.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://lithium-certificates.primaverabss.com/.doc/webapi) |

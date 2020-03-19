@@ -45,5 +45,5 @@ The client library also includes validation algorithms for VAT numbers according
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/dls-spec-2.0.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | [2.0](https://lithium-datalookup.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://lithium-datalookup.primaverabss.com/.doc/webapi) |

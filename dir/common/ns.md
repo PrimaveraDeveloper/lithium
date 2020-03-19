@@ -39,5 +39,5 @@ The templates should be defined previously and define the notification propertie
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/ns-spec-2.0.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | [2.0](https://lithium-notification.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://lithium-notification.primaverabss.com/.doc/webapi) |
