@@ -82,10 +82,16 @@ The package references for `ClientLib.Tests.csproj`, `Models.Tests.csproj` and `
     <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.22">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="2.7.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0">
+        <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.1">
+        <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.26" />
