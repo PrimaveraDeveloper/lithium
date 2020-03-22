@@ -29,7 +29,7 @@ This the list of all the capabilities (order alphabetically):
 - [Integration Tests](./integration-tests.md)
 - [Localization](./localization.md)
 - [Logging, Tracing and Telemetry](./telemetry.md)
-- [Monitoring and Health Checks]
+- [Monitoring and Health Checks](./monitoring.md)
 - [MVC](./mvc.md)
 - OAuth (see [Authentication](./authentication.md))
 - OpenID Connect (OIDC) (see [Authentication](./authentication.md))
@@ -45,13 +45,11 @@ This the list of all the capabilities (order alphabetically):
 - [SMS](./sms.md)
 - [Storage](./storage.md)
 - Tables (see [Storage](./storage.md))
-- [Text Composition](./text-composition.md))
-- [Unit Tests](./unit-tests.md))
+- [Unit Tests](./unit-tests.md)
 - [User-agent Parsing and Device Detection](./user-agent.md)
 - [User Interface](./ui.md)
 - [Validation](./validation.md)
 - [Versioning](./versioning.md)
-- [Versioning (Web API)](./versioning-web-api.md)
 - [WCF](./wcf.md)
 - [Web API](./web-api.md)
 
