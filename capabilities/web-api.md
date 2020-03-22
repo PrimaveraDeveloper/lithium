@@ -7,7 +7,7 @@ The most important feature of the Lithium Framework is the capability of modelin
 The resulting Web API adheres to the [RESTful principles](https://restfulapi.net/) and includes a set of additional features "out of the box":
 
 - The endpoints are secured by default, using OAuth [authorization](./authorization.md).
-- All the endpoints use [versioning](./versioning-web-api.md).
+- All the endpoints use [versioning](./versioning.md).
 - [Validation](./validation.md) of arguments can be modeled and automatically generated.
 - Common [errors are handled automatically](./error-handling.md).
 - The [documentation](./doc-web-api.md) is automatically generated.
