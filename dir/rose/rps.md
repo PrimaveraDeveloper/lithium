@@ -39,5 +39,5 @@ The current version of the service allows storing IRS tables for calculating inc
 | Documentation | Link |
 | - | - |
 | Spec | [1.0](./specs/rps-spec-1.0.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | [1.0](https://lithium-dv-rps-we-wap.azurewebsites.net/.doc/clientlib) |
+| Web API | [1.0](https://lithium-dv-rps-we-wap.azurewebsites.net/.doc/webapi/index.html) |
