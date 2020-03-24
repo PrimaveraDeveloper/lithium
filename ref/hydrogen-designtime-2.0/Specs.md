@@ -28,6 +28,7 @@ ServiceSpec spec = new ServiceSpec()
 {
     // (...)
 };
+
 string json = spec.ToJson();
 ```
 
