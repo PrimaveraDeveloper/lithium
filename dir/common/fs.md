@@ -37,5 +37,5 @@ The File Store Service provides a centralized store for files that allows distri
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/fs-spec-2.0.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Client Library | [2.0](https://lithium-filestore.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://lithium-filestore.primaverabss.com/.doc/webapi) |

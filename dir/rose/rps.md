@@ -1,19 +1,21 @@
 # ROSE People Service (RPS)
 
-The Rose People Service provides features to help Rose People product.
+The Rose People Service provides features for ROSE People.
 
-In the first version provides features to maintain the IRS tables for calculating incoming taxes basend on a set of parameters.
+The current version of the service allows storing IRS tables for calculating income taxes
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.RosePeople |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | Primavera.Lithium.RosePeople.dll (single assembly) |
+| Client Library | [Primavera.Lithium.RosePeople.dll]((http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.RosePeople)) (single assembly) |
 | Web UI | Yes |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
@@ -37,5 +39,5 @@ In the first version provides features to maintain the IRS tables for calculatin
 | Documentation | Link |
 | - | - |
 | Spec | [1.0](./specs/rps-spec-1.0.md) |
-| Client Library | [1.0](https://lithium-dv-rps-we-wap.azurewebsites.net/.doc/clientlib) |
-| Web API | [1.0](https://lithium-dv-rps-we-wap.azurewebsites.net/.doc/webapi/index.html) |
+| Client Library | Not available yet |
+| Web API | Not available yet |
