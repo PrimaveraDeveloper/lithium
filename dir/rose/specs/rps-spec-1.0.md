@@ -1,32 +1,32 @@
 # ROSE People Service (RPS) Specification v1.0
 
-The Rose People Service provides features to help Rose People product.
+The Rose People Service provides features for ROSE People.
 
-In the 1.0 version, service provides features to maintain the IRS tables for calculating incoming taxes based on a set of parameters.
+The current version of the service allows storing IRS tables for calculating income taxes.
 
 ## IRS Operations
 
-IRS is the tax applyed to all employee earnings. It's calculated with a range of static tables and with the set of contract employee information.
+IRS is the tax applied to all employee earnings. It is calculated with a range of static tables and the employee's contract information.
 
-Each country have your calculation logic and your IRS tables. RPS provides one operation for each location.
+Each country has its own calculation logic and its own income tax tables. RPS provides one operation for each location.
 
-### Calculate Incoming Tax PT
+### Calculate Income Tax (Portugal)
 
-This operations allows to calculate the incoming tax for Portugal with your calculation logic.
+This operation allows to calculate the incoming tax for Portugal.
 
 #### Parameters
 
 - `Region`: the location of the employee contract. Required. `RegEx((PTC)|(PTA)|(PTM))`.
-- `Table`: the identification of the IRS table that employee uses. Required. `> 0. < 10`.
-- `Position`: the identification of the IRS table column that employee uses. Required. `> -1. < 6`.
-- `Date`: the apply date for specific moment that will used to get the correct IRS table. Required.
-- `Ammount`: the value used to obtain the correct row of IRS table. Required.
+- `Table`: the identification of the IRS table applicable to the employee. Required. `> 0. < 10`.
+- `Position`: the identification of the IRS table column. Required. `> -1. < 6`.
+- `Date`: the specific moment that will used to get the correct IRS table. Required.
+- `Ammount`: the value used to obtain the correct row in the IRS table. Required.
 
 #### Returns
 
-- Returns a `double` value that represents the calculated incoming tax.
+- Returns a `double` value that represents the calculated income tax.
 
-#### Calculating IRS incoming tax
+#### Calculating IRS income tax
 
 ```csharp
 Uri address = new Uri("[your-service-endpoint]");
@@ -70,34 +70,31 @@ catch (ServiceException ex)
 
 ### All IRS Operations
 
-The service provides follow operations for IRS.
+The service provides the following operations for IRS:
 
-- `GetIncomeTaxPT`: Retrive incoming tax for Portugal.
-- `GetIncomeTaxPTAsync`: Retrive incoming tax for Portugal async.
+- `GetIncomeTaxPT`: Retrieve the income tax for Portugal.
 
 ## Back-office
 
-The Rose People Service also provides a back-office that allows some users - know as managers - to manage the service.
-Thes back-office is accessible via the /management route and allows:
+The Rose People Service also provides a back-office that allows some users - known as managers - to manage the service.
 
-- Upload new IRS tables for available locations.
-- List and filter all available IRS tables.
-- Delete all tables for a specific location and date.
+The back-office is accessible via the /management route and allows:
 
-The file to upload must be a `.CSV` file and follow the below structure.
+- Uploading new IRS tables for specific locations.
+- Listing and filtering all available IRS tables.
+- Deleting all the tables for a specific location and date.
 
-> One .CSV file contains all tables for the specific location and apply date
+The file to upload must be a `.CSV` file and follow the structure described bellow.
 
-> where `9999999` ammount indicates the last row of each table with the maximum taxes.
+> Each .CSV file should contain all the tables for a specific location and apply date
 
-<!-- markdown-link-check-disable -->
-| Table | Ammount | 0 dep. | 1 dep. | 2 dep. | 3 dep. | 4 dep. | 5 or more dep. |
+> The `9999999` amount indicates the last row of each table with the maximum taxes.
+
+For example:
+
+| Table | Amount | 0 dep. | 1 dep. | 2 dep. | 3 dep. | 4 dep. | 5 or more dep. |
 | - | - | - | - | - | - | - | - |
 | 1 | 659 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 2 | 659 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 3 | 12535 | 29,4 | 28,7 | 28,4 | 27,3 | 27 | 25,8 |
 | 4 | 9999999 | 30,2 | 29,5 | 29,2 | 28,1 | 27,8 | 26,6 |
-<!-- markdown-link-check-enable -->
-
-
-

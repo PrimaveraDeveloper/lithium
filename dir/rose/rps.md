@@ -2,7 +2,7 @@
 
 The Rose People Service provides features for ROSE People.
 
-The current version of the service allows storing IRS tables for calculating income taxes
+The current version of the service allows storing IRS tables for calculating income taxes.
 
 ## Specification
 
@@ -12,7 +12,7 @@ The current version of the service allows storing IRS tables for calculating inc
 | Namespace | Primavera.Lithium.RosePeople |
 | Version | 1.0 |
 | API Versions | 1.0 |
-| Client Library | [Primavera.Lithium.RosePeople.dll]((http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.RosePeople)) (single assembly) |
+| Client Library | [Primavera.Lithium.RosePeople.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.RosePeople) (single assembly) |
 | Web UI | Yes |
 | Depends on | IDS |
 <!-- markdown-link-check-enable -->
