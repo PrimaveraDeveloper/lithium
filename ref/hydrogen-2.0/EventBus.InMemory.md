@@ -2,9 +2,19 @@
 
 **Class library that contains types that define generic event bus services that use an in-memory implementation.**
 
+## Service options
+
+The `InMemoryEventBusOptions` entity defines the configuration for both publication and subscription operations. The below table provides a brief description of each property of the entity:
+
+| Property | Description                                                                                                                        | Optional? |
+|----------|------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| Strategy | The strategy to be applied to the service: multi-threaded, single-threaded or single-threaded with parallel subscriber execution.  | No.       |
+
 ## Implementing the service
 
-The service can be implemented by simply instantiating the `InMemoryEventBusService` class. There's no configuration associated.
+The service implementation should be registered using the `AddInMemoryEventBus` extension method for `IServiceCollection`.
+
+The extension method expects an `InMemoryEventBusOptions` entity as parameter.
 
 ```csharp
 /// <summary>
@@ -13,7 +23,15 @@ The service can be implemented by simply instantiating the `InMemoryEventBusServ
 /// <returns>The event bus service.</returns>
 private static IEventBusService GetEventBusService()
 {
-    return new InMemoryEventBusService();
+    IServiceCollection services = new ServiceCollection();
+
+    services.AddInMemoryEventBus(
+        (options) =>
+        {
+            options.Strategy = InMemoryEventBusStrategy.MultiThreaded;
+        });
+
+    return services.BuildServiceProvider().GetRequiredService<IEventBusService>();
 }
 ```
 
