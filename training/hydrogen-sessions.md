@@ -13,5 +13,8 @@ Overview on the design principles and best practices applied to the design of th
 | [#05](./_assets/HydrogenSessions-05.pdf) | Services |
 | [#06](./_assets/HydrogenSessions-06.pdf) | Abstractions |
 | [#07](./_assets/HydrogenSessions-07.pdf) | Hydrogen.DesignTime.Configuration |
+| [#08](./_assets/HydrogenSessions-08.pdf) | Caching |
+| [#09](./_assets/HydrogenSessions-09.pdf) | Testing |
+| [#10](./_assets/HydrogenSessions-10.pdf) | Background Services |
 
 > The files here are not updated to reflect changes in the framework. They are provided as they were when the training initiative took place.
