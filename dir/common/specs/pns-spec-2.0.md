@@ -13,6 +13,8 @@ To have a persistent connection with the service, there are two client packages 
 * _@primavera/services_ - allows to create a persistent connection to the Push Notifications Service and receive real time notifications.
 * _@primavera/pushNotifications_ - allows to create a persistent connection to the Push Notifications Service and receive real time notifications with the [notifications central UI](_assets/notifications_v3.png).
 
+The packages localizations can be found [here](_details/pns-spec-2.0-details.md#How-to-establish-a-persistent-connection-and-listen-notifications-without-the-Notifications-Central-UI).
+
 # Push a notification
 
 ## By API
@@ -51,7 +53,8 @@ To push notifications via API, it must have the following example structure:
 > Note: 
 > * To correctly display the notifications in the [notifications central UI](_assets/notifications_v3.png), the message must have as key a ```Title``` and a ```Message```;
 > * The notificationType, if not provided, default value will be 0 (Information);
-> * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter. 
+> * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter;
+> * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FDevelopment%2FDocumentation%2Freadme.md&version=T&_a=preview).
 
 The following example is the only required fields for a notification:
 
@@ -76,17 +79,13 @@ The following example is the only required fields for a notification:
 }
 ```
 
-<!-- markdown-link-check-disable -->
-More information about the notification structure can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
-<!-- markdown-link-check-enable -->
+Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
 
 ## By an event (EventBus)
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
 
-<!-- markdown-link-check-disable -->
-If there is the need to add a new listener to another notification event (external), the new listener can be added following [this documentation example](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview) in the EventBus section.
-<!-- markdown-link-check-enable -->
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../howto\howto-subscribe-new-notifications-events.md#Getting-started).
 
 # Configuration
 
@@ -105,9 +104,7 @@ Each notification has an expiration date that is defined by NotificationType, or
 }
 ```
 
-<!-- markdown-link-check-disable -->
-> Note: The ttl is defined in seconds. To turn off the ttl the value provided must be -1. More info about the ttl can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
-<!-- markdown-link-check-enable -->
+> Note: The ttl is defined in seconds. To turn off the ttl the value provided must be -1. More info about the ttl can be found [here](_details/pns-spec-2.0-details.md#NotificationType).
 
 ## Eventbus filters
 
@@ -155,9 +152,6 @@ SignalR also can be configured in the settings, whenever it is needed. For examp
     }
 ```
 
-# More documentation
+# Details
 
-* [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr);
-* [Azure SignalR](https://docs.microsoft.com/en-US/azure/azure-signalr/signalr-overview);
-* [Azure CosmosDb](https://docs.microsoft.com/en-US/azure/cosmos-db/introduction);
-* [Primavera.Hydrogen.EventBus.Azure](https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/EventBus.Azure.md).
+Full details about all topics described above can be found in the [Details section](_details/pns-spec-2.0-details.md#Technologies-used).

@@ -54,3 +54,7 @@ This chapter includes "how to" guides to help developing microservices with the 
 ## Upgrading a microservice
 
 - [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
+
+## Specific features in a specific microservice
+
+- [How to **subscribe new notifications events** in **PNS**](./howto-subscribe-new-notifications-events.md)
