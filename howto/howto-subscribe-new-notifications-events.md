@@ -7,7 +7,7 @@ If needed, a new subscriber can be created to listen another events from eventbu
 * Create a background service (in the Service Model);
 * Go to the service properties, and add the worker to the service:
 
-![ServiceModeling](_assets/ServiceModeling.png)
+![ServiceModeling](_assets/ServicePropertiesModeling.png)
 
 * Create the partial worker class in the BackgrounServices folder. This class should inject the IEventBusManager via Dependency Injection:
 
@@ -83,7 +83,7 @@ private INotificationsManager NotificationsManager
 
 ### Worker and Service modeling
 
-![Modeling](_assets/WorkerAndServiceModeling.png)
+![Modeling](_assets/WorkerAndServiceDesignModeling.png)
 
 ### Worker class
 

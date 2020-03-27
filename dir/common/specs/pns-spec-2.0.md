@@ -54,7 +54,7 @@ To push notifications via API, it must have the following example structure:
 > * To correctly display the notifications in the [notifications central UI](_assets/notifications_v3.png), the message must have as key a ```Title``` and a ```Message```;
 > * The notificationType, if not provided, default value will be 0 (Information);
 > * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter;
-> * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FDevelopment%2FDocumentation%2Freadme.md&version=T&_a=preview).
+> * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
 
 The following example is the only required fields for a notification:
 
@@ -79,13 +79,13 @@ The following example is the only required fields for a notification:
 }
 ```
 
-Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview).
+Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
 
 ## By an event (EventBus)
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
 
-If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../howto\howto-subscribe-new-notifications-events.md#Getting-started).
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../howto/howto-subscribe-new-notifications-events.md#getting-started).
 
 # Configuration
 
