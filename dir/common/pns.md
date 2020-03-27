@@ -38,5 +38,5 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/pns-spec-2.0.md) |
-| Web API | [readme.md (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FPNS%2FMainline%2FDocumentation%2Freadme.md&version=T&_a=preview) |
+| Web API | --- |
 <!-- markdown-link-check-enable -->
