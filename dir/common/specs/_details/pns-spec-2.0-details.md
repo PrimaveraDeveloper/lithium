@@ -342,4 +342,4 @@ The pushNotifications service is also listening to the notifications that are co
 
 The event that is received by the microservice should be a ```DataTransferObject```. The eventBus handler will try to map the object in to a notification, and if it successfully maps to the ```IncomingNotification``` type, it will process the notification like it does when the notification comes from the endpoint.
 
-If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../../howto\howto-subscribe-new-notifications-events.md#getting-started).
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../../howto/howto-subscribe-new-notifications-events.md#getting-started).
