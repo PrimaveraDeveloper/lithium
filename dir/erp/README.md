@@ -1,6 +1,6 @@
 # Services Directory - ERP
 
-These services were designed to integrate in the ERP.
+These services were designed to integrate with the ERP V10.
 
 | Microservice | Name | Description | Spec |
 | - | - | - | - |

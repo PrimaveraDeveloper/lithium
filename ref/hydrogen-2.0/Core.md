@@ -232,6 +232,12 @@ if (result.IsFailureWith("ErrorCode"))
 }
 ```
 
+## JSON Serialization
+
+The `Primavera.Hydrogen.Text.Json.Serialization` provides converters for `System.Text.Json` (`JsonSerializer`):
+
+- `InferredTypesObjectConverter`: allows deserializing for types that have properties of type `object` (like, for example: `AppSettingValueSpec`).
+
 ## Policies
 
 ### Retry
