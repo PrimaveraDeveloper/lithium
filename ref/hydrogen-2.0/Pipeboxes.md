@@ -21,52 +21,66 @@ Consider the following sample of code:
 
 ```csharp
 using System.IO;
-using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Primavera.Hydrogen.Pipeboxes;
 using Primavera.Hydrogen.Pipeboxes.Config;
 using Primavera.Hydrogen.Pipeboxes.Context;
-using Primavera.Hydrogen.Pipeboxes.Exceptions;
 using Primavera.Hydrogen.Pipeboxes.Handlers;
 using Primavera.Hydrogen.Pipeboxes.State;
 
-// Arrange the pipebox configuration
+namespace Primavera.Hydrogen.Samples.Pbx
+{
+    /// <summary>
+    /// Pipebox samples.
+    /// </summary>
+    internal static class Samples
+    {
+        /// <summary>
+        /// Code samples for the <see cref="Pipebox{T}"/>.
+        /// </summary>
+        public static void Sample1()
+        {
+            // Arrange the pipebox configuration
 
-string json = File.ReadAllText("PipeboxConfig.json");
-PipeboxConfig config = PipeboxConfig.Create(json);
+            string json = File.ReadAllText(@".\PipeboxConfig01.json");
+            PipeboxConfig config = PipeboxConfig.Create(json);
 
-// Arrange the service provider registering the
-// default handler type
+            // Arrange the service provider registering the
+            // default handler type
 
-ServiceCollection services = new ServiceCollection();
-services.AddTransient(typeof(DefaultHandler<>));
-ServiceProvider provider = services.BuildServiceProvider();
+            ServiceCollection services = new ServiceCollection();
+            services.AddTransient(typeof(DefaultHandler<>));
+            ServiceProvider provider = services.BuildServiceProvider();
 
-// Arrange the pipebox context with your data
+            // Arrange the pipebox context with your data
 
-string data = "Hello";
-using var context = new PipeboxContext<string>(data);
+            string data = "Hello";
+            var context = new PipeboxContext<string>(data);
 
-// Arrange the pipebox to use the specified provider,
-// configuration and pipeline "p1"
+            // Arrange the pipebox to use the specified provider,
+            // configuration and pipeline "p1"
 
-using Pipebox<string> pipebox = new Pipebox<string>();
+            using Pipebox<string> pipebox = new Pipebox<string>();
 
-pipebox
-    .UseProvider(provider)
-    .UseConfig(config)
-    .UsePipeline("p1");
+            pipebox
+                .UseProvider(provider)
+                .UseConfig(config)
+                .UsePipeline("p1");
 
-// Run the pipeline "p1"
+            // Run the pipeline "p1"
 
-pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
+            pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
 
-// Get the state of the pipebox execution
+            // Get the state of the pipebox execution
 
-PipeboxState state = pipebox.CurrentState;
+            PipeboxState state = pipebox.CurrentState;
 
-// Get the result of context data
+            // Get the result of context data
 
-string result = context.Data;
-
+            string result = context.Data;
+        }
+    }
+}
 ```
 
 ### Pipebox
@@ -245,9 +259,9 @@ The error codes are:
 * **InvalidPipelineConfiguration** - Invalid or null pipeline configuration (or pipeline identifier not found).
 * **InvalidStateCondition** - Failed to execute the pipeline due to an unexpected state transition.
 
-### PipelineHandlerBase
+### HandlerBase
 
-The `PipelineHandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, HandlerConfig>`.
+The `HandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, HandlerConfig>`.
 
 See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
 
@@ -257,7 +271,7 @@ The `HandlerConfig` provides the implementation of `<TConfig>`, which is the han
 
 ## Built-in Handlers
 
-This implementation provides a set of built-in handlers, that are usefull for the most commom scenarios.
+This implementation provides a set of built-in handlers, that are usefull for the most common scenarios.
 
 #### DefaultHandler
 
@@ -267,3 +281,190 @@ See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information abo
 
 #### HttpHandler
 The `HttpHandler<T>` it's an abstract class to help the implementation of an handler to perform http requests.
+
+## Custom Handlers
+
+You can  build your own handlers to run a pipeline with the business logic of your solution. The following is an example of a custom handler which applies an upper/lower case of the context string depending on the action specified in the configuration string:
+
+```csharp
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Primavera.Hydrogen.Configuration;
+using Primavera.Hydrogen.Pipeboxes;
+using Primavera.Hydrogen.Pipeboxes.Config;
+using Primavera.Hydrogen.Pipeboxes.Context;
+using Primavera.Hydrogen.Pipeboxes.Handlers;
+
+namespace Primavera.Hydrogen.Samples.Pbx
+{
+    /// <summary>
+    /// My handler implementation, which applies an upper/lower case of the context string
+    /// depending on the action specified in the configuration string.
+    /// </summary>
+    /// <seealso cref="Primavera.Hydrogen.Pipeboxes.Handlers.HandlerBase{T}" />
+    public class MyHandler : HandlerBase<string>
+    {
+        #region Protected Properties
+
+        /// <summary>
+        /// Gets or sets the configuration string.
+        /// </summary>
+        /// <value>
+        /// The configuration string.
+        /// </value>
+        protected ConfigString ConfigStr { get; set; }
+
+        #endregion
+
+        #region IPipelineHandler Members
+
+        /// <inheritdoc />
+        public override void Execute(PipeboxContext<string> context)
+        {
+            this.ExecuteAsync(context).GetAwaiter().GetResult();
+        }
+
+        /// <inheritdoc />
+        public override Task ExecuteAsync(PipeboxContext<string> context, CancellationToken cancellationToken = default)
+        {
+            // Validate parameters
+
+            SmartGuard.NotNull(() => context, context);
+
+            // Cancellation token
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return Task.FromCanceled(cancellationToken); // Exit here
+            }
+
+            // Execute the action that was requested in the configuration string 
+
+            var action = this.ConfigStr.GetValueOrDefault<string>("action");
+
+            if (!string.IsNullOrEmpty(action))
+            {
+                // Upper action
+
+                if (action.Equals("upper", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Data = context.Data.ToUpperInvariant();
+                }
+
+                // Lower action
+
+                if (action.Equals("lower", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Data = context.Data.ToLowerInvariant();
+                }
+            }
+
+            // Completed task
+
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region Protected Methods | Overrides
+
+        /// <inheritdoc />
+        public override IPipelineHandler<PipeboxContext<string>, HandlerConfig> UseConfig(HandlerConfig config)
+        {
+            // Set the handler configuration
+
+            base.UseConfig(config);
+
+            // Set the handler configuration string (with case-insensitive keys)
+
+            this.ConfigStr = new ConfigString(this.Config.ConfigStr, StringComparer.OrdinalIgnoreCase);
+
+            // Fluent return
+
+            return this;
+        }
+
+        #endregion
+    }
+}
+```
+
+Now, you need to build a configuration that uses your custom handler:
+
+```json
+{
+  "version": "1.0",
+  "pipelines": [
+    {
+      "id": "p1",
+      "handlers": [
+        {
+          "id": "h1",
+          "type": "Primavera.Hydrogen.Samples.Pbx.MyHandler, Primavera.Hydrogen.Samples",
+          "configStr": "action=upper;"
+        }
+      ]
+    }
+  ]
+}
+```
+
+In order to get the type name of your handler, just write the following in the immediate window of your IDE (debug):
+
+```csharp
+?typeof(MyHandler).ShortAssemblyQualifiedName()
+"Primavera.Hydrogen.Samples.Pbx.MyHandler, Primavera.Hydrogen.Samples"
+```
+
+And finally, to run the pipeline:
+
+```csharp
+/// <summary>
+/// Code samples for the <see cref="Pipebox{T}"/>.
+/// </summary>
+public static void Sample2()
+{
+    // Arrange the pipebox configuration
+
+    string json = File.ReadAllText(@".\PipeboxConfig02.json");
+    PipeboxConfig config = PipeboxConfig.Create(json);
+
+    // Arrange the service provider registering the handler
+
+    ServiceCollection services = new ServiceCollection();
+    services.AddTransient(typeof(MyHandler));
+    ServiceProvider provider = services.BuildServiceProvider();
+
+    // Arrange the pipebox context with your data
+
+    string data = "Hello";
+    var context = new PipeboxContext<string>(data);
+
+    // Arrange the pipebox to use the specified provider,
+    // configuration and pipeline "p1"
+
+    using Pipebox<string> pipebox = new Pipebox<string>();
+
+    pipebox
+        .UseProvider(provider)
+        .UseConfig(config)
+        .UsePipeline("p1");
+
+    // Run the pipeline "p1"
+
+    pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
+
+    // Get the state of the pipebox execution
+
+    PipeboxState state = pipebox.CurrentState;
+
+    // Get the result of context data
+
+    string result = context.Data; 
+    
+    // Output: "HELLO"
+}
+```
+
+And that's all!
