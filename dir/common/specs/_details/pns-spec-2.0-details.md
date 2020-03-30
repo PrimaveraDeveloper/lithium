@@ -278,7 +278,7 @@ To call the pushNotifications endpoint the client must have a token with the fol
 
 ### Authorization to call other endpoints
 
-To call other endpoints like for example Monitoring, the client must have a token with the following scope: ```lithium-pushnotificationsservice```.
+To call other endpoints, the client must have a token with the following scope: ```lithium-pushnotificationsservice```.
 
 ## Notifications Central life-cycle
 

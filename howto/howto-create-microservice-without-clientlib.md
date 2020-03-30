@@ -23,11 +23,11 @@ Next you need to open the service designer and model the service.
 
 If you open the service model configuration - either using the "Model Configuration..." menu option in the "Lithium" menu or by editing the "Configuration" property in the service model - the following properties will be set like this:
 
-- `Solution kind`: WebApiOnly.
-- `Model kind`: MicroserviceWebApi.
-- `Generate Web API`: true.
-- `Generate Client Library`: false.
-- `Use Client Credentials Client`: false.
+- `Solution kind`: `WebApiOnly`.
+- `Model kind`: `MicroserviceWebApi`.
+- `Generate Web API`: `true`.
+- `Generate Client Library`: `false`.
+- `Use Client Credentials Client`: `false`.
 
 ## Transform Text Templates (Generate Code)
 
