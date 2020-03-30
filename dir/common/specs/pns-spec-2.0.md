@@ -50,11 +50,13 @@ To push notifications via API, it must have the following example structure:
 }
 ```
 
+<!-- markdown-link-check-disable -->
 > Note: 
 > * To correctly display the notifications in the [notifications central UI](_assets/notifications_v3.png), the message must have as key a ```Title``` and a ```Message```;
 > * The notificationType, if not provided, default value will be 0 (Information);
 > * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter;
 > * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
+<!-- markdown-link-check-enable -->
 
 The following example is the only required fields for a notification:
 
@@ -79,7 +81,9 @@ The following example is the only required fields for a notification:
 }
 ```
 
+<!-- markdown-link-check-disable -->
 Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
+<!-- markdown-link-check-enable -->
 
 ## By an event (EventBus)
 
