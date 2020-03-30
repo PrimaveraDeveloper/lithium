@@ -17,42 +17,56 @@ This class library is the default implementation of the [Primavera.Hydrogen.Pipe
 
 The `Pipebox Design Pattern` defines the processing of a complex or time consuming operation into a set of small tasks (Handlers) that combine together to form an asynchronous unit of work (or `Pipeline`), with the aim of improving performance, scalability and component reusability in any application or service. This pattern is implemented here by the `Pipebox` set of classes and supplementary types.
 
-Consider the following example:
+Consider the following sample of code:
 
 ```csharp
 using System.IO;
 using System.Text.Json;
+using Primavera.Hydrogen.Pipeboxes.Config;
+using Primavera.Hydrogen.Pipeboxes.Context;
+using Primavera.Hydrogen.Pipeboxes.Exceptions;
+using Primavera.Hydrogen.Pipeboxes.Handlers;
+using Primavera.Hydrogen.Pipeboxes.State;
 
 // Arrange the pipebox configuration
 
 string json = File.ReadAllText("PipeboxConfig.json");
 PipeboxConfig config = PipeboxConfig.Create(json);
 
-// Arrange the service provider
+// Arrange the service provider registering the
+// default handler type
 
-var services = new ServiceCollection();
-services.AddTransient<DefaultPipelineHandler<string>, DefaultPipelineHandler<string>>();
-var provider = services.BuildServiceProvider();
+ServiceCollection services = new ServiceCollection();
+services.AddTransient(typeof(DefaultHandler<>));
+ServiceProvider provider = services.BuildServiceProvider();
 
-// Arrange the pipebox context
+// Arrange the pipebox context with your data
 
 string data = "Hello";
 using var context = new PipeboxContext<string>(data);
 
-// Arrange the pipebox engine
+// Arrange the pipebox to use the specified provider,
+// configuration and pipeline "p1"
 
-using var pipebox = new Pipebox<string>();
-pipebox.UseProvider(provider)
-       .UseConfig(config)
-       .UsePipeline("p1");
+using Pipebox<string> pipebox = new Pipebox<string>();
 
-// Run the pipebox to execute the pipeline "p1"
+pipebox
+    .UseProvider(provider)
+    .UseConfig(config)
+    .UsePipeline("p1");
+
+// Run the pipeline "p1"
 
 pipebox.ExecuteAsync(context).GetAwaiter().GetResult();
 
-// Get the pipeline result
+// Get the state of the pipebox execution
+
+PipeboxState state = pipebox.CurrentState;
+
+// Get the result of context data
 
 string result = context.Data;
+
 ```
 
 ### Pipebox
@@ -76,7 +90,11 @@ Consider the following configuration file:
     {
       "pattern": "%p2p3%",
       "value": "p2=v2; p3=v3"
-    }
+    },
+    {
+      "pattern": "%defaultHandler%",
+      "value": "Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler\u00601, Primavera.Hydrogen.Pipeboxes"
+    }    
   ],
   "pipelines": [
     {
@@ -92,6 +110,7 @@ Consider the following configuration file:
         {
           "id": "h2",
           "tag": "handler 2",
+          "type": "%defaultHandler%",
           "configStr": "p1={ p11=v11; p12=v12 }; %p2p3%"
         }
       ]
@@ -100,7 +119,7 @@ Consider the following configuration file:
 }
 ```
 
-This configuration can be created at run time and serialized for later use like any other application setting. See the example that loads the configuration:
+The configuration can be created at runtime or deserialized from file, just like any other application configuration. The following example shows how to load the configuration using a JSON file:
 
 ```csharp
 string json = File.ReadAllText("PipeboxConfig.json");
@@ -109,11 +128,12 @@ PipeboxConfig config = PipeboxConfig.Create(json);
 
 **Missing and Default Settings**
 
-In the previous example, the `Create` method deserializes the configuration and implicitly executes two more operations:
-*  applies (regular) expression replacements to the `configStr` values
-*  applies default settings to the configuration if required values are missing
-  
-The end result is as follows:
+In the previous example, the `Create` method deserializes the configuration and implicitly executes another three operations:
+*  applies regular expression replacements to the `configStr` and `type` values
+*  applies default settings to the configuration, if required values are missing
+*  asserts the configuration is compliant with the predefined validation rules, or throws
+
+The final result, after processing the configuration, is as follows:
 
 ```json
 {
@@ -135,7 +155,7 @@ The end result is as follows:
           "id": "h1",
           "order": "1",
           "tag": "handler 1",
-          "type": "Primavera.Hydrogen.Taskbox.Pipeliners.DefaultPipelineHandler\u00601[[System.Object, System.Private.CoreLib]], Primavera.Hydrogen.Taskbox",
+          "type": "Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler\u00601, Primavera.Hydrogen.Pipeboxes",
           "configStr": "p1=v1; p2=v2; p3=v3",
           "active": "True"
         },
@@ -143,7 +163,7 @@ The end result is as follows:
           "id": "h2",
           "order": "2",
           "tag": "handler 2",
-          "type": "Primavera.Hydrogen.Taskbox.Pipeliners.DefaultPipelineHandler\u00601[[System.Object, System.Private.CoreLib]], Primavera.Hydrogen.Taskbox",
+          "type": "Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler\u00601, Primavera.Hydrogen.Pipeboxes",
           "configStr": "p1={ p11=v11; p12=v12 }; p2=v2; p3=v3",
           "active": "True"
         }
@@ -155,9 +175,9 @@ The end result is as follows:
 
 **Configuration String**
 
-The `configStr` property is used to set the custom configuration of pipelines and handlers in a format that only their implementation knows. Still, there are two known formats that are easily supported:
+The `configStr` property is used to define the customized configuration of pipelines and handlers, which only their implementations know how to use, in two possible formats:
 
-Using the `ConfigString` class (dictionary of key/value pairs):
+Using the `ConfigString` class (a dictionary of key/value pairs):
 
 ```csharp
 // For the configuration string
@@ -191,7 +211,7 @@ var jsonText = jsonDoc.RootElement.GetRawText();
 
 **Default Type**
 
-When the configuration does not defines the handler's type - the middleware class that implements that handler - it assumes the default value of `DefaultPipelineHandler`. This handler is explained with more details in the corresponding section below.
+When the configuration does not define the `type` of handler (of the middleware class), it is assumed the default handler, which type name is ``Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler`1`` corresponding to the generic type name of `DefaultHandler<>`. Notice the back tick `` ` `` character is escaped as `\u0060` in JSON. The default handler is explained with more details in the corresponding section below.
 
 ### PipeboxContext
 
@@ -201,7 +221,29 @@ See the [IPipeboxContext<T>][REF_PHPA] for more information about the interface 
 
 ### PipeboxState
 
-The `PipeboxState` provides the implementation of the state of execution for the `Pipebox<T>`.
+The `PipeboxState` provides the implementation of the state of execution for the `Pipebox<T>` and it has the following values that is managed internally by a state machine:
+* **New** - When the pipebox is created.
+* **Ready** - When the pipebox is configured.
+* **Running** - When the pipebox is executing.
+* **Failed** - When the pipebox execution failed with an internal error.
+* **Canceled** - When the pipebox execution failed due to the cancellation token requested.
+* **Completed** - When the pipebox has executed with success.
+
+### PipeboxException
+
+When the pipebox is running with the `ExecuteAsync` method, any internal error is shielded within a `PipeboxException` that contains the inner exception that raised the error and the corresponding error code (if the exception was properly handled). 
+
+The error codes are:
+
+* **PipelineError** - Failed to execute the pipeline due to an internal error.
+* **HandlerError** - Failed to execute the handler due to an internal error.
+* **HandlerNotFound** - Failed to get the specified handler type from the service provider.
+* **PipelineNotFound** - Failed to get the specified pipeline identifier from the configuration.
+* **PipelineIdDuplicates** - Failed to validate the configuration due to duplicate pipeline identifiers.
+* **InvalidServiceProvider** - Invalid or null service provider.
+* **InvalidConfiguration** - Invalid or null pipebox configuration.
+* **InvalidPipelineConfiguration** - Invalid or null pipeline configuration (or pipeline identifier not found).
+* **InvalidStateCondition** - Failed to execute the pipeline due to an unexpected state transition.
 
 ### PipelineHandlerBase
 
@@ -213,11 +255,15 @@ See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information abo
 
 The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
 
-### DefaultPipelineHandler
+### Built-in Handlers
 
-The `DefaultPipelineHandler<T>` provides a default implementation of `IPipelineHandler<TContext, HandlerConfig>` with useful features for debugging and prototyping.
+This implementation provides a set of built-in handlers, that are usefull for the most commom scenarios.
+
+#### DefaultHandler
+
+The `DefaultHandler<T>` provides a default implementation of `IPipelineHandler<TContext, HandlerConfig>` with useful features for debugging and prototyping.
 
 See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
 
-### HttpHandler
+#### HttpHandler
 The `HttpHandler<T>` it's an abstract class to help the implementation of an handler to perform http requests.
