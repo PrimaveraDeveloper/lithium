@@ -255,7 +255,7 @@ See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information abo
 
 The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
 
-### Built-in Handlers
+## Built-in Handlers
 
 This implementation provides a set of built-in handlers, that are usefull for the most commom scenarios.
 
