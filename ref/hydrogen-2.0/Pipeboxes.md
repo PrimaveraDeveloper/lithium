@@ -289,7 +289,7 @@ When the `Pipebox<T>` is executing, any handler which type was not specified wil
 
 **Parameters**
 
-Parameter | value | Description
+Parameter | Value | Description
 :--- | :--- | :---
 action | error | Throws an exception. Useful to test the pipeline behavior when an exception occurs.
 
@@ -328,17 +328,108 @@ The `HttpHandler<T>` is the base class that implements the basics of HTTP reques
 
 **Configuration**
 
-Parameter | Description
-:--- | :---
-"... = ..." | TODO.
+The parameters that can be configured, are the ones that follow:
 
-**Configuration**
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
+|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
+|authorityserveruri  | ****** |The address to get the client credentials token.|
+|clientid| ******|The client id to get the client credentials token.|
+|clientsecret  | ****** |The client secret to get the client credentials token.|
+|endpoint| The request endpoint.|
+|httpmethod  | post, put, get, delete |The HTTP request method.|
+|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
+|retryattempts| n|The number of retry attempts.|
+|minbackoff  | 0|Minimum exponential backoff value. |
+|maxbackoff| 30|Maximum exponential backoff value.|
+|deltabackoff  |2| Delta exponential backoff value.|
 
-TODO
+The handler should be configured, in the json configuration file, as follow:
 
 ```json
-TODO
+{
+    "id": "h1",
+    "order": "1",
+    "tag": "My frist handler",
+    "type": "Primavera.Hydrogen.Samples.Pbx.MyCustomHttpHandler,Primavera.Hydrogen.Samples.Pbx",
+    "configStr": "httpmethod=post; endpoint=https://httpbin.org/post;",
+    "active": "True"
+}
 ```
+
+The following code is an example of a custom http handler which performs a post with the specified context.
+
+```csharp
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Primavera.Hydrogen.Configuration;
+using Primavera.Hydrogen.Pipeboxes;
+using Primavera.Hydrogen.Pipeboxes.Config;
+using Primavera.Hydrogen.Pipeboxes.Context;
+using Primavera.Hydrogen.Pipeboxes.Handlers;
+using Primavera.Hydrogen.Pipeboxes.Handlers.Http;
+
+namespace Primavera.Hydrogen.Samples.Pbx
+{
+
+  /// <summary>
+  /// The CustomHttpHandler is responsible for performing post and get operations.
+  /// </summary>
+  /// <seealso cref="HttpHandler{T}"/>
+  public class MyCustomHttpHandler : HttpHandler<string>
+  {
+      /// <inheritdoc />
+      public override string SetEndpoint()
+      {
+          return this.Configuration.Endpoint;
+      }
+
+      /// <inheritdoc />
+      public override Task<ByteArrayContent> SetPostObject()
+      {
+          string contentType = "application/json";
+
+          byte[] buffer = System.Text.Encoding.UTF8.GetBytes(this.Data);
+
+          ByteArrayContent byteContent = new ByteArrayContent(buffer);
+
+          byteContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+          return Task.FromResult(byteContent);
+      }
+
+      /// <inheritdoc />
+      public override Task SaveResponse(HttpResponseMessage responseMessage)
+      {
+          // add code to perform operations with the response message.
+      }
+
+      /// <inheritdoc />
+      public override Task ExecuteAsync(PipeboxContext<string> context, CancellationToken cancellationToken = default)
+      {
+          return base.ExecuteAsync(context, cancellationToken);
+      }
+  }
+}
+```
+
+Notice the following:
+|Method | Description |
+| :--------| :-----------|
+| `SetEndpoint()`| Is where the HTTP request endpoint is defined (since that endpoint is specified in the handler configuration, it is available from the `Configuration` property).|
+| `SetPostObject()`| Is where the object that should be posted is created.|
+| `SaveResponse()` | Is where the response received can be processed.|
+
+You will need to add this new handler to the service collection.
+
+Add the following to `AddAdditionalServices()`:
+
+```csharp
+services.AddTransient<MyCustomHttpHandler>();
+```
+
 
 ## Custom Handlers
 
