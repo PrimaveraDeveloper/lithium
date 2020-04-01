@@ -13,7 +13,7 @@
 
 This class library is the default implementation of the [Primavera.Hydrogen.Pipeboxes.Abstractions][REF_PHPA]. The main purpose of this implementation is to support the `Pipeline` design pattern with multiple execution flows. Alternatively, you can use [Primavera.Hydrogen.Pipelines][REF_PHPL] which is a single implementation of the recursive flow.
 
-## Pipebox
+## Getting Started
 
 The `Pipebox Design Pattern` defines the processing of a complex or time consuming operation into a set of small tasks (Handlers) that combine together to form an asynchronous unit of work (or `Pipeline`), with the aim of improving performance, scalability and component reusability in any application or service. This pattern is implemented here by the `Pipebox` set of classes and supplementary types.
 
@@ -133,7 +133,7 @@ Consider the following configuration file:
 }
 ```
 
-The configuration can be created at runtime or deserialized from file, just like any other application configuration. The following example shows how to load the configuration using a JSON file:
+The configuration can be created at runtime or deserialized from file, just like any other application setting. The following example shows how to load the configuration using a JSON file:
 
 ```csharp
 string json = File.ReadAllText("PipeboxConfig.json");
@@ -156,6 +156,10 @@ The final result, after processing the configuration, is as follows:
     {
       "pattern": "%p2p3%",
       "value": "p2=v2; p3=v3"
+    },
+    {
+      "pattern": "%defaultHandler%",
+      "value": "Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler\u00601, Primavera.Hydrogen.Pipeboxes"
     }
   ],
   "pipelines": [
@@ -191,7 +195,7 @@ The final result, after processing the configuration, is as follows:
 
 The `configStr` property is used to define the customized configuration of pipelines and handlers, which only their implementations know how to use, in two possible formats:
 
-Using the `ConfigString` class (a dictionary of key/value pairs):
+Using the `ConfigString` class, which provides a string parser that builds a dictionary of key/value pairs:
 
 ```csharp
 // For the configuration string
@@ -223,9 +227,13 @@ var jsonDoc = JsonDocument.Parse(configStr);
 var jsonText = jsonDoc.RootElement.GetRawText();
 ```
 
+The parsing of the configuration string must be performed within the `UseConfig` method of your handler. See an example in the [Custom Handler](##Custom-Handlers) section.
+
 **Default Type**
 
-When the configuration does not define the `type` of handler (of the middleware class), it is assumed the default handler, which type name is ``Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler`1`` corresponding to the generic type name of `DefaultHandler<>`. Notice the back tick `` ` `` character is escaped as `\u0060` in JSON. The default handler is explained with more details in the corresponding section below.
+When the handler configuration does not define the `type` (of the middleware class) it is assumed to be the [Default Handler](##Default-Handler), which type name is ``Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler`1`` corresponding to the generic type name of `DefaultHandler<>`. 
+
+> A back tick `` ` `` character is escaped as `\u0060` in JSON.
 
 ### PipeboxContext
 
@@ -269,22 +277,9 @@ See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information abo
 
 The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
 
-## Built-in Handlers
-
-This implementation provides a set of built-in handlers, that are usefull for the most common scenarios.
-
-#### DefaultHandler
-
-The `DefaultHandler<T>` provides a default implementation of `IPipelineHandler<TContext, HandlerConfig>` with useful features for debugging and prototyping.
-
-See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
-
-#### HttpHandler
-The `HttpHandler<T>` it's an abstract class to help the implementation of an handler to perform http requests.
-
 ## Custom Handlers
 
-You can  build your own handlers to run a pipeline with the business logic of your solution. The following is an example of a custom handler which applies an upper/lower case of the context string depending on the action specified in the configuration string:
+You can  build your own handlers to run a pipeline with the business logic of your solution. The following is an example of a custom handler which applies an upper/lower case on the context string depending on the action specified in the configuration string:
 
 ```csharp
 using System;
@@ -467,4 +462,71 @@ public static void Sample2()
 }
 ```
 
-And that's all!
+## Built-in Handlers
+
+This implementation also provides a set of built-in handlers useful for the most common scenarios. You can use them as is, or inherit from the base class to add the behavior of your solution.
+
+#### HandlerBase
+
+Is the base class that implements `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides the common behavior for all handlers. You should inherit from this class to build a custom handler.
+
+See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
+
+#### DefaultHandler
+
+Is the default implementation of `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides useful features for debugging and prototyping. 
+
+When the `Pipebox<T>` is executing, any handler which type was not specified will be assumed to be the `DefaultHandler<T>`.
+
+**Parameters**
+
+Parameter | value | Description
+:--- | :--- | :---
+action | error | Throws an exception. Useful to test the pipeline behavior when an exception occurs.
+
+**Configuration**
+
+In the following example, pipeline `p1` will throw an exception when executing the handler `h2`.
+
+```json
+{
+  "version": "1.0",
+  "pipelines": [
+    {
+      "id": "p1",
+      "handlers": [
+        {
+          "id": "h1",
+          "type": "<custom-handler>"
+        },        
+        {
+          "id": "h2",
+          "configStr": "action=error;"
+        },
+        {
+          "id": "h3",
+          "type": "<custom-handler>"
+        }        
+      ]
+    }
+  ]
+}
+```
+
+#### HttpHandler
+
+The `HttpHandler<T>` is the base class that implements the basics of HTTP requests. Use it as is, or inherit from this class, if you need to make HTTP requests.
+
+**Configuration**
+
+Parameter | Description
+:--- | :---
+"... = ..." | TODO.
+
+**Configuration**
+
+TODO
+
+```json
+TODO
+```
