@@ -89,7 +89,7 @@ The `Pipebox<T>` provides the implementation of `IPipebox<TContext, PipeboxConfi
 
 See the [IPipebox<TContext, TConfig>][REF_PHPA] for more information about the interface members.
 
-### PipeboxConfig
+### Pipebox Configuration
 
 The `PipeboxConfig` provides the implementation of `<TConfig>`, which is the pipebox configuration that defines one or more pipelines and their corresponding handlers.
 
@@ -235,13 +235,13 @@ When the handler configuration does not define the `type` (of the middleware cla
 
 > A back tick `` ` `` character is escaped as `\u0060` in JSON.
 
-### PipeboxContext
+### Pipebox Context
 
 The `PipeboxContext<T>` provides the implementation of `IPipeboxContext<T>`, which is the data context that is processed along the pipeline execution.
 
 See the [IPipeboxContext<T>][REF_PHPA] for more information about the interface members.
 
-### PipeboxState
+### Pipebox State
 
 The `PipeboxState` provides the implementation of the state of execution for the `Pipebox<T>` and it has the following values that is managed internally by a state machine:
 * **New** - When the pipebox is created.
@@ -251,7 +251,7 @@ The `PipeboxState` provides the implementation of the state of execution for the
 * **Canceled** - When the pipebox execution failed due to the cancellation token requested.
 * **Completed** - When the pipebox has executed with success.
 
-### PipeboxException
+### Pipebox Exceptions
 
 When the pipebox is running with the `ExecuteAsync` method, any internal error is shielded within a `PipeboxException` that contains the inner exception that raised the error and the corresponding error code (if the exception was properly handled). 
 
@@ -267,15 +267,78 @@ The error codes are:
 * **InvalidPipelineConfiguration** - Invalid or null pipeline configuration (or pipeline identifier not found).
 * **InvalidStateCondition** - Failed to execute the pipeline due to an unexpected state transition.
 
-### HandlerBase
+### Handler Configuration
 
-The `HandlerBase<T>` provides the base implementation of `IPipelineHandler<TContext, HandlerConfig>`.
+The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
+
+## Built-in Handlers
+
+This implementation also provides a set of built-in handlers useful for the most common scenarios. You can use them as is, or inherit from the base class to add the behavior of your solution.
+
+#### HandlerBase
+
+Is the base class that implements `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides the common behavior for all handlers. You should inherit from this class to build a custom handler.
 
 See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
 
-### HandlerConfig
+#### DefaultHandler
 
-The `HandlerConfig` provides the implementation of `<TConfig>`, which is the handler configuration.
+Is the default implementation of `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides useful features for debugging and prototyping. 
+
+When the `Pipebox<T>` is executing, any handler which type was not specified will be assumed to be the `DefaultHandler<T>`.
+
+**Parameters**
+
+Parameter | value | Description
+:--- | :--- | :---
+action | error | Throws an exception. Useful to test the pipeline behavior when an exception occurs.
+
+**Configuration**
+
+In the following example, pipeline `p1` will throw an exception when executing the handler `h2`.
+
+```json
+{
+  "version": "1.0",
+  "pipelines": [
+    {
+      "id": "p1",
+      "handlers": [
+        {
+          "id": "h1",
+          "type": "<custom-handler>"
+        },        
+        {
+          "id": "h2",
+          "configStr": "action=error;"
+        },
+        {
+          "id": "h3",
+          "type": "<custom-handler>"
+        }        
+      ]
+    }
+  ]
+}
+```
+
+#### HttpHandler
+
+The `HttpHandler<T>` is the base class that implements the basics of HTTP requests. Use it as is, or inherit from this class, if you need to make HTTP requests.
+
+**Configuration**
+
+Parameter | Description
+:--- | :---
+"... = ..." | TODO.
+
+**Configuration**
+
+TODO
+
+```json
+TODO
+```
 
 ## Custom Handlers
 
@@ -460,73 +523,4 @@ public static void Sample2()
     
     // Output: "HELLO"
 }
-```
-
-## Built-in Handlers
-
-This implementation also provides a set of built-in handlers useful for the most common scenarios. You can use them as is, or inherit from the base class to add the behavior of your solution.
-
-#### HandlerBase
-
-Is the base class that implements `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides the common behavior for all handlers. You should inherit from this class to build a custom handler.
-
-See the [IPipelineHandler<TContext, TConfig>][REF_PHPA] for more information about the interface members.
-
-#### DefaultHandler
-
-Is the default implementation of `IPipelineHandler<PipeboxContext<T>, HandlerConfig>` and provides useful features for debugging and prototyping. 
-
-When the `Pipebox<T>` is executing, any handler which type was not specified will be assumed to be the `DefaultHandler<T>`.
-
-**Parameters**
-
-Parameter | value | Description
-:--- | :--- | :---
-action | error | Throws an exception. Useful to test the pipeline behavior when an exception occurs.
-
-**Configuration**
-
-In the following example, pipeline `p1` will throw an exception when executing the handler `h2`.
-
-```json
-{
-  "version": "1.0",
-  "pipelines": [
-    {
-      "id": "p1",
-      "handlers": [
-        {
-          "id": "h1",
-          "type": "<custom-handler>"
-        },        
-        {
-          "id": "h2",
-          "configStr": "action=error;"
-        },
-        {
-          "id": "h3",
-          "type": "<custom-handler>"
-        }        
-      ]
-    }
-  ]
-}
-```
-
-#### HttpHandler
-
-The `HttpHandler<T>` is the base class that implements the basics of HTTP requests. Use it as is, or inherit from this class, if you need to make HTTP requests.
-
-**Configuration**
-
-Parameter | Description
-:--- | :---
-"... = ..." | TODO.
-
-**Configuration**
-
-TODO
-
-```json
-TODO
 ```
