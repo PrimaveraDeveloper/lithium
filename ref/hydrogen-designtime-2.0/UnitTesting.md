@@ -17,10 +17,16 @@ A common scenario in unit tests is the need to mock a Web API invoked by `HttpCl
 `MockHttpMessageHandler` provides a mechanism for that, where the developer can specify the "expected result" of the Web API, like in the following example:
 
 ```csharp
-using MockHttpMessageHandler handler = MockHttpMessageHandler.ReturnError(HttpStatusCode.NotFound, "Not found");
+using MockHttpMessageHandler handler = MockHttpMessageHandler
+    .ReturnError(HttpStatusCode
+        .NotFound, 
+        "Not found");
+
 using DiscoveryClient client = new DiscoveryClient(handler);
-DiscoveryDocumentResponse response = await client.GetDocumentAsync("https://myserver");
-response.IsError.Should().BeTrue();
+
+DiscoveryDocumentResponse response = await client
+    .GetDocumentAsync("https://myserver");
+
 response.HttpStatusCode.Should().Be(HttpStatusCode.NotFound);
 ```
 

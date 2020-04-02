@@ -17,5 +17,7 @@ Overview on the design principles and best practices applied to the design of th
 | [#09](./_assets/HydrogenSessions-09.pdf) | Testing |
 | [#10](./_assets/HydrogenSessions-10.pdf) | Background Services |
 | [#11](./_assets/HydrogenSessions-11.pdf) | Storage |
+| [#12](./_assets/HydrogenSessions-12.pdf) | Service Client |
+| [#13](./_assets/HydrogenSessions-13.pdf) | Tasks |
 
 > The files here are not updated to reflect changes in the framework. They are provided as they were when the training initiative took place.

@@ -436,9 +436,14 @@ NetworkTimeClient client = new NetworkTimeClient("ntp02.oal.ul.pt");
 DateTime time = await client.RetrieveLocalTimeAsync().ConfigureAwait(false);
 ```
 
-### `RijndaelCipher`
+## `SymmetricCipher`
 
-`RijndaelCipher` provides methods to encrypt and decrypt values using the Rijndael algorithm.
+This is the base class for types that allow encrypting and decrypting text using different symmetric algorithms.
+
+The following algorithms are available:
+
+- `AesCipher`
+- `RijndaelCipher`
 
 ### TransientThreadCulture
 
