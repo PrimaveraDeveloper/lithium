@@ -89,7 +89,7 @@ Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.T
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
 
-If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../howto/howto-subscribe-new-notifications-events.md#getting-started).
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../howto/howto-subscribe-events-from-eventbus.md#getting-started).
 
 # Configuration
 

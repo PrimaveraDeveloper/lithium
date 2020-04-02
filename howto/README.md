@@ -37,6 +37,8 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
 - How to **add pipelines** to a microservice
+- [How to **subscribe events from eventbus** on a microservice](./howto-subscribe-events-from-eventbus.md)
+- [How to **publish events to eventbus** on a microservice](./howto-publish-events-to-eventbus.md)
 
 ### Adding advanced features to a micro service
 
@@ -54,7 +56,3 @@ This chapter includes "how to" guides to help developing microservices with the 
 ## Upgrading a microservice
 
 - [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
-
-## Specific features in a specific microservice
-
-- [How to **subscribe new notifications events** in **PNS**](./howto-subscribe-new-notifications-events.md)

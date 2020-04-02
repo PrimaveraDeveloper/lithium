@@ -1,31 +1,22 @@
-# How to subscribe new notifications events on EventBus (PNS)
+# How to subscribe events from EventBus on a Microservice
 
 ## Getting started 
 
-If needed, a new subscriber can be created to listen another events from eventbus. To add the listener to another new type you should do:
+If needed, a new subscriber can be created to listen events from eventbus. To add the listener you should:
+* [Implement the EventBusService (in the Startup)](../ref/hydrogen-2.0/EventBus.Azure.md#implementing-the-service);
 * Create a background worker (in the Service Model);
-* Create a background service (in the Service Model);
+* [Create a background service (in the Service Model)](../howto/howto-add-background-service.md#adding-a-simple-background-service);
 * Go to the service properties, and add the worker to the service:
 
 ![ServiceModeling](_assets/ServicePropertiesModeling.png)
 
-* Create the partial worker class in the BackgrounServices folder. This class should inject the IEventBusManager via Dependency Injection:
-
-```c#
-private IEventBusManager EventBusManager
-{
-    get
-    {
-        return this.ServiceProvider.GetRequiredService<IEventBusManager>();
-    }
-}
-```
+* Create the partial worker class in the BackgrounServices folder;
 * Add the class as a ```Singleton``` in the startup on the method ```DependencyInjection(IServiceCollection services)```:
 
 ```c#
 services.AddSingleton<YourEventBusListenerWorker>()
 ```
-* Create the partial service class in the BackgrounServices folder.
+* Create the partial service class in the BackgrounServices folder;
 * On the background service, override the ```YourEventBusListenerWorker``` like:
 
 ```c#
@@ -44,9 +35,20 @@ internal partial class MyServiceExampleService
     }
 }
 ```
-* Go to the IEventBusManager (Contracts/IEventBusManager.cs) and add your subscribe method;
-* Go to the EventBusManager (Managers/EventBusManager.cs) and implement your subscribe method;
-> Note: You can read more about EventBus subscribe/unsubscribe implementation [here.](https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/EventBus.Azure.md#subscribing-to-events)
+* Create the IEventBusManager class in the Contracts folder and add your subscribe method;
+* Create the EventBusManager in the Managers folder and implement your subscribe method;
+> Note: You can read more about EventBus subscribe/unsubscribe implementation [here;](../ref/hydrogen-2.0/EventBus.Azure.md#subscribing-to-events)
+* Inject the ```IEventBusManager``` in the worker class via Dependency Injection:
+
+```c#
+private IEventBusManager EventBusManager
+{
+    get
+    {
+        return this.ServiceProvider.GetRequiredService<IEventBusManager>();
+    }
+}
+```
 * On the worker class, override the method ```ExecuteAsync``` and call your new method from EventBus:
 
 ```c#
@@ -65,14 +67,14 @@ public class YourEventHandler : IEventBusEventHandler<YourDataType>
 	}
 }
 ```
-> Note: You can inject other services in your handler class, like NotificationsManager:
+> Note: You can inject other services in your handler class, like the logger:
 
 ```c#
-private INotificationsManager NotificationsManager
+private ILogger<YourEventHandler> Logger
 {
     get
     {
-        return this.serviceProvider.GetRequiredService<INotificationsManager>();
+        return this.serviceProvider.GetRequiredService<ILogger<YourEventHandler>>();
     }
 }
 ```
@@ -80,6 +82,30 @@ private INotificationsManager NotificationsManager
 > Important: The topic which the EventBus will subscribe must be already created on the Azure!
 
 ## Full example
+
+### Startup (DependencyInjection method)
+```c#
+/// <summary>
+/// Called to add additional (custom) services to the service collection.
+/// </summary>
+/// <param name="services">The service collection.</param>
+/// <param name="hostConfiguration">The host configuration.</param>
+protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
+{
+    base.AddAdditionalServices(services, hostConfiguration);
+
+    services.AddAzureEventBus((options) =>
+    {
+	    options.ConnectionString = eventBusConfiguration.Address;
+	    options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(eventBusConfiguration.AutoComplete, eventBusConfiguration.MaxConcurrentCalls);
+	    options.RetryStrategy = new ExponentialBackoffRetryStrategy();
+    })
+    .AddSingleton<IEventBusManager, EventBusManager>()
+    .AddSingleton<MyWorkerExampleWorker>();
+
+    services.AddLogging();
+}
+```
 
 ### Worker and Service modeling
 
@@ -130,21 +156,6 @@ internal partial class MyServiceExampleService
 }
 ```
 
-### Startup (DependencyInjection method)
-```c#
-private void DependencyInjection(IServiceCollection services)
-{
-    this.InitializeCosmosClientInstance(services);
-
-    services.AddSingleton<EventBusListenerWorker>()
-    .AddSingleton<IEventBusManager, EventBusManager>()
-    .AddSingleton<INotificationsManager, NotificationsManager>()
-    .AddSingleton<MyWorkerExampleWorker>();
-
-    services.AddLogging();
-}
-```
-
 ### IEventBusManager & EventBusManager
 
 ```c#
@@ -175,14 +186,6 @@ public class EventBusManager : IEventBusManager
         #endregion
 
         #region Private Properties
-
-        private AzureConfiguration AzureConfiguration
-        {
-            get
-            {
-                return this.serviceProvider.GetRequiredService<AzureConfiguration>();
-            }
-        }
 
         /// <summary>
         /// Gets the event bus.
@@ -227,10 +230,10 @@ public class EventBusManager : IEventBusManager
 
                 // Add custom filters from settings
 
-                exampleEventFilters.Filters.Add("Version", "1.0");
-                exampleEventFilters.Filters.Add("Channel", "PublicPrimavera");
+                exampleEventFilters.Filters.Add("MyFilter", "1.0");
+                exampleEventFilters.Filters.Add("AnotherFilter", "PublicPrimavera");
 
-                await this.EventBus.SubscribeAsync("public-pns", exampleEventHandler, exampleEventFilters).ConfigureAwait(false);
+                await this.EventBus.SubscribeAsync("mySubscriptionTopic", exampleEventHandler, exampleEventFilters).ConfigureAwait(false);
             }
             catch (EventBusServiceException)
             {
