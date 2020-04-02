@@ -16,7 +16,7 @@ This resource is used to store all type of notifications and it is used on this 
 
 ### Primavera.Hydrogen.EventBus.Azure
 
-This resource is used to listen to the notifications coming from a specific ServiceBus topic to not limiting the push of the notifications only by the controller. For now, it will be used to Listen to notifications from the Taskbox. More about Primavera.Hydrogen.EventBus.Azure can be found [here](https://github.com/PrimaveraDeveloper/lithium/blob/master/ref/hydrogen-2.0/EventBus.Azure.md).
+This resource is used to listen to the notifications coming from a specific ServiceBus topic to not limiting the push of the notifications only by the controller. For now, it will be used to Listen to notifications from the Taskbox. More about Primavera.Hydrogen.EventBus.Azure can be found [here](../../../../ref/hydrogen-2.0/EventBus.Azure.md#Primavera.Hydrogen.EventBus.Azure).
 
 # Getting started
 
@@ -342,4 +342,4 @@ The pushNotifications service is also listening to the notifications that are co
 
 The event that is received by the microservice should be a ```DataTransferObject```. The eventBus handler will try to map the object in to a notification, and if it successfully maps to the ```IncomingNotification``` type, it will process the notification like it does when the notification comes from the endpoint.
 
-If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../../howto/howto-subscribe-new-notifications-events.md#getting-started).
+If there is the need to add a new listener to another notification event (external), the new listener can be added following [this howto example](../../../../howto/howto-subscribe-events-from-eventbus.md#getting-started).
