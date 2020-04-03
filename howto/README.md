@@ -37,8 +37,8 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
 - How to **add pipelines** to a microservice
-- [How to **subscribe events from eventbus** on a microservice](./howto-subscribe-events-from-eventbus.md)
-- [How to **publish events to eventbus** on a microservice](./howto-publish-events-to-eventbus.md)
+- [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
+- [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
 
 ### Adding advanced features to a micro service
 

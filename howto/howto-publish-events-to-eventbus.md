@@ -1,215 +1,124 @@
-# How to publish events to EventBus on a Microservice
+# How to publish events to Event Bus from a Microservice
 
-## Getting started 
+This guide describes how to setup a micro service to publish events to the Event Bus.
 
-If needed, a microservice can publish messages to eventbus. To publish a message, you should: 
-* [Implement the EventBusService (in the Startup)](../ref/hydrogen-2.0/EventBus.Azure.md#implementing-the-service);
-* Create the IEventBusManager class in the Contracts folder and add your publish method;
-* Create the EventBusManager in the Managers folder and implement your publish method like:
-```c#
-public async Task PublishYourEvent(string message)
+Event Bus is a component in Hydrogen that supports event-driven architectures and publish-subscribe design pattern.
+
+## Adding the EventBus service
+
+First, you will need to add the `IEventBusService` to the microservice.
+
+Add the `Primavera.Hydrogen.EventBus.Azure` package to the `WebApi` project.
+
+Register the service in the application startup:
+
+1. In the `CustomFolder` create a class named Startup.
+2. Override `AddConfiguration()` and register the Event Bus configuration options (`AzureEventBusOptions`).
+2. Override `AddAdditionalServices()` and register the service implementation.
+
+```csharp
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
+using Primavera.Hydrogen.EventBus.Azure;
+using Primavera.Lithium.EventBusPublisher.WebApi.Configuration;
+
+namespace Primavera.Lithium.EventBusPublisher.WebApi
 {
-    IEventBusEvent<string> @event = new AzureEventBusEvent<string>()
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented")]
+    public partial class Startup
     {
-        Body = message
-    };
+        #region Protected Methods
 
-    @event.Properties.Add("MyFilter", "1.0");
-    @event.Properties.Add("AnotherFilter", "PublicPrimavera");
+        /// <inheritdoc />
+        protected override HostConfiguration AddConfiguration(IServiceCollection services)
+        {
+            // Default behavior
 
-    await this.EventBus.PublishAsync("myPublicationTopic", @event).ConfigureAwait(false);
+            HostConfiguration hostConfiguration = base.AddConfiguration(services);
+
+            // Register Event Bus configuration
+
+            services.Configure<AzureEventBusOptions>(
+                this.Configuration.GetSection(nameof(AzureEventBusOptions)));
+
+            // Result
+
+            return hostConfiguration;
+        }
+
+        /// <inheritdoc />
+        protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
+        {
+            // Default behavior
+
+            base.AddAdditionalServices(services, hostConfiguration);
+
+            // Register Event Bus
+
+            services.AddAzureEventBus();
+        }
+
+        #endregion
+    }
 }
 ```
 
-> Note: You can read more about EventBus publication [here;](../ref/hydrogen-2.0/EventBus.Azure.md#publishing-an-event)
+You also need to setup the connection string to the Azure Service Bus instance in the `appsettings-development.json` file:
 
-* Inject the ```IEventBusManager``` in the class where you want to publish the event via Dependency Injection:
+```json
+{
+    "AzureEventBusOptions": {
+        "ConnectionString": "(...)",
+        "EventHandlerOptions": {
+            "AutoComplete": false,
+            "MaxConcurrentCalls": 10
+        }
+    }
+}
+```
 
-```c#
-private IEventBusManager EventBusManager
+You are now ready to publish events from custom code (from any controller, manager, etc.).
+
+## Publishing the event
+
+Suppose that you need to publish the event from a API controller.
+
+First you will need to have access to the `IEventBusService` instance:
+
+```csharp
+private IEventBusService EventBusService
 {
     get
     {
-        return this.serviceProvider.GetRequiredService<IEventBusManager>();
+        return this.HttpContext.RequestServices.GetRequiredService<IEventBusService>();
     }
 }
 ```
 
-* Call the method to publish the event in your class:
+Then, publishing the event is straightforward. First, you build the event data, then you use the service to publish it.
 
-```c#
-public async Task SomeExampleMethod()
+Like in the following example (a unicast from one controller action):
+
+```csharp
+/// <inheritdoc />
+protected override async Task<IActionResult> PublishSimpleEventCoreAsync()
 {
-    await this.EventBusManager.PublishYourEvent("My eventBus message!").ConfigureAwait(false);
-}
-```
+    // Build the event
 
-## Full example
-
-### Startup (DependencyInjection method)
-```c#
-/// <summary>
-/// Called to add additional (custom) services to the service collection.
-/// </summary>
-/// <param name="services">The service collection.</param>
-/// <param name="hostConfiguration">The host configuration.</param>
-protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
-{
-    base.AddAdditionalServices(services, hostConfiguration);
-
-    services.AddAzureEventBus((options) =>
+    IEventBusEvent<string> evt = new AzureEventBusEvent<string>()
     {
-	    options.ConnectionString = eventBusConfiguration.Address;
-	    options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(eventBusConfiguration.AutoComplete, eventBusConfiguration.MaxConcurrentCalls);
-	    options.RetryStrategy = new ExponentialBackoffRetryStrategy();
-    })
-    .AddSingleton<IEventBusManager, EventBusManager>()
-    .AddSingleton<MyPublisherClassExample>();
+        Body = "This is a simple event"
+    };
 
-    services.AddLogging();
-}
-```
+    // Publish the event
 
-### IEventBusManager & EventBusManager
+    await this.EventBusService.PublishAsync(
+        "sample", 
+        evt)
+        .ConfigureAwait(false);
 
-```c#
-public interface IEventBusManager
-{
-    #region Methods
+    // Done
 
-    /// <summary>
-    /// Publishes your event.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <returns><see cref="System.Threading.Tasks.Task"/> representing the operation.</returns>
-    public Task PublishYourEvent(string message);
-
-    #endregion
-}
-```
-
-```c#
-public class EventBusManager : IEventBusManager
-    {
-        #region Fields
-
-        /// <summary>
-        /// The service provider.
-        /// </summary>
-        private readonly IServiceProvider serviceProvider;
-
-        #endregion
-
-        #region Private Properties
-
-        /// <summary>
-        /// Gets the event bus.
-        /// </summary>
-        /// <value>The event bus.</value>
-        private IEventBusService EventBus
-        {
-            get
-            {
-                return this.serviceProvider.GetRequiredService<IEventBusService>();
-            }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventBusManager"/> class.
-        /// </summary>
-        /// <param name="serviceProvider">The service provider.</param>
-        public EventBusManager(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Publishes your event.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task PublishYourEvent(string message)
-        {
-            IEventBusEvent<string> @event = new AzureEventBusEvent<string>()
-            {
-                Body = message
-            };
-
-            @event.Properties.Add("MyFilter", "1.0");
-            @event.Properties.Add("AnotherFilter", "PublicPrimavera");
-
-            await this.EventBus.PublishAsync("myPublicationTopic", @event).ConfigureAwait(false);
-        }
-
-        #endregion
-    }
-```
-
-### MyPublisherClassExample
-
-```c#
-/// <summary>
-/// My publisher class example.
-/// </summary>
-public class MyPublisherClassExample
-{
-    #region Fields
-
-    /// <summary>
-    /// The service provider.
-    /// </summary>
-    private readonly IServiceProvider serviceProvider;
-
-    #endregion
-
-    #region Private Properties
-
-    /// <summary>
-    /// Gets the event bus.
-    /// </summary>
-    /// <value>The event bus.</value>
-    private EventBusManager EventBusManager
-    {
-        get
-        {
-            return this.serviceProvider.GetRequiredService<EventBusManager>();
-        }
-    }
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MyPublisherClassExample"/> class.
-    /// </summary>
-    /// <param name="serviceProvider">The service provider.</param>
-    public MyPublisherClassExample(IServiceProvider serviceProvider)
-    {
-        this.serviceProvider = serviceProvider;
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Some example method.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public async Task SomeExampleMethod()
-    {
-        await this.EventBusManager.PublishYourEvent("My eventBus message!").ConfigureAwait(false);
-    }
-
-    #endregion
+    return this.NoContent();
 }
 ```

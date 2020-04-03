@@ -146,7 +146,7 @@ public override IPipeboxWorkersManager WorkersManager
     }
 }
     
-public override Task<bool> Handle(IEventBusEvent<string> eventBusEvent)
+public override Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
 {
   (...)
 }
@@ -156,7 +156,7 @@ Notice that:
 
 - The service provider should be injected in the constructor.
 - `IEventBus` allows raising and receiving events. See [Primavera.Hydrogen.EventBus.Azure](../ref/hydrogen-2.0/EventBus.Azure.md) for more information.
-- `Handle` will be called every time the event is received. The specific logic for handling it should be implemented here.
+- `HandleAsync` will be called every time the event is received. The specific logic for handling it should be implemented here.
 
 ## Startup
 
@@ -292,7 +292,7 @@ This will instantiate and start a worker with the given configuration options. O
 Implementing this to the previous handler, MyCustomHandler, would be similar to the following:
 
 ```csharp
-public override Task<bool> Handle(IEventBusEvent<string> eventBusEvent)
+public override Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
 {
     SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
 

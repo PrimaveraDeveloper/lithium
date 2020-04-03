@@ -107,7 +107,7 @@ public class MessageEventHandler : IEventBusEventHandler<string>
     /// </summary>
     /// <param name="eventBusEvent">The message event.</param>
     /// <returns>Boolean according execution success.</returns>
-    public Task<bool> Handle(IEventBusEvent<string> eventBusEvent)
+    public Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
     {
         SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
 

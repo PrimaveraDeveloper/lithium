@@ -1,302 +1,200 @@
-# How to subscribe events from EventBus on a Microservice
+# How to subscribe events from Event Bus in a Microservice
 
-## Getting started 
+This guide describes how to setup a micro service to subscribe events from Event Bus.
 
-If needed, a new subscriber can be created to listen events from eventbus. To add the listener you should:
-* [Implement the EventBusService (in the Startup)](../ref/hydrogen-2.0/EventBus.Azure.md#implementing-the-service);
-* Create a background worker (in the Service Model);
-* [Create a background service (in the Service Model)](../howto/howto-add-background-service.md#adding-a-simple-background-service);
-* Go to the service properties, and add the worker to the service:
+Event Bus is a component in Hydrogen that supports event-driven architectures and publish-subscribe design pattern.
 
-![ServiceModeling](_assets/ServicePropertiesModeling.png)
+## Adding the EventBus service
 
-* Create the partial worker class in the BackgrounServices folder;
-* Add the class as a ```Singleton``` in the startup on the method ```DependencyInjection(IServiceCollection services)```:
+First, you will need to add the `IEventBusService` to the microservice.
 
-```c#
-services.AddSingleton<YourEventBusListenerWorker>()
-```
-* Create the partial service class in the BackgrounServices folder;
-* On the background service, override the ```YourEventBusListenerWorker``` like:
+Add the `Primavera.Hydrogen.EventBus.Azure` package to the `WebApi` project.
 
-```c#
-internal partial class MyServiceExampleService
+Register the service in the application startup:
+
+1. In the `CustomFolder` create a class named Startup.
+2. Override `AddConfiguration()` and register the Event Bus configuration options (`AzureEventBusOptions`).
+2. Override `AddAdditionalServices()` and register the service implementation.
+
+```csharp
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
+using Primavera.Hydrogen.EventBus.Azure;
+using Primavera.Lithium.EventBusSubscriber.WebApi.Configuration;
+
+namespace Primavera.Lithium.EventBusSubscriber.WebApi
 {
-    /// <summary>
-    /// Gets the instance of the background worker that should executed.
-    /// by the background service.
-    /// </summary>
-    public override MyWorkerExampleWorker Worker
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented")]
+    public partial class Startup
     {
-        get
+        #region Protected Methods
+
+        /// <inheritdoc />
+        protected override HostConfiguration AddConfiguration(IServiceCollection services)
         {
-            return this.ServiceProvider.GetRequiredService<MyWorkerExampleWorker>();
+            // Default behavior
+
+            HostConfiguration hostConfiguration = base.AddConfiguration(services);
+
+            // Register Event Bus configuration
+
+            services.Configure<AzureEventBusOptions>(
+                this.Configuration.GetSection(nameof(AzureEventBusOptions)));
+
+            // Result
+
+            return hostConfiguration;
+        }
+
+        /// <inheritdoc />
+        protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
+        {
+            // Default behavior
+
+            base.AddAdditionalServices(services, hostConfiguration);
+
+            // Register Event Bus
+
+            services.AddAzureEventBus();
+        }
+
+        #endregion
+    }
+}
+```
+
+You also need to setup the connection string to the Azure Service Bus instance in the `appsettings-development.json` file:
+
+```json
+{
+    "AzureEventBusOptions": {
+        "ConnectionString": "(...)",
+        "EventHandlerOptions": {
+            "AutoComplete": false,
+            "MaxConcurrentCalls": 10
         }
     }
 }
 ```
-* Create the IEventBusManager class in the Contracts folder and add your subscribe method;
-* Create the EventBusManager in the Managers folder and implement your subscribe method;
-> Note: You can read more about EventBus subscribe/unsubscribe implementation [here;](../ref/hydrogen-2.0/EventBus.Azure.md#subscribing-to-events)
-* Inject the ```IEventBusManager``` in the worker class via Dependency Injection:
 
-```c#
-private IEventBusManager EventBusManager
-{
-    get
-    {
-        return this.ServiceProvider.GetRequiredService<IEventBusManager>();
-    }
-}
-```
-* On the worker class, override the method ```ExecuteAsync``` and call your new method from EventBus:
+You are now ready to publish events from custom code (from any controller, manager, etc.).
 
-```c#
-public override async Task ExecuteAsync(CancellationToken cancellationToken)
-{
-    await this.EventBusManager.SubscribeToYourEvent().ConfigureAwait(false);
-}
-```
-* In the Handlers folder, create your handler class like:
-```c#
-public class YourEventHandler : IEventBusEventHandler<YourDataType>
-{
-	public async Task<bool> Handle(IEventBusEvent<YourDataType> eventBusEvent)
-	{
-		// handle the event here
-	}
-}
-```
-> Note: You can inject other services in your handler class, like the logger:
+## Adding the event handler
 
-```c#
-private ILogger<YourEventHandler> Logger
-{
-    get
-    {
-        return this.serviceProvider.GetRequiredService<ILogger<YourEventHandler>>();
-    }
-}
-```
+To receive a given event, you will first need to create an event handler (a type implementing `IEventBusEventHandler<T>`).
 
-> Important: The topic which the EventBus will subscribe must be already created on the Azure!
+Add a new folder named `Handlers` to the `CustomCode` folder in the `WebApi` project. Then add a class named `MyEventHandler` and implement the logic for handling the event.
 
-## Full example
+Here's an example:
 
-### Startup (DependencyInjection method)
-```c#
+```csharp
 /// <summary>
-/// Called to add additional (custom) services to the service collection.
+/// Defines an handler for an event from Event Bus.
 /// </summary>
-/// <param name="services">The service collection.</param>
-/// <param name="hostConfiguration">The host configuration.</param>
-protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
+/// <seealso cref="IEventBusEventHandler{T}" />
+internal partial class MyEventHandler : IEventBusEventHandler<string>
 {
-    base.AddAdditionalServices(services, hostConfiguration);
+    #region Private Properties
 
-    services.AddAzureEventBus((options) =>
+    private IServiceProvider ServiceProvider
     {
-	    options.ConnectionString = eventBusConfiguration.Address;
-	    options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(eventBusConfiguration.AutoComplete, eventBusConfiguration.MaxConcurrentCalls);
-	    options.RetryStrategy = new ExponentialBackoffRetryStrategy();
-    })
-    .AddSingleton<IEventBusManager, EventBusManager>()
-    .AddSingleton<MyWorkerExampleWorker>();
+        get;
+    }
 
-    services.AddLogging();
-}
-```
-
-### Worker and Service modeling
-
-![Modeling](_assets/WorkerAndServiceDesignModeling.png)
-
-### Worker class
-
-```c#
-internal partial class MyWorkerExampleWorker
-{
-    private IEventBusManager EventBusManager
+    private ILogger Logger
     {
         get
         {
-            return this.ServiceProvider.GetRequiredService<IEventBusManager>();
+            return this.ServiceProvider.GetRequiredService<ILogger<MyEventHandler>>();
         }
     }
 
+    #endregion
+
+    #region Constructors
+
     /// <summary>
-    /// Executes the worker.
+    /// Initializes a new instance of the <see cref="MyEventHandler"/> class.
     /// </summary>
-    /// <param name="cancellationToken">The cancellation token. This token signals that the background worker is being stopped.</param>
-    /// <returns>
-    /// The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
-    /// </returns>
-    public override async Task ExecuteAsync(CancellationToken cancellationToken)
+    /// <param name="serviceProvider">The service provider.</param>
+    public MyEventHandler(IServiceProvider serviceProvider)
     {
-        await this.EventBusManager.SubscribeToYourEvents().ConfigureAwait(false);
-    }
-}
-```
+        // Validation
 
-### Service class
-```c#
-internal partial class MyServiceExampleService
-{
-    /// <summary>
-    /// Gets the instance of the background worker that should executed.
-    /// by the background service.
-    /// </summary>
-    public override MyWorkerExampleWorker Worker
+        SmartGuard.NotNull(() => serviceProvider, serviceProvider);
+
+        // Set properties
+
+        this.ServiceProvider = serviceProvider;
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <inheritdoc />
+    public Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
     {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<MyWorkerExampleWorker>();
-        }
+        // Event received
+
+        this.Logger.LogDebug($"Event received: {eventBusEvent.Body}.");
+
+        // Handled
+
+        return Task.FromResult(true);
     }
-}
-```
-
-### IEventBusManager & EventBusManager
-
-```c#
-public interface IEventBusManager
-{
-    #region Methods
-
-    /// <summary>
-    /// Subscribes to example events.
-    /// </summary>
-    /// <returns><see cref="System.Threading.Tasks.Task"/> representing the operation.</returns>
-    public Task SubscribeToYourEvents();
 
     #endregion
 }
 ```
 
-```c#
-public class EventBusManager : IEventBusManager
-    {
-        #region Fields
+## Subscribing the event
 
-        /// <summary>
-        /// The service provider.
-        /// </summary>
-        private readonly IServiceProvider serviceProvider;
+To receive events, the microservice needs to subscribe event topics.
 
-        #endregion
+The easiest way of implementing this subscription logic is to add a background service and have that background service subscribe the events (registering the corresponding handlers).
 
-        #region Private Properties
+1. Open the service model.
+2. Add a background service named `SubscribeEvents`.
+3. Validate and save the model.
+4. Transform all text templates.
 
-        /// <summary>
-        /// Gets the event bus.
-        /// </summary>
-        /// <value>The event bus.</value>
-        private IEventBusService EventBus
-        {
-            get
-            {
-                return this.serviceProvider.GetRequiredService<IEventBusService>();
-            }
-        }
+Now you will be to implement the custom logic for this background service.
 
-        #endregion
+Add a folder named `BackgroundServices` under the `CustomCode` folder in Web API. Add a class named `SubscribeEvents` and override `ExecuteAsync()` to subscribe the Event Bus event.
 
-        #region Constructors
+Here's an example:
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventBusManager"/> class.
-        /// </summary>
-        /// <param name="serviceProvider">The service provider.</param>
-        public EventBusManager(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Subscribes to example events.
-        /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task SubscribeToYourEvents()
-        {
-            try
-            {
-                IEventBusEventHandler<string> exampleEventHandler = new EventHandlerExample(this.serviceProvider);
-
-                IEventBusEventFilters<string> exampleEventFilters = new AzureEventBusEventFilters<string>();
-
-                // Add custom filters from settings
-
-                exampleEventFilters.Filters.Add("MyFilter", "1.0");
-                exampleEventFilters.Filters.Add("AnotherFilter", "PublicPrimavera");
-
-                await this.EventBus.SubscribeAsync("mySubscriptionTopic", exampleEventHandler, exampleEventFilters).ConfigureAwait(false);
-            }
-            catch (EventBusServiceException)
-            {
-                throw;
-            }
-        }
-
-        #endregion
-    }
-```
-
-### Handler class
-```c#
-public class EventHandlerExample : IEventBusEventHandler<string>
+```csharp
+[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented")]
+internal partial class SubscribeEventsService
 {
-    /// <summary>
-    /// The service provider.
-    /// </summary>
-    private readonly IServiceProvider serviceProvider;
+    #region Private Properties
 
-    /// <summary>
-    /// Gets the logger.
-    /// </summary>
-    /// <value>The logger.</value>
-    private ILogger<EventHandlerExample> Logger
+    private IEventBusService EventBusService
     {
         get
         {
-            return this.serviceProvider.GetRequiredService<ILogger<EventHandlerExample>>();
+            return this.ServiceProvider.GetRequiredService<IEventBusService>();
         }
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="EventHandlerExample"/> class.
-    /// </summary>
-    /// <param name="serviceProvider">The service provider.</param>
-    public EventHandlerExample(IServiceProvider serviceProvider)
+    #endregion
+
+    #region Protected Methods
+
+    /// <inheritdoc />
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        this.serviceProvider = serviceProvider;
+        // Subscribe events
+
+        IEventBusEventHandler<string> handler = new MyEventHandler(this.ServiceProvider);
+
+        await this.EventBusService
+            .SubscribeAsync("sample", handler)
+            .ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Handles the specified received event.
-    /// </summary>
-    /// <param name="eventBusEvent">The received event.</param>
-    /// <returns>True if processed successfully.</returns>
-    public async Task<bool> Handle(IEventBusEvent<string> eventBusEvent)
-    {
-        // Check if not null
-
-        SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
-
-        this.Logger.LogInformation("Received event bus event.");
-
-        this.Logger.LogInformation("Received message: ", eventBusEvent.Body);
-
-        // Example async operation
-
-        await Task.Yield();
-
-        // Return success to the eventBus
-
-        return true;
-    }
+    #endregion
 }
 ```
