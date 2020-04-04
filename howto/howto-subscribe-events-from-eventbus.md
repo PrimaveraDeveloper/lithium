@@ -4,66 +4,102 @@ This guide describes how to setup a micro service to subscribe events from Event
 
 Event Bus is a component in Hydrogen that supports event-driven architectures and publish-subscribe design pattern.
 
-## Adding the EventBus service
+## Adding the Event Bus
 
-First, you will need to add the `IEventBusService` to the microservice.
+To add the Event Bus dependency to a microservice follow these steps:
 
-Add the `Primavera.Hydrogen.EventBus.Azure` package to the `WebApi` project.
+1. Open the service model.
+2. Using the context menu, add a Dependency.
+3. Select `EventBus` as the dependency kind.
+4. Save the model.
+5. Transform all projects.
 
-Register the service in the application startup:
+### Generated Code
 
-1. In the `CustomFolder` create a class named Startup.
-2. Override `AddConfiguration()` and register the Event Bus configuration options (`AzureEventBusOptions`).
-2. Override `AddAdditionalServices()` and register the service implementation.
+The generated code will reflect the following changes to configure this storage.
+
+`StartupBase.AddDependencies`:
 
 ```csharp
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.DependencyInjection;
-using Primavera.Hydrogen.EventBus.Azure;
-using Primavera.Lithium.EventBusSubscriber.WebApi.Configuration;
-
-namespace Primavera.Lithium.EventBusSubscriber.WebApi
+/// <summary>
+/// Called to add dependencies to the service collection.
+/// </summary>
+/// <param name="services">The service collection.</param>
+/// <param name="hostConfiguration">The host configuration.</param>
+/// <remarks>
+/// The method is called from <see cref="ConfigureServices(IServiceCollection)"/>.
+/// </remarks>
+protected virtual void AddDependencies(IServiceCollection services, HostConfiguration hostConfiguration)
 {
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented")]
-    public partial class Startup
-    {
-        #region Protected Methods
+    // Add dependencies
 
-        /// <inheritdoc />
-        protected override HostConfiguration AddConfiguration(IServiceCollection services)
-        {
-            // Default behavior
+    // Event Bus
 
-            HostConfiguration hostConfiguration = base.AddConfiguration(services);
-
-            // Register Event Bus configuration
-
-            services.Configure<AzureEventBusOptions>(
-                this.Configuration.GetSection(nameof(AzureEventBusOptions)));
-
-            // Result
-
-            return hostConfiguration;
-        }
-
-        /// <inheritdoc />
-        protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
-        {
-            // Default behavior
-
-            base.AddAdditionalServices(services, hostConfiguration);
-
-            // Register Event Bus
-
-            services.AddAzureEventBus();
-        }
-
-        #endregion
-    }
+    this.AddAzureEventBus(services, hostConfiguration);
 }
 ```
 
-You also need to setup the connection string to the Azure Service Bus instance in the `appsettings-development.json` file:
+`StartupBase.AddAzureEventBus`:
+
+```csharp
+/// <summary>
+/// Called when configuring services to configure the Event Bus services.
+/// </summary>
+/// <param name="services">The service collection.</param>
+/// <param name="hostConfiguration">The host configuration.</param>
+protected virtual void AddAzureEventBus(IServiceCollection services, HostConfiguration hostConfiguration)
+{
+    // Validation
+
+    SmartGuard.NotNull(() => services, services);
+    SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+    // Azure Event Bus
+
+    services
+        .AddAzureEventBus();
+}
+```
+
+`StartupBase.AddConfiguration`:
+
+```csharp
+protected virtual HostConfiguration AddConfiguration(IServiceCollection services)
+{
+    // Validation
+
+    SmartGuard.NotNull(() => services, services);
+
+    // Common options
+
+    services
+        .AddOptions()
+        .Configure<HostConfiguration>(
+            this.Configuration.GetSection(nameof(HostConfiguration)))
+        .Configure<AzureInsightsTelemetryOptions>(
+            this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)));
+
+    // Event bus options
+
+    services
+        .Configure<AzureEventBusOptions>(
+            this.Configuration.GetSection(nameof(AzureEventBusOptions)));
+
+    // Host configuration snapshot
+
+    services
+        .AddOptionsSnapshot<HostConfiguration>();
+
+    // Resolve the host configuration instance
+
+    IServiceProvider provider = services.BuildServiceProvider();
+    return provider.GetRequiredService<HostConfiguration>();
+}
+```
+
+## Configuration
+
+Next you only need to set the connection string for the Azure Service Bus instance you wish to use in the application configuration, by setting `ConnectionString` in a section called `AzureEventBusOptions`:
 
 ```json
 {
@@ -77,7 +113,7 @@ You also need to setup the connection string to the Azure Service Bus instance i
 }
 ```
 
-You are now ready to publish events from custom code (from any controller, manager, etc.).
+You are now ready to receive events.
 
 ## Adding the event handler
 
