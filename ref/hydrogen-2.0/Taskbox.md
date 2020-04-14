@@ -4,14 +4,14 @@
 
 ## About
 
-This class library's purpose is to provide tools to make it easier and faster to develop a taskbox.
+The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
 
 ## Taskbox Workers Manager
 
 ### `ITaskboxWorkersManager`
 The `ITaskboxWorkersManager` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
 
-This component is responsible for distributing configurations to an `ITaskboxWorker` and for managing all the `ITaskboxWorkers`, starting and stoping them as necessary. It can also be defined as an engine of `ITaskboxWorkers`. The `ITaskboxWorkersManager` configuration is defined by the TaskboxOptions. This implementation contains all the configurations needed for the `ITaskboxWorkersManager` . Here you can define the number of `ITaskboxWorkers` that will be running simultaneously and the waiting time for `ITaskboxWorker` when the pool is full.
+This component is responsible for distributing configurations to an `ITaskboxWorker` and for managing all the `ITaskboxWorkers`, starting and stopping them as necessary. It can also be defined as an engine of `ITaskboxWorkers`. The `ITaskboxWorkersManager` configuration is defined by the TaskboxOptions. This implementation contains all the configurations needed for the `ITaskboxWorkersManager` . Here you can define the number of `ITaskboxWorkers` that will be running simultaneously and the waiting time for `ITaskboxWorker` when the pool is full.
 
 
 ### `ITaskboxWorker`
@@ -27,7 +27,7 @@ The `ITaskboxWorker` is responsible for instantiating, configuring and executing
 
 The worker actions are `StartWorkerAsync`, `StopWorkerAsync`.
 
-The service implementation should be registered using one of the following extension methods for `IServiceCollection`.
+The service should be registered using one of the following extension methods for `IServiceCollection`.
 
 ```csharp
 IServiceCollection services = (...);
@@ -122,12 +122,12 @@ await engine.StopEngine().ConfigureAwait(false);
 This section holds all the components related to the event handling of a Taskbox.
 
 ### `EventBusHandler<T>`
-It's an abstract handler that implements the [`IEventBusEventHandler<T>`](EventBus.Abstractions.md), to help build an handler for the taskbox in a way that is easier and faster.
+It's an abstract handler that implements the [`IEventBusEventHandler<T>`](EventBus.Abstractions.md), to help build a handler for the taskbox in a way that is easier and faster.
 
 
 
 ### TriggeredEvent
-It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps managing a list of events.
+It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps to manage a list of events.
 
 ### EventBusManager
 
