@@ -2,11 +2,9 @@
 
 **Class library that contains types that implement asynchronous multi-task processing.**
 
-[REF_Taskbox_Abstractions]: Taskbox.Abstractions.md
-
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][REF_Taskbox_Abstractions].
+This class library's purpose is to provide tools to make it easier and faster to develop a taskbox.
 
 ## Taskbox Workers Manager
 
@@ -134,3 +132,35 @@ It's a class that represents the event, this holds the event type, the event bod
 ### EventBusManager
 
 It's a generic subscriber and unsubscriber, it can do both operations for any event type that is given. This manager works with the `TriggeredEvent` class.
+
+## Abstractions
+
+To help with the implementation of this component two interfaces can be used.
+
+### ITaskboxWorker
+
+The `ITaskboxWorker` interface defines the abstraction for the worker.
+
+**Properties**
+
+Property | Description
+:--- | :---
+Id | Gets or sets the worker id.
+
+**Methods**
+
+Method | Description
+:--- | :---
+StartWorkerAsync | Starts the worker with a specified configuration, a context and a pipeline id
+StopWorkerAsync | Stops the worker.
+
+### IEventBusManager
+
+The `IEventBusManager` interface defines the abstraction for the EventBusManager, which is a generic subscriber and unsubscriber.
+
+**Methods**
+
+Method | Description
+:--- | :---
+Subscribe | Subscribes the specified event.
+Unsubscribe | Unsubscribes the specified event type.

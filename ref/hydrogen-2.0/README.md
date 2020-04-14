@@ -32,7 +32,6 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.Storage.Abstractions`](./Storage.Abstractions.md) | Contains types that define abstractions for generic storage services |
 | [`Primavera.Hydrogen.Storage.Azure`](./Storage.Azure.md) | Contains types that define generic storage services that use Microsoft Azure storage services |
 | [`Primavera.Hydrogen.Storage.Files`](./Storage.Files.md) | Contains types that define generic storage services that use local files |
-| [`Primavera.Hydrogen.Taskbox.Abstractions`](./Taskbox.Abstractions.md) | Contains types that define abstractions for asynchronous multi-task processing |
 | [`Primavera.Hydrogen.Taskbox`](./Taskbox.md) | Contains types that implement asynchronous multi-task processing |
 | [`Primavera.Hydrogen.Telemetry.Abstractions`](./Telemetry.Abstractions.md) | Contains types that provide generic telemetry services |
 | [`Primavera.Hydrogen.Telemetry.Azure`](./Telemetry.Azure.md) | Contains types that provide telemetry services that use Microsoft Azure Application Insights |
