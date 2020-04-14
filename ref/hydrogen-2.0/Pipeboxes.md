@@ -231,7 +231,7 @@ The parsing of the configuration string must be performed within the `UseConfig`
 
 **Default Type**
 
-When the handler configuration does not define the `type` (of the middleware class) it is assumed to be the [Default Handler](#Default-Handler), which type name is ``Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler`1`` corresponding to the generic type name of `DefaultHandler<>`. 
+When the handler configuration does not define the `type` (of the middleware class) it is assumed to be the [Default Handler](#DefaultHandler), which type name is ``Primavera.Hydrogen.Pipeboxes.Handlers.DefaultHandler`1`` corresponding to the generic type name of `DefaultHandler<>`. 
 
 > A back tick `` ` `` character is escaped as `\u0060` in JSON.
 
