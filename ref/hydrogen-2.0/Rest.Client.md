@@ -209,3 +209,35 @@ using (MyServiceClient client = new MyServiceClient(...))
 - `x-li-c-credentials-kind`: the kind of credentials provided to the server for authentication (possible values are: `none`, `access-token`, `client-credentials`, and `authentication-callback`).
 - `x-li-c-client-id`: the client identifier (available only when `x-li-c-credentials-kind` is `client-credentials`).
 - `x-li-c-client-challenge`: indicates whether the request may be an authentication challenge (available only when `x-li-c-credentials-kind` is `authentication-callback`).
+
+## Webhooks
+
+The `Primavera.Hydrogen.Rest.Client.Webhooks` includes a client that allows subscribing webhooks from a server (provided that the webhooks on that server were modeled with the Lithium SDK).
+
+### `WebhooksSubscriptionsClient`
+
+This client allows creating, updating, and deleting webhooks subscriptions on a server.
+
+Its usage is very straightforward:
+
+```csharp
+using WebhooksSubscriptionsClient subscriptionsClient = new WebhooksSubscriptionsClient();
+
+WebhookSubscriptionResponse createResponse = await subscriptionsClient.CreateSubscriptionAsync(
+    new Uri("https://localhost:20001/"),
+    createRequest)
+    .ConfigureAwait(false);
+if (!createResponse.IsError)
+{
+    (...)
+}
+
+GetWebhookSubscriptionsResponse getResponse = await subscriptionsClient.GetSubscriptionsAsync(
+    new Uri("https://localhost:20001/"), 
+    "WHR")
+    .ConfigureAwait(false);
+if (!getResponse.IsError)
+{
+    (...)
+}
+```

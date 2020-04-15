@@ -37,15 +37,16 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
 - How to **add pipelines** to a microservice
-- [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
-- [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
+- How to **setup authentication** in a microservice
 
 ### Adding advanced features to a micro service
 
-- How to **setup authentication** in a microservice
 - [How to **add support for ASP.NET MVC user interface** to a microservice](./howto-add-user-interface-mvc.md)
 - [How to **add support for Angular user interface** to a microservice](./howto-add-user-interface-ngx.md)
+- [How to **publish webhooks** from a microservice](./howto-publish-webhooks.md)
 - How to **add data protection** in a microservice
+- [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
+- [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
 - [How to **include a taskbox** in a microservice](./howto-include-taskbox.md)
 
 ## Testing a microservice

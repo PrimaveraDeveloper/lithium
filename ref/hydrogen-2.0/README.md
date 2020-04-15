@@ -10,6 +10,8 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.AspNetCore.Authentication`](./AspNetCore.Authentication.md) | Contains types that support authentication of Web applications with ASP.NET Core |
 | [`Primavera.Hydrogen.AspNetCore.Azure`](./AspNetCore.Azure.md) | Contains types that support the development of Web applications with ASP.NET Core hosted on Azure |
 | [`Primavera.Hydrogen.AspNetCore.Extensions`](./AspNetCore.Extensions.md) | Contains types that provide extensions for Web applications developed with ASP.NET Core |
+| [`Primavera.Hydrogen.AspNetCore.Webhooks`](./AspNetCore.Webhooks.md) | Contains types that define services for providing webhooks in ASP.NET Core applications |
+| [`Primavera.Hydrogen.AspNetCore.Webhooks.Abstractions`](./AspNetCore.Webhooks.Abstractions.md) | Contains types that define abstractions for providing webhooks in ASP.NET Core applications |
 | [`Primavera.Hydrogen.Caching.Distributed`](./Caching.Distributed.md) | Contains types that provided distributed caching services |
 | [`Primavera.Hydrogen.Console`](./Console.md) | Contains types, helpers, and extension methods for console applications |
 | [`Primavera.Hydrogen.Core`](./Core.md) | Contains core types, helpers, and extension methods that can be used on all kinds of applications |

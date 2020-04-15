@@ -54,6 +54,7 @@ This the list of all the capabilities (order alphabetically):
 - [Versioning](./versioning.md)
 - [WCF](./wcf.md)
 - [Web API](./web-api.md)
+- [Webhooks](./webhooks.md)
 
 These capabilities are provided in different forms:
 

@@ -25,7 +25,23 @@ The metamodel used by this designer adheres, in most cases, to how a REST Web AP
 - Controllers aggregate actions logically.
 - A service defines the Web API as a whole, aggregating controllers.
 
-### Service
+The following domain entities are available (ordered alphabetically):
+
+- [API version](#apiversion)
+- [Authorization Scope](#authorizationscope)
+- [Authorization Policy](#authorizationpolicy)
+- [Background Service](#backgroundservice)
+- [Background Worker](#backgroundworker)
+- [Controller](#controller)
+- [Controller Action](#controlleraction)
+- [Enumeration](#enumeration)
+- [Dependency](#dependency)
+- [Model](#model)
+- [Regular Expression](#regularexpression)
+- [Service](#service)
+- [Webhook](#webhook)
+
+### <a name="service"></a>Service
 
 This is most important domain entity and it is represented in the service designer by the design surface (the canvas). It describes the microservice and allows specifying its main characteristics.
 
@@ -50,7 +66,7 @@ Other configuration properties can only be modified by opening a configuration e
 | Use Client Credentials Client | A value indicating whether a client for the client credentials authorization flow is to be used | True |
 | Use Hybrid Client | A value indicating whether a client for the hybrid authorization flow is to be used  | False |
 
-### Model
+### <a name="model"></a>Model
 
 A model describes one resource managed by the microservice Web API. 
 
@@ -111,7 +127,7 @@ The following properties are available for model properties:
 
 > You can model simple 1:N relations, for example, by having model A have a model property that references model B and setting that property to a be list.
 
-### Enumeration
+### <a name="enumeration"></a>Enumeration
 
 As the name implies, an enumeration is a special kind of model that is translated to an enumeration instead of a class, resulting in that its value can only be one of a set of predetermined values.
 
@@ -123,7 +139,7 @@ As the name implies, an enumeration is a special kind of model that is translate
 
 You can specify one or more members for the enumeration (the possible values). Each member as a name and a unique value (an integer).
 
-### Controller
+### <a name="controller"></a>Controller
 
 Controllers group related actions (the API endpoints).
 
@@ -147,7 +163,7 @@ The most important properties of a controller are:
 | Authorization Mode | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
 | Scope | The name of the scope used for authorization by the controller actions | (default) |
 
-### Controller Action
+### <a name="controlleraction"></a>Controller Action
 
 An action describes an endpoint in the Web, an operation provided by the microservice. They can accept parameters (or not), and return a result (or not).
 
@@ -172,39 +188,7 @@ You can define zero or more parameters for the controller action and these can b
 - Scalar - the parameter value is scalar, meaning that is of a framework type (string, integer, Guid, etc.)
 - Model - the parameter value references a model defined in the model.
 
-### Dependency
-
-Dependencies allow for two things:
-
-- Describing the dependencies of the microservice on external services (la REDIS cache, for example).
-- Adding features to the microservice.
-
-![Dependency](./_assets/dependency.png "Dependency")
-
-> These dependencies will affect the code generated for the microservices and, in most cases, will just work out the box (without requiring the developer to add any custom code).
-
-A dependency as only one important property:
-
-| Property | Description | Example |
-| - | - | - |
-| Kind | The kind of dependency that should be added | BlobStorage |
-
-### Regular Expression
-
-As you will see, both models and controller action parameters allow specifying validation rules that will be enforced automatically by the framework. One kind of these validation rules allows checking values against a regular expression.
-
-The regular expression domain entity provides the means to specify these regular expressions only once in the service model and then reusing them in multiple validation rules.
-
-![Regular Expression](./_assets/regex.png "Regular Expression")
-
-The most important properties of a regular expression are:
-
-| Property | Description | Example |
-| - | - | - |
-| Name | The name of the regular expression | IdsRegEx |
-| Value | The actual regular expression |  |
-
-### Background Service
+### <a name="backgroundservice"></a>Background Service
 
 The Lithium Framework allows you to add background services to the microservice solution. These services will be automatically executed when the service application starts and run work (custom logic) in the background.
 
@@ -225,11 +209,57 @@ The most important properties of a background service are:
 
 > When "Use Worker" is true, you will need to model a background worker and set it in the "Worker" property of the associated background service.
 
-### Background Worker
+### <a name="backgroundworker"></a>Background Worker
 
 Workers allow sharing behavior between different background services. You define a single worker - and later implement it's logic - and reference it in multiple background services.
 
-### Authorization Scope
+### <a name="dependency"></a>Dependency
+
+Dependencies allow for two things:
+
+- Describing the dependencies of the microservice on external services (la REDIS cache, for example).
+- Adding features to the microservice.
+
+![Dependency](./_assets/dependency.png "Dependency")
+
+> These dependencies will affect the code generated for the microservices and, in most cases, will just work out the box (without requiring the developer to add any custom code).
+
+A dependency as only one important property:
+
+| Property | Description | Example |
+| - | - | - |
+| Kind | The kind of dependency that should be added | BlobStorage |
+
+### <a name="webhook"></a>Webhook
+
+Webhooks are added to the model to describe the webhook events published by the service, which it is required to configure the corresponding services.
+
+![Webhook](./_assets/webhook.png "Webhook")
+
+> When a webhook is added to the service, a set of controller actions will be automatically generated for the Web API. These actions allow client applications to subscribe the webhooks. The service will be responsible for publishing the events in custom code using the services available in Hydrogen.
+
+A dependency as only one important property:
+
+| Property | Description | Example |
+| - | - | - |
+| Kind | The kind of dependency that should be added | BlobStorage |
+
+### <a name="regularexpression"></a>Regular Expression
+
+As you will see, both models and controller action parameters allow specifying validation rules that will be enforced automatically by the framework. One kind of these validation rules allows checking values against a regular expression.
+
+The regular expression domain entity provides the means to specify these regular expressions only once in the service model and then reusing them in multiple validation rules.
+
+![Regular Expression](./_assets/regex.png "Regular Expression")
+
+The most important properties of a regular expression are:
+
+| Property | Description | Example |
+| - | - | - |
+| Name | The name of the regular expression | IdsRegEx |
+| Value | The actual regular expression |  |
+
+### <a name="authorizationscope"></a>Authorization Scope
 
 When the service's authorization mode is on, the default scope (defined in the service properties) will be used by default by all controllers and controller actions.
 
@@ -244,11 +274,11 @@ The main properties for authorization scopes are:
 | Name | The name of the authorization scope | WriteAccess |
 | Scope | The scope that should be validated by the authorization middleware | lithium-identity-writeaccess |
 
-### Authorization Policy
+### <a name="authorizationpolicy"></a>Authorization Policy
 
 Authorization policies is a new concept in the service model that allows specifying custom logic to validate access to controller actions. It is not fully developed yet.
 
-### API Version
+### <a name="apiversion"></a>API Version
 
 Each microservice as a version defined in the service properties. This version, among other things, sets the API version (used in the endpoint routes) that is validated by a API versioning middleware that is automatically setup by the framework.
 
