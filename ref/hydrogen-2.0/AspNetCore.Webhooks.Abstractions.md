@@ -27,7 +27,7 @@ CreateWebhookSubscriptionRequest request = new CreateWebhookSubscriptionRequest(
     {
         "Customer_Created"
     },
-    CallbackUrl = new Uri("https://myserver.com/customers/callback),
+    CallbackUrl = new Uri("https://myserver.com/customers/callback"),
     Secret = "a-shared-secret",
     Active = true
 }
