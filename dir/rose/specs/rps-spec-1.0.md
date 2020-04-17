@@ -10,13 +10,20 @@ IRS is the tax applied to all employee earnings. It is calculated with a range o
 
 Each country has its own calculation logic and its own income tax tables. RPS provides one operation for each location.
 
-### Calculate Income Tax (Portugal)
+### Calculate Income Tax (method 1) (Portugal)
 
 This operation allows to calculate the incoming tax for Portugal.
+To using this operation it's needed know the table number and position to calculate income tax.
+
+```csharp
+public async Task<ServiceOperationResult<double>> GetIncomeTaxPTAsync(string region, int table, int position, DateTime date, double amount, CancellationToken cancellationToken = default);
+
+public ServiceOperationResult<double> GetIncomeTaxPT(string region, int table, int position, DateTime date, double amount);
+ ```
 
 #### Parameters
 
-- `Region`: the location of the employee contract. Required. `RegEx((PTC)|(PTA)|(PTM))`.
+- `Region`: the location of the contract. Required. `RegEx((PTC)|(PTA)|(PTM))`.
 - `Table`: the identification of the IRS table applicable to the employee. Required. `> 0. < 10`.
 - `Position`: the identification of the IRS table column. Required. `> -1. < 6`.
 - `Date`: the specific moment that will used to get the correct IRS table. Required.
@@ -26,7 +33,44 @@ This operation allows to calculate the incoming tax for Portugal.
 
 - Returns a `double` value that represents the calculated income tax.
 
-#### Calculating IRS income tax
+
+
+### Calculate Income Tax (method 2) (Portugal)
+
+This operation allows to calculate the incoming tax for Portugal.
+Uses all mandatory parameters needed to return income tax.
+
+```csharp
+public async Task<ServiceOperationResult<IncomeTaxPT>> IncomeTaxPTAsync(string region, int earningType, int fiscalState, bool disabilityDegreeHolder, int earningHolders, bool secondHolderMajorEarnig, bool secondHolderDisabilityDegree, int dependants, int disabilityDegreeDependents, DateTime date, double amount, double fixedTax, CancellationToken cancellationToken = default);
+
+public ServiceOperationResult<IncomeTaxPT> IncomeTaxPT(string region, int earningType, int fiscalState, bool disabilityDegreeHolder, int earningHolders, bool secondHolderMajorEarnig, bool secondHolderDisabilityDegree, int dependants, int disabilityDegreeDependents, DateTime date, double amount, double fixedTax);
+ ```
+
+#### Parameters
+- `region`: The location of the contract.	Required. RegEx((PTC)|(PTA)|(PTM)).
+- `earningType`: The earning type identifier.	> 0. < 3.
+- `fiscalState`: The fiscal state identifier.	> 0. < 3.
+- `disabilityDegreeHolder`: Indicates if the holder has a disability degree ⇒ 60%.	
+- `earningHolders`: The number of earning holders.	> -1.
+- `secondHolderMajorEarnig`:Indicates if the second holder have global earning ⇒ 95%.	
+- `secondHolderDisabilityDegree`: Indicates if the second holder has a disability degree ⇒ 60%.	
+- `dependants`:The number of dependents.	> -1.
+- `disabilityDegreeDependents`:	The number of dependents with disability degree ⇒ 60%.	> -1.
+- `date`: The specific moment that will used to get the correct IRS table.	
+- `amount`: The value used to obtain the income tax.	
+- `fixedTax`: The value to return when fixed tax > calculated tax.	> -1.
+
+#### Returns
+
+- Returns `IncomeTaxPT` model that contains the properties with the calculated income tax.
+
+| Property | Type | Description |
+| - | - | - |
+| Table | int | The indentification of the table. |
+| Position | int | The identification of the column position. |
+| IncomeTax | double | The calculated income tax. |
+
+### Implementing IRS income tax
 
 ```csharp
 Uri address = new Uri("[your-service-endpoint]");
@@ -68,12 +112,6 @@ catch (ServiceException ex)
 }
 ```
 
-### All IRS Operations
-
-The service provides the following operations for IRS:
-
-- `GetIncomeTaxPT`: Retrieve the income tax for Portugal.
-
 ## Back-office
 
 The Rose People Service also provides a back-office that allows some users - known as managers - to manage the service.
@@ -98,3 +136,21 @@ For example:
 | 2 | 659 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 3 | 12535 | 29,4 | 28,7 | 28,4 | 27,3 | 27 | 25,8 |
 | 4 | 9999999 | 30,2 | 29,5 | 29,2 | 28,1 | 27,8 | 26,6 |
+
+## Storage
+
+Files are stored in Azure Table Storage. The data about these income tax tables is stored in table storage.
+
+The following configuration options set the instances used by the micro service:
+
+```json
+{
+    "AzureTableStorageOptions": {
+        "ConnectionString": "(...)"
+    }
+}
+```
+
+## Distributed Cache
+
+The service uses a distributed cache to reduce the dependency on the table storage. This cache is transparent for clients.
