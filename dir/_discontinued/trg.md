@@ -37,6 +37,6 @@ This is a way of executing batch jobs triggered by calls to given endpoints.
 
 | Documentation | Link |
 | - | - |
-| Spec | [2.0](./specs/trg-spec-2.0.md) |
+| Spec | [2.0](./trg-spec-2.0.md) |
 | Client Library | Not available |
 | Web API | Not available |
