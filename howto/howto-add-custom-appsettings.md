@@ -27,7 +27,7 @@ public partial class HostConfiguration : HostConfigurationBase
     /// <summary>
     /// Initializes a new instance of the <see cref="HostConfiguration"/> class.
     /// </summary>
-    public HostConfiguration()        
+    public HostConfiguration()
         : base()
     {
     }
