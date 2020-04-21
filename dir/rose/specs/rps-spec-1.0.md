@@ -23,15 +23,20 @@ public ServiceOperationResult<double> GetIncomeTaxPT(string region, int table, i
 
 #### Parameters
 
-- `Region`: the location of the contract. Required. `RegEx((PTC)|(PTA)|(PTM))`.
-- `Table`: the identification of the IRS table applicable to the employee. Required. `> 0. < 10`.
-- `Position`: the identification of the IRS table column. Required. `> -1. < 6`.
-- `Date`: the specific moment that will used to get the correct IRS table. Required.
-- `Ammount`: the value used to obtain the correct row in the IRS table. Required.
+| Parameter | Type | Description | Rules |
+| - | - | - | - |
+| `region` | `string` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
+| `table` | `int` | The identification of the IRS table applicable to the employee. | > 0. < 10.  |
+| `position` | `int` | The identification of the IRS table column. | > -1. < 6.  |
+| `date` | `DateTime` | The specific moment that will used to get the correct IRS table. |  |
+| `amount` | `double` | The value used to obtain the income tax. |  |
+
 
 #### Returns
 
-- Returns a `double` value that represents the calculated income tax.
+| Return Type | Description |
+| - | - | - | - |
+| `double` | Returns a double value that represents the calculated income tax. |
 
 
 
@@ -47,28 +52,89 @@ public ServiceOperationResult<IncomeTaxPT> IncomeTaxPT(string region, int earnin
  ```
 
 #### Parameters
-- `region`: The location of the contract.	Required. RegEx((PTC)|(PTA)|(PTM)).
-- `earningType`: The earning type identifier.	> 0. < 3.
-- `fiscalState`: The fiscal state identifier.	> 0. < 3.
-- `disabilityDegreeHolder`: Indicates if the holder has a disability degree ⇒ 60%.	
-- `earningHolders`: The number of earning holders.	> -1.
-- `secondHolderMajorEarnig`:Indicates if the second holder have global earning ⇒ 95%.	
-- `secondHolderDisabilityDegree`: Indicates if the second holder has a disability degree ⇒ 60%.	
-- `dependants`:The number of dependents.	> -1.
-- `disabilityDegreeDependents`:	The number of dependents with disability degree ⇒ 60%.	> -1.
-- `date`: The specific moment that will used to get the correct IRS table.	
-- `amount`: The value used to obtain the income tax.	
-- `fixedTax`: The value to return when fixed tax > calculated tax.	> -1.
+
+| Parameter | Type | Description | Rules |
+| - | - | - | - |
+| `region` | `string` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
+| `earningType` | `int` | The earning type identifier. | > 0. < 3.  |
+| `fiscalState` | `int` | The fiscal state identifier. | > 0. < 3.  |
+| `disabilityDegreeHolder` | `bool` | Indicates if the holder has a disability degree => 60%. |  |
+| `earningHolders` | `int` | The number of earning holders. | > -1.  |
+| `secondHolderMajorEarnig` | `bool` | Indicates if the second holder have global earning => 95%. |  |
+| `secondHolderDisabilityDegree` | `bool` | Indicates if the second holder has a disability degree => 60%. |  |
+| `dependants` | `int` | The number of dependents. | > -1.  |
+| `disabilityDegreeDependents` | `int` | The number of dependents with disability degree => 60%. | > -1.  |
+| `date` | `DateTime` | The specific moment that will used to get the correct IRS table. |  |
+| `amount` | `double` | The value used to obtain the income tax. |  |
+| `fixedTax` | `double` | The value to return when fixed tax > calculated tax. | > -1.  |
+
 
 #### Returns
+| Return Type | Description |
+| - | - |
+| `Primavera.Lithium.RosePeople.Models.IncomeTaxPT` | Returns a model with the calculated income tax, table number and column position. |
 
-- Returns `IncomeTaxPT` model that contains the properties with the calculated income tax.
+### Models Classes
 
-| Property | Type | Description |
+#### <a name="IncomeTaxPT"></a>`IncomeTaxPT`
+
+Model that contains the properties with the calculated income tax.
+
+- Namespace: `Primavera.Lithium.RosePeople.Models`
+- Inheritance: `IncomeTaxPTBase`
+
+##### Properties
+
+| Property | Type | Description | Rules |
+| - | - | - | - |
+| `Table` | `int` | The indentification of the table. |  |
+| `Position` | `int` | The identification of the column position. |  |
+| `IncomeTax` | `double` | The calculated income tax. |  |
+
+### Enumerations Classes
+
+#### <a name="EarningType"></a>`EarningType`
+
+Defines the type of earning.
+
+- Namespace: `Primavera.Lithium.RosePeople.Models`
+
+##### Members
+
+| Member | Value | Description |
 | - | - | - |
-| Table | int | The indentification of the table. |
-| Position | int | The identification of the column position. |
-| IncomeTax | double | The calculated income tax. |
+| `PaidEmployement` | 1 | The paid employment member. | 
+| `Pensioner` | 2 | The pensioner member. | 
+
+[^ Back to top](#root)
+
+#### <a name="FiscalState"></a>`FiscalState`
+
+Defines the fiscal state.
+
+- Namespace: `Primavera.Lithium.RosePeople.Models`
+
+##### Members
+
+| Member | Value | Description |
+| - | - | - |
+| `MarriedOrLifePartners` | 1 | The married or life partners member. | 
+| `Others` | 2 | The other fiscal states. | 
+
+
+#### <a name="Region"></a>`Region`
+
+Defines the region for IRS tables.
+
+- Namespace: `Primavera.Lithium.RosePeople.Models`
+
+##### Members
+
+| Member | Value | Description |
+| - | - | - |
+| `PTM` | 1 | PT - Madeira item. | 
+| `PTC` | 2 | PT - Continental item. | 
+| `PTA` | 3 | PT - Azores item. | 
 
 ### Implementing IRS income tax
 
