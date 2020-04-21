@@ -25,7 +25,7 @@ public ServiceOperationResult<double> GetIncomeTaxPT(string region, int table, i
 
 | Parameter | Type | Description | Rules |
 | - | - | - | - |
-| `region` | `string` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
+| `region` | `Primavera.Lithium.RosePeople.Models.Region` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
 | `table` | `int` | The identification of the IRS table applicable to the employee. | > 0. < 10.  |
 | `position` | `int` | The identification of the IRS table column. | > -1. < 6.  |
 | `date` | `DateTime` | The specific moment that will used to get the correct IRS table. |  |
@@ -35,7 +35,7 @@ public ServiceOperationResult<double> GetIncomeTaxPT(string region, int table, i
 #### Returns
 
 | Return Type | Description |
-| - | - | - | - |
+| - | - |
 | `double` | Returns a double value that represents the calculated income tax. |
 
 
@@ -55,9 +55,9 @@ public ServiceOperationResult<IncomeTaxPT> IncomeTaxPT(string region, int earnin
 
 | Parameter | Type | Description | Rules |
 | - | - | - | - |
-| `region` | `string` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
-| `earningType` | `int` | The earning type identifier. | > 0. < 3.  |
-| `fiscalState` | `int` | The fiscal state identifier. | > 0. < 3.  |
+| `region` | `Primavera.Lithium.RosePeople.Models.Region` | The location of the contract. | Required. RegEx(`(PTC)|(PTA)|(PTM)`).  |
+| `earningType` | `Primavera.Lithium.RosePeople.Models.EarningType` | The earning type identifier. | > 0. < 3.  |
+| `fiscalState` | `Primavera.Lithium.RosePeople.Models.FiscanState` | The fiscal state identifier. | > 0. < 3.  |
 | `disabilityDegreeHolder` | `bool` | Indicates if the holder has a disability degree => 60%. |  |
 | `earningHolders` | `int` | The number of earning holders. | > -1.  |
 | `secondHolderMajorEarnig` | `bool` | Indicates if the second holder have global earning => 95%. |  |
@@ -97,24 +97,15 @@ Model that contains the properties with the calculated income tax.
 
 Defines the type of earning.
 
-- Namespace: `Primavera.Lithium.RosePeople.Models`
-
-##### Members
-
 | Member | Value | Description |
 | - | - | - |
 | `PaidEmployement` | 1 | The paid employment member. | 
 | `Pensioner` | 2 | The pensioner member. | 
 
-[^ Back to top](#root)
 
 #### <a name="FiscalState"></a>`FiscalState`
 
 Defines the fiscal state.
-
-- Namespace: `Primavera.Lithium.RosePeople.Models`
-
-##### Members
 
 | Member | Value | Description |
 | - | - | - |
@@ -125,10 +116,6 @@ Defines the fiscal state.
 #### <a name="Region"></a>`Region`
 
 Defines the region for IRS tables.
-
-- Namespace: `Primavera.Lithium.RosePeople.Models`
-
-##### Members
 
 | Member | Value | Description |
 | - | - | - |
