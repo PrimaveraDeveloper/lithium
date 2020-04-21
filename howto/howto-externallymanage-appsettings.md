@@ -1,6 +1,6 @@
 # How to externally manage application settings using Azure AppConfiguration
 
-This guide describes how to externally manage any microservice application settings using the Azure AppConfiguration service. For more information see [Azure AppConfiguration Overview](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
+This guide describes how to externally manage any microservice application settings using the Azure AppConfiguration service. For more information see: [Azure AppConfiguration Overview](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
 
 By default and because of deployment conventions you can configure up to 4 independent Azure AppConfiguration environments as settings providers for any microservice. These are:
 
@@ -18,16 +18,16 @@ By default and because of deployment conventions you can configure up to 4 indep
 
 To configure the Azure AppConfiguration settings provider you must set some enviroment variables:
 
-| Name  | IsOptional | Value Type | Description
+| Name  | Required | Value Type | Description
 | --- | --- | --- | --- |
-| \<appConfigurationName>ConnectionString | No | string | The connection string used to authenticate with the Azure AppConfiguration service.
-| \<appConfigurationName>KeyFilter  | Yes  | string | The filter to apply to all keys when querying Azure App Configuration for key-values.
-| \<appConfigurationName>LabelFilter  | Yes  | string | The label filter to apply when querying Azure App Configuration for key-values.
-| \<appConfigurationName>TrimKeyPrefix  | Yes  | string | Trims the provided prefix from the keys of all key-values retrieved from Azure.
-| \<appConfigurationName>SentinelKey  | Yes  | string | This key indicates that all configuration values should be refreshed after this key is updated. For more information see [Sentinel Key](https://docs.microsoft.com/en-us/azure/azure-app-configuration/enable-dynamic-configuration-aspnet-core?tabs=core2x#add-a-sentinel-key)
-| \<appConfigurationName>RefreshTimeoutInMs  | Yes  | int | Minimum time in seconds that must elapse before the cache is expired. Default is 30 seconds. This only works if the sentinel Key is defined.
+| \<appConfigurationName>ConnectionString | Yes | string | The connection string used to authenticate with the Azure AppConfiguration service.
+| \<appConfigurationName>KeyFilter  | No  | string | The filter to apply to all keys when querying Azure App Configuration for key-values.
+| \<appConfigurationName>LabelFilter  | No  | string | The label filter to apply when querying Azure App Configuration for key-values.
+| \<appConfigurationName>TrimKeyPrefix  | No  | string | Trims the provided prefix from the keys of all key-values retrieved from Azure.
+| \<appConfigurationName>SentinelKey  | No  | string | This key indicates that all configuration values should be refreshed after this key is updated. For more information see [Sentinel Key](https://docs.microsoft.com/en-us/azure/azure-app-configuration/enable-dynamic-configuration-aspnet-core?tabs=core2x#add-a-sentinel-key)
+| \<appConfigurationName>RefreshTimeout  | No  | int | Minimum time in seconds that must elapse before the cache is expired. Default is 30 seconds. This only works if the sentinel Key is defined.
 
-The \<appConfigurationName> tag serves as a placeholder to identify the several configuration systems.
+The \<appConfigurationName> tag serves as a placeholder to identify the several configuration environments.
 For the default environments the appConfigurationName values are:
 
 | Environment | appConfigurationName | Sample Environment Keys
