@@ -23,11 +23,11 @@ The following app settings file are considered when loading configuration (by th
 
 For more information on how configuration works see [Configuration in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration).
 
-## Externalized application settings using Azure AppConfiguration
+## Externalized Application Settings using Azure AppConfiguration
 
 As the number of microservices grows over time manually managing their application settings becomes an overwhelming and error-prone task. Also, different microservices may share one or more settings and if ever there were a need to change one of these shared settings doing so would be extremely time consuming and fallible.
 
-To address this matter the Lithium Framework uses the Azure AppConfiguration service as way of managing application settings. For more information see: [Azure AppConfiguration](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
+To address this matter the Lithium Framework uses the [Azure AppConfiguration](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview) service as way of managing application settings.
 
 For more information see: [How to manage application settings externally using Azure AppConfiguration](../howto/howto-use-azure-appconfiguration.md).
 
