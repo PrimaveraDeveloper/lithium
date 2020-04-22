@@ -6,9 +6,9 @@
 
 The `InMemoryEventBusOptions` entity defines the configuration for both publication and subscription operations. The below table provides a brief description of each property of the entity:
 
-| Property | Description                                                                                                                        | Optional? |
-|----------|------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| Strategy | The strategy to be applied to the service: multi-threaded, single-threaded or single-threaded with parallel subscriber execution.  | No.       |
+| Property | Description                                                                                                                       | Optional? |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| Strategy | The strategy to be applied to the service: multi-threaded, single-threaded or single-threaded with parallel subscriber execution. | No.       |
 
 ## Implementing the service
 
@@ -69,58 +69,37 @@ private static void BroadcastVersionedMessageEvent(IEventBusService eventBus)
 
 ## Subscribing to events
 
-The event subscription operation involves the creation of a typed handler class, implemented through the `IEventBusEventHandler`, that will be responsible for handling incoming events of the same type.
+The event subscription operation involves the creation of a method capable of handling incoming events for a given type.
 
 ```csharp
 /// <summary>
-/// The message event handler.
+/// Handles the specified <see cref="IEventBusEvent{T}"/>.
 /// </summary>
-/// <seealso cref="Primavera.Hydrogen.EventBus.IEventBusEventHandler{T}"/>
-public class MessageEventHandler : IEventBusEventHandler<string>
+/// <typeparam name="T">The event type.</typeparam>
+/// <param name="event">The event.</param>
+/// <returns>The <see cref="Task"/> representing the operation.</returns>
+private static Task<bool> HandleAsync<T>(IEventBusEvent<T> @event)
 {
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessageEventHandler"/> class.
-    /// </summary>
-    public MessageEventHandler()
+    try
     {
+        SmartGuard.NotNull(() => @event, @event);
+
+        Console.WriteLine(@event.Body);
+
+        return Task.FromResult(true);
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Handles the specified message event.
-    /// </summary>
-    /// <param name="eventBusEvent">The message event.</param>
-    /// <returns>Boolean according execution success.</returns>
-    public Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
+    catch (EventBusServiceException e)
     {
-        SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
+        Console.WriteLine($"\nException has been raised: '{e.Message}'.");
 
-        try
-        {
-            Console.WriteLine($"Incoming message: '{eventBusEvent.Body}'");
-
-            return Task.FromResult(true);
-        }
-        catch (EventBusServiceException e)
-        {
-            Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
-
-            return Task.FromResult(false);
-        }
+        return Task.FromResult(false);
     }
-
-    #endregion
 }
 ```
 
-The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBusService` instance.
+The subscription source path and a delegate representing the handling method previously created should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBusService` instance.
 
-A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
+A collection of subscription filters defined by `IEventBusFilters` can also be provided.
 
 ```csharp
 /// <summary>
@@ -129,20 +108,31 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// <param name="eventBus">The event bus.</param>
 private static void SubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
-    IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
-    IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
+    EventBusHandlerDelegate<string> messageHandler = HandleAsync;
+
+    IEventBusFilters<string> messageFilters = new InMemoryEventBusFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Subscribe("my-path", messageEventHandler, messageFilters);
+    eventBus.Subscribe("my-path", messageHandler, messageFilters);
 }
 ```
+
+The **type of the event in conjunction with the subscription filters** are then used to correlate the events that should be sent to the subscriber.
+
+As can be seen in the above example, events with the **logical conjunction** of the following characteristics are being subscribed:
+
+- Events of `string` type;
+- Originated from *my-path* path;
+- Where a event property with key *Version* and value *1* exists.
+
+The logical conjunction is obtained through hashing operations. Be aware that different subscriptions filters will result in distinct hashes.
 
 ## Unsubscribing from events
 
 Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBusService` with the subscription source path and respective `T` type.
 
-A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
+A collection of subscription filters defined by `IEventBusFilters` can also be provided.
 
 ```csharp
 /// <summary>
@@ -151,7 +141,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// <param name="eventBus">The event bus.</param>
 private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
-    IEventBusEventFilters<string> messageFilters = new InMemoryEventBusEventFilters<string>();
+    IEventBusFilters<string> messageFilters = new InMemoryEventBusFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 

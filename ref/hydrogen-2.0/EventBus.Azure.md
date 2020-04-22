@@ -8,16 +8,16 @@ This class library is a concrete implementation of the [Primavera.Hydrogen.Event
 
 The `AzureEventBusOptions` entity defines the configuration for both publication and subscription operations. The below table provides a brief description of each property of the entity:
 
-| Property                                                 | Description                                                                                                                                                                     | Optional? |
-|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| ConnectionString                                         | The Azure Service Bus instance connection string.                                                                                                                               | No.       |
-| EventHandlerOptions.AutoComplete                         | Flag that defines if a received event will be marked as processed as soon as it arrives to the client.                                                                          | No.       |
-| EventHandlerOptions.MaxConcurrentCalls                   | The maximum number of concurrent calls to the Azure Service Bus instance.                                                                                                       | No.       |
-| RetryStrategy                                            | The [exponential back-off retry strategy](Core.md#retry-strategies) to be applied to the Azure Service Bus instance. If null, a default strategy will be implemented.           | Yes.      |
-| RetryStrategy.RetryCount                                 | The maximum number of retry attempts.                                                                                                                                           | Yes.      |
-| RetryStrategy.MinBackoff                                 | The minimum backoff time.                                                                                                                                                       | Yes.      |
-| RetryStrategy.MaxBackoff                                 | The maximum backoff time.                                                                                                                                                       | Yes.      |
-| RetryStrategy.DeltaBackoff                               | The value that will be used to calculate a random delta in the exponential delay.                                                                                               | Yes.      |
+| Property                        | Description                                                                                                                                                           | Optional? |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| ConnectionString                | The Azure Service Bus instance connection string.                                                                                                                     | No.       |
+| EventHandler.AutoComplete       | Flag that defines if a received event will be marked as processed as soon as it arrives to the client.                                                                | No.       |
+| EventHandler.MaxConcurrentCalls | The maximum number of concurrent calls to the Azure Service Bus instance.                                                                                             | No.       |
+| RetryStrategy                   | The [exponential back-off retry strategy](Core.md#retry-strategies) to be applied to the Azure Service Bus instance. If null, a default strategy will be implemented. | Yes.      |
+| RetryStrategy.RetryCount        | The maximum number of retry attempts.                                                                                                                                 | Yes.      |
+| RetryStrategy.MinBackoff        | The minimum backoff time.                                                                                                                                             | Yes.      |
+| RetryStrategy.MaxBackoff        | The maximum backoff time.                                                                                                                                             | Yes.      |
+| RetryStrategy.DeltaBackoff      | The value that will be used to calculate a random delta in the exponential delay.                                                                                     | Yes.      |
 
 ## Implementing the service
 
@@ -38,7 +38,7 @@ private static IEventBusService GetEventBusService()
         (options) =>
         {
             options.ConnectionString = "my-connection-string";
-            options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
+            options.EventHandler = new EventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
             options.RetryStrategy = new ExponentialBackoffRetryStrategy();
         });
 
@@ -80,58 +80,37 @@ private static void BroadcastVersionedMessageEvent(IEventBusService eventBus)
 
 ## Subscribing to events
 
-The event subscription operation involves the creation of a typed handler class, implemented through the `IEventBusEventHandler`, that will be responsible for handling incoming events of the same type.
+The event subscription operation involves the creation of a method capable of handling incoming events for a given type.
 
 ```csharp
 /// <summary>
-/// The message event handler.
+/// Handles the specified <see cref="IEventBusEvent{T}"/>.
 /// </summary>
-/// <seealso cref="Primavera.Hydrogen.EventBus.IEventBusEventHandler{T}"/>
-public class MessageEventHandler : IEventBusEventHandler<string>
+/// <typeparam name="T">The event type.</typeparam>
+/// <param name="event">The event.</param>
+/// <returns>The <see cref="Task"/> representing the operation.</returns>
+private static Task<bool> HandleAsync<T>(IEventBusEvent<T> @event)
 {
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessageEventHandler"/> class.
-    /// </summary>
-    public MessageEventHandler()
+    try
     {
+        SmartGuard.NotNull(() => @event, @event);
+
+        Console.WriteLine(@event.Body);
+
+        return Task.FromResult(true);
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Handles the specified message event.
-    /// </summary>
-    /// <param name="eventBusEvent">The message event.</param>
-    /// <returns>Boolean according execution success.</returns>
-    public Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
+    catch (EventBusServiceException e)
     {
-        SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
+        Console.WriteLine($"\nException has been raised: '{e.Message}'.");
 
-        try
-        {
-            Console.WriteLine($"Incoming message: '{eventBusEvent.Body}'");
-
-            return Task.FromResult(true);
-        }
-        catch (EventBusServiceException e)
-        {
-            Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
-
-            return Task.FromResult(false);
-        }
+        return Task.FromResult(false);
     }
-
-    #endregion
 }
 ```
 
-The subscription source path and an instance of the typed handler class should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBusService` instance.
+The subscription source path and a delegate representing the handling method previously created should then be passed to the `Subscribe` or `SubscribeAsync` method of the `AzureEventBusService` instance.
 
-A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
+A collection of subscription filters defined by `IEventBusFilters` can also be provided.
 
 ```csharp
 /// <summary>
@@ -140,20 +119,31 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// <param name="eventBus">The event bus.</param>
 private static void SubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
-    IEventBusEventHandler<string> messageEventHandler = new MessageEventHandler();
-    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
+    EventBusHandlerDelegate<string> messageHandler = HandleAsync;
+
+    IEventBusFilters<string> messageFilters = new AzureEventBusFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 
-    eventBus.Subscribe("my-path", messageEventHandler, messageFilters);
+    eventBus.Subscribe("my-path", messageHandler, messageFilters);
 }
 ```
 
+The **type of the event in conjunction with the subscription filters** are then used to correlate the events that should be sent to the subscriber.
+
+As can be seen in the above example, events with the **logical conjunction** of the following characteristics are being subscribed:
+
+- Events of `string` type;
+- Originated from *my-path* path;
+- Where a event property with key *Version* and value *1* exists.
+
+The logical conjunction is obtained through hashing operations. Be aware that different subscriptions filters will result in distinct hashes.
+
 ## Unsubscribing from events
 
-Unsubscribing from an event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBusService` with the subscription source path and the respective `T`. 
+Unsubscribing from an event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `AzureEventBusService` with the subscription source path and the respective `T`.
 
-A collection of subscription filters defined by `IEventBusEventFilters` can also be provided.
+A collection of subscription filters defined by `IEventBusFilters` can also be provided.
 
 ```csharp
 /// <summary>
@@ -162,7 +152,7 @@ A collection of subscription filters defined by `IEventBusEventFilters` can also
 /// <param name="eventBus">The event bus.</param>
 private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
-    IEventBusEventFilters<string> messageFilters = new AzureEventBusEventFilters<string>();
+    IEventBusFilters<string> messageFilters = new AzureEventBusFilters<string>();
 
     messageFilters.Filters.Add("Version", "1");
 
@@ -175,3 +165,9 @@ private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 Short lived outages are mitigated thought the [exponential back-off retry strategy](Core.md#retry-strategies) that this library implements.
 
 In order to mitigate long lived outages or even disasters, a service that consumes this library should expose a monitoring endpoint that is able to probe the health status of the respective cloud message broker instance.
+
+## Remarks
+
+In order to facilitate the development process with this service it is recommended the usage of [Service Bus Explorer](https://github.com/paolosalvatori/ServiceBusExplorer).
+
+Service Bus Explorer facilitates the debugging process and also provides a good way to understand the concrete dynamics of this service.
