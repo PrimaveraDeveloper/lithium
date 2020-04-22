@@ -25,11 +25,13 @@ For more information on how configuration works see [Configuration in ASP.NET Co
 
 ## Externalized application settings using Azure AppConfiguration
 
-As the number of microservices grows over time manually managing their application settings becomes an overwhelming and error-prone task. Also, diferent microservices may share one or more settings and if ever there were a need to change one of these shared settings doing so would be extremely time consuming and fallible.
+As the number of microservices grows over time manually managing their application settings becomes an overwhelming and error-prone task. Also, different microservices may share one or more settings and if ever there were a need to change one of these shared settings doing so would be extremely time consuming and fallible.
 
-To address this matter the Lithium Framerwork uses the Azure AppConfiguration service as way of managing application settings. For more information see: [Azure AppConfiguration](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
+To address this matter the Lithium Framework uses the Azure AppConfiguration service as way of managing application settings. For more information see: [Azure AppConfiguration](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
 
-See how this can impact your solution: [Externalized application settings](..//howto/howto-externallymanage-appsettings.md).
+For more information see: [How to manage application settings externally using Azure AppConfiguration](../howto/howto-use-azure-appconfiguration.md).
+
+See how this can impact your solution: .
 
 ## Configuration in Generated Code
 
