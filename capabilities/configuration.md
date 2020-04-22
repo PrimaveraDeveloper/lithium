@@ -31,8 +31,6 @@ To address this matter the Lithium Framework uses the Azure AppConfiguration ser
 
 For more information see: [How to manage application settings externally using Azure AppConfiguration](../howto/howto-use-azure-appconfiguration.md).
 
-See how this can impact your solution: .
-
 ## Configuration in Generated Code
 
 The microservice will include a set of common configuration options and a set of configuration options for the dependencies it includes. This affects the generated code and the application startup.
