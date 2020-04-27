@@ -1,6 +1,6 @@
-# How to include a task box in a micro service
+# How to use a taskbox in a microservice
 
-This guide describes the steps required to include a task box in a micro service.
+This guide describes the steps to use a taskbox in a microservice.
 
 ## Adding Packages
 
@@ -13,11 +13,11 @@ Start by adding the following NuGet packages to the `WebAPI` project:
 
 To subscribe the events in the host application startup you will need to [add a background service](howto-add-background-service.md).
 
-The next step is to build the configuration for the task box.
+The next step is to build the configuration for the taskbox.
 
 ## Adding the Pipebox Configuration
 
- First, you need to define the configuration used by the task box. `PipeboxConfig` describes all the events, pipelines and handlers.
+ First, you need to define the configuration used by the taskbox. `PipeboxConfig` describes all the events, pipelines and handlers.
 
  > See [PipeboxConfig](../ref/hydrogen-2.0/Pipeboxes.md) for more information.
 
@@ -160,9 +160,9 @@ Notice that:
 
 ## Startup
 
-To configure the task box you will also need to customize the microservice startup logic.
+To configure the taskbox you will also need to customize the microservice startup logic.
 
-First, override `AddAdditionalServices()` to add the task box service:
+First, override `AddAdditionalServices()` to add the taskbox service:
 
 ```csharp
 protected override void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
@@ -190,7 +190,7 @@ protected override HostConfiguration AddConfiguration(IServiceCollection service
 
 ### Configuration
 
-The following configuration options also need to be specified to setup de event bus and task box workers manager. These need to be added to `appsettings.json`:
+The following configuration options also need to be specified to setup de event bus and taskbox workers manager. These need to be added to `appsettings.json`:
 
 ```json
 {

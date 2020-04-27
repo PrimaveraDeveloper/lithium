@@ -29,6 +29,7 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How is **code generated** for a microservice](./howto-generated-code.md)
 - [How to **add custom code** to a microservice](./howto-add-custom-code.md)
 - [How to **add custom application settings**](./howto-add-custom-appsettings.md)
+- [How to **implement the IDisposable pattern** in a custom class](./howto-implement-idisposable.md)
 
 ## Adding basic features to a micro service
 
@@ -47,7 +48,7 @@ This chapter includes "how to" guides to help developing microservices with the 
 - How to **add data protection** in a microservice
 - [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
 - [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
-- [How to **include a taskbox** in a microservice](./howto-include-taskbox.md)
+- [How to **use a taskbox** in a microservice](./howto-use-taskbox.md)
 - [How to **manage application settings externally** using Azure AppConfiguration](./howto-use-azure-appconfiguration.md)
 
 ## Testing a microservice
