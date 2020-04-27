@@ -52,7 +52,7 @@ In order to publish an event, a typed `AzureEventBusEvent` entity needs to be in
 
 The respective `AzureEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `AzureEventBusService` instance.
 
-If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
+If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as an [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
 
 ![Unicasting scenario](_assets/azure-eventbus-unicasting.png)
 
