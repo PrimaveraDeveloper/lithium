@@ -23,7 +23,7 @@ The `AzureEventBusOptions` entity defines the configuration for both publication
 
 The service implementation should be registered using the `AddAzureEventBus` extension method for `IServiceCollection`.
 
-The extension method expects an `AzureEventBusOptions` entity as parameter.
+The extension method expects an `AzureEventBusOptions` entity as an argument.
 
 ```csharp
 /// <summary>
@@ -160,6 +160,14 @@ private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 }
 ```
 
+## Service management
+
+The service structural entities (such as paths) should be provisioned using the respective management service.
+
+The management service can be registered thought the `AddAzureEventBusManager` extension method for `IServiceCollection`.
+
+The extension method also expects an `AzureEventBusOptions` entity as an argument.
+
 ## Service redundancy
 
 Short lived outages are mitigated thought the [exponential back-off retry strategy](Core.md#retry-strategies) that this library implements.
@@ -168,6 +176,6 @@ In order to mitigate long lived outages or even disasters, a service that consum
 
 ## Remarks
 
-In order to facilitate the development process with this service it is recommended the usage of [Service Bus Explorer](https://github.com/paolosalvatori/ServiceBusExplorer).
+In order to ease the development process with this service, it is recommended the usage of [Service Bus Explorer](https://github.com/paolosalvatori/ServiceBusExplorer).
 
-Service Bus Explorer facilitates the debugging process and also provides a good way to understand the concrete dynamics of this service.
+Service Bus Explorer facilitates the debugging process and provides a good way to understand the concrete dynamics of this service.
