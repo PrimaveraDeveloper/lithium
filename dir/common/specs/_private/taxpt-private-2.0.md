@@ -193,13 +193,17 @@ Se a configuração `LocalStorageCacheEnabled` estiver ativa, o certificado ser�
 
 Os dois serviços da AT estão disponíveis nos seguintes endereços de produção:
 
+<!-- markdown-link-check-disable -->
 - [https://servicos.portaldasfinancas.gov.pt:400/fews/faturas](https://servicos.portaldasfinancas.gov.pt:400/fews/faturas)
 - [https://servicos.portaldasfinancas.gov.pt:401/sgdtws/documentosTransporte](https://servicos.portaldasfinancas.gov.pt:401/sgdtws/documentosTransporte)
+<!-- markdown-link-check-enable -->
 
 E nos seguintes endereços de testes:
 
+<!-- markdown-link-check-disable -->
 - [https://servicos.portaldasfinancas.gov.pt:700/fews/faturas](https://servicos.portaldasfinancas.gov.pt:700/fews/faturas)
 - [https://servicos.portaldasfinancas.gov.pt:701/sgdtws/documentosTransporte](https://servicos.portaldasfinancas.gov.pt:701/sgdtws/documentosTransporte)
+<!-- markdown-link-check-enable -->
 
 A documentação dos serviços está disponível em:
 
