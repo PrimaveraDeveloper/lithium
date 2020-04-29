@@ -90,7 +90,7 @@ public override async Task ExecuteAsync(CancellationToken cancellationToken)
 
     foreach (TriggeredEvent triggeredEvent in triggeredEvents)
     {
-        await this.EventBusManager.Subscribe(triggeredEvent).ConfigureAwait(false);
+        await this.EventBusManager.SubscribeAsync(triggeredEvent).ConfigureAwait(false);
     }
 }
 ```
@@ -138,11 +138,11 @@ public override IEventBus EventBus
     }
 }
 
-public override IPipeboxWorkersManager WorkersManager
+public override ITaskboxService TaskboxService
 {
     get
     {
-        return this.ServiceProvider.GetRequiredService<IPipeboxWorkersManager>();
+        return this.ServiceProvider.GetRequiredService<ITaskboxService>();
     }
 }
     
@@ -171,7 +171,7 @@ protected override void AddAdditionalServices(IServiceCollection services, HostC
 
     base.AddAdditionalServices(services, hostConfiguration);
 
-    services.AddTaskboxService(typeof(MyCustomHandler), typeof(string));
+    services.AddTaskbox();
 }
 ```
 
@@ -182,7 +182,12 @@ protected override HostConfiguration AddConfiguration(IServiceCollection service
 {
     SmartGuard.NotNull(() => services, services);
 
-    services.AddTaskboxConfigurations(this.Configuration);
+    services
+        .Configure<TaskboxOptions>(
+            this.Configuration.GetSection(nameof(TaskboxOptions)));
+
+    services
+        .AddOptionsSnapshot<TaskboxConfiguration>();
 
     return base.AddConfiguration(services);
 }
@@ -190,22 +195,21 @@ protected override HostConfiguration AddConfiguration(IServiceCollection service
 
 ### Configuration
 
-The following configuration options also need to be specified to setup de event bus and taskbox workers manager. These need to be added to `appsettings.json`:
+The following configuration options also need to be specified to setup the taskbox service. These need to be added to `appsettings.json`:
 
 ```json
 {
     "TaskboxOptions": {
-        "MaxWorkers": 10,
-        "WorkerWaitingTime": 5000
-    },
-    "EventBusOptions": {
-        "Address": "EventBusEndpoint",
-        "PublicationTopic": "my-publication-topic",
-        "NotificationTopic": "my-notification-topic",
-        "SubscriptionTopics": ["myTopic"],
-        "MaxConcurrentCalls": 10,
-        "AutoComplete":false
+    "MaxWorkers": 10,
+    "WorkerWaitingTime": 5000,
+    "EventHandling": {
+      "EventType": "System.String",
+      "HandlerType": "Primavera.Lithium.Sample.WebApi.MyCustomHandler, Primavera.Lithium.Sample.WebApi",
+      "PublicationTopic": "my-publication-topic",
+      "NotificationTopic": "my-notification-topic",
+      "SubscriptionTopics": [ "myTopic" ]
     }
+  },
 }
 ```
 
@@ -231,12 +235,12 @@ In the `CustomCode` folder add a new class name `MyCustomHttpHandler`. Add the f
 ```csharp
 public class MyCustomHttpHandler : HttpHandler<string>
 {
-    public override string SetEndpoint()
+    public override string SetRequestEndpoint()
     {
         return this.Configuration.Endpoint;
     }
 
-    public override Task<ByteArrayContent> SetPostObject()
+    public override Task<ByteArrayContent> PrepareRequestAsync()
     {
         string contentType = "application/json";
 
@@ -249,7 +253,7 @@ public class MyCustomHttpHandler : HttpHandler<string>
         return Task.FromResult(byteContent);
     }
 
-    public override Task SaveResponse(HttpResponseMessage responseMessage)
+    public override Task HandleResponseAsync(HttpResponseMessage responseMessage)
     {
         throw new NotImplementedException();
     }
@@ -263,9 +267,9 @@ public class MyCustomHttpHandler : HttpHandler<string>
 
 Notice the following:
 
-- `SetEndpoint()` is where the HTTP request endpoint is defined (since that endpoint is specified in the handler configuration, it is available from the `Configuration` property).
-- `SetPostObject()` is where the object that should be posted is created.
-- `SaveResponse()` is where the response received can be processed.
+- `SetRequestEndpoint()` is where the HTTP request endpoint is defined (since that endpoint is specified in the handler configuration, it is available from the `Configuration` property).
+- `PrepareRequestAsync()` is where it's prepared the request data.
+- `HandleResponseAsync()` is where the response received can be processed.
 
 You will need to add this new handler to the service collection.
 
@@ -275,16 +279,12 @@ Add the following to `AddAdditionalServices()`:
 services.AddTransient<MyCustomHttpHandler>();
 ```
 
-### Using the Workers Manager
+### Using the TaskboxService
 
 To start a worker you will need the `PipeboxConfig`, the `PipeboxContext` and the identifier of the pipeline that should be executed:
 
 ```csharp
-await this.WorkersManager.StartWorker(
-  pipeboxConfig, 
-  pipeboxContext, 
-  pipelineId)
-  .ConfigureAwait(false);
+await this.TaskboxService.StartWorkerAsync(pipeboxConfig, pipeboxContext, pipelineId).ConfigureAwait(false);
 ```
 
 This will instantiate and start a worker with the given configuration options. On a deeper level, this worker will build a `Pipebox` with those input parameters and it will be that `Pipebox` that executes the pipeline.
@@ -315,18 +315,17 @@ public override Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
         ConcurrentBag<Task> tasks = new ConcurrentBag<Task>();
 
         // Starts in parallel a set of workers based on the number of pipelines necessary to be executed
-        
-        Parallel.ForEach(pipelines, pipeline =>
-        {
-            PipeboxContext<string> taskContext = new PipeboxContext<string>(trigger.EventContext as string);
-            
-            tasks.Add(Task.Run(async () =>
-            {
-                await this.WorkersManager.StartWorker(pipeboxConfig, taskContext, pipeline.Id).ConfigureAwait(false);
-            }));
-        });
 
-    ...
+        List<Task> tasks = new List<Task>();
+
+        pipelines.ForEach(p => tasks.Add(this.TaskboxService.StartWorker(pipeboxConfig, taskContext, pipeline.Id)));
+
+        this.InProcessEvents[trigger.Id] = tasks;
+
+        await Task.WhenAll(tasks).ConfigureAwait(false);
+
+        ...
+    }
 }
 ```
 

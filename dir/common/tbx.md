@@ -35,6 +35,5 @@ Provides asynchronous multi-task processing for applications or services that ne
 <!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
-| Web API | [TFS](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FTBX%2FMainline%2Freadme.md&version=T&_a=preview) |
+| Spec | [2.0](./specs/tbx-spec-2.0.md) |
 <!-- markdown-link-check-enable -->
