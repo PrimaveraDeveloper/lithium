@@ -37,13 +37,13 @@ The supported strategies are the following:
 ### EventBus
 
 This resource is used to subscribe and unsubscribe to events on Service Bus topics. These topics and all that is related to the use of this resource is configured in the microservice settings.
-To Know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../../../ref/hydrogen-2.0/EventBus.Azure.md#Primavera.Hydrogen.EventBus.Azure).
+To Know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../../ref/hydrogen-2.0/EventBus.Azure.md#Primavera.Hydrogen.EventBus.Azure).
 
 ### Taskbox
 
 This resource is used to process multiple tasks asynchronously. Also, this resource is responsible for managing a pool of workers. 
 
-To Know more about Primavera.Hydrogen.Taskbox can be found [here](../../../../ref/hydrogen-2.0/Taskbox.md).
+To Know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/hydrogen-2.0/Taskbox.md).
 
 ## Details
 
