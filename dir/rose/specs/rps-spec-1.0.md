@@ -72,24 +72,20 @@ public ServiceOperationResult<IncomeTaxPT> IncomeTaxPT(string region, int earnin
 #### Returns
 | Return Type | Description |
 | - | - |
-| `Primavera.Lithium.RosePeople.Models.IncomeTaxPT` | Returns a model with the calculated income tax, table number and column position. |
+| `Primavera.Lithium.RosePeople.Models.IncomeTaxPT` | Returns a model with the calculated income tax and description. |
 
 ### Models Classes
 
 #### <a name="IncomeTaxPT"></a>`IncomeTaxPT`
 
-Model that contains the properties with the calculated income tax.
-
-- Namespace: `Primavera.Lithium.RosePeople.Models`
-- Inheritance: `IncomeTaxPTBase`
+Model that contains the properties with the calculation and description of the income tax.
 
 ##### Properties
 
 | Property | Type | Description | Rules |
 | - | - | - | - |
 | `Table` | `int` | The indentification of the table. |  |
-| `Position` | `int` | The identification of the column position. |  |
-| `IncomeTax` | `double` | The calculated income tax. |  |
+| `Description` | `string` | The description for the income tax. |  |
 
 ### Enumerations Classes
 
