@@ -13,7 +13,7 @@ The supported strategies are the following:
 
 1. When the microservice starts, it starts at the same time a startup service, that will perform the following tasks:
     - Get the pipebox settings that are stored in the Lithium settings.
-    - Checks if the EventBus topics exist, if they do not exist, they are created.
+    - Checks if the EventBus topics exist, if these do not exist, these are created.
 
 2. Reads the pipebox settings to get the events and subscribes to them. To subscribe is necessary to pass the event type and it's properties as well the handler that will handle this event when it's raised. This handler is called `EventHandler`.
 
