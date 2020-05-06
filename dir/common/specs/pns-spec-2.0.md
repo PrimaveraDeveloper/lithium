@@ -26,7 +26,7 @@ To push notifications via API, it must have the following example structure:
   "Message": [
     {
       "Key": "Title",
-      "Value": "Message for Dummy User.",
+      "Value": "Message for Sales users.",
       "Culture": "en-US"
     },
     {
@@ -45,7 +45,7 @@ To push notifications via API, it must have the following example structure:
   "ExpiresOn": "2020-02-12T18:00:00Z",
   "Source": "Alerts",
   "Targets": [
-    "dummyuser@mail.com"
+    "JasminPremium$800001$800001-0445$Sales"
   ]
 }
 ```
@@ -65,7 +65,7 @@ The following example is the only required fields for a notification:
   "Message": [
     {
       "Key": "Title",
-      "Value": "Message for Dummy User.",
+      "Value": "Message for Sales users.",
       "Culture": "en-US"
     },
     {
@@ -76,7 +76,7 @@ The following example is the only required fields for a notification:
   ],
   "Source": "Marketing",
   "Targets": [
-    "dummyuser@mail.com"
+    "JasminPremium$800001$800001-0445$Sales"
   ]
 }
 ```

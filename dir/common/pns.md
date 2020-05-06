@@ -17,9 +17,8 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 
 | Scope | Description |
 | - | - |
-| lithium-pushnotifications | Auth scope used to make PushNotifications endpoint calls |
-| lithium-pushnotifications-hub | Auth scope used to connect to the signalR hub |
-| lithium-pushnotificationsservice | Auth scope used to make other endpoints calls |
+| lithium-pushnotifications | Auth scope used to make endpoints calls |
+| lithium-pushnotifications-hub | Auth scope used to connect to the signalR hub and hub methods calls |
 
 ## Environments
 

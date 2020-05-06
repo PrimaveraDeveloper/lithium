@@ -10,9 +10,9 @@ ASP.NET Core SignalR is an open-source library that simplifies adding real-time 
 
 This resource is used to redirect users connected to this service to the Azure SignalR service to avoid handling of large-scale client connections and other infrastructure tasks. This service mode configured in the resources is set to Default. More information about service modes can be found [here](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#service-mode). More about Azure SignalR can be found [here](https://docs.microsoft.com/en-US/azure/azure-signalr/signalr-overview).
 
-### Azure CosmosDb
+### Primavera.Hydrogen.Storage.Azure.MultiModel
 
-This resource is used to store all type of notifications and it is used on this service because of the many advantages to the traditional database or other cloud database service like for example the ```time to live``` feature. More about Azure CosmosDb can be found [here](https://docs.microsoft.com/en-US/azure/cosmos-db/introduction).
+This resource is used to store all type of notifications and it is used on this service because of the many advantages to the traditional database or other cloud database service like for example the ```time to live``` feature. More about Multi-model Database can be found [here](../../../../ref/hydrogen-2.0/Storage.Azure.md#multi-model-database-cosmosdbmultimodeldatabaseservice).
 
 ### Primavera.Hydrogen.EventBus.Azure
 
@@ -130,7 +130,7 @@ The source is a string that defines from "where" is the notification is coming f
 The targets is a List of strings (```IList<string>```) that specify the targets/destinataries for the provided notification. The parameter can be sent like:
 
 ```json
-"Targets": ["user@primaverabss.com", "dummy@primaverabss.com"]
+"Targets": ["Rose", "RosePeople"]
 ```
 
 The notification will be broadcasted to those two clients immediately if they are connected, if not, in the next connection.
@@ -160,7 +160,7 @@ The notification will be broadcasted to those two clients immediately if they ar
   "ExpiresOn": "2019-12-09T11:30:00Z",
   "Source": "Marketing",
   "Targets": [
-    "user@primaverabss.com", "dummy@primaverabss.com"
+    "Rose", "RosePeople"
   ]
 }
 ```
@@ -272,13 +272,13 @@ To start a ```WebSocket``` connection from the client to server, the server on t
 
 This token must have the following scope: ```lithium-pushnotifications-hub```.
 
-### Authorization to call pushNotifications endpoint
+### Authorization to call notifications endpoint
 
 To call the pushNotifications endpoint the client must have a token with the following scope: ```lithium-pushnotifications```.
 
 ### Authorization to call other endpoints
 
-To call other endpoints, the client must have a token with the following scope: ```lithium-pushnotificationsservice```.
+To call other endpoints, the client must have a token with the following scope: ```lithium-pushnotifications```.
 
 ## Notifications Central life-cycle
 
