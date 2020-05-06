@@ -221,7 +221,7 @@ The notification also can be directly stored calling ```RegisterNotificationAsyn
 
 | Property         | Type                  | Description                                                |
 |------------------|-----------------------|------------------------------------------------------------|
-| DisposedBy       | String                | User that disposed the notification/notifications.         |
+| DisposedBy       | Guid                  | UserId that disposed the notification/notifications.       |
 | DisposedItems    | List of DisposedItem  | Disposed notification/notifications                        |
 
 ### Common items
@@ -261,7 +261,7 @@ The notification also can be directly stored calling ```RegisterNotificationAsyn
 
 | Property         | Type            | Description                              |
 |------------------|-----------------|------------------------------------------|
-| DisposedBy       | String          | User that disposed the notification.     |
+| DisposedBy       | Guid            | UserId that disposed the notification.   |
 | DisposedOn       | DateTime in UTC | Date when the notification was disposed. |
 
 ## Authorization & Authentication
