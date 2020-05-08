@@ -492,6 +492,8 @@ The extension methods for IServiceCollection are:
 - `AddBackgroundServiceTimedWithWorker<TTimedBackgroundService, TBackgroundWorker>()`
 - `AddBackgroundServiceQueuedWithWorker<TQueuedBackgroundService, TBackgroundWorker>()`
 
+> Notice that background workers are NOT registered in the service collection by these extension methods. You decide wether to instantiate them directly or by resolving them using the service provider, provided that you register them in the service collection.
+
 Here is an example:
 
 ```csharp
@@ -515,6 +517,8 @@ public class BackgroundServiceTimed : TimedBackgroundService
 
     protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
     {
+        // NOTE: MyWorker is registered in the service collection
+
         MyWorker worker = this.ServiceProvider.GetRequiredService<MyWorker>();
 
         this.Queue.Enqueue(worker);

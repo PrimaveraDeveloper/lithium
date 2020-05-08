@@ -312,7 +312,55 @@ internal partial class TimedExecutorService
 }
 ```
 
-Any queue background service that uses the background worker should override `Queue`:
+Notice how the instance of `SharedExecutorWorker` is created by the timed service. Instantiating it directly is required because the background worker IS NOT registered automatically by the framework (either in the generated code or the service collection extension methods).
+
+You can modify this behavior by registering the background worker in custom code, like in the following example:
+
+```csharp
+[SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]public partial class Startup
+{
+    // (...)
+
+    /// <inheritdoc />
+    protected override void AddBackgroundServices(IServiceCollection services, HostConfiguration hostConfiguration)
+    {
+            // Default behavior
+
+            base.AddBackgroundServices(services, hostConfiguration);
+
+            // Register the worker
+
+            services
+                .AddTransient<SharedExecutorWorker>();
+    }
+}
+```
+
+Now the instance can be resolved using the service provider:
+
+```csharp
+[SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
+internal partial class TimedExecutorService
+{
+    #region Public Properties
+
+    /// <inheritdoc />
+    public override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+
+    /// <inheritdoc />
+    public override SharedExecutorWorker Worker
+    {
+        get
+        {
+            return this.ServiceProvider.GetRequiredService<SharedExecutorWorker>();
+        }
+    }
+
+    #endregion
+}
+```
+
+Queue background service that use the background worker should override `Queue`:
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
@@ -324,5 +372,35 @@ internal partial class QueuedExecutorService
     public override IBackgroundWorkQueue<SharedExecutorWorker> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<SharedExecutorWorker>>();
 
     #endregion
+}
+```
+
+Instances of the worker are created by custom code and enqueued (either by creating the instance or resolving it from the service provider when the worker is registered as in the example above).
+
+```csharp
+
+private IBackgroundWorkQueue<SharedExecutorWorker> Queue
+{
+    get
+    {
+        return this.ServiceProvider
+            .GetRequiredService<IBackgroundWorkQueue<SharedExecutorWorker>>()
+    }
+}
+
+private void TriggerWork()
+{
+    this.Queue.Enqueue(
+        new SharedExecutorWorker(
+            this.ServiceProvider,
+            this.ServiceProvider.GetRequiredService<ILogger<SharedExecutorWorker>>())
+    );
+}
+
+private void TriggerWork()
+{
+    this.Queue.Enqueue(
+        this.ServiceProvider.GetRequiredService<SharedExecutorWorker>());
+    );
 }
 ```

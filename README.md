@@ -19,8 +19,8 @@ Currently it contains the following chapters:
 - [**howto**](./howto/README.md) - how to guides to help development with the Lithium Framework.
 - [**samples**](./samples/README.md) - samples to jump start the development with the Lithium Framework.
 - [**training**](./training/README.md) - training material about the Lithium Framework.
-- [**dir**](./dir/README.md) - a directory of all the microservices currently available.
-- [**ref**](./ref/README.md) - reference documentation for all the framework components, including the SDK, Hydrogen, and other packages.
+- [**reference**](./ref/README.md) - reference documentation for all the framework components, including the SDK, Hydrogen, and other packages.
+- [**directory**](./dir/README.md) - a directory of all the microservices currently available.
 
 ## Jump Start
 
