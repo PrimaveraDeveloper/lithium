@@ -27,7 +27,7 @@ The Data Ingestion Service allows to ingest data files like saft and persist thi
 | Preview (NE) | --- |
 | Staging (WE) | Yes |
 | Staging (NE) | --- |
-| Development | --- |
+| Development | Yes |
 
 ## Reference Documentation
 
