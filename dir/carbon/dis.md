@@ -33,5 +33,6 @@ The Data Ingestion Service allows to ingest data files like saft and persist thi
 
 | Documentation | Link |
 | - | - |
+| Spec | [1.0](./dis-spec.md) |
 | Client Library | Not available yet |
 | Web API | Not available yet |
