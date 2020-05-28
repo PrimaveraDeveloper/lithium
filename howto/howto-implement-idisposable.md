@@ -14,13 +14,13 @@ If my class handles with unmanaged resources like file, network, database, point
 
 **Which objects should be disposed of?**
 
-Dispose of objects in the `Dispose(bool)` method of your class, do not dispose them in the `IDisposable.Dispose()` method. Dispose of all objects for which the **owner is your class**, such as:
+Dispose of objects in the `Dispose(bool)` method of your class, do not dispose them in the `IDisposable.Dispose()` method. Dispose of **all objects for which the owner is your class**, such as:
   - Objects created like `T obj = new T()`
   - Transient objects from dependency injection
 
 **Which objects should not be disposed of?**
 
-Do not dispose of any object that your class is not the owner. Do not dispose of objects that you receive as input parameter in the constructor or method, even you you save an internal reference to them, because that does not mean your class is the owner.
+Do not dispose of **any object that your class is not the owner**. Do not dispose of objects that you receive as input parameter in the constructor or method, even you save an internal reference to them, because that does not mean your class is the owner.
 
 **How to implement it?**
 
