@@ -1,165 +1,345 @@
+<!-- REFERENCES -->
+
+[REF_TBX]: ./Taskbox.md
+[REF_TBX_ABS]: ./Taskbox.Abstractions.md
+
+<!-- DOCUMENT -->
+
 # Primavera.Hydrogen.Taskbox
 
-**Class library that contains types that implement asynchronous multi-task processing.**
+**Class library that contains types that implement the taskbox design pattern for asynchronous multi-task processing.**
 
 ## About
 
-The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS]. The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+
+## Taskbox Config
+
+The TaskboxConfig provides the implementation of `<TConfig>` this is a way to define the tasks that are required to execute by the `ITaskboxService{TTask, TConfig}`.
+
+### Task
+
+If you think of what a task box is, you quickly think of something related to task execution or some task management mechanism. The idea behind this implementation is a task-oriented pattern, where the task has all the protagonism.
+
+### `TbxTask`
+
+The `TbxTask` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed by a `Trigger` and one or more `Action`'s.
+
+- `Trigger`, is responsible for starting the actions in a certain period.
+- `Action`, defines the operation that the task has to accomplish.
+
+When the task is executed, the trigger will write a context on a channel at a given time. The action, on the other hand, is listening on the channel for information to perform a certain operation.
+
+### Components
+
+#### Trigger
+
+All of this trigger types implement the `ITrigger{T}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+
+- `Trigger{T}`, its purpose is to write a given context in the channel.
+
+```csharp
+ public class TriggerExample : Trigger<string>
+ {
+    /// <inheritdoc/>
+    public override Task<string> ExecuteAsync()
+    {
+        this.Logger.LogInformation($"Trigger {this.GetType().Name} executed at {DateTime.Now}");
+
+        return Task.FromResult("Hello");
+    }
+ }
+```
+
+- `ScheduleTrigger{T}`, its purpose is to write a given context in the channel in a certain period or with some periodicity. This uses Quartz .Net to schedule a Job and delegates the responsibility of communicating with the channel to the `ScheduledJob{T}`, when executed it writes the context in the channel.
+
+```csharp
+ public class ScheduledTriggerExample : ScheduleTrigger<string>
+ {
+    /// <inheritdoc/>
+    public override Task<string> ExecuteAsync()
+    {
+        this.Logger.LogInformation($"Trigger {this.GetType().Name} executed at {DateTime.Now}");
+
+        return Task.FromResult("Hello");
+    }
+ }
+```
+
+- `ContinuousTrigger{T}`, its purpose is to continuously write a certain context on the channel, subject to a condition, ContinueAsync().
+
+```csharp
+public class ContinuousTriggerExample : ContinuousTrigger<string>
+{
+    /// <inheritdoc/>
+    public override Task<string> ExecuteAsync()
+    {
+        this.Logger.LogInformation($"Trigger {this.GetType().Name} executed at {DateTime.Now}");
+
+        return Task.FromResult("Hello");
+    }
+
+    /// <inheritdoc/>
+    public override Task<bool> ContinueAsync()
+    {
+        return Task.FromResult(true);
+    }
+}
+
+```
+
+- `TriggerAction`, its purpose is to execute some logic defined by those who implement this component. This component is used when there is no claim to have an action-trigger relationship but only a trigger.
+
+```csharp
+public class TriggerActionExample : TriggerAction<string>
+{
+    /// <inheritdoc/>
+    public override async Task ExecuteAsync()
+    {
+        this.Logger.LogInformation($"Trigger {this.GetType().Name} executed at {DateTime.Now}");
+
+        await Task.Delay(1000).ConfigureAwait(false);
+    }
+}
+
+```
+
+- `EventTriggerAction`, its purpose is to subscribe events given a `PipeboxConfig` and to process them.
+
+```csharp
+  public class EventTriggerExample : EventTriggerAction<string>
+  {
+    /// <inheritdoc/>
+    public override Task<PipeboxConfig> GetConfigurationsAsync()
+    {
+        // get the pipebox configuration...
+    }
+
+    /// <inheritdoc/>
+    public override async Task<bool> HandleAsync(IEventBusEvent<string> eventBusEvent)
+    {
+        // process the event...
+    }
+
+  }
+
+```
+
+#### Action
+
+All of this action types implement the `IAction{T}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+
+- `Action{T}`, its purpose is to read from the channel and execute some logic based int the received context.
+
+```csharp
+  public class ActionExample : Primavera.Hydrogen.Taskbox.Channels.Action<string>
+  {
+    /// <inheritdoc/>
+    public override async Task ExecuteAsync(string context)
+    {
+        // process the received context...
+    }
+  }
+
+```
+
+Consider the following example of an `TaskboxConfig` using a `EventTriggerAction` and a `ScheduleTrigger`.
+
+```json
+{
+  "version": "",
+  "expressions": [],
+  "tasks": [
+    {
+      "id": "Task1",
+      "name": "Event Task",
+      "description": "The task that will handle the events.",
+      "contextType": "System.String",
+      "active": "True",
+      "trigger": {
+        "id": "EventTrigger",
+        "name": "EventTrigger",
+        "description": "Handles the events.",
+        "type": "Primavera.Hydrogen.Taskbox.EventTrigger, Primavera.Hydrogen.Taskbox",
+      }
+    },
+    {
+      "id": "Task2",
+      "name": "Scheduled task",
+      "description": "The scheduled task.",
+      "contextType": "System.String",
+      "active": "True",
+      "trigger": {
+        "id": "ScheduledTrigger1",
+        "name": "ScheduledTrigger",
+        "description": "The schedule trigger",
+        "type": "Primavera.Hydrogen.Taskbox.ScheduledTrigger, Primavera.Hydrogen.Taskbox",
+        "configStr": "",
+        "cronExp": "Seconds=0; Minutes=29; Hours=12;"
+      },
+      "actions": [
+        {
+          "id": "ScheduledAction1",
+          "name": "ScheduledAction 1",
+          "description": "Scheduled Action 1",
+          "type": "Primavera.Hydrogen.Taskbox.ScheduledAction, Primavera.Hydrogen.Taskbox",
+          "configStr": "",
+          "continuousExecution": "False"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Task Details
+
+Name | Description
+:--- | :---
+`id` | The task identifier.
+`name` | The task name.
+`description` | The task description.
+`contextType` | Used to define the channel type, when there are actions.
+`active` | Used to determinate if the task is active, if true the taskbox will process.
+
+### Trigger Details
+
+Name | Description
+:--- | :---
+`id` | The trigger identifier.
+`name` | The trigger name.
+`description` | The trigger description.
+`type` | The trigger assembly name, this is used by the invoker in order to instantiate this.
+`configStr` | Used to pass parameters to the trigger.
+`cronExp` | Used to pass the cron expression to the trigger.
+
+### Action Details
+
+Name | Description
+:--- | :---
+`id` | The action identifier.
+`name` | The action name.
+`description` | The action description.
+`type` | The action assembly name, this is used by the invoker in order to instantiate this.
+`configStr` | Used to pass parameters to the action.
+`continuousExecution` | Determines whether to constantly read messages from the channel or read only once and finish the process.
 
 ## Taskbox Service
 
-### `ITaskboxService`
-The `ITaskboxService` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
+### `TaskboxService`
 
-This component is responsible for distributing configurations to an `ITaskboxWorker` and for managing all the `ITaskboxWorkers`, starting and stopping them as necessary. It can also be defined as an engine of `ITaskboxWorkers`. The `ITaskboxService` configuration is defined by the TaskboxOptions. This implementation contains all the configurations needed for the `ITaskboxService` . Here you can define the number of `ITaskboxWorkers` that will be running simultaneously and the waiting time for `ITaskboxWorker` when the pool is full.
+The `TaskboxService` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
 
+This component is responsible for starting and stopping the `TaskboxEngine`, this can order the engine to process a `TaskboxConfig` or it can queue a `TbxTask` in a background queue where the engine is listening to. Furthermore it can pass functions for the engine to process.
 
-### `ITaskboxWorker`
+Consider the following examples on how to interact with the `TaskboxService`.
 
-As the name implies, this is the worker component, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0). 
-
-When the `ITaskboxService` starts a `ITaskboxWorker` it gives to the worker:
-- A `PipeboxConfig`
-- The event
-- The pipeline id to be executed
-
-The `ITaskboxWorker` is responsible for instantiating, configuring and executing a Pipebox.
-
-The worker actions are `StartAsync`, `StopAsync`.
-
-The service should be registered using one of the following extension methods for `IServiceCollection`.
+- Start
 
 ```csharp
-IServiceCollection services = (...);
+ TaskboxConfig config = TaskboxConfig.Create(json);
 
-services.AddSingleton<ITaskboxService, TaskboxService>()
-        .AddSingleton(typeof(TaskboxWorker<>))
+ await this.TaskboxService.StartAsync(config).ConfigureAwait(false);
 ```
-It's also necessary to implement the `TaskboxOptions`, where will be defined necessary parameters for the workers to run.
 
 ```csharp
-services.Configure<TaskboxOptions>(
-    this.Configuration.GetSection(nameof(TaskboxOptions)))
-    .AddOptionsSnapshot<TaskboxOptions>();
+ await this.TaskboxService.StartAsync().ConfigureAwait(false);
 ```
 
-To start a `ITaskboxWorker` through the `ITaskboxService`, consider the following example:
+- Stop
 
 ```csharp
-
-// Arrange the service provider
-
-IServiceProvider serviceProvider = this.BuildServiceProvider();
-
-var services = new ServiceCollection();
-
-services.Configure<TaskboxOptions>(
-    this.Configuration.GetSection(nameof(TaskboxOptions)))
-    .AddOptionsSnapshot<TaskboxOptions>();
-
-services.AddSingleton<ITaskboxService, ITaskboxService>()
-        .AddSingleton(typeof(TaskboxWorker<>));
-
-var provider = services.BuildServiceProvider();
-
-// Get a new instance of a ITaskboxService
-ITaskboxService taskboxService = provider.GetRequiredService<ITaskboxService>();
-
-// Arrange the configurations for the worker to execute
-var data = "hello";
-
-var json = FilesService.ReadFileAsText(Constants.Files.PipeboxConfig03);
-
-var config = PipeboxConfig.Create(json);
-
-// Starting worker
-await taskboxService.StartWorker(config, data, "p1").ConfigureAwait(false);
-
+ await this.TaskboxService.StopAsync().ConfigureAwait(false);
 ```
-To stop all the running `ITaskboxWorker`'s, consider the following example:
+
+- Execute Task
 
 ```csharp
-
-// Arrange the service provider
-
-IServiceProvider serviceProvider = this.BuildServiceProvider();
-
-var services = new ServiceCollection();
-
-services.Configure<TaskboxOptions>(
-    this.Configuration.GetSection(nameof(TaskboxOptions)))
-    .AddOptionsSnapshot<TaskboxOptions>();
-
-services.AddSingleton<ITaskboxService, ITaskboxService>()
-        .AddSingleton(typeof(TaskboxWorker<>));
-
-var provider = services.BuildServiceProvider();
-
-// Get a new instance of a ITaskboxService
-ITaskboxService taskboxService = provider.GetRequiredService<ITaskboxService>();
-
-// Starting the workers
-(...)
-
-// Stopping the engine
-await taskboxService.StopAsync().ConfigureAwait(false);
-
+ this.TaskboxService.ExecuteTask(TbxTask);
 ```
 
-## Dependency Injection
+### `TaskboxEngine`
 
-### Options Class's
+The `TaskboxEngine` is the hearth of this service, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0).  
+This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `ChannelGenerator` and the `TaskboxInvoker` to invoke the trigger and actions. This engine also has a BackgroundQueue where it's waiting for tasks to process.
 
-- `TaskboxOptions` it's a class that holds the configurations for the workers manager.
+### `TaskboxInvoker`
 
-### Service collection extensions
+The `TaskboxInvoker`, as the name implies is responsible for invoking all the components that compose a `TbxTask`, triggers and actions.
+
+### `ChannelGenerator`
+
+The `ChannelGenerator`, its purpose is to provide methods to generate channels in a faster, easier, and generic way.
+
+### Event Handling
+
+This section holds all the components related to the event handling.
+
+#### `EventMetaData`
+
+This is used to map an event regardless of is type, making this class a resource that allows us to handle events generically.
+
+### `EventBusManager`
+
+It's a generic subscriber and unsubscriber, it can do both operations for any event type that is given. This manager works with the `EventMetaData` class.
+
+### Dependency Injection
+
+#### Options Class's
+
+- `TaskboxOptions` it's a class that holds the configurations for taskbox service.
+
+#### Service collection extensions
 
 - `TaskboxServiceCollectionExtensions` this class provides methods to help add and configure a taskbox.
 
-## Event Handling
+Consider the following example, on how to add the taskbox service to your app.
 
-This section holds all the components related to the event handling of a Taskbox.
+```csharp
 
-### `EventBusHandler<T>`
-It's an abstract handler that helps to build in a faster way a custom handler to receive events from the EventBus.
+ServiceCollection services = new ServiceCollection();
 
+services.AddTaskbox();
 
+```
 
-### TriggeredEvent
-It's a class that represents the event, this holds the event type, the event body, the event topic and it's properties. This class also contains a set of methods that helps to manage a list of events.
+**Notice** , that while adding the taskbox service to your service collection, this will carry two external services, the [Pipeboxes](./Pipeboxes.md)  and the [Quartz .Net Scheduler](https://www.quartz-scheduler.net/).  
 
-### EventBusManager
+## Scheduling
 
-It's a generic subscriber and unsubscriber, it can do both operations for any event type that is given. This manager works with the `TriggeredEvent` class.
+The `Primavera.Hydrogen.Scheduling` namespace provides types that support scheduling operations.
 
-## Abstractions
+### `Cron`
 
-To help with the implementation of this component two interfaces can be used.
+Type capable of handling and interpreting [CRON expressions](https://en.wikipedia.org/wiki/Cron#CRON_expression).
 
-### ITaskboxWorker
+After being instantiated through an UNIX-like or a configuration string based CRON expression, the resulting `Cron` object is able to return the expression next occurrence as a time instant or a time interval thought the `GetNextOccurrenceInstant` or `GetNextOccurrenceInterval` method.
 
-The `ITaskboxWorker` interface defines the abstraction for the worker.
+```csharp
+Cron unixCron = new Cron("0 30 9 ? * * *");
 
-**Properties**
+DateTimeOffset instant = unixCron.GetNextOccurrenceInstant();
+```
 
-Property | Description
-:--- | :---
-Id | Gets or sets the worker id.
+```csharp
+Cron configStringCron = new Cron("Seconds=0; Minutes=30; Hours=9;");
 
-**Methods**
+TimeSpan interval = configStringCron.GetNextOccurrenceInterval();
+```
 
-Method | Description
-:--- | :---
-StartAsync | Starts the worker with a specified configuration, a context and a pipeline id
-StopAsync | Stops the worker.
+### `CronCollection`
 
-### IEventBusManager
+Type capable of storing a collection of `Cron` types. The collection is able to evaluate all its elements and return the nearest occurrence as a time instant or a time interval.
 
-The `IEventBusManager` interface defines the abstraction for the EventBusManager, which is a generic subscriber and unsubscriber.
+```csharp
+IEnumerable<string> crons = new List<string>
+{
+    "Seconds=0; Minutes=30; Hours=9;",
+    "0 0 10 ? * * *"
+};
 
-**Methods**
+CronCollection cronCollection = new CronCollection(crons);
 
-Method | Description
-:--- | :---
-SubscribeAsync | Subscribes the specified event.
-UnsubscribeAsync | Unsubscribes the specified event type.
+DateTimeOffset instant = cronCollection.GetNextOccurrenceInstant();
+
+```

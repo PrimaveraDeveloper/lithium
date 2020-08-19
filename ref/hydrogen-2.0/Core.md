@@ -325,44 +325,6 @@ Note that retry strategies allow to specify the maximum number of times the acti
 
 If, for example, that value is 3, the action can be executed up to 4 times. The first time and 3 retries.
 
-## Scheduling
-
-The `Primavera.Hydrogen.Scheduling` namespace provides types that support scheduling operations.
-
-### `Cron`
-
-Type capable of handling and interpreting [CRON expressions](https://en.wikipedia.org/wiki/Cron#CRON_expression).
-
-After being instantiated through an UNIX-like or a configuration string based CRON expression, the resulting `Cron` object is able to return the expression next occurrence as a time instant or a time interval thought the `GetNextOccurrenceInstant` or `GetNextOccurrenceInterval` method.
-
-```csharp
-Cron unixCron = new Cron("0 30 9 ? * * *");
-
-DateTimeOffset instant = unixCron.GetNextOccurrenceInstant();
-```
-
-```csharp
-Cron configStringCron = new Cron("Seconds=0; Minutes=30; Hours=9;");
-
-TimeSpan interval = configStringCron.GetNextOccurrenceInterval();
-```
-
-### `CronCollection`
-
-Type capable of storing a collection of `Cron` types. The collection is able to evaluate all its elements and return the nearest occurrence as a time instant or a time interval.
-
-```csharp
-IEnumerable<string> crons = new List<string>
-{
-    "Seconds=0; Minutes=30; Hours=9;",
-    "0 0 10 ? * * *"
-};
-
-CronCollection cronCollection = new CronCollection(crons);
-
-DateTimeOffset instant = cronCollection.GetNextOccurrenceInstant();
-```
-
 ## `SmartGuard`
 
 This type allows validating arguments and throw `ArgumentException` when the specified condition is not met.
