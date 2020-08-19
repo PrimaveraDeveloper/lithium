@@ -8,7 +8,9 @@ The taskbox microservice is divided into 3 different strategies. All of these us
 
 The following image shows how the microservice is organized.
 
+<!-- markdown-link-check-disable -->
 <img src="./_assets/tbx_architecture.png" width="1000">
+<!-- markdown-link-check-disable -->
 
 ## Async Tasks Strategy
 
@@ -53,8 +55,9 @@ Then it was added to the taskbox configuration the following task definition. Be
   }
 }
 ```
-
+<!-- markdown-link-check-disable -->
 <img src="./_assets/tbx_asynctasks_eventbus.PNG" width="1000">
+<!-- markdown-link-check-disable -->
 
 ### Async Task
 
@@ -84,11 +87,13 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the task box for some reason goes shuts down when it starts again it can start that task again.
+This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
 
 The following image shows how the async task is processed.
 
+<!-- markdown-link-check-disable -->
 <img src="./_assets/tbx_asyntasks_triggeraction.PNG" width="1000">
+<!-- markdown-link-check-enable -->
 
 #### Create async task with cron expression
 
@@ -114,11 +119,13 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the task box for some reason goes shuts down when it starts again it can start that task again.
+This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
 
 The following image shows how the schedule async task is processed.
 
+<!-- markdown-link-check-disable -->
 <img src="./_assets/tbx_asyntasks_schedule_triggeraction.PNG" width="1000">
+<!-- markdown-link-check-disable -->
 
 ## Webhooks Strategy
 
