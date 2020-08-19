@@ -2,37 +2,132 @@
 
 Provides asynchronous multi-task processing for applications or services that need to improve performance, scalability and reusability. This component implements the asynchronous operation behaviour in the PRIMAVERA Elevation Platform. This process can follow different strategies.
 
-The supported strategies are the following:
+## Taskbox Architecture
 
-### Event Bus strategy
+The taskbox microservice is divided into 3 different strategies. All of these use the taskbox service feature that is provided by the hydrogen library.
 
-#### Strategy flow 
+The following image shows how the microservice is organized.
 
-<img src="./_assets/tbx_schema.png" width="1000">
+<img src="./_assets/tbx_architecture.png" width="1000">
 
+## Async Tasks Strategy
 
-1. When the microservice starts, it starts at the same time a startup service, that will perform the following tasks:
-    - Get the pipebox settings that are stored in the Lithium settings.
-    - Checks if the EventBus topics exist, if these do not exist, these are created.
+### EventTrigger
 
-2. Reads the pipebox settings to get the events and subscribes to them. To subscribe is necessary to pass the event type and it's properties as well the handler that will handle this event when it's raised. This handler is called `EventHandler`.
+#### Implementation
 
-3. When the event is triggered, the `EventHandler` converts the event into a known object called `TriggeredEvent`, this object contains properties and extensions so that the `TasboxService` can process any event type.
+For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then exectes this pipeline using the `Pipebox`.
 
-4. After the conversion, the next step is to read the pipebox settings, from where the microservice subscribed to the events and get all the pipelines that are triggered by the event.
+```csharp
+ public class EventTrigger : EventTriggerAction<DataTransferObject>
+ {
+    /// <inheritdoc/>
+    public override Task<PipeboxConfig> GetConfigurationsAsync()
+    {
+      //...
+    }
 
-5. Finally, the `EventHandler` commands the `TaskboxService` to execute a worker for each pipeline triggered by the event. The `TaskboxService` will try to instantiate a worker of the event type and will build a pipebox to execute the given pipeline.
+    /// <inheritdoc/>
+    public override async Task<bool> HandleAsync(IEventBusEvent<DataTransferObject> eventBusEvent)
+    {
+       //...  
+    }
+ }
 
+```
 
-### Caching
+Then it was added to the taskbox configuration the following task definition. Because it's an `Event Trigger Action` there is no need to have actions.
 
-- **Subscribed Events**
+```json
+{
+  "id": "Task1",
+  "name": "Event Task",
+  "description": "The task that will handle the events.",
+  "contextType": "Primavera.Hydrogen.Data.DataTransferObject, Primavera.Hydrogen.Core",
+  "active": "True",
+  "trigger": {
+    "id": "EventTrigger",
+    "name": "EventTrigger",
+    "description": "Handles the events.",
+    "type": "Primavera.Lithium.Taskbox.WebApi.AsyncTasks.EventTrigger, Primavera.Lithium.Taskbox.WebApi"
+  }
+}
+```
 
-  When the events are subscribed, these are stored in the cache. In this case, and because the data is important for the correct functioning of the service, the lifetime is not set.
+<img src="./_assets/tbx_asynctasks_eventbus.png" width="1000">
 
-- **Settings**
+### Async Task
 
-    When the settings are loaded, these are stored in the cache because these are necessary for various operations. The lifetime in which this data is cached is set to 24 hours since these do not change very often.
+The taskbox Service allows to create async tasks by Api and by client.
+
+#### Create async task without cron expression
+
+```csharp
+
+AsyncTask asyncTask = new AsyncTask()
+{
+  Context = "Hello",
+  CallbackUrl = new Uri("https://www.mycallback.com"),
+  HttpRequestType = "POST",
+  PersistTask = true
+};
+
+using TaskboxClient client = new TaskboxClient(...);
+
+try
+{
+    ServiceOperationResult result = await client.AsyncTasks.AddAsyncTaskAsync(asyncTask).ConfigureAwait(false);
+}
+catch (ServiceException ex)
+{
+    (...)
+}
+```
+
+This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the task box for some reason goes shuts down when it starts again it can start that task again.
+
+The following image shows how the async task is processed.
+
+<img src="./_assets/tbx_asyntasks_triggeraction.png" width="1000">
+
+#### Create async task with cron expression
+
+```csharp
+
+AsyncTask asyncTask = new AsyncTask()
+{
+  Context = "Hello",
+  CallbackUrl = new Uri("https://www.mycallback.com"),
+  HttpRequestType = "POST",
+  CronExpression = "0 */2 * ? * *"
+  PersistTask = true
+};
+
+using TaskboxClient client = new TaskboxClient(...);
+
+try
+{
+    ServiceOperationResult result = await client.AsyncTasks.AddAsyncTaskAsync(asyncTask).ConfigureAwait(false);
+}
+catch (ServiceException ex)
+{
+    (...)
+}
+```
+
+This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the task box for some reason goes shuts down when it starts again it can start that task again.
+
+The following image shows how the schedule async task is processed.
+
+<img src="./_assets/tbx_asyntasks_schedule_triggeraction.png" width="1000">
+
+## Webhooks Strategy
+
+[**`UNDER DEVELOPMENT`**]
+
+## Reminders Strategy
+
+[**`UNDER DEVELOPMENT`**]
 
 ### EventBus
 
@@ -41,13 +136,9 @@ To Know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../.
 
 ### Taskbox
 
-This resource is used to process multiple tasks asynchronously. Also, this resource is responsible for managing a pool of workers. 
-
 To Know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/hydrogen-2.0/Taskbox.md).
 
 ## Details
 <!-- markdown-link-check-disable -->
 To Know more about this microservice click [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FTBX%2FMainline%2Freadme.md&version=T&_a=preview).
 <!-- markdown-link-check-enable -->
-
-
