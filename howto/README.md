@@ -48,7 +48,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 - How to **add data protection** in a microservice
 - [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
 - [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
-- [How to **use a taskbox** in a microservice](./howto-use-taskbox.md)
 - [How to **manage application settings externally** using Azure AppConfiguration](./howto-use-azure-appconfiguration.md)
 
 ## Testing a microservice

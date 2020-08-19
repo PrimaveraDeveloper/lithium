@@ -16,7 +16,7 @@ The following image shows how the microservice is organized.
 
 #### Implementation
 
-For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then exectes this pipeline using the `Pipebox`.
+For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then executes this pipeline using the `Pipebox`.
 
 ```csharp
  public class EventTrigger : EventTriggerAction<DataTransferObject>
@@ -118,7 +118,7 @@ This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.m
 
 The following image shows how the schedule async task is processed.
 
-![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.PNG)
+![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.png)
 
 ## Webhooks Strategy
 
