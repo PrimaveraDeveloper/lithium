@@ -8,9 +8,7 @@ The taskbox microservice is divided into 3 different strategies. All of these us
 
 The following image shows how the microservice is organized.
 
-<!-- markdown-link-check-disable -->
-<img src="./_assets/tbx_architecture.png" width="1000">
-<!-- markdown-link-check-disable -->
+![Taskbox Architecture](_assets/tbx_architecture.png)
 
 ## Async Tasks Strategy
 
@@ -55,9 +53,8 @@ Then it was added to the taskbox configuration the following task definition. Be
   }
 }
 ```
-<!-- markdown-link-check-disable -->
-<img src="./_assets/tbx_asynctasks_eventbus.PNG" width="1000">
-<!-- markdown-link-check-disable -->
+
+![AsyncTask EventTrigger](_assets/tbx_asynctasks_eventbus.PNG)
 
 ### Async Task
 
@@ -91,9 +88,7 @@ This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.m
 
 The following image shows how the async task is processed.
 
-<!-- markdown-link-check-disable -->
-<img src="./_assets/tbx_asyntasks_triggeraction.PNG" width="1000">
-<!-- markdown-link-check-enable -->
+![AsyncTask Trigger_Action](_assets/tbx_asyntasks_triggeraction.PNG)
 
 #### Create async task with cron expression
 
@@ -123,9 +118,7 @@ This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.m
 
 The following image shows how the schedule async task is processed.
 
-<!-- markdown-link-check-disable -->
-<img src="./_assets/tbx_asyntasks_schedule_triggeraction.PNG" width="1000">
-<!-- markdown-link-check-disable -->
+![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.PNG)
 
 ## Webhooks Strategy
 
