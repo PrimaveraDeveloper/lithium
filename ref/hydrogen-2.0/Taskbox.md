@@ -23,7 +23,7 @@ If you think of what a task box is, you quickly think of something related to ta
 
 ### `TbxTask`
 
-The `TbxTask` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed by a `Trigger` and one or more `Action`'s.
+The `TbxTask` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed of a `Trigger` and one or more `Action`'s.
 
 - `Trigger`, is responsible for starting the actions in a certain period.
 - `Action`, defines the operation that the task has to accomplish.
@@ -104,7 +104,7 @@ public class TriggerActionExample : TriggerAction<string>
 
 ```
 
-- `EventTriggerAction`, its purpose is to subscribe events given a `PipeboxConfig` and to process them.
+- `EventTriggerAction`, its purpose is to subscribe to events given a `PipeboxConfig` and to process them.
 
 ```csharp
   public class EventTriggerExample : EventTriggerAction<string>
@@ -222,7 +222,7 @@ Name | Description
 `description` | The action description.
 `type` | The action assembly name, this is used by the invoker in order to instantiate this.
 `configStr` | Used to pass parameters to the action.
-`continuousExecution` | Determines whether to constantly read messages from the channel or read only once and finish the process.
+`continuousExecution` | Determines whether to constantly read messages from the channel or read-only once and finish the process.
 
 ## Taskbox Service
 
@@ -230,7 +230,7 @@ Name | Description
 
 The `TaskboxService` is integrated with the .NET Core dependency injection engine, so it can be easily used in any .NET Core project, in particular the ASP.NET Core projects.
 
-This component is responsible for starting and stopping the `TaskboxEngine`, this can order the engine to process a `TaskboxConfig` or it can queue a `TbxTask` in a background queue where the engine is listening to. Furthermore it can pass functions for the engine to process.
+This component is responsible for starting and stopping the `TaskboxEngine`, this can order the engine to process a `TaskboxConfig` or it can queue a `TbxTask` in a background queue where the engine is listening to. Furthermore, it can pass functions for the engine to process.
 
 Consider the following examples on how to interact with the `TaskboxService`.
 
@@ -269,11 +269,11 @@ The `TaskboxInvoker`, as the name implies is responsible for invoking all the co
 
 ### `ChannelGenerator`
 
-The `ChannelGenerator`, its purpose is to provide methods to generate channels in a faster, easier, and generic way.
+The `ChannelGenerator`, its purpose is to provide methods to generate channels in a faster, easier and generic way.
 
 ### Event Handling
 
-This section holds all the components related to the event handling.
+This section holds all the components related to event handling.
 
 #### `EventMetaData`
 

@@ -1,6 +1,6 @@
 # Primavera.Lithium.Taskbox
 
-Provides asynchronous multi-task processing for applications or services that need to improve performance, scalability and reusability. This component implements the asynchronous operation behaviour in the PRIMAVERA Elevation Platform. This process can follow different strategies.
+Provides asynchronous multi-task processing for applications or services that need to improve performance, scalability, and reusability. This component implements the asynchronous operation behavior in the PRIMAVERA Elevation Platform. This process can follow different strategies.
 
 ## Taskbox Architecture
 
@@ -16,7 +16,7 @@ The following image shows how the microservice is organized.
 
 #### Implementation
 
-For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then executes this pipeline using the `Pipebox`.
+For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe to the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then executes this pipeline using the `Pipebox`.
 
 ```csharp
  public class EventTrigger : EventTriggerAction<DataTransferObject>
@@ -58,7 +58,7 @@ Then it was added to the taskbox configuration the following task definition. Be
 
 ### Async Task
 
-The taskbox Service allows to create async tasks by Api and by client.
+The taskbox Service allows creating async tasks by Api and by the client.
 
 #### Create async task without cron expression
 
@@ -131,13 +131,13 @@ The following image shows how the schedule async task is processed.
 ### EventBus
 
 This resource is used to subscribe and unsubscribe to events on Service Bus topics. These topics and all that is related to the use of this resource is configured in the microservice settings.
-To Know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../../ref/hydrogen-2.0/EventBus.Azure.md#Primavera.Hydrogen.EventBus.Azure).
+To know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../../ref/hydrogen-2.0/EventBus.Azure.md#Primavera.Hydrogen.EventBus.Azure).
 
 ### Taskbox
 
-To Know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/hydrogen-2.0/Taskbox.md).
+To know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/hydrogen-2.0/Taskbox.md).
 
 ## Details
 <!-- markdown-link-check-disable -->
-To Know more about this microservice click [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FTBX%2FMainline%2Freadme.md&version=T&_a=preview).
+To know more about this microservice click [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FTBX%2FMainline%2Freadme.md&version=T&_a=preview).
 <!-- markdown-link-check-enable -->
