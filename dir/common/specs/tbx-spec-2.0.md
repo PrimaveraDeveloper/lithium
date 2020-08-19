@@ -93,7 +93,6 @@ The following image shows how the async task is processed.
 #### Create async task with cron expression
 
 ```csharp
-
 AsyncTask asyncTask = new AsyncTask()
 {
   Context = "Hello",
