@@ -6,7 +6,7 @@
 
 # Primavera.Hydrogen.Taskbox.Abstractions
 
-**Class library that contains types that define abstractions for the taskbox service.**
+**Class library that contains types that define abstractions for the taskbox design pattern.**
 
 ## About
 
