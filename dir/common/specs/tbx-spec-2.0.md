@@ -118,7 +118,7 @@ This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.m
 
 The following image shows how the schedule async task is processed.
 
-![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.png)
+![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.PNG)
 
 ## Webhooks Strategy
 
