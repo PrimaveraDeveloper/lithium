@@ -54,7 +54,7 @@ Then it was added to the taskbox configuration the following task definition. Be
 }
 ```
 
-![AsyncTask EventTrigger](_assets/tbx_asynctasks_eventbus.png)
+![AsyncTask EventTrigger](_assets/eventbus_trigger.png)
 
 ### Async Task
 
