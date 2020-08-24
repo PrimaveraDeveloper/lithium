@@ -54,7 +54,7 @@ Then it was added to the taskbox configuration the following task definition. Be
 }
 ```
 
-![AsyncTask EventTrigger](_assets/tbx_asynctasks_eventbus.PNG)
+![AsyncTask EventTrigger](_assets/eventbus_trigger.png)
 
 ### Async Task
 
@@ -88,7 +88,7 @@ This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbo
 
 The following image shows how the async task is processed.
 
-![AsyncTask Trigger_Action](_assets/tbx_asyntasks_triggeraction.PNG)
+![AsyncTask Trigger_Action](_assets/triggeraction.png)
 
 #### Create async task with cron expression
 
@@ -118,7 +118,7 @@ This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbo
 
 The following image shows how the schedule async task is processed.
 
-![AsyncTask Schedule_Trigger_Action](_assets/tbx_asyntasks_schedule_triggeraction.PNG)
+![AsyncTask Schedule_Trigger_Action](_assets/schedule_triggeraction.png)
 
 ## Webhooks Strategy
 
