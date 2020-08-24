@@ -21,10 +21,12 @@ The `ITaskboxService` interface defines the abstraction for the engine that exec
 Method | Description
 :--- | :---
 StartAsync | Starts the taskbox service.
-StartAsync (TConfig config) | Starts the taskbox service with the specified configuration.
+StartAsync(TConfig config) | Starts the taskbox service with the specified configuration.
 StopAsync | Stops the taskbox service.
-ExecuteTask (`TTask` task) | Executes the specified task asynchronously.
-ExecuteTaskAsync (funcs) |  Executes the specified task asynchronously.
+ExecuteTask(`TTask` task) | Executes the specified task asynchronously.
+CancelTask(int id) | Cancels the task with the specified id.
+GetRunningTasks() | Gets the running tasks.
+ExecuteTaskAsync(funcs) |  Executes the specified task asynchronously.
 
 ### IBackgroundTaskboxQueueTask
 
@@ -75,19 +77,19 @@ CreateGenericChannelsAsync (string type, int n) |  Creates n channels with the g
 
 ### ITrigger
 
-The `ITrigger{T}` interface defines abstraction, the trigger is responsible for starting the actions indirectly.
+The `ITrigger{T, TConfig}` interface defines abstraction, the trigger is responsible for starting the actions indirectly.
 
 Method | Description
 :--- | :---
-RunAsync(channels, configStr, cronExp) | Asynchronously runs the trigger.
+RunAsync(channels, config) | Asynchronously runs the trigger.
 
 ### IAction
 
-The `IAction{T}` interface defines abstraction, an action is the task operational/goal.
+The `IAction{T, TConfig}` interface defines abstraction, an action is the task operational/goal.
 
 Method | Description
 :--- | :---
-RunAsync(channel, configStr, continuousExecution) | Asynchronously runs the action.
+RunAsync(channel, config) | Asynchronously runs the action.
 
 ### Supplementary types
 

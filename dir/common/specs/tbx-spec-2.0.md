@@ -84,7 +84,7 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
+This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
 
 The following image shows how the async task is processed.
 
@@ -114,7 +114,7 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TbxTask`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
+This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
 
 The following image shows how the schedule async task is processed.
 

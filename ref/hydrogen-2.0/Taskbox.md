@@ -21,12 +21,12 @@ The TaskboxConfig provides the implementation of `<TConfig>` this is a way to de
 
 If you think of what a task box is, you quickly think of something related to task execution or some task management mechanism. The idea behind this implementation is a task-oriented pattern, where the task has all the protagonism.
 
-### `TbxTask`
+### `TaskConfig`
 
-The `TbxTask` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed of a `Trigger` and one or more `Action`'s.
+The `TaskConfig` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed of a `TriggerConfig` and one or more `ActionConfig`'s.
 
-- `Trigger`, is responsible for starting the actions in a certain period.
-- `Action`, defines the operation that the task has to accomplish.
+- `TriggerConfig`, is responsible for starting the actions in a certain period, this holds all the configuration parameters of a trigger.
+- `ActionConfig`, defines the operation that the task has to accomplish, this holds all the configuration parameters of action.
 
 When the task is executed, the trigger will write a context on a channel at a given time. The action, on the other hand, is listening on the channel for information to perform a certain operation.
 
@@ -34,7 +34,7 @@ When the task is executed, the trigger will write a context on a channel at a gi
 
 #### Trigger
 
-All of this trigger types implement the `ITrigger{T}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
 
 - `Trigger{T}`, its purpose is to write a given context in the channel.
 
@@ -127,7 +127,7 @@ public class TriggerActionExample : TriggerAction<string>
 
 #### Action
 
-All of this action types implement the `IAction{T}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
 
 - `Action{T}`, its purpose is to read from the channel and execute some logic based int the received context.
 
@@ -175,6 +175,7 @@ Consider the following example of an `TaskboxConfig` using a `EventTriggerAction
         "description": "The schedule trigger",
         "type": "Primavera.Hydrogen.Taskbox.ScheduledTrigger, Primavera.Hydrogen.Taskbox",
         "configStr": "",
+        "context":"",
         "cronExp": "Seconds=0; Minutes=29; Hours=12;"
       },
       "actions": [
@@ -211,6 +212,7 @@ Name | Description
 `description` | The trigger description.
 `type` | The trigger assembly name, this is used by the invoker in order to instantiate this.
 `configStr` | Used to pass parameters to the trigger.
+`context` | Used to pass a context to the trigger.
 `cronExp` | Used to pass the cron expression to the trigger.
 
 ### Action Details
@@ -256,6 +258,18 @@ Consider the following examples on how to interact with the `TaskboxService`.
 
 ```csharp
  this.TaskboxService.ExecuteTask(TbxTask);
+```
+
+- Cancel Task
+
+```csharp
+ this.TaskboxService.CancelTask("taskId");
+```
+
+- Get running tasks
+
+```csharp
+ this.TaskboxService.GetRunningTasks();
 ```
 
 ### `TaskboxEngine`
