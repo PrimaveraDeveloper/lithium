@@ -73,7 +73,7 @@ Notice the properties in `CreateWebhookSubscriptionRequest`:
 
 - `ClientId` - this is a unique identifier for the application subscribing the webhooks.
 - `EventNames` - a list containing the names of the webhooks that should be subscribed (these names must match the names as advertised by the publisher).
-- `CallbackUrl` - the address of the callback (e.g. `https://myserver/api/v{version:apiVersion}/callbacks/customercreated`)
+- `CallbackUrl` - the address of the callback (e.g. `https://myserver/api/v1.0/callbacks/customercreated`)
 - `Secret` - a secret defined by the client that will be returned in the callback headers and that can be used to authenticate the callback (to make sure it was sent by the correct publisher).
 
 > Notice that this design allows for a single endpoint to serve as callback for multiple webhooks. When receiving each callback, the request will contain the actual event name in the headers, allowing the implementation of different logic, depending on the webhook received.
