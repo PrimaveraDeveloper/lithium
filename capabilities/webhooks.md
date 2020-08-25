@@ -9,6 +9,7 @@ The Lithium Framework supports adding webhooks to microservices and publishing t
 The following How To article describes that:
 
 - [How to publish webhooks events from a microservice](../howto/howto-publish-webhooks.md)
+- [How to receive webhooks events from a microservice](../howto/howto-receive-webhooks.md)
 
 Hydrogen includes a set of services that support webhooks:
 

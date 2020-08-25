@@ -45,6 +45,7 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to **add support for ASP.NET MVC user interface** to a microservice](./howto-add-user-interface-mvc.md)
 - [How to **add support for Angular user interface** to a microservice](./howto-add-user-interface-ngx.md)
 - [How to **publish webhooks** from a microservice](./howto-publish-webhooks.md)
+- [How to **receive webhooks** from a microservice](./howto-receive-webhooks.md)
 - How to **add data protection** in a microservice
 - [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
 - [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
