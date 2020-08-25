@@ -21,21 +21,10 @@ The Settings Service allows storing name/value settings per user, per product, a
 | - | - |
 | `lithium-settings` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | Yes |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/ss-spec-2.0.md) |
-| Client Library | [2.0](https://lithium-settings.primaverabss.com/.doc/clientlib) |
-| Web API | [2.0](https://lithium-settings.primaverabss.com/.doc/webapi) |
+| Client Library | [2.0](https://ss.lithium.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://ss.lithium.primaverabss.com/.doc/webapi) |

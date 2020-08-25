@@ -25,21 +25,10 @@ Both the microservice and the respective client library implement multiple cache
 | - | - |
 | `lithium-certificates` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | Yes |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | --- |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/cs-spec-2.0.md) |
-| Client Library | [2.0](https://lithium-certificates.primaverabss.com/.doc/clientlib) |
-| Web API | [2.0](https://lithium-certificates.primaverabss.com/.doc/webapi) |
+| Client Library | [2.0](https://cs.lithium.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://cs.lithium.primaverabss.com/.doc/webapi) |

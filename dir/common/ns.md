@@ -23,21 +23,10 @@ The templates should be defined previously and define the notification propertie
 | - | - |
 | `lithium-notifications` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | Yes |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/ns-spec-2.0.md) |
-| Client Library | [2.0](https://lithium-notification.primaverabss.com/.doc/clientlib) |
-| Web API | [2.0](https://lithium-notification.primaverabss.com/.doc/webapi) |
+| Client Library | [2.0](https://ns.lithium.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://ns.lithium.primaverabss.com/.doc/webapi) |
