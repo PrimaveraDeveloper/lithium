@@ -140,7 +140,7 @@ As the name implies, an enumeration is a special kind of model that is translate
 
  Property | Description | Example |
 | - | - | - |
-| Name | The name of the enumeration | ValueKind |
+| `Name` | The name of the enumeration | ValueKind |
 
 You can specify one or more members for the enumeration (the possible values). Each member as a name and a unique value (an integer).
 
@@ -162,11 +162,11 @@ The most important properties of a controller are:
 
 | Property | Description | Example |
 | - | - | - |
-| Authorization Mode | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
-| Is Visible | A value indicating whether the controller is visible for the client library | True |
-| Name | The name of the controller | UserSettings |
-| Route | The base route for all the child actions | /api/v{version:apiVersion}/usersettings |
-| Scope | The name of the scope used for authorization by the controller actions | (default) |
+| `Authorization Mode` | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
+| `Is Visible` | A value indicating whether the controller is visible for the client library | True |
+| `Name` | The name of the controller | UserSettings |
+| `Route` | The base route for all the child actions | /api/v{version:apiVersion}/usersettings |
+| `Scope` | The name of the scope used for authorization by the controller actions | (default) |
 
 > Notice that it is not possible to specify the authorization scope per action. This means that any two actions that should require different scopes will need to be modeled under different controllers.
 
