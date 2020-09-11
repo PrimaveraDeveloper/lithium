@@ -4,14 +4,16 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.PushNotifications |
-| Version | 1.0 |
+| Version | 2.0 |
 | API Versions | 1.0 |
-| Client Library | No |
+| Client Library | [Primavera.Lithium.PushNotifications.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.PushNotifications) (single assembly) |
 | Web UI | No |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
@@ -37,5 +39,6 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/pns-spec-2.0.md) |
-| Web API | --- |
+| Client Library | [2.0](https://dv-pns.lithium.primaverabss.com/.doc/clientlib#root) |
+| Web API | [2.0](https://dv-pns.lithium.primaverabss.com/.doc/webapi/index.html) |
 <!-- markdown-link-check-enable -->
