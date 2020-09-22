@@ -28,7 +28,7 @@ The console client is another way to test the behavior of the service. It should
 
 The following aspects of service behavior should be tested with extra attention:
 
-- Authorization scopes and authorization policies.
+- Authorization policies (scopes in particular).
 - Background services and background workers.
 - OIDC authentication.
 - Custom user interface.

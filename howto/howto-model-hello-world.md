@@ -28,7 +28,7 @@ Using the service model context menu, add a new "Controller" and set the followi
 - `Name`: HelloWorld
 - `Summary`: Provides hello world operations.
 
-> Controllers provide the means to organize the operations (actions) in a service logically. Their name affects the actions' routes and also provide support for more advanced features like having different authorization scopes for different actions.
+> Controllers provide the means to organize the operations (actions) in a service logically. Their name affects the actions' routes and also provide support for more advanced features like having different authorization policies for different actions.
 
 ### Action
 

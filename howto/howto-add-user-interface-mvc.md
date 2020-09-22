@@ -551,7 +551,7 @@ This adds the new authorization policy in the generated code.
 /// </remarks>
 protected virtual void AddAuthorizationPolicies(AuthorizationOptions options, HostConfiguration hostConfiguration)
 {
-    // Policy for default scope
+    // Default policy
 
     options.AddPolicy(
         Constants.Policies.Api1,
@@ -565,7 +565,7 @@ protected virtual void AddAuthorizationPolicies(AuthorizationOptions options, Ho
             policy.RequireClaim(JwtClaimTypes.Scope, Primavera.Lithium.Api1.Models.Metadata.Scopes.Api1);
         });
 
-    // Policies for authorization policies
+    // Other policies
 
     options.AddPolicy(
         Constants.Policies.AuthenticatedUser,

@@ -28,7 +28,6 @@ The metamodel used by this designer adheres, in most cases, to how a REST Web AP
 The following domain entities are available (ordered alphabetically):
 
 - [API version](#apiversion)
-- [Authorization Scope](#authorizationscope)
 - [Authorization Policy](#authorizationpolicy)
 - [Background Service](#backgroundservice)
 - [Background Worker](#backgroundworker)
@@ -153,7 +152,7 @@ Typically, you should group all the operations that act on the same model in a s
 You should consider that controllers also define 3 very important aspects of the Web API behavior:
 
 - They set the base route of the endpoints (see the "Route" property).
-- They define the authorization mode (and the corresponding scope) shared by all its actions.
+- They define the authorization mode (and the corresponding policy) shared by all its actions.
 - They may define parameters (for the route) shared between all the controller's actions.
 
 ![Controller](./_assets/controller.png "Controller")
@@ -163,12 +162,12 @@ The most important properties of a controller are:
 | Property | Description | Example |
 | - | - | - |
 | `Authorization Mode` | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
+| `Authorization Policy` | The name of the policy used for authorization by the controller actions | (default) |
 | `Is Visible` | A value indicating whether the controller is visible for the client library | True |
 | `Name` | The name of the controller | UserSettings |
 | `Route` | The base route for all the child actions | /api/v{version:apiVersion}/usersettings |
-| `Scope` | The name of the scope used for authorization by the controller actions | (default) |
 
-> Notice that it is not possible to specify the authorization scope per action. This means that any two actions that should require different scopes will need to be modeled under different controllers.
+> Notice that it is possible to share the same authorization policy among the controller actions but it is also possible to specify different policies for different actions of the same controller.
 
 ### <a name="controlleraction"></a>Controller Action
 
@@ -181,6 +180,7 @@ The most important properties of a controller action are:
 | Property | Description | Example |
 | - | - | - |
 | `Authorization Mode` | A value indicating whether the action uses authorization (with Identity Server) or not | On |
+| `Authorization Policy` | The name of the policy used for authorization by action | (controller) |
 | `HTTP Method` | The HTTP method used | Get |
 | `Is Visible` | A value indicating whether the action is visible for the client library | True |
 | `Name` | The name of the operation | GetUserSetting |
@@ -278,24 +278,9 @@ The most important properties of a regular expression are:
 | `Name` | The name of the regular expression | IdsRegEx |
 | `Value` | The actual regular expression |  |
 
-### <a name="authorizationscope"></a>Authorization Scope
-
-When the service's authorization mode is on, the default scope (defined in the service properties) will be used by default by all controllers and controller actions.
-
-You can define additional authorization scopes and then reference them in controllers. The actions will then use these scopes for authorization.
-
-![Authorization Scope](./_assets/authorizationscope.png "Authorization Scope")
-
-The main properties for authorization scopes are:
-
-| Property | Description | Example |
-| - | - | - |
-| `Name` | The name of the authorization scope | WriteAccess |
-| `Scope` | The scope that should be validated by the authorization middleware | lithium-identity-writeaccess |
-
 ### <a name="authorizationpolicy"></a>Authorization Policy
 
-Authorization policies is a new concept in the service model that allows specifying custom logic to validate access to controller actions. It is not fully developed yet.
+Authorization policies is a concept in the service model that allows specifying which scope is validated when accessing controller actions (if `Kind` is `Scope`) or custom authorization policies (entirely specified in custom code).
 
 ### <a name="apiversion"></a>API Version
 

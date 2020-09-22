@@ -13,7 +13,7 @@ A controller has 4 main purposes in the Lithium Framework:
 - It organizes a set of related actions in a coherent way (envisioned by the developer, often based on the fact that these actions operate on the same resource/model).
 - It corresponds to a single class generated in the `WebAPI` project that will contain all these actions as methods.
 - Ensures that all its actions share the same base route.
-- Enforces the same authorization policy for all its actions.
+- Allows sharing the same authorization policy among its actions.
 
 To add a controller to a microservice, select Add | Controller using the designer context menu.
 
@@ -31,13 +31,13 @@ All the actions under the same controller share the same base route which is der
 
 You can review that by inspecting the `Route` property in the properties window.
 
-> The Service Designer allows customization to some extent by specifying a prefix that will be added to the generated route. See `Route Prefix`.
+> The Service Designer allows customization to some extent of this route (prefixes, suffixes, etc.).
 
 ### Authorization
 
-The authorization policy is also shared by all the actions of a controller.
+The authorization policy can ne shared by all the actions of a controller or specified for each action.
 
-You can specify if authorization is on or off with the `Authorization Mode` and, when on, you can specify which scope needs to be provided by client applications to access the operations (see `Scope`).
+You can specify if authorization is on or off with the `Authorization Mode` and, when on, you can specify which policy requirements needs to be met by client applications to access the operations (see `Authorization Policy`).
 
 > Note that authorization mode can be disabled completely in a microservice by modifying the `Authorization Mode` for the service. This setting supersedes the settings for each controller.
 
@@ -103,7 +103,7 @@ For obvious reasons, no two actions in the entire model can have the same route.
 
 You can review the action route by inspecting the `Route` property in the properties window.
 
-> The Service Designer allows further customization of this route via the following properties: Add `Action to Route`, `Route Prefix`, and `Route Suffix`. Furthermore, the `Binding` property of the action parameters also has affect in the action route.
+> The Service Designer allows further customization of this route (see `Route Prefix`, `Route Suffix`, etc.). Furthermore, the `Binding` property of the action parameters also has affect in the action route.
 
 ## Generated Code
 
@@ -121,7 +121,6 @@ Here is an example:
 /// This is the base class of the MVC controller.
 /// </remarks>
 [GeneratedCode("Lithium", "2.0")]
-[Authorize(Constants.Policies.Certificates)]
 [SuppressMessage("Maintainability Rules", "SA1402:FileMayOnlyContainASingleType", Justification = "Because of code generation design.")]
 public abstract partial class CertificatesControllerBase : ApiControllerBase, ICertificatesController
 {
@@ -157,6 +156,7 @@ public abstract partial class CertificatesControllerBase : ApiControllerBase, IC
     #region Public Methods
 
     /// <inheritdoc />
+    [Authorize(Constants.Policies.Certificates)]
     [HttpGet(Primavera.Lithium.Certificates.Models.Metadata.Routes.Certificates.GetCertificate)]
     [ProducesResponseType(typeof(Primavera.Lithium.Certificates.Models.CertificateData), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.BadRequest)]

@@ -4,7 +4,7 @@
 
 All Lithium microservices provide 4 monitoring endpoints that should be used to check the service health and monitor its behavior.
 
-> These endpoints are not secured (they do not require any authorization scope).
+> These endpoints are not secured (they do not validate any authorization policy).
 
 ## Probe
 
