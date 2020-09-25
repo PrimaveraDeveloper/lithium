@@ -2,6 +2,7 @@
 
 [REF_TBX]: ./Taskbox.md
 [REF_TBX_ABS]: ./Taskbox.Abstractions.md
+[REF_EBINMEM]: ./EventBus.InMemory.md
 
 <!-- DOCUMENT -->
 
@@ -28,7 +29,7 @@ The `TaskConfig` defines the task in this implementation, provides the implement
 - `TriggerConfig`, is responsible for starting the actions in a certain period, this holds all the configuration parameters of a trigger.
 - `ActionConfig`, defines the operation that the task has to accomplish, this holds all the configuration parameters of action.
 
-When the task is executed, the trigger will write a context on a channel at a given time. The action, on the other hand, is listening on the channel for information to perform a certain operation.
+When the task is executed, the trigger will publish an event. The action, on the other hand, subscribes to this event and when the event is raised, it performs a certain operation.
 
 ### Components
 
@@ -36,7 +37,7 @@ When the task is executed, the trigger will write a context on a channel at a gi
 
 All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
 
-- `Trigger{T}`, its purpose is to write a given context in the channel.
+- `Trigger{T}`, its purpose is to publish an event with the context.
 
 ```csharp
  public class TriggerExample : Trigger<string>
@@ -51,7 +52,7 @@ All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see
  }
 ```
 
-- `ScheduleTrigger{T}`, its purpose is to write a given context in the channel in a certain period or with some periodicity. This uses Quartz .Net to schedule a Job and delegates the responsibility of communicating with the channel to the `ScheduledJob{T}`, when executed it writes the context in the channel.
+- `ScheduleTrigger{T}`, its purpose is to publish an event with a given context in a certain period or with some periodicity. This uses Quartz .Net to schedule a Job and delegates the responsibility of publishing to the `ScheduledJob{T}`.
 
 ```csharp
  public class ScheduledTriggerExample : ScheduleTrigger<string>
@@ -66,7 +67,7 @@ All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see
  }
 ```
 
-- `ContinuousTrigger{T}`, its purpose is to continuously write a certain context on the channel, subject to a condition, ContinueAsync().
+- `ContinuousTrigger{T}`, its purpose is to publish events continuously subject to a condition, ContinueAsync().
 
 ```csharp
 public class ContinuousTriggerExample : ContinuousTrigger<string>
@@ -88,7 +89,7 @@ public class ContinuousTriggerExample : ContinuousTrigger<string>
 
 ```
 
-- `TriggerAction`, its purpose is to execute some logic defined by those who implement this component. This component is used when there is no claim to have an action-trigger relationship but only a trigger.
+- `SaTrigger`, stand-alone trigger, its purpose is to execute some logic defined by those who implement this component. This component is used when there is no claim to have an trigger-action relationship but only a trigger.
 
 ```csharp
 public class TriggerActionExample : TriggerAction<string>
@@ -104,7 +105,7 @@ public class TriggerActionExample : TriggerAction<string>
 
 ```
 
-- `EventTriggerAction`, its purpose is to subscribe to events given a `PipeboxConfig` and to process them.
+- `EventTrigger`, its purpose is to subscribe to events given a `PipeboxConfig` and to process them.
 
 ```csharp
   public class EventTriggerExample : EventTriggerAction<string>
@@ -129,10 +130,10 @@ public class TriggerActionExample : TriggerAction<string>
 
 All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
 
-- `Action{T}`, its purpose is to read from the channel and execute some logic based int the received context.
+- `Action{T}`, its purpose is to subscribe to an event and when this is raised it will execute some logic based in the received event payload/context.
 
 ```csharp
-  public class ActionExample : Primavera.Hydrogen.Taskbox.Channels.Action<string>
+  public class ActionExample : Primavera.Hydrogen.Taskbox.Action<string>
   {
     /// <inheritdoc/>
     public override async Task ExecuteAsync(string context)
@@ -143,7 +144,7 @@ All of this action types implement the `IAction{T, TConfig}`, to know more see t
 
 ```
 
-Consider the following example of an `TaskboxConfig` using a `EventTriggerAction` and a `ScheduleTrigger`.
+Consider the following example of an `TaskboxConfig` using a `EventTrigger` and a `ScheduleTrigger`.
 
 ```json
 {
@@ -200,7 +201,6 @@ Name | Description
 `id` | The task identifier.
 `name` | The task name.
 `description` | The task description.
-`contextType` | Used to define the channel type, when there are actions.
 `active` | Used to determinate if the task is active, if true the taskbox will process.
 
 ### Trigger Details
@@ -224,7 +224,8 @@ Name | Description
 `description` | The action description.
 `type` | The action assembly name, this is used by the invoker in order to instantiate this.
 `configStr` | Used to pass parameters to the action.
-`continuousExecution` | Determines whether to constantly read messages from the channel or read-only once and finish the process.
+
+**Notice**, that the communication between the trigger and the actions is established using the `Primavera.Hydrogen.EventBus.InMemory`. To know more about this component see [this.][REF_EBINMEM]
 
 ## Taskbox Service
 
@@ -275,15 +276,11 @@ Consider the following examples on how to interact with the `TaskboxService`.
 ### `TaskboxEngine`
 
 The `TaskboxEngine` is the hearth of this service, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0).  
-This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `ChannelGenerator` and the `TaskboxInvoker` to invoke the trigger and actions. This engine also has a BackgroundQueue where it's waiting for tasks to process.
+This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `TaskboxInvoker` to invoke the trigger and the actions. This engine also has a BackgroundQueue where it's waiting for tasks to process.
 
 ### `TaskboxInvoker`
 
 The `TaskboxInvoker`, as the name implies is responsible for invoking all the components that compose a `TbxTask`, triggers and actions.
-
-### `ChannelGenerator`
-
-The `ChannelGenerator`, its purpose is to provide methods to generate channels in a faster, easier and generic way.
 
 ### Event Handling
 
@@ -296,6 +293,14 @@ This is used to map an event regardless of is type, making this class a resource
 ### `EventBusManager`
 
 It's a generic subscriber and unsubscriber, it can do both operations for any event type that is given. This manager works with the `EventMetaData` class.
+
+### `EventBusServiceFactory`
+
+The `EventBusServiceFactory` provides a way to get an  `IEventBusService` instance based on a strategy(InMemory or Azure).
+
+### `SchedulerFactory`
+
+The `SchedulerFactory` provides a way to get an `IScheduler` instance. The `IScheduler` is used to schedule and run tasks in a certain period or with some periodicity.
 
 ### Dependency Injection
 

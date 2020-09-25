@@ -40,7 +40,7 @@ DequeueTaskAsync | Dequeues the `TTask` asynchronouly.
 
 ### ITaskboxInvoker
 
-The `ITaskboxInvoker{TTask}` interface defines abstraction, used to invoke a task that follows the trigger-action pattern.
+The `ITaskboxInvoker{TTask}` interface defines the abstraction used to invoke a task that follows the trigger-action pattern.
 
 Method | Description
 :--- | :---
@@ -49,35 +49,33 @@ InvokeActions |  Invokes the `TTask` actions.
 
 ### IEventBusManager
 
-The `IEventBusManager{T}` interface defines abstraction, responsible for subscribing and unsubscribing events.
+The `IEventBusManager{T}` interface defines the abstraction used for subscribing and unsubscribing events.
 
 Method | Description
 :--- | :---
 SubscribeAsync | Subscribes the specified event.
 UnsubscribeAsync |  Unsubscribes the specified event type.
 
-## Channels
+### IEventBusServiceFactory
 
-### IChannelGenerator
-
-The `IChannelGenerator` interface defines abstraction, the purpose of this is to provide methods to generate
-channels in a faster, easier, and generic way.
+The `IEventBusServiceFactory{TService, TStrategy}` interface defines the abstractions used to implement an EventBus service factory based on strategies.
 
 Method | Description
 :--- | :---
-CreateChannelAsync{T} | Create a channel with the given type.
-CreateChannelAsync{T} (int capacity) |  Create a channel with the given type and capacity.
-CreateChannelAsync{T} (T context) |  Create a channel with the given type and writes the context.
-CreateChannelAsync{T} (T context, int capacity) |  Create a channel with the given type and capacity and writes the context.
-CreateGenericChannelAsync (string type) |  Create a channel with the given type.
-CreateGenericChannelAsync (string type, UnboundedChannelOptions options) |  Create a channel with the given type and unbounded channel options.
-CreateGenericChannelAsync (string type, int capacity) |  Create a channel with the given type and capacity.
-CreateGenericChannelAsync (string type, BoundedChannelOptions options) |  Create a channel with the given type and bounded channel options.
-CreateGenericChannelsAsync (string type, int n) |  Creates n channels with the given type.
+GetEventBusService | Gets the event bus service based on a strategy.
+
+### ITaskboxSchedulerFactory
+
+The `ITaskboxSchedulerFactory{TScheduler}` interface defines the abstractions used to implement a scheduler factory.
+Method | Description
+:--- | :---
+GetSchedulerAsync | Gets the scheduler instance.
+
+## Components
 
 ### ITrigger
 
-The `ITrigger{T, TConfig}` interface defines abstraction, the trigger is responsible for starting the actions indirectly.
+The `ITrigger{T, TConfig}` interface defines the abstraction for the trigger, which is responsible for starting the actions indirectly.
 
 Method | Description
 :--- | :---
@@ -85,7 +83,7 @@ RunAsync(channels, config) | Asynchronously runs the trigger.
 
 ### IAction
 
-The `IAction{T, TConfig}` interface defines abstraction, an action is the task operational/goal.
+The `IAction{T, TConfig}` interface defines the abstraction for the action, which is the task operational/goal.
 
 Method | Description
 :--- | :---
