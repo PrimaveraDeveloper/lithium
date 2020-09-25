@@ -213,7 +213,6 @@ Name | Description
 `type` | The trigger assembly name, this is used by the invoker in order to instantiate this.
 `configStr` | Used to pass parameters to the trigger.
 `context` | Used to pass a context to the trigger.
-`cronExp` | Used to pass the cron expression to the trigger.
 
 ### Action Details
 
