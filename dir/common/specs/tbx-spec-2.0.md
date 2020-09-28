@@ -16,10 +16,10 @@ The following image shows how the microservice is organized.
 
 #### Implementation
 
-For this strategy, the abstract class `EventTriggerAction` was used to implement the EventTrigger, it receives a `PipeboxConfig` used to subscribe to the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then executes this pipeline using the `Pipebox`.
+For this strategy, the abstract class `EventTrigger` was used to implement the EventBusTrigger, it receives a `PipeboxConfig` used to subscribe to the events. When the event is raised it reads the `PipeboxConfig` and retrieves the pipeline then executes this pipeline using the `Pipebox`.
 
 ```csharp
- public class EventTrigger : EventTriggerAction<DataTransferObject>
+ public class EventBusTrigger : EventTrigger<DataTransferObject>
  {
     /// <inheritdoc/>
     public override Task<PipeboxConfig> GetConfigurationsAsync()
@@ -36,7 +36,7 @@ For this strategy, the abstract class `EventTriggerAction` was used to implement
 
 ```
 
-Then it was added to the taskbox configuration the following task definition. Because it's an `Event Trigger Action` there is no need to have actions.
+Then it was added to the taskbox configuration the following task definition. Because it's an `EventTrigger` there is no need to have actions.
 
 ```json
 {
@@ -46,10 +46,10 @@ Then it was added to the taskbox configuration the following task definition. Be
   "contextType": "Primavera.Hydrogen.Data.DataTransferObject, Primavera.Hydrogen.Core",
   "active": "True",
   "trigger": {
-    "id": "EventTrigger",
-    "name": "EventTrigger",
+    "id": "EventBusTrigger",
+    "name": "EventBusTrigger",
     "description": "Handles the events.",
-    "type": "Primavera.Lithium.Taskbox.WebApi.AsyncTasks.EventTrigger, Primavera.Lithium.Taskbox.WebApi"
+    "type": "Primavera.Lithium.Taskbox.WebApi.AsyncTasks.EventBusTrigger, Primavera.Lithium.Taskbox.WebApi"
   }
 }
 ```
@@ -58,7 +58,7 @@ Then it was added to the taskbox configuration the following task definition. Be
 
 ### Async Task
 
-The taskbox Service allows creating async tasks by Api and by the client.
+The taskbox microservice allows creating async tasks by Api and by the client.
 
 #### Create async task without cron expression
 
@@ -68,7 +68,7 @@ AsyncTask asyncTask = new AsyncTask()
 {
   Context = "Hello",
   CallbackUrl = new Uri("https://www.mycallback.com"),
-  HttpRequestType = "POST",
+  HttpRequestType = 0 -> "POST",
   PersistTask = true
 };
 
@@ -97,7 +97,7 @@ AsyncTask asyncTask = new AsyncTask()
 {
   Context = "Hello",
   CallbackUrl = new Uri("https://www.mycallback.com"),
-  HttpRequestType = "POST",
+  HttpRequestType = 0 -> "POST",
   CronExpression = "0 */2 * ? * *"
   PersistTask = true
 };
@@ -114,17 +114,23 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the `PersistTask` is set to true, this task will be added to the configurations, [`TaskboxConfig`](../../../ref/hydrogen-2.0/Taskbox.md), so that when the taskbox for some reason shuts down when it starts again it can start that task again.
+This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the taskbox service uses a scheduler, that stores the task in a database, this means that when the taskbox for some reason is turned off, when it is restarted, it will run the task again.
 
 The following image shows how the schedule async task is processed.
 
 ![AsyncTask Schedule_Trigger_Action](_assets/schedule_triggeraction.png)
 
-## Webhooks Strategy
-
-[**`UNDER DEVELOPMENT`**]
-
 ## Reminders Strategy
+
+The taskbox microservice allows creating reminders by Api and by the client.
+
+**What is a reminder!? How this works?!**
+
+A reminder is a notification, the taskbox client receives the reminder, and based on the "schedule expression" or "CRON expression" parameters it executes or schedules the execution of that reminder. When the job is executed, this publishes an event with the reminder, the action, that subscribed to an event of that type, receives it, and with the push-notification client creates an incoming notification to a certain product, subscription, user, or group defined in the reminder.
+
+![Reminders](_assets/reminders.png)
+
+## Webhooks Strategy
 
 [**`UNDER DEVELOPMENT`**]
 
