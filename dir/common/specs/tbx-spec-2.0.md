@@ -120,6 +120,14 @@ The following image shows how the schedule async task is processed.
 
 ![AsyncTask Schedule_Trigger_Action](_assets/schedule_triggeraction.png)
 
+### Async tasks supported methods
+
+Method | Description
+:--- | :---
+AddAsyncTask | Add an async task for the taskbox to execute.
+CancelAsyncTask | Cancels the task.
+GetAsyncTasks | Gets all the async tasks.
+
 ## Reminders Strategy
 
 The taskbox microservice allows creating reminders by Api and client.
@@ -129,6 +137,15 @@ The taskbox microservice allows creating reminders by Api and client.
 A reminder is a notification, the taskbox client receives the reminder, and based on the "schedule expression" or "CRON expression" parameters it executes or schedules the execution of that reminder. When the job is executed, this publishes an event with the reminder, the action, that subscribed to an event of that type, receives it, and with the push-notification client creates an incoming notification to a certain product, subscription, user, or group defined in the reminder.
 
 ![Reminders](_assets/reminders.png)
+
+### Reminders supported methods
+
+Method | Description
+:--- | :---
+AddReminder | Add a reminder for the taskbox to execute.
+UpdateReminder | Updates a reminder.
+DeleteReminder | Deletes the reminder.
+GetReminderTasks | Gets all the reminder tasks.
 
 ## Webhooks Strategy
 
