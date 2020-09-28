@@ -58,7 +58,7 @@ Then it was added to the taskbox configuration the following task definition. Be
 
 ### Async Task
 
-The taskbox microservice allows creating async tasks by Api and by the client.
+The taskbox microservice allows creating async tasks by Api and client.
 
 #### Create async task without cron expression
 
@@ -122,7 +122,7 @@ The following image shows how the schedule async task is processed.
 
 ## Reminders Strategy
 
-The taskbox microservice allows creating reminders by Api and by the client.
+The taskbox microservice allows creating reminders by Api and client.
 
 **What is a reminder!? How this works?!**
 
