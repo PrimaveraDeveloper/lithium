@@ -30,13 +30,11 @@ The interface is also implemented by an abstract base class named `EventBusEvent
 
 The concrete implementation of an event bus service is responsible for registering this delegate.
 
-### `IEventBusFilters`
+### `IEventBusSubscriptionRule`
 
-`IEventBusFilters` defines a collection of filters that can be associated with an operation that handles a subscription.
+`IEventBusSubscriptionRule` defines a subscription rule that can be applied to an `IEventBusService` subscription.
 
-In addition to the event type match, a subscription associated with such filters will only receive events whose properties have an exact match for each of the key-value pairs contained in the filters.
-
-The interface is implemented by an abstract base class named `EventBusFiltersBase`.
+The subscription rule is responsible for determining whether an event with particular properties will be retained in a given subscription for further processing.
 
 ## Supplementary types
 

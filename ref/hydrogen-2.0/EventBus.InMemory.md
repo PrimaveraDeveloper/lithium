@@ -39,31 +39,27 @@ private static IEventBusService GetEventBusService()
 
 In order to publish an event, a typed `InMemoryEventBusEvent` entity needs to be instantiated.
 
-The respective `InMemoryEventBusEvent` entity should then be passed as an argument to the `Publish` or `PublishAsync` method of the `InMemoryEventBusService` instance.
+The respective event bus path identifier and the recently instantiated `InMemoryEventBusEvent` entity should then be passed as arguments to the `Publish` or `PublishAsync` method of the `InMemoryEventBusService` instance.
 
-If a path is specified in the `Publish` or `PublishAsync` method, the event will be sent as a [unicast](https://en.wikipedia.org/wiki/Unicast) to the respective path. Otherwise, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all the existing paths in the event bus service.
+The event will be finally sent as an [unicast](https://en.wikipedia.org/wiki/Unicast) to the specified path. Inside the path, the event will be [broadcasted](https://en.wikipedia.org/wiki/Broadcasting_(networking)) to all subscriptions. If the event properties matches at least one existing `InMemoryEventBusSubscriptionRule`, the event will be stored in the corresponding subscription during the defined event [time to live](https://en.wikipedia.org/wiki/Time_to_live).
 
-![Unicasting scenario](_assets/inmemory-eventbus-unicasting.png)
-
-![Broadcasting scenario](_assets/inmemory-eventbus-broadcasting.png)
+Lastly, it should be noted that the type of the event is itself an implicit event property.
 
 ```csharp
 /// <summary>
-/// Publishes, as a broadcast to all the event bus service paths, an event containing a versioned message.
+/// Publishes - as an unicast to the specified event bus path - an event containing a versioned message.
 /// </summary>
 /// <param name="eventBus">The event bus.</param>
-private static void BroadcastVersionedMessageEvent(IEventBusService eventBus)
+private static void PublishVersionedMessageEvent(IEventBusService eventBus)
 {
-    string myMessage = "Hack the planet!";
-
     IEventBusEvent<string> @event = new InMemoryEventBusEvent<string>()
     {
-        Body = myMessage // Since we are typing the event as a string, we need to provide a string to the event body.
+        Body = "Hack the planet!" // Since we are typing the event as a string, we need to provide a string to the event body.
     };
 
     @event.Properties.Add("Version", "1");
 
-    eventBus.Publish(@event);
+    eventBus.Publish("my-path", @event);
 }
 ```
 
@@ -97,9 +93,7 @@ private static Task<bool> HandleAsync<T>(IEventBusEvent<T> @event)
 }
 ```
 
-The subscription source path and a delegate representing the handling method previously created should then be passed to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBusService` instance.
-
-A collection of subscription filters defined by `IEventBusFilters` can also be provided.
+The event bus path identifier, subscription identifier and a delegate representing the previously created handling method should then be passed as arguments to the `Subscribe` or `SubscribeAsync` method of the `InMemoryEventBusService` instance.
 
 ```csharp
 /// <summary>
@@ -110,29 +104,13 @@ private static void SubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
     EventBusHandlerDelegate<string> messageHandler = HandleAsync;
 
-    IEventBusFilters<string> messageFilters = new InMemoryEventBusFilters<string>();
-
-    messageFilters.Filters.Add("Version", "1");
-
-    eventBus.Subscribe("my-path", messageHandler, messageFilters);
+    eventBus.Subscribe("my-path", "my-subscription", messageHandler);
 }
 ```
 
-The **type of the event in conjunction with the subscription filters** are then used to correlate the events that should be sent to the subscriber.
-
-As can be seen in the above example, events with the **logical conjunction** of the following characteristics are being subscribed:
-
-- Events of `string` type;
-- Originated from *my-path* path;
-- Where a event property with key *Version* and value *1* exists.
-
-The logical conjunction is obtained through hashing operations. Be aware that different subscriptions filters will result in distinct hashes.
-
 ## Unsubscribing from events
 
-Unsubscribing from a event type is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBusService` with the subscription source path and respective `T` type.
-
-A collection of subscription filters defined by `IEventBusFilters` can also be provided.
+Detaching from a subscription (unsubscribing) is done by invoking the `Unsubscribe` or `UnsubscribeAsync` method of an `InMemoryEventBusService` with the event bus path identifier, subscription identifier and the respective `T` as arguments.
 
 ```csharp
 /// <summary>
@@ -141,10 +119,14 @@ A collection of subscription filters defined by `IEventBusFilters` can also be p
 /// <param name="eventBus">The event bus.</param>
 private static void UnsubscribeVersionedMessageEvents(IEventBusService eventBus)
 {
-    IEventBusFilters<string> messageFilters = new InMemoryEventBusFilters<string>();
-
-    messageFilters.Filters.Add("Version", "1");
-
-    eventBus.Unsubscribe("my-path", messageFilters);
+    eventBus.Unsubscribe<string>("my-path", "my-subscription");
 }
 ```
+
+## Service management
+
+The service structural entities (such as paths, subscriptions and subscription rules) should be provisioned using the respective management service.
+
+The management service can be registered thought the `AddInMemoryEventBusManager` extension method for `IServiceCollection`.
+
+The extension method also expects an `InMemoryEventBusOptions` entity as an argument.
