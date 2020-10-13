@@ -93,31 +93,8 @@ This setup ensures that all logging requests are sent to Azure Application Insig
 ```csharp
 protected virtual void AddTelemetry(IServiceCollection services, HostConfiguration hostConfiguration)
 {
-    // Ignore Spelling: api
-
-    // Validation
-
     SmartGuard.NotNull(() => services, services);
     SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
-
-    // Add status code 404 telemetry initializer
-
-    services
-        .AddSingleton<Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer>(
-            (provider) =>
-            {
-                return new StatusCodeTelemetryInitializer(provider)
-                {
-                    Requests = RequestTelemetryInitializerBehavior.Specified,
-                    RequestPaths = new List<string>()
-                    {
-                        "/api/*",
-                    },
-                    StatusCode = HttpStatusCode.NotFound
-                };
-            });
-
-    // Add Azure Insights telemetry
 
     services
         .AddAzureInsightsTelemetryClient()
@@ -125,27 +102,37 @@ protected virtual void AddTelemetry(IServiceCollection services, HostConfigurati
 }
 ```
 
-> Notice the `StatusCodeTelemetryInitializer` configured above. This ensures that 404 responses from the API are not treated by Azure Application Insights as errors. There is also another initializer that is setup that collects request headers. For more information see [Primavera.Hydrogen.Azure.Telemetry](../ref/hydrogen-2.0/Telemetry.Azure.md).
-
 ## Azure Application Insights
 
 Using App Insights requires setting specific configuration options. This is also generated in the application settings files in a section named `AzureInsightsTelemetryOptions`. For example:
 
 ```json
-"AzureInsightsTelemetryOptions": {
+  "AzureInsightsTelemetryOptions": {
     "DefaultProperties": {
-        "Lithium-Service": "FileStore"
+      "Lithium-Service": "Notifications"
+    },
+    "DependencyTracking": {
+      "IgnoreNotFoundCommands": [
+        "*.table.core.windows.net*"
+      ]
     },
     "DeveloperMode": false,
     "EnableAdaptiveSampling": false,
     "Enabled": true,
     "IgnoreErrors": true,
     "RequestTracking": {
-        "IgnoreAvailabilityTestsRequests": true,
-        "TrackRequestHeaders": true,
-        "TrackResponseHeaders": false
+      "IgnoreAvailabilityTestsRequests": true,
+      "IgnoreNotFoundPaths": [
+        "/api/*"
+      ],
+      "TrackRequestHeadersPaths": [
+        "/api/*"
+      ],
+      "TrackResponseHeadersPaths": [
+        "/api/*"
+      ]
     }
-}
+  }
 ```
 
 `AzureInsightsTelemetryOptions.InstrumentationKey` needs to be configured in a custom application settings file to point to a specific Azure Application Insights resource.

@@ -16,19 +16,27 @@ The following options are available:
 - `EnableAdaptiveSampling` (default is false) - adaptive sampling ensures that only a portion of the telemetry records will actually be recorded by Application Insights.
 - `DefaultProperties` (optional) - a dictionary containing key/value pairs that will appended to all telemetry records.
 - `RequestTracking` (optional) - a set of properties specific to requests tracking (see `RequestTrackingOptions)`.
+- `DependencyTracking` (optional) - a set of properties specific to dependencies tracking (see `DependencyTrackingOptions)`.
 - `TelemetryChannel` (optional) - the telemetry channel that should be used by Application Insights (useful only for unit testing).
 
 ### RequestTrackingOptions
 
 For the specific case of tracking requests to the server, the following options are available:
 
-- `TrackRequestHeaders` (default is false) - when true, all the headers in the request will be appended to request telemetry record in the custom properties (named `RequestHeader-*`).
-- `TrackResponseHeaders` (default is false) - when true, all the headers in the response will be appended to request telemetry record in the custom properties (named `ResponseHeader-*`).
+- `TrackRequestHeadersPaths` (default is empty) - when set, all the request headers for any request that matches one of the specified paths will be appended to request telemetry record in the custom properties (named `RequestHeader-*`).
+- `TrackResponseHeadersPaths` (default is empty) - when set, all the response headers for any request that matches one of the specified paths will be appended to request telemetry record in the custom properties (named `ResponseHeader-*`).
+- `IgnoreNotFoundPaths` (default is empty) - when set, any request that returns 404 (NotFound) and matches one of the specified paths will not be tracked by telemetry.
 - `IgnoreAvailabilityTestsRequests` (default is false), when true, any requests resulting from availability tests will not be collected.
 
 > Availability tests typically cause noise in the telemetry records that make it more difficult to diagnose problems because of the quantity of records produced. Simply ignoring those requests is usually a good idea.
 
 > `IgnoreAvailabilityTestsRequests` has effect only on requests telemetry. It as no effect on dependencies, traces, metrics, etc.
+
+### DependencyTrackingOptions
+
+For the specific case of tracking dependencies from the server, the following options are available:
+
+- `IgnoreNotFoundCommands` (default is empty) - when set, any dependency that returns 404 (NotFound) and matches one of the specified commands will not be tracked by telemetry.
 
 ### Configuration
 
@@ -47,9 +55,21 @@ Here is an example of the configuration section in the settings file:
         "CustomProperty1": "CustomValue1"
     },
     "RequestTracking": {
-        "TrackRequestHeaders": true,
-        "TrackResponseHeaders": true,
+        "TrackRequestHeadersPaths": [
+            "/api/*"
+        ],
+        "TrackResponseHeadersPaths": [
+            "/api/*"
+        ],
+        "IgnoreNotFoundPaths": [
+            "/api/*"
+        ],
         "IgnoreAvailabilityTestsRequests": true
+    },
+    "RequestTracking": {
+        "IgnoreNotFoundCommands": [
+            "*.table.core.windows.net*"
+        ]
     }
 }
 ```
@@ -113,6 +133,9 @@ mechanisms provided by Application Insights (see Telemetry Initializers).
 
 Dependency tracking is also automatically initialized after initializing the service.
 
+You can customize how that tracking takes place by configuration (see `DependencyTrackingOptions`). You can also use the extensibility
+mechanisms provided by Application Insights (see Telemetry Initializers).
+
 ### Logging
 
 After initializing the services, logging through Application Insights (via trace records) will also be initialized but the concrete behavior will depend, as
@@ -151,18 +174,18 @@ using the extension methods described before.
 
 > Telemetry initializers should be added to the service collection BEFORE the telemetry service is configured.
 
-#### `RequestHeadersTelemetryInitializer`
+#### `RequestHeadersRequestTelemetryInitializer`
 
-`RequestHeadersTelemetryInitializer` allows adding the request headers to request telemetry records as custom properties named `RequestHeader-*`.
+`RequestHeadersRequestTelemetryInitializer` allows adding the request headers to request telemetry records as custom properties named `RequestHeader-*`.
 
 It allows you to specify which headers for which requests you want tracked.
 
-If you want to track all request headers for all requests, you can simply rely on the default behavior of `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry` and set the `RequestTrackingOptions.TrackRequestHeaders` to true.
+If you want to track all request headers for all requests, you can simply rely on the default behavior of `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry` and set `RequestTrackingOptions.TrackRequestHeadersPaths`.
 
 This is the same as adding the initializer yourself like this:
 
 ```csharp
-services.AddSingleton<ITelemetryInitializer, RequestHeadersTelemetryInitializer>();
+services.AddSingleton<ITelemetryInitializer, RequestHeadersRequestTelemetryInitializer>();
 
 services.AddAzureInsightsTelemetry();
 ```
@@ -173,7 +196,7 @@ If you want either to track specific headers and/or track them for specific requ
 services.AddSingleton<ITelemetryInitializer>(
     (provider) =>
     {
-        return new RequestHeadersTelemetryInitializer(provider)
+        return new RequestHeadersRequestTelemetryInitializer(provider)
         {
             Requests = RequestTelemetryInitializerBehavior.Specified,
             RequestPaths = new List<string>()
@@ -181,7 +204,7 @@ services.AddSingleton<ITelemetryInitializer>(
                 "/api/*",
                 "*/mycontroller/*"
             },
-            Headers = HeadersTelemetryInitializerBehavior.Specified,
+            Headers = HeadersRequestTelemetryInitializerBehavior.Specified,
             HeaderNames = new List<string>()
             {
                 "Header1",
@@ -193,18 +216,18 @@ services.AddSingleton<ITelemetryInitializer>(
 services.AddAzureInsightsTelemetry();
 ```
 
-#### `ResponseHeadersTelemetryInitializer`
+#### `ResponseHeadersRequestTelemetryInitializer`
 
-`ResponseHeadersTelemetryInitializer` allows adding the response headers to request telemetry records as custom properties named `ResponseHeader-*`.
+`ResponseHeadersRequestTelemetryInitializer` allows adding the response headers to request telemetry records as custom properties named `ResponseHeader-*`.
 
 It allows you to specify which headers for which requests you want tracked.
 
-If you want to track all response headers for all requests, you can simply rely on the default behavior of `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry` and set the `RequestTrackingOptions.TrackResponseHeaders` to true.
+If you want to track all response headers for all requests, you can simply rely on the default behavior of `AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry` and set `RequestTrackingOptions.TrackResponseHeadersPaths`.
 
 This is the same as adding the initializer yourself like this:
 
 ```csharp
-services.AddSingleton<ITelemetryInitializer, ResponseHeadersTelemetryInitializer>();
+services.AddSingleton<ITelemetryInitializer, ResponseHeadersRequestTelemetryInitializer>();
 
 services.AddAzureInsightsTelemetry();
 ```
@@ -215,7 +238,7 @@ If you want either to track specific headers and/or track them for specific requ
 services.AddSingleton<ITelemetryInitializer>(
     (provider) =>
     {
-        return new ResponseHeadersTelemetryInitializer(provider)
+        return new ResponseHeadersRequestTelemetryInitializer(provider)
         {
             Requests = RequestTelemetryInitializerBehavior.Specified,
             RequestPaths = new List<string>()
@@ -223,7 +246,7 @@ services.AddSingleton<ITelemetryInitializer>(
                 "/api/*",
                 "*/mycontroller/*"
             },
-            Headers = HeadersTelemetryInitializerBehavior.Specified,
+            Headers = HeadersRequestTelemetryInitializerBehavior.Specified,
             HeaderNames = new List<string>()
             {
                 "Header1",
@@ -235,14 +258,14 @@ services.AddSingleton<ITelemetryInitializer>(
 services.AddAzureInsightsTelemetry();
 ```
 
-#### `StatusCodeTelemetryInitializer`
+#### `StatusCodeRequestTelemetryInitializer`
 
-`StatusCodeTelemetryInitializer` allows making App Insights treat a given status code response as success instead of error. This is useful, for example, for 404 return code, which are treated by default as errors but are normal responses for Web API endpoints.
+`StatusCodeRequestTelemetryInitializer` allows making App Insights treat a given status code response as success instead of error. This is useful, for example, for 404 return code, which are treated by default as errors but are normal responses for Web API endpoints.
 
 It is possible to handle all responses, regardless of the request path:
 
 ```csharp
-services.AddSingleton<ITelemetryInitializer, StatusCodeTelemetryInitializer>();
+services.AddSingleton<ITelemetryInitializer, StatusCodeRequestTelemetryInitializer>();
 ```
 
 > `HttpStatusCode.NotFound` is the default value for the `StatusCode` property of the initializer.
@@ -253,7 +276,7 @@ Or handle specific status codes and request paths:
 services.AddSingleton<ITelemetryInitializer>(
     (provider) =>
     {
-        return new StatusCodeTelemetryInitializer(provider)
+        return new StatusCodeRequestTelemetryInitializer(provider)
          {
              Requests = RequestTelemetryInitializerBehavior.Specified,
              RequestPaths = new List<string>()
