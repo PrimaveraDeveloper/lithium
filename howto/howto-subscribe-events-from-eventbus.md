@@ -173,7 +173,7 @@ internal partial class MyEventHandler : IEventBusEventHandler<string>
     {
         // Event received
 
-        this.Logger.LogDebug($"Event received: {eventBusEvent.Body}.");
+        this.Logger.LogInformation($"Event received: {eventBusEvent.Body}.");
 
         // Handled
 
@@ -227,7 +227,7 @@ internal partial class SubscribeEventsService
         IEventBusEventHandler<string> handler = new MyEventHandler(this.ServiceProvider);
 
         await this.EventBusService
-            .SubscribeAsync("sample", handler)
+            .SubscribeAsync("sample", "sample", handler, cancellationToken)
             .ConfigureAwait(false);
     }
 

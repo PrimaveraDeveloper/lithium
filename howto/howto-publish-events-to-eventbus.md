@@ -141,16 +141,14 @@ protected override async Task<IActionResult> PublishSimpleEventCoreAsync()
 {
     // Build the event
 
-    IEventBusEvent<string> evt = new AzureEventBusEvent<string>()
+    IEventBusEvent<string> @event = new AzureEventBusEvent<string>()
     {
         Body = "This is a simple event"
     };
 
     // Publish the event
 
-    await this.EventBusService.PublishAsync(
-        "sample", 
-        evt)
+    await this.EventBusService.PublishAsync("sample", @event)
         .ConfigureAwait(false);
 
     // Done
