@@ -69,8 +69,8 @@ Here's an example:
 
 ```json
 {
-    "ThrottlingOptions" : {
-        "ClientRateLimiting" : {
+    "ThrottlingOptions": {
+        "ClientRateLimiting": {
             "ClientWhitelist": [
                 "client1",
                 "client2"
@@ -99,10 +99,10 @@ Here's an example:
                     ]
                 }
             ]
-        }
-        "Caching" : {
-            "ClientRulePrefix" : "MYAPP_CR",
-            "RateLimitCounterPrefix" : "MYAPP_RC"
+        },
+        "Caching": {
+            "ClientRulePrefix": "MYAPP_CR",
+            "RateLimitCounterPrefix": "MYAPP_RC"
         }
     }
 }

@@ -14,13 +14,12 @@ The `ITaskboxService` interface defines the abstraction for the engine that exec
 
 Method | Description
 :--- | :---
-StartAsync | Starts the taskbox service.
-StartAsync(TConfig config) | Starts the taskbox service with the specified configuration.
-StopAsync | Stops the taskbox service.
-ExecuteTask(`TTask` task) | Executes the specified task asynchronously.
-CancelTask(int id) | Cancels the task with the specified id.
-GetRunningTasks() | Gets the running tasks.
-ExecuteTaskAsync(funcs) |  Executes the specified task asynchronously.
+`StartAsync` | Starts the taskbox service.
+`StartAsync(TConfig config)` | Starts the taskbox service with the specified configuration.
+`StopAsync` | Stops the taskbox service.
+`ExecuteTaskAsync(Func<Task>)` |  Executes the specified task asynchronously.
+`CancelTask(int id)` | Cancels the task with the specified id.
+`GetRunningTasks()` | Gets the running tasks.
 
 ### IBackgroundTaskboxQueueTask
 
@@ -28,9 +27,9 @@ The `IBackgroundTaskboxQueueTask{TTask}` interface defines the abstraction for t
 
 Method | Description
 :--- | :---
-QueueTask | Queues the `TTask`.
-QueueTasks |  Queues the `TTask`'s.
-DequeueTaskAsync | Dequeues the `TTask` asynchronouly.
+`QueueTask` | Queues the `TTask`.
+`QueueTasks` |  Queues the `TTask`'s.
+`DequeueTaskAsync` | Dequeues the `TTask` asynchronously.
 
 ### ITaskboxInvoker
 
@@ -38,8 +37,8 @@ The `ITaskboxInvoker{TTask}` interface defines the abstraction used to invoke a 
 
 Method | Description
 :--- | :---
-InvokeTrigger | Invokes the `TTask` trigger.
-InvokeActions |  Invokes the `TTask` actions.
+`InvokeTrigger` | Invokes the `TTask` trigger.
+`InvokeActions` |  Invokes the `TTask` actions.
 
 ### IEventBusManager
 
@@ -47,8 +46,8 @@ The `IEventBusManager{T}` interface defines the abstraction used for subscribing
 
 Method | Description
 :--- | :---
-SubscribeAsync | Subscribes the specified event.
-UnsubscribeAsync |  Unsubscribes the specified event type.
+`SubscribeAsync` | Subscribes the specified event.
+`UnsubscribeAsync` |  Unsubscribes the specified event type.
 
 ### IEventBusServiceFactory
 
@@ -56,14 +55,14 @@ The `IEventBusServiceFactory{TService, TStrategy}` interface defines the abstrac
 
 Method | Description
 :--- | :---
-GetEventBusService | Gets the event bus service based on a strategy.
+`GetEventBusService` | Gets the event bus service based on a strategy.
 
 ### ITaskboxSchedulerFactory
 
 The `ITaskboxSchedulerFactory{TScheduler}` interface defines the abstractions used to implement a scheduler factory.
 Method | Description
 :--- | :---
-GetSchedulerAsync | Gets the scheduler instance.
+`GetSchedulerAsync` | Gets the scheduler instance.
 
 ## Components
 
@@ -73,7 +72,7 @@ The `ITrigger{T, TConfig}` interface defines the abstraction for the trigger, wh
 
 Method | Description
 :--- | :---
-RunAsync(channels, config) | Asynchronously runs the trigger.
+`RunAsync(channels, config)` | Asynchronously runs the trigger.
 
 ### IAction
 
@@ -81,7 +80,7 @@ The `IAction{T, TConfig}` interface defines the abstraction for the action, whic
 
 Method | Description
 :--- | :---
-RunAsync(channel, config) | Asynchronously runs the action.
+`RunAsync(channel, config)` | Asynchronously runs the action.
 
 ### Supplementary types
 
@@ -89,4 +88,4 @@ Use the abstract classes provided in the concrete implementations to create, cus
 
 ## Implementations
 
-[Primavera.Hydrogen.Taskbox](./taskbox.md)
+[Primavera.Hydrogen.Taskbox](./Taskbox.md)
