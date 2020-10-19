@@ -38,6 +38,7 @@ The following domain entities are available (ordered alphabetically):
 - [Model](#model)
 - [Regular Expression](#regularexpression)
 - [Service](#service)
+- [Service Dependency](#servicedependency)
 - [Webhook](#webhook)
 
 ### <a name="service"></a>Service
@@ -84,8 +85,8 @@ The most important properties of a model are:
 | - | - | - |
 | `Base Model` | Another model that acts as the base for this one (in terms of inheritance) | SettingData |
 | `Inheritance Modifier` | A modifier that allows making a model abstract (for inheritance) | None |
-| `Is Visible` | A value indicating whether the model is visible for the client library | True |
 | `Name` | The name of the model | ProductSettingData |
+| `Visibility` | Allows indicating whether the model is only visible in the Web API | All |
 
 As you would expect, a model can have one or more properties and these can be of 3 kinds:
 
@@ -97,12 +98,11 @@ The following properties, among others, are available for **Scalar** properties:
 
 | Property | Description | Example |
 | - | - | - |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
 | `Default Value` | The property default value | 0 |
 | `Display Name` | The property display name | Identifier |
-| `Is Dictionary` | Indicates whether the property is a dictionary of elements of the specified type (indexed by a string) | False |
-| `Is List` | Indicates whether the property is a list of elements of the specified type | False |
 | `Is Nullable` | Indicates whether the property is nullable (for value types) | False |
-| `Is Read-only` | A value indicating that the property cannot be modified after the model is first created | False |
+| `Kind` | The kind of property (normal or calculated) | Normal |
 | `Name` | The property name | Id |
 | `Type` | The property type | Guid |
 
@@ -110,23 +110,21 @@ The following properties are available for **Enumeration** properties:
 
 | Property | Description | Example |
 | - | - | - |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
 | `Default Value` | The property default value | ValueKind.Value |
 | `Display Name` | The property display name | Identifier |
-| `Is Dictionary` | Indicates whether the property is a dictionary of elements of the specified type 
-| `Is List` | Indicates whether the property is a list of elements of the specified type | False |
-| `Is Read-only` | A value indicating that the property cannot be modified after the model is first created | False |
 | `Name` | The property name | Id |
+| `Kind` | The kind of property (normal or calculated) | Normal |
 | `Referenced Enumeration` | The enumeration that is referenced by the property | ValueKind |
 
 The following properties are available for **Model** properties:
 
 | Property | Description | Example |
 | - | - | - |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
 | `Display Name` | The property display name | Identifier |
-| `Is Dictionary` | Indicates whether the property is a dictionary of elements of the specified type 
-| `Is List` | Indicates whether the property is a list of elements of the specified type | False |
-| `Is Read-only` | A value indicating whether the property cannot be modified after the model is first created | False |
 | `Name` | The property name | Id |
+| `Kind` | The kind of property (normal or calculated) | Normal |
 | `Referenced Model` | The model that is referenced by the property | ValueData |
 
 > You can model simple 1:N relations, for example, by having model A have a model property that references model B and setting that property to a be list.
@@ -163,9 +161,9 @@ The most important properties of a controller are:
 | - | - | - |
 | `Authorization Mode` | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
 | `Authorization Policy` | The name of the policy used for authorization by the controller actions | (default) |
-| `Is Visible` | A value indicating whether the controller is visible for the client library | True |
 | `Name` | The name of the controller | UserSettings |
 | `Route` | The base route for all the child actions | /api/v{version:apiVersion}/usersettings |
+| `Visibility` | Allows indicating whether the controller is only visible in the Web API | All |
 
 > Notice that it is possible to share the same authorization policy among the controller actions but it is also possible to specify different policies for different actions of the same controller.
 
@@ -182,12 +180,12 @@ The most important properties of a controller action are:
 | `Authorization Mode` | A value indicating whether the action uses authorization (with Identity Server) or not | On |
 | `Authorization Policy` | The name of the policy used for authorization by action | (controller) |
 | `HTTP Method` | The HTTP method used | Get |
-| `Is Visible` | A value indicating whether the action is visible for the client library | True |
 | `Name` | The name of the operation | GetUserSetting |
-| `Return Type Is List` | A value indicating whether the action returns a list of items of the specified type | False |
+| `Return Value Cardinality` | Indicates whether the return value is single, a list, or a dictionary | Single |
 | `Return Value Type` | The type of the return value (can be scalar or a model) | Model |
 | `Route` | The complete route of the endpoint | GET /api/v{version:apiVersion}/usersettings/{userId}/{key} |
 | `Success Status Code` | The HTTP status code that is returned when the operation succeeds | Ok |
+| `Visibility` | Allows indicating whether the controller action is only visible in the Web API | All |
 
 > Note that an action may return a result or not depending on the HTTP method in use (for example, a GET always returns a value).
 
@@ -246,6 +244,20 @@ A dependency as only one important property:
 | Property | Description | Example |
 | - | - | - |
 | `Kind` | The kind of dependency that should be added | BlobStorage |
+
+### <a name="servicedependency"></a>Service Dependency
+
+Service dependencies allow describing the dependencies of other Lithium microservices.
+
+![Service Dependency](./_assets/servicedependency.png "Service Dependency")
+
+> These dependencies will affect the code generated for the microservices and, in most cases, will just work out the box (without requiring the developer to add any custom code).
+
+A service dependency as only one important property:
+
+| Property | Description | Example |
+| - | - | - |
+| `Service` | The name of the service | Certificates |
 
 ### <a name="webhook"></a>Webhook
 

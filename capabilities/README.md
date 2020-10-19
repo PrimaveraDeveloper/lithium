@@ -50,6 +50,7 @@ This the list of all the capabilities (order alphabetically):
 - [SMS](./sms.md)
 - [Storage](./storage.md)
 - Tables (see [Storage](./storage.md))
+- [Throttling](./throttling.md)
 - [Unit Tests](./unit-tests.md)
 - [User-agent Parsing and Device Detection](./user-agent.md)
 - [User Interface](./ui.md)

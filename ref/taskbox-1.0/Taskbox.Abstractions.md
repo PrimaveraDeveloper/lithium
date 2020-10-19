@@ -1,16 +1,10 @@
-<!-- REFERENCES -->
-
-[REF_TBX]: ./Taskbox.md
-
-<!-- DOCUMENT -->
-
 # Primavera.Hydrogen.Taskbox.Abstractions
 
 **Class library that contains types that define abstractions for the taskbox design pattern.**
 
 ## About
 
-This abstraction defines taskbox design pattern interfaces. This abstraction helps to implement a taskbox for a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+This abstraction defines taskbox design pattern interfaces. This abstraction helps to implement a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
 
 ## Abstractions
 
@@ -95,4 +89,4 @@ Use the abstract classes provided in the concrete implementations to create, cus
 
 ## Implementations
 
-[Primavera.Hydrogen.Taskbox][REF_TBX]
+[Primavera.Hydrogen.Taskbox](./taskbox.md)

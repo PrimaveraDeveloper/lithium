@@ -1,18 +1,10 @@
-<!-- REFERENCES -->
-
-[REF_TBX]: ./Taskbox.md
-[REF_TBX_ABS]: ./Taskbox.Abstractions.md
-[REF_EBINMEM]: ./EventBus.InMemory.md
-
-<!-- DOCUMENT -->
-
 # Primavera.Hydrogen.Taskbox
 
 **Class library that contains types that implement the taskbox design pattern for asynchronous multi-task processing.**
 
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS]. The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md). The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
 
 ## Taskbox Config
 
@@ -35,7 +27,7 @@ When the task is executed, the trigger will publish an event. The action, on the
 
 #### Trigger
 
-All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md).
 
 - `Trigger{T}`, its purpose is to publish an event with the context.
 
@@ -128,7 +120,7 @@ public class TriggerActionExample : TriggerAction<string>
 
 #### Action
 
-All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions][REF_TBX_ABS].
+All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md).
 
 - `Action{T}`, its purpose is to subscribe to an event and when this is raised it will execute some logic based in the received event payload/context.
 
@@ -224,7 +216,7 @@ Name | Description
 `type` | The action assembly name, this is used by the invoker in order to instantiate this.
 `configStr` | Used to pass parameters to the action.
 
-**Notice**, that the communication between the trigger and the actions is established using the `Primavera.Hydrogen.EventBus.InMemory`. To know more about this component see [this.][REF_EBINMEM]
+**Notice**, that the communication between the trigger and the actions is established using the `Primavera.Hydrogen.EventBus.InMemory`. To know more about this component see [EventBus.InMemory](../hydrogen-2.0/EventBus.InMemory.md).
 
 ## Taskbox Service
 
