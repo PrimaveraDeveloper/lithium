@@ -67,7 +67,7 @@ You can change the access permissions of a container, either:
 
 The public address of a blob is available from: `IBlobReference.Uri`.
 
-## Isolated Storage (`IIsolatedStorageService`)
+# Isolated Storage (`IIsolatedStorageService`)
 
 The `IIsolatedStorageService` allows storing data with isolation and safety, without the need to hard-code information about where the storage is located (typically in the local file system).
 
@@ -75,7 +75,7 @@ Instances of this service should be created via dependency injection (see concre
 
 Once the service is instantiated it allows retrieving a store to save and retrieve files.
 
-### Manipulating Stores and Files
+## Manipulating Stores and Files
 
 Once a reference to a store is obtained, it allows creating files, deleting files and retrieving them.
 
@@ -93,7 +93,7 @@ IIsolatedStore store = service
 store.CreateFile("MyFile.txt", contents);
 ```
 
-## Multi-model Database (`IMultiModelDatabaseService`)
+# Multi-model Database (`IMultiModelDatabaseService`)
 
 The `IMultiModelDatabaseService` allows managing a multi-model database in the cloud using services like Azure CosmosDb.
 
@@ -101,7 +101,7 @@ Instances of this service should be created via dependency injection (see concre
 
 Once the service instance is available it allows retrieving references to databases and to containers inside those databases and perform operations to store and/or retrieve items (documents).
 
-### Manipulating Databases
+## Manipulating Databases
 
 Databases can be created or deleted using this service. First you need to obtain a reference to database and then perform the operations.
 
@@ -114,7 +114,7 @@ IMultiModelDatabase database = service.GetDatabase("MyDatabase");
 await database.CreateAsync().ConfigureAwait(false);
 ```
 
-### Manipulating Containers
+## Manipulating Containers
 
 Containers (collections) reside inside databases and allow storing items (documents). As with databases, you first need to obtain a reference to the container and then perform operations:
 
@@ -126,7 +126,7 @@ IMultiModelContainer container = database.GetContainer("MyContainer");
 await container.CreateIfNotExistsAsync("/partitionKey").ConfigureAwait(false);
 ```
 
-### Manipulating Items
+## Manipulating Items
 
 Items (often also called documents in multi-model database systems) allow storing data inside containers. The operations are available from container references and include:
 
@@ -152,7 +152,7 @@ IList<Customer> customers = await container
     .ConfigureAwait(false);
 ```
 
-## Table Storage (`ITableStorageService`)
+# Table Storage (`ITableStorageService`)
 
 The `ITableStorageService` allows performing operations on a structured (tabular) NoSQL data store in the cloud like the Azure Table Storage.
 
@@ -161,7 +161,7 @@ Instances of this service should be created via dependency injection (see concre
 Once the service instance is available it allows retrieving a reference to a table (that may or may not exist in the storage) and perform operations
 on that table, like creating it or deleting it, or on the records in the table (insert, replace, retrieve).
 
-### Records vs Entities
+## Records vs Entities
 
 You can manipulate the records in a table using the general-purpose `TableRecord` class that holds the record's keys and a dictionary containing all the properties.
 
@@ -210,7 +210,7 @@ MyEntity retrieved = await table
 
 >  `ITableReference` provides asynchronous methods - e.g. `CreateIfNotExistsAsync()` - and synchronous methods - e.g. `Delete()`.
 
-### Supported Data Types
+## Supported Data Types
 
 You can storage properties using the ITableStorageService for the following types:
 
@@ -231,7 +231,7 @@ When using entities that following types are also supported (although stored as 
 
 > The `DateTimeOffset` values will always be stored in UTC.
 
-### Retrieving Data
+## Retrieving Data
 
 The service provides multiple functions to retrieve records or entities from the table.
 
@@ -271,7 +271,33 @@ IList<MyEntity> entities = await table
 
 > How you create `ITableQuery` instances depends on the concrete implementation of the service. See that documentation for more details.
 
-### Modeling Entities
+## Paging
+
+The ITableStorageService API also supports paging.
+
+If you invoke RetrieveRecordsAsync, all the matching records will be returned.
+
+But there is the option to invoke RetrieveRecordsPageAsync and pass in the number of records per page. This API supports the concept of continuation token, which allow to retrieve one page at time.
+
+```csharp
+TableRecordsPage page1 = await table
+    .RetrieveRecordsPageAsync(
+        key1: "key1",
+        continuationToken: null,
+        maxRecordCount: 20)
+    .ConfigureAwait(false);
+
+(...)
+
+TableRecordsPage page2 = await table
+    .RetrieveRecordsPageAsync(
+        key1: "key1",
+        continuationToken: page1.ContinuationToken,
+        maxRecordCount: 20)
+    .ConfigureAwait(false);
+```
+
+## Modeling Entities
 
 Entities can either simply implement the `ITableEntity` interface or derive from the base class `TableEntity`.
 

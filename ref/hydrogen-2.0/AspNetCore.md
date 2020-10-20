@@ -376,12 +376,22 @@ The code that corresponds to the background service should be implemented in `Ex
 ```csharp
 public class MyBackgroundService : BackgroundService
 {
+    public override bool Enabled
+    {
+        get
+        {
+            // (service is enabled?)
+        }
+    }
+    
     protected override Task ExecuteAsync(CancellationToken cancellationToken)
     {
         // (do work)
     }
 }
 ```
+
+> `Enabled` allows enabling or disabling the background service based on some condition (e.g. configuration). This is particularly important when hosting the applications in Azure (see Concurrency).
 
 This kind of background services should be registered in the application startup using the extension methods available in `BackgroundServicesServiceCollectionExtensions`:
 
@@ -398,6 +408,14 @@ The actual work should be implemented in `ExecuteWorkAsync`:
 ```csharp
 public class MyTimedBackgroundService : TimedBackgroundService
 {
+    public override bool Enabled
+    {
+        get
+        {
+            // (service is enabled?)
+        }
+    }
+    
     protected override Task ExecuteWorkAsync(CancellationToken cancellationToken)
     {
         // (do work)
@@ -408,14 +426,11 @@ public class MyTimedBackgroundService : TimedBackgroundService
 The wait interval needs to be defined in the `WaitPeriod` property:
 
 ```csharp
-public class MyTimedBackgroundService : TimedBackgroundService
+public override TimeSpan WaitPeriod
 {
-    public override TimeSpan WaitPeriod
+    get
     {
-        get
-        {
-            return TimeSpan.FromSeconds(1);
-        }
+        return TimeSpan.FromSeconds(1);
     }
 }
 ```
@@ -431,11 +446,19 @@ services.AddBackgroundServiceTimed<MyTimedBackgroundService();
 `QueuedBackgroundService<TWorkItem>` allows building background services that execute work when work items become available in a queue. This is particularlly useful when you want to
 have the background service act on response of some event hapenning in the application. The work item itself can be a class of any kind and can be used to pass in contextual data to drive the execution of the background service.
 
-The actual work should be implemented in ExecuteWorkAsync:
+The actual work should be implemented in `ExecuteWorkAsync`:
 
 ```csharp
 public class MyQueuedBackgroundService : QueuedBackgroundService<string>
 {
+    public override bool Enabled
+    {
+        get
+        {
+            // (service is enabled?)
+        }
+    }
+    
     protected override Task ExecuteWorkAsync(string workItem, CancellationToken cancellationToken)
     {
         // (do work)
@@ -446,14 +469,11 @@ public class MyQueuedBackgroundService : QueuedBackgroundService<string>
 The background service requires a queue to get its work items. This is defined in the Queue property and tipically (not necessarilly) it should be provided via dependency injection (to allow the external sources to queue work items):
 
 ```csharp
-public class MyQueuedBackgroundService : QueuedBackgroundService<string>
+public override IBackgroundWorkQueue<string> Queue
 {
-    public override IBackgroundWorkQueue<string> Queue
+    get
     {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<string>>();
-        }
+        return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<string>>();
     }
 }
 ```
@@ -473,6 +493,14 @@ A worker is any class derived from `BackgroundWorker`:
 ```csharp
 public class MyWorker : BackgroundWorker
 {
+    public override bool Enabled
+    {
+        get
+        {
+            // (worker is enabled?)
+        }
+    }
+    
     public override Task ExecuteAsync(CancellationToken cancellationToken)
     {
         // (do work)
@@ -486,7 +514,7 @@ This concept allows creating timed and queued background services that share a c
 - `TimedBackgroundServiceWithWorker<TWorker>`
 - `QueuedBackgroundServiceWithWorker<TWorker>`
 
-The extension methods for IServiceCollection are:
+The extension methods for `IServiceCollection` are:
 
 - `AddBackgroundServiceWithWorker<TBackgroundService, TBackgroundWorker>()`
 - `AddBackgroundServiceTimedWithWorker<TTimedBackgroundService, TBackgroundWorker>()`
@@ -499,6 +527,8 @@ Here is an example:
 ```csharp
 public class BackgroundServiceTimed : TimedBackgroundService
 {
+    public override bool Enabled => !this.HostEnvironmentExtension.IsPreviewSlot();
+    
     public override TimeSpan WaitPeriod
     {
         get
@@ -529,6 +559,8 @@ public class BackgroundServiceTimed : TimedBackgroundService
 
 public class BackgroundServiceQueued : QueuedBackgroundServiceWithWorker<MyWorker>
 {
+    public override bool Enabled => !this.HostEnvironmentExtension.IsPreviewSlot();
+    
     public override IBackgroundWorkQueue<MyWorker> Queue
     {
         get
@@ -550,3 +582,15 @@ public void ConfigureServices(IServiceCollection services)
     services.AddBackgroundServiceQueuedWithWorker<BackgroundServiceQueued, MyWorker>();
 }
 ```
+
+#### Concurrency
+
+You need to keep in mind the host application environment when building background services. Depending on that environment, you will need to deal with concurrency - in the sense of multiple instances of same background service executing the same "job".
+
+When you host an application in Azure, typically you also implement scalling and fail-over mechanisms and that will result in multiple instances of the application running at the same time. The imediate effect of that is that will you have multiple instances of the same background service running. So you will need to implement a strategy to avoid them conflicting with each other (e.g. executing the same operation at the same, resulting in duplicate behavior).
+
+The abstract classes in Hydrogen provide some features to help with that:
+
+- The `Enabled` property allows to simply disable the service/worker instance based on some condition (e.g. the environment where the service/worker is running).
+- `AcquireLockAsync` and `ReleaseLockAsync` provide a simple locking mechanism (based on a record store in a distributed cache) to ensure that only one instance of each background service is running at any given moment.
+- `IHostEnvironmentExtensions` is a service that provides additional information about the environment that can be used in complement with the two previous features. For example, the `IsPreviewSlot()` method allows recognizing that the service/worker is running the preview slot of the production environment (to avoid conflicts between the "old instances", those running in the preview slot, and the "new instances", those running in production).

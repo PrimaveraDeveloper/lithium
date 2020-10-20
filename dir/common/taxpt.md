@@ -12,12 +12,12 @@ The current version supports the following Tax Authority services:
 ## Specification
 
 <!-- markdown-link-check-disable -->
-|| Metadata | Value |
+| Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.TaxAuthority.Portugal |
-| Version | 2.0 |
-| API Versions | N/A |
-| Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal)) (single assembly) |
+| Version | 3.0 |
+| API Versions | 3.0 |
+| Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal) (single assembly) |
 | Web UI | No |
 | Depends on | IDS, CS |
 <!-- markdown-link-check-enable -->
@@ -26,25 +26,15 @@ The current version supports the following Tax Authority services:
 
 | Scope | Description |
 | - | - |
+| `lithium-taxauthority-portugal` | Required to access the Tax Authority Portugal Service endpoints |
 | `lithium-certificates` | Required to access the Certificates Service endpoints |
-
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | N/A |
-| Preview (WE) | N/A |
-| Preview (NE) | N/A |
-| Staging (WE) | N/A |
-| Staging (NE) | N/A |
-| Development | N/A |
 
 ## Reference Documentation
 
 <!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
-| Spec | [2.0](./specs/taxpt-spec-2.0.md) |
-| Client Library | [2.0](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?_a=preview&path=%24%2FLithium%2FMicroservices%2FCommon%2FTAXPT%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) (TFS) |
-| Web API | N/A |
+| Spec | [3.0](./specs/taxpt-spec-2.0.md), [2.0](./specs/taxpt-spec-2.0.md) |
+| Client Library | [2.0](https://taxpt.lithium.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://taxpt.lithium.primaverabss.com/.doc/webapi) |
 <!-- markdown-link-check-enable -->
