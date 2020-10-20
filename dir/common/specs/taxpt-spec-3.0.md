@@ -4,9 +4,9 @@ The Tax Authority (Portugal) Service allows integration with the Portuguese Tax 
 
 The current version supports the following Tax Authority services:
 
-- Series
-- Invoices
 - Dispatches
+- Invoices
+- Series
 
 ## Dispatches
 
