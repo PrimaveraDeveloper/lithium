@@ -4,10 +4,9 @@ The Tax Authority (Portugal) Service allows integration with the Portuguese Tax 
 
 The current version supports the following Tax Authority services:
 
-- Invoices
 - Dispatches
-
-> This service provides only a client library that acts as a proxy for the Tax Authority Web services. It does not include a Web API.
+- Invoices
+- Series
 
 ## Specification
 
