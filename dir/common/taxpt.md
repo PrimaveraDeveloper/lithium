@@ -33,7 +33,7 @@ The current version supports the following Tax Authority services:
 <!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
-| Spec | [3.0](./specs/taxpt-spec-2.0.md), [2.0](./specs/taxpt-spec-2.0.md) |
+| Spec | [3.0](./specs/taxpt-spec-3.0.md), [2.0](./specs/taxpt-spec-2.0.md) |
 | Client Library | [2.0](https://taxpt.lithium.primaverabss.com/.doc/clientlib) |
 | Web API | [2.0](https://taxpt.lithium.primaverabss.com/.doc/webapi) |
 <!-- markdown-link-check-enable -->
