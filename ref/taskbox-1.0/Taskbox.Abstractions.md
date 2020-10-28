@@ -1,4 +1,4 @@
-# Primavera.Hydrogen.Taskbox.Abstractions
+# Primavera.Taskbox.Abstractions
 
 **Class library that contains types that define abstractions for the taskbox design pattern.**
 
@@ -17,19 +17,22 @@ Method | Description
 `StartAsync` | Starts the taskbox service.
 `StartAsync(TConfig config)` | Starts the taskbox service with the specified configuration.
 `StopAsync` | Stops the taskbox service.
-`ExecuteTaskAsync(Func<Task>)` |  Executes the specified task asynchronously.
+`ExecuteTaskAsync(TTask task)` |  Executes the specified task asynchronously.
 `CancelTask(int id)` | Cancels the task with the specified id.
-`GetRunningTasks()` | Gets the running tasks.
+`GetTasksAsync()` | Gets the tasks.
+`GetTasksAsync(int state)` | Gets the tasks by state.
 
-### IBackgroundTaskboxQueueTask
+### ITaskManager
 
-The `IBackgroundTaskboxQueueTask{TTask}` interface defines the abstraction for the background queue that can be used by the `ITaskboxService{TTask, TConfig}` to queue the tasks.
+The `ITaskManager{TTask}` interface defines the abstraction for the task manager that is used by the `ITaskboxService{TTask}` to manage the tasks.
 
 Method | Description
 :--- | :---
-`QueueTask` | Queues the `TTask`.
-`QueueTasks` |  Queues the `TTask`'s.
+`QueueTaskAsync(TTask task)` | Queues the `TTask` asynchronously.
 `DequeueTaskAsync` | Dequeues the `TTask` asynchronously.
+`GetTasksAsync` | Gets the `TTask`'s asynchronously.
+`IsToCancelAsync` | Verifies if `TTask` is to cancel asynchronously.
+`CancelTaskAsync` | Cancels the `TTask` asynchronously.
 
 ### ITaskboxInvoker
 

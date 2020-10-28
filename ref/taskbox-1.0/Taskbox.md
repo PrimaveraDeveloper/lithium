@@ -1,14 +1,14 @@
-# Primavera.Hydrogen.Taskbox
+# Primavera.Taskbox
 
 **Class library that contains types that implement the taskbox design pattern for asynchronous multi-task processing.**
 
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md). The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+This class library is the default implementation of the [Primavera.Taskbox.Abstractions](./taskbox.abstractions.md). The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
 
 ## Taskbox Config
 
-The TaskboxConfig provides the implementation of `<TConfig>` this is a way to define the tasks that are required to execute by the `ITaskboxService{TTask, TConfig}`.
+The TaskboxConfig provides a way to define the tasks that are required to execute by the `ITaskboxService{TTask}`.
 
 ### Task
 
@@ -16,7 +16,7 @@ If you think of what a task box is, you quickly think of something related to ta
 
 ### `TaskConfig`
 
-The `TaskConfig` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask, TConfig}`. This task is composed of a `TriggerConfig` and one or more `ActionConfig`'s.
+The `TaskConfig` defines the task in this implementation, provides the implementation of `<TTask>` used by the `ITaskboxService{TTask}`. This task is composed of a `TriggerConfig` and one or more `ActionConfig`'s.
 
 - `TriggerConfig`, is responsible for starting the actions in a certain period, this holds all the configuration parameters of a trigger.
 - `ActionConfig`, defines the operation that the task has to accomplish, this holds all the configuration parameters of action.
@@ -145,7 +145,7 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
   "tasks": [
     {
       "id": "Task1",
-      "name": "Event Task",
+      "groupName": "Event Task",
       "description": "The task that will handle the events.",
       "contextType": "System.String",
       "active": "True",
@@ -158,7 +158,7 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
     },
     {
       "id": "Task2",
-      "name": "Scheduled task",
+      "groupName": "Scheduled task",
       "description": "The scheduled task.",
       "contextType": "System.String",
       "active": "True",
@@ -191,7 +191,8 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
 Name | Description
 :--- | :---
 `id` | The task identifier.
-`name` | The task name.
+`name` | Used by the cluster mechanism to group the tasks, its value is "Task".
+`groupName` | The task name.
 `description` | The task description.
 `active` | Used to determinate if the task is active, if true the taskbox will process.
 
@@ -249,25 +250,173 @@ Consider the following examples on how to interact with the `TaskboxService`.
 - Execute Task
 
 ```csharp
- this.TaskboxService.ExecuteTask(TbxTask);
+ await this.TaskboxService.ExecuteTaskAsync(TbxTask).ConfigureAwait(false);
 ```
 
 - Cancel Task
 
 ```csharp
- this.TaskboxService.CancelTask("taskId");
+ await this.TaskboxService.CancelTask("taskId").ConfigureAwait(false);
 ```
 
-- Get running tasks
+- Get tasks
 
 ```csharp
- this.TaskboxService.GetRunningTasks();
+ await this.TaskboxService.GetTasksAsync().ConfigureAwait(false);
+```
+
+- Get tasks with the state x
+
+```csharp
+ await this.TaskboxService.GetTasksAsync(1).ConfigureAwait(false);
+```
+
+### `TaskboxClustering`
+
+The Taskbox is used to achieve load balancing, determining instances and task failures, and managing the tasks by the state. This mechanism uses the cosmosDB to register all this information.
+
+When the Taskbox service starts, this will register in the cosmosDB the instance, see the example below.
+
+```json
+{
+    "errorLog": [],
+    "heartbeat": 2,
+    "id": "TBX-instanceId",
+    "lastActiveOn": "2020-10-28T15:48:23.2136683Z",
+    "name": "TaskboxInstance",
+    "ownedTasks": [
+        "MyTask"
+    ],
+    "registeredOn": "2020-10-28T15:05:55.2722938Z",
+    "ttl": 86400,
+    "_rid": "G3x0AAA==",
+    "_self": "dbs/G3x0AA==/colls/G3x0AIZLejk/",
+    "_etag": "\"f3011750-0b070000\"",
+    "_attachments": "attachments/",
+    "_ts": 1603914503
+}
+```
+
+The heartbeat describes the instance state.
+
+```csharp
+    public enum Heartbeat
+    {
+        /// <summary>
+        /// The instance is stopped.
+        /// </summary>
+        Stopped,
+
+        /// <summary>
+        /// The instance is idle.
+        /// </summary>
+        Idle,
+
+        /// <summary>
+        /// The instance is working.
+        /// </summary>
+        Working,
+
+        /// <summary>
+        /// The instance is on error.
+        /// </summary>
+        OnError
+    }
+
+```
+
+If you notice, the instance has owned a task, this means that this instance is responsible for that task and holds its instance. This task will be registered in the cosmosDB as well.
+
+```json
+{
+    "id": "MyTask",
+    "name": "Task",
+    "groupName": "Task",
+    "description": "",
+    "trigger": {
+        "id": "Brito",
+        "name": "Trigger",
+        "description": "",
+        "type": "Primavera.Lithium.Taskbox.WebApi.Reminders.RemindersScheduleTrigger, Primavera.Lithium.Taskbox.WebApi",
+        "configStr": "cronExp=0 * * ? * *",
+        "context": "Hello"
+    },
+    "actions": [
+        {
+            "id": "Action-MyTask",
+            "name": "Action",
+            "description": "",
+            "type": "Primavera.Lithium.Taskbox.WebApi.Reminders.ReminderAction, Primavera.Lithium.Taskbox.WebApi",
+            "configStr": "",
+            "actionState": 0
+        }
+    ],
+    "active": "True",
+    "retryCount": 0,
+    "taskState": 2,
+    "ttl": 604800,
+    "isCanceled": true,
+    "_rid": "G3x0AIZLejkSAAAAAAAAAA==",
+    "_self": "dbs/G3x0AA==/colls/G3x0AIZLejk=/docs/G3x0AIZLejkSAAAAAAAAAA==/",
+    "_etag": "\"f301274f-0000-0d00-0000-5f99cac00000\"",
+    "_attachments": "attachments/",
+    "_ts": 1603914432
+}
+
+```
+
+As you can see the task that is registered is a `TaskConfig` but with some additional information, such as:
+
+- taskState;
+- retryCount;
+- isCanceled;
+- ttl;
+
+The task state defines as the name implies the state of the task. See the code bellow.
+
+```csharp
+    public enum TaskState
+    {
+        /// <summary>
+        /// The task is a new task.
+        /// </summary>
+        New,
+
+        /// <summary>
+        /// The task is queued.
+        /// </summary>
+        Queued,
+
+        /// <summary>
+        /// The task is processing.
+        /// </summary>
+        Processing,
+
+        /// <summary>
+        /// The task is completed.
+        /// </summary>
+        Completed,
+
+        /// <summary>
+        /// The task is canceled.
+        /// </summary>
+        Canceled,
+
+        /// <summary>
+        /// The task is on error.
+        /// </summary>
+        OnError
+    }
 ```
 
 ### `TaskboxEngine`
 
 The `TaskboxEngine` is the hearth of this service, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0).  
 This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `TaskboxInvoker` to invoke the trigger and the actions. This engine also has a BackgroundQueue where it's waiting for tasks to process.
+
+### `TaskManager`
+
+The `TaskManager` is the bridge between the engine and the cluster. This is responsible for managing the tasks. Such as queuing, processing, canceling, and treat them when an error occurs. Every time the task changes from one operation to another this manager will update the task state in the cluster storage.
 
 ### `TaskboxInvoker`
 
