@@ -412,7 +412,7 @@ The task state defines as the name implies the state of the task. See the code b
 ### `TaskboxEngine`
 
 The `TaskboxEngine` is the hearth of this service, it implements the [BackgroundService](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice?view=dotnet-plat-ext-3.0).  
-This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `TaskboxInvoker` to invoke the trigger and the actions. This engine also has a BackgroundQueue where it's waiting for tasks to process.
+This is responsible for executing all the tasks and funcs that are received from the `TaskboxService`. To accomplish the execution of those tasks the engine uses the `TaskboxInvoker` to invoke the trigger and the actions. This engine used the `TaskManager` to manage the tasks.
 
 ### `TaskManager`
 
