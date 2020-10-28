@@ -169,7 +169,7 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
         "type": "Primavera.Hydrogen.Taskbox.ScheduledTrigger, Primavera.Hydrogen.Taskbox",
         "configStr": "",
         "context":"",
-        "cronExp": "Seconds=0; Minutes=29; Hours=12;"
+        "cronExp": "0 0 * ? * *"
       },
       "actions": [
         {
