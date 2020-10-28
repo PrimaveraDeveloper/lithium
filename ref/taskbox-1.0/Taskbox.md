@@ -502,3 +502,5 @@ CronCollection cronCollection = new CronCollection(crons);
 DateTimeOffset instant = cronCollection.GetNextOccurrenceInstant();
 
 ```
+
+> Notice, that to use the `TaskboxService` you will need the MultiModelDatabase and the RedisCache dependency because of the clustering mechanism.
