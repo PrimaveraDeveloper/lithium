@@ -1,7 +1,7 @@
 <!-- REFERENCES -->
 
 [REF_PHP]: ./Pipeboxes.md
-[REF_PHTA]: ./Taskbox.md
+[REF_PHTA]: ../taskbox-1.0/Taskbox.md
 
 <!-- DOCUMENT -->
 
