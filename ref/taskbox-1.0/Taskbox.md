@@ -412,15 +412,16 @@ The `taskState` defines as the name implies the state of the task. See the code 
     }
 ```
 
-The `retryCount` defines how many times the tasks was re-processed after it was on error.
+The `retryCount` defines how many times the tasks were re-processed after it was on error.
 
-The `isCanceled` defines if the task was canceled on the istance that it was running.
+The `isCanceled` defines if the task was cancelled on the instance that it was running.
 
 The `ttl` defines when the task will expire and will be removed from clustering storage.
 
-The `isMultiInstance` defines if this task should run on all avalible instances.
+The `isMultiInstance` defines if this task should run on all available instances.
 
 The `isChild` defines that this task is a child of the multi-instance task (copy of the multi-instance parent task).
+
 
 ### `TaskboxEngine`
 
