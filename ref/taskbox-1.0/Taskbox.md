@@ -354,7 +354,9 @@ If you notice, the instance has owned a task, this means that this instance is r
     "retryCount": 0,
     "taskState": 2,
     "ttl": 604800,
-    "isCanceled": true,
+    "isCanceled": false,
+    "isMultiInstance": false,
+    "isChild": false,
     "_rid": "G3x0AIZLejkSAAAAAAAAAA==",
     "_self": "dbs/G3x0AA==/colls/G3x0AIZLejk=/docs/G3x0AIZLejkSAAAAAAAAAA==/",
     "_etag": "\"f301274f-0000-0d00-0000-5f99cac00000\"",
@@ -370,8 +372,10 @@ As you can see the task that is registered is a `TaskConfig` but with some addit
 - retryCount;
 - isCanceled;
 - ttl;
+- isMultiInstance;
+- isChild;
 
-The task state defines as the name implies the state of the task. See the code bellow.
+The `taskState` defines as the name implies the state of the task. See the code bellow.
 
 ```csharp
     public enum TaskState
@@ -407,6 +411,16 @@ The task state defines as the name implies the state of the task. See the code b
         OnError
     }
 ```
+
+The `retryCount` defines how many times the tasks was re-processed after it was on error.
+
+The `isCanceled` defines if the task was canceled on the istance that it was running.
+
+The `ttl` defines when the task will expire and will be removed from clustering storage.
+
+The `isMultiInstance` defines if this task should run on all avalible instances.
+
+The `isChild` defines that this task is a child of the multi-instance task (copy of the multi-instance parent task).
 
 ### `TaskboxEngine`
 
