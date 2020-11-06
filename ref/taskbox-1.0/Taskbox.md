@@ -461,7 +461,7 @@ services.AddTaskbox();
 
 ```
 
-**Notice** , that while adding the taskbox service to your service collection, this will carry two external services, the [Pipeboxes](./Pipeboxes.md)  and the [Quartz .Net Scheduler](https://www.quartz-scheduler.net/).  
+**Notice** , that while adding the taskbox service to your service collection, this will carry two external services, the [Pipeboxes](../hydrogen-2.0/Pipeboxes.md)  and the [Quartz .Net Scheduler](https://www.quartz-scheduler.net/).  
 
 ## Scheduling
 
