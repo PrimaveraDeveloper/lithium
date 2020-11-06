@@ -120,7 +120,7 @@ public class TriggerActionExample : TriggerAction<string>
 
 #### Action
 
-All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md).
+All of this action types implement the `IAction{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions](./Taskbox.Abstractions.md).
 
 - `Action{T}`, its purpose is to subscribe to an event and when this is raised it will execute some logic based in the received event payload/context.
 

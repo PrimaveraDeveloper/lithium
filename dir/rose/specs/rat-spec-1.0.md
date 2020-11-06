@@ -4,7 +4,7 @@ Provides asynchronous multi-task processing for ROSE applications or services th
 
 ## RAT Architecture
 
-The RAT microservice implements the Taskbox library to achieve the multi-task processing behavior. To know more about this feature see the [Primavera.Taskbox.](../../../ref/taskbox-1.0/taskbox.md)
+The RAT microservice implements the Taskbox library to achieve the multi-task processing behavior. To know more about this feature see the [Primavera.Taskbox.](../../../ref/taskbox-1.0/Taskbox.md)
 
 ### Pipelines
 

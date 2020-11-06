@@ -158,7 +158,7 @@ To know more about Primavera.Hydrogen.EventBus.Azure can be found [here](../../.
 
 ### Taskbox
 
-To know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/hydrogen-2.0/Taskbox.md).
+To know more about Primavera.Hydrogen.Taskbox can be found [here](../../../ref/taskbox-1.0/Taskbox.md).
 
 ## Details
 <!-- markdown-link-check-disable -->
