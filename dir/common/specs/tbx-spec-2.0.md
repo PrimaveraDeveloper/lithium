@@ -114,7 +114,7 @@ catch (ServiceException ex)
 }
 ```
 
-This method creates in runtime a [`TaskConfig`](../../../ref/hydrogen-2.0/Taskbox.md) based on the received `AsyncTask`. Because the taskbox service uses a scheduler, that stores the task in a database, this means that when the taskbox for some reason is turned off, when it is restarted, it will run the task again.
+This method creates in runtime a [`TaskConfig`](../../../ref/taskbox-1.0/Taskbox.md) based on the received `AsyncTask`. Because the taskbox service uses a scheduler, that stores the task in a database, this means that when the taskbox for some reason is turned off, when it is restarted, it will run the task again.
 
 The following image shows how the schedule async task is processed.
 

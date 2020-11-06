@@ -4,7 +4,7 @@
 
 ## About
 
-This class library is the default implementation of the [Primavera.Taskbox.Abstractions](./taskbox.abstractions.md). The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
+This class library is the default implementation of the [Primavera.Taskbox.Abstractions](./Taskbox.Abstractions.md). The main purpose of this implementation is to support the taskbox design pattern. The taskbox is a multi-task asynchronous processing engine for client applications with large or complex business processes that can be broken down into smaller work activities to improve overall application performance and maximize code reuse.
 
 ## Taskbox Config
 
@@ -27,7 +27,7 @@ When the task is executed, the trigger will publish an event. The action, on the
 
 #### Trigger
 
-All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Hydrogen.Taskbox.Abstractions](./taskbox.abstractions.md).
+All of this trigger types implement the `ITrigger{T, TConfig}`, to know more see the [Primavera.Taskbox.Abstractions](./Taskbox.Abstractions.md).
 
 - `Trigger{T}`, its purpose is to publish an event with the context.
 
