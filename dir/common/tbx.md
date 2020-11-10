@@ -4,6 +4,7 @@ Provides asynchronous multi-task processing for applications or services that ne
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.Taskbox |
@@ -12,6 +13,7 @@ Provides asynchronous multi-task processing for applications or services that ne
 | Client Library | [Primavera.Lithium.Taskbox.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Taskbox/2.0.2.36) (single assembly)|
 | Web UI | No |
 | Depends on | IDS |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
