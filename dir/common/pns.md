@@ -29,7 +29,7 @@ The Push Notifications Service allows to receive, store and broadcast real-time 
 | Production | --- |
 | Preview (WE) | --- |
 | Preview (NE) | --- |
-| Staging (WE) | --- |
+| Staging (WE) | Yes |
 | Staging (NE) | --- |
 | Development | Yes |
 
