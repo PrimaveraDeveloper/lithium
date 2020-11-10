@@ -22,18 +22,6 @@ Method | Description
 `GetTasksAsync()` | Gets the tasks.
 `GetTasksAsync(int state)` | Gets the tasks by state.
 
-### ITaskManager
-
-The `ITaskManager{TTask}` interface defines the abstraction for the task manager that is used by the `ITaskboxService{TTask}` to manage the tasks.
-
-Method | Description
-:--- | :---
-`QueueTaskAsync(TTask task)` | Queues the `TTask` asynchronously.
-`DequeueTaskAsync` | Dequeues the `TTask` asynchronously.
-`GetTasksAsync` | Gets the `TTask`'s asynchronously.
-`IsToCancelAsync` | Verifies if `TTask` is to cancel asynchronously.
-`CancelTaskAsync` | Cancels the `TTask` asynchronously.
-
 ### ITaskboxInvoker
 
 The `ITaskboxInvoker{TTask}` interface defines the abstraction used to invoke a task that follows the trigger-action pattern.
