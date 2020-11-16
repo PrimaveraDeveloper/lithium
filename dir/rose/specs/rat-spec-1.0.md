@@ -91,35 +91,31 @@ To build a pipeline result it's recommended that your result class inherit from 
 /// </summary>
 public class ResultBase : DataTransferObject
 {
+    #region Constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ResultBase"/> class.
+    /// </summary>
+    public ResultBase()
+    {
+        this.Logs = new List<Log>();
+    }
+
+    #endregion
+
     /// <summary>
     /// Gets or sets the title.
     /// </summary>
-    public string Title
+    public IList<Log> Logs
     {
         get
         {
-            return this.GetValue<string>(nameof(this.Title));
+            return this.GetValue<IList<Log>>(nameof(this.Logs));
         }
 
         set
         {
-                this.SetValue(nameof(this.Title), value);
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the message.
-    /// </summary>
-    public string Message
-    {
-        get
-        {
-            return this.GetValue<string>(nameof(this.Message));
-        }
-
-        set
-        {
-                this.SetValue(nameof(this.Message), value);
+            this.SetValue(nameof(this.Logs), value);
         }
     }
 
