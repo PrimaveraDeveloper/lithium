@@ -80,7 +80,7 @@ public class ExampleMultiWriter : HttpMultiWriter
 
 #### `PublishResultBase{T}`
 
-This handler is to provide a handler to facilitate the process of publishing the pipeline final result to a given endpoint.
+This handler purpose is to facilitate the process of publishing the pipeline final result to a given endpoint.
 
 To build a pipeline result it's recommended that your result class inherit from the `ResultBase` in order to create a certain response pattern from the RAT micro-service.
 
@@ -201,6 +201,55 @@ public sealed class MyPublisher : PublishResultBase<MyResult>
         MyResult saftdata = this.Data.Responses.GetValue<MyResult>("saftdata");
 
         return Task.FromResult(saftdata);
+    }
+
+    #endregion
+}
+
+```
+
+#### `VerifierBase`
+
+The purpose of this handler is to facilitate the process of checking a given condition and only allow the pipeline flow to continue if the condition is true.
+
+Consider the following example on how to implement the `VerifierBase`. The `HandleVerifyResultAsync` method is a virtual method and you should only override it if you want to perform some operation after the verification.
+
+```csharp
+public sealed class MyVerifier : VerifierBase
+{
+    #region Private Methods
+
+    private readonly IServiceProvider serviceProvider;
+
+    #endregion
+
+    #region Constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyVerifier"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider.</param>
+    public MyVerifier(IServiceProvider serviceProvider)
+    {
+        this.serviceProvider = serviceProvider;
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <inheritdoc/>
+    public override async Task<bool> VerifyAsync(CancellationToken cancellationToken)
+    {
+        MyObject myobj = this.Data.Responses.GetValue<MyObject>("myobj");
+
+        return myobj != null;
+    }
+
+    /// <inheritdoc/>
+    public override Task HandleVerifyResultAsync(CancellationToken cancellationToken)
+    {  
+        return Task.CompletedTask;
     }
 
     #endregion
