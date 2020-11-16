@@ -198,9 +198,9 @@ public sealed class MyPublisher : PublishResultBase<MyResult>
     /// <inheritdoc/>
     public override Task<MyResult> BuildPublishResultAsync(BaseContext context, CancellationToken cancellationToken)
     {
-        MyResult saftdata = this.Data.Responses.GetValue<MyResult>("saftdata");
+        MyResult myResult = this.Data.Responses.GetValue<MyResult>("myResult");
 
-        return Task.FromResult(saftdata);
+        return Task.FromResult(myResult);
     }
 
     #endregion
