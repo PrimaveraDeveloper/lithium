@@ -6,9 +6,9 @@ Provides asynchronous multi-task processing for ROSE applications or services th
 
 The RAT microservice implements the Taskbox library to achieve the multi-task processing behavior. To know more about this feature see the [Primavera.Taskbox.](../../../ref/taskbox-1.0/Taskbox.md)
 
-### Pipelines
+### `Pipelines`
 
-#### Upload Saft
+#### `Upload SAFT`
 
 The product will publish an event to the EventBus Azure, then the RAT microservice using the EventTask, component provided by the `Primavera.Taskbox`, subscribes to this event and when this is raised this task will execute the corresponding pipeline.
 
@@ -21,3 +21,189 @@ This pipeline is responsible for processing the SAFT asynchronously. This is com
 The following image describes the full process for this scenario.
 
 ![Upload SAFT](_assets/uploadsaft.png)
+
+#### `Intialize Subscription`
+
+[UNDER DEVELOPMENT]
+
+#### `SAFT Accounting`
+
+[UNDER DEVELOPMENT]
+
+### `Handlers`
+
+These are handlers that were built to speed up and facilitate the process of building a pipeline. A handler is a piece of a pipeline, one pipeline is composed of n handlers.
+
+#### `HTTPMultiWriterBase`
+
+This handler's purpose is to write a given list of items. To accomplish this, the handler will perform several posts at the same time until the list of items runs out. The property "maxdegreeofparallelism" can configure the number of items that will be written at the same time.
+
+To accomplish the multi-writer behavior you just need to implement the abstract Http MultiWriter class and override the necessary methods. The next example shows how to do that.
+
+```Json
+{
+    "id": "example-multiwriter",
+    "order": "1",
+    "tag": "example-multiwriter",
+    "type": "Primavera.Lithium.RoseAsyncTasks.WebApi.Handlers.ExampleMultiWriter, Primavera.Lithium.RoseAsyncTasks.WebApi",
+    "configStr": "inputProperty=myinput; authorityserveruri=%authorityserveruri%; applicationscopes=%applicationscopes%; endpoint=%endpoint%; clientid=%clientid%; clientsecret=%clientsecret%; retryonfailure=true; retryattempts=3; minbackoff=0; maxbackoff=30; deltabackoff=2; maxdegreeofparallelism=50;",
+    "active": "True"
+}
+
+```
+
+```csharp
+
+public class ExampleMultiWriter : HttpMultiWriter
+{
+    #region Constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExampleMultiWriter"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider.</param>
+    public ExampleMultiWriter(IServiceProvider serviceProvider)
+        : base(serviceProvider)
+    {
+    }
+
+    #endregion
+
+    /// <inheritdoc/>
+    public override string BuildEndpoint()
+    {
+        return this.ConfigStr.GetValue<string>("endpoint");;
+    }
+}
+
+```
+
+#### `PublishResultBase{T}`
+
+This handler is to provide a handler to facilitate the process of publishing the pipeline final result to a given endpoint.
+
+To build a pipeline result it's recommended that your result class inherit from the `ResultBase` in order to create a certain response pattern from the RAT micro-service.
+
+```csharp
+
+/// <summary>
+/// Defines the pipeline result base class.
+/// </summary>
+public class ResultBase : DataTransferObject
+{
+    /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    public string Title
+    {
+        get
+        {
+            return this.GetValue<string>(nameof(this.Title));
+        }
+
+        set
+        {
+                this.SetValue(nameof(this.Title), value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    public string Message
+    {
+        get
+        {
+            return this.GetValue<string>(nameof(this.Message));
+        }
+
+        set
+        {
+                this.SetValue(nameof(this.Message), value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the status.
+    /// </summary>
+    public Status Status
+    {
+        get
+        {
+            return this.GetValue<Status>(nameof(this.Status));
+        }
+
+        set
+        {
+            this.SetValue(nameof(this.Status), value);
+        }
+    }
+}
+```
+
+Consider the following example on how to implement the `PublishResultBase{T}` with a custom result class.
+
+- Custom result class
+
+```csharp
+
+public sealed class MyCustomResult : ResultBase
+{
+    /// <summary>
+    /// Gets or sets the my param.
+    /// </summary>
+    public string MyParam
+    {
+        get
+        {
+            return this.GetValue<string>(nameof(this.MyParam));
+        }
+
+        set
+        {
+            this.SetValue(nameof(this.MyParam), value);
+        }
+    }
+}
+
+```
+
+- Implementing the `PublishResultBase{T}`
+
+```csharp
+
+public sealed class MyPublisher : PublishResultBase<MyResult>
+{
+    #region Constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyPublisher"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider.</param>
+    public MyPublisher(IServiceProvider serviceProvider)
+        : base(serviceProvider)
+    {
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <inheritdoc/>
+    public override string BuildEndpoint()
+    {
+        string endpoint = this.ConfigStr.GetValue<string>("endpoint");
+    }
+
+    /// <inheritdoc/>
+    public override Task<MyResult> BuildPublishResultAsync(BaseContext context, CancellationToken cancellationToken)
+    {
+        MyResult saftdata = this.Data.Responses.GetValue<MyResult>("saftdata");
+
+        return Task.FromResult(saftdata);
+    }
+
+    #endregion
+}
+
+```
