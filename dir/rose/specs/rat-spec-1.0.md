@@ -8,9 +8,9 @@ The RAT microservice implements the Taskbox library to achieve the multi-task pr
 
 ### `Pipelines`
 
-#### `Upload SAFT`
-
 The product will publish an event to the EventBus Azure, then the RAT microservice using the EventTask, component provided by the `Primavera.Taskbox`, subscribes to this event and when this is raised this task will execute the corresponding pipeline.
+
+#### `Upload SAFT`
 
 This pipeline is responsible for processing the SAFT asynchronously. This is composed of 3 handlers.
 
@@ -22,11 +22,19 @@ The following image describes the full process for this scenario.
 
 ![Upload SAFT](_assets/uploadsaft.png)
 
-#### `Intialize Subscription`
-
-[UNDER DEVELOPMENT]
-
 #### `SAFT Accounting`
+
+This pipeline is responsible for processing the SAFT import data asynchronously. This is composed of 6 handlers.
+
+- `SAFTImportReader` - responsible for obtaining the SAFT import data from the product;
+- `SAFTImportMapper` - responsible for treating the SAFT import data and preparing this to be written;
+- `SAFTImportCodeMapper` - verifies the customer creation key and based on that defines the party key value;
+- `SAFTImportMultiWriter` - responsible for writing the items and customers in the product;
+- `SAFTImportPublisher` - publishes the SAFT accounting result to the specified address.
+
+![Import SAFT](_assets/importsaft.png)
+
+#### `Intialize Subscription`
 
 [UNDER DEVELOPMENT]
 
