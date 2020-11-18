@@ -1,6 +1,6 @@
-# Legal Devaluation Indexes (LDI)
+# Legal Devaluation Indexes Service (LDI)
 
-The current version of this service allows to get the devaluation indexes for a reference year. This indexes are used to fill the portuguese models 31 and 32.
+The Legal Devaluation Indexes Service allows to retrieve the devaluation indexes for a reference year. Theses indexes are used to fill the Portuguese models 31 and 32.
 
 ## Specification
 
@@ -20,17 +20,6 @@ The current version of this service allows to get the devaluation indexes for a 
 | Scope | Description |
 | - | - |
 | `lithium-devaluation-indexes` | Access all the endpoints in the API |
-
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | --- |
-| Staging (NE) | --- |
-| Development | Yes |
 
 ## Reference Documentation
 

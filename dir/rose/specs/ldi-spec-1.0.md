@@ -1,10 +1,10 @@
-# Legal Devaluation Indexes (LDI) Specification v1.0
+# Legal Devaluation Indexes Service (LDI) Specification v1.0
 
-The current version of this service (only avaliable for Portugal) allows to get the devaluation indexes for a reference year. 
+The current version of this service (only available for Portugal) allows to retrieve the devaluation indexes for a reference year. 
 
 ## Legal Devaluation Indexes Operations
 
-The official monetary devaluation indexes, published by the Ministerial Order nr. 317/2018, on 11 December, is a rate applicable to certain assets and rights sold for a specific year. This indexes are used when fill the portuguese models 31 and 32.
+The official monetary devaluation indexes, published by the Ministerial Order Nr. 317/2018, on 11 December, is a rate applicable to certain assets and rights sold for a specific year. These indexes are used when fill the Portuguese models 31 and 32.
 
 ### Get Devaluation Index (Portugal)
 
@@ -27,7 +27,7 @@ public ServiceOperationResult<double> GetDevaluationIndex(int year, int referenc
 
 | Return Type | Description |
 | - | - | - | - |
-| `double` | Returns a double value that represents the index value for the specifeid year. |
+| `double` | Returns a double value that represents the index value for the specified year. |
 
 ### Get Devaluation Index Range (Portugal)
 
@@ -46,7 +46,7 @@ public ServiceOperationResult<IEnumerable<DevaluationIndexResource>> GetDevaluat
 | `referenceYear` | `int` | The start reference year to get the specific devaluation index. | > 2000.  |
 | `startYear` | `int` | The start year to get the specific devaluation index. | > 1900.  |
 | `endYear` | `int` | The end year to get the specific devaluation index. | > 1900.  |
-| `location` | `string` | The location where de indexe is applied. | Required.  |
+| `location` | `string` | The location where the index is applied. | Required.  |
 
 #### Returns
 
@@ -70,7 +70,7 @@ public ServiceOperationResult<double> GetEarningsAndLosses(int referenceYear, in
 | - | - | - | - |
 | `referenceYear` | `int` | The reference year to get the specific devaluation index. | > 2000.  |
 | `year` | `int` | The year to get the devaluation index. | > 1900.  |
-| `location` | `string` | The location where de indexe is applied. | Required. RegEx(`(PT)|(AO)|(MZ)`).  |
+| `location` | `string` | The location where the index is applied. | Required. RegEx(`(PT)|(AO)|(MZ)`).  |
 | `aquisition` | `double` | The asset acquisition value. | > -1.  |
 | `depreciation` | `double` | The asset depreciation value. | > -1.  |
 | `valueAdjustment` | `double` | The asset value adjustment. | > -1.  |
@@ -80,73 +80,9 @@ public ServiceOperationResult<double> GetEarningsAndLosses(int referenceYear, in
 
 | Return Type | Description |
 | - | - | - | - |
-| `double` | Returns a double value that represents the earnings or losses for the specifeid asset. |
+| `double` | Returns a double value that represents the earnings or losses for the specified asset. |
 
-### Models Classes
-
-#### <a name="DevaluationIndex"></a>`DevaluationIndex`
-
-The devalution index header.
-
-- Namespace: `Primavera.Lithium.LegalDevaluationIndex.Models`
-- Inheritance: `DevaluationIndexBase`
-
-##### Properties
-
-| Property | Type | Description | Rules |
-| - | - | - | - |
-| `Key1` | `string` | The key that represents the devaluation index reference year. | Required.  |
-| `Key2` | `string` | The key that represents the location. | Required.  |
-| `Id` | `Guid` | Foreign Key parameter. |  |
-| `Description` | `string` | The legal description. | Required.  |
-
-
-#### <a name="DevaluationIndexLines"></a>`DevaluationIndexLines`
-
-The devalution index detail.
-
-- Namespace: `Primavera.Lithium.LegalDevaluationIndex.Models`
-- Inheritance: `DevaluationIndexLinesBase`
-
-##### Properties
-
-| Property | Type | Description | Rules |
-| - | - | - | - |
-| `Key1` | `string` | The guid property from the devaluation index. | Required.  |
-| `Key2` | `string` | The devaluation year key. | Required.  |
-| `Value` | `double` | The devalution index value for a specific year. | > 0.  |
-
-#### <a name="DevaluationIndexResource"></a>`DevaluationIndexResource`
-
-A list of devaluation indexes to return.
-
-- Namespace: `Primavera.Lithium.LegalDevaluationIndex.Models`
-- Inheritance: `DevaluationIndexResourceBase`
-
-##### Properties
-
-| Property | Type | Description | Rules |
-| - | - | - | - |
-| `Year` | `string` | The index year. | Required.  |
-| `Value` | `double` | The index value. |  |
-
-### Enumerations Classes
-
-#### <a name="Locations"></a>`Locations`
-
-Represents the location where the indexes are applied.
-
-- Namespace: `Primavera.Lithium.LegalDevaluationIndex.Models`
-
-##### Members
-
-| Member | Value | Description |
-| - | - | - |
-| `PT` | 0 | The portugal location. | 
-| `MZ` | 1 | The Moçambique location. | 
-| `AO` | 2 | The Angola location. | 
-
-### Implementing the service
+## Using the service
 
 ```csharp
 Uri address = new Uri("[service-address]");
