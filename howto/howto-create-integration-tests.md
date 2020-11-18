@@ -29,11 +29,11 @@ To implement such integration tests there are two features that need to be "mock
 
 Hydrogen provides the means for the second feature, via a type called `IdentityTestServer`, which allows hosting a copy of Identity Server using a test server in memory, configurable using a storage in-memory.
 
-## `IntegrationTestsFixture`
+## `IntegrationTestFixture`
 
-In the code generated for the `Integration.Tests` project you will find a class named `IntegrationTestsFixture`.
+In the code generated for the `Integration.Tests` project you will find a class named `IntegrationTestFixture`.
 
-This is a xUnit test fixture that configures both the test server for the Web API and the Identity test server for Identity Server. This fixture is all you will need to use in the integration tests to mock the Lithium microservice.
+This is a xUnit test fixture that configures both the test host for the Web API and the Identity Server test host. This fixture is all you will need to use in the integration tests to mock the Lithium microservice.
 
 ## `MonitoringTests`
 

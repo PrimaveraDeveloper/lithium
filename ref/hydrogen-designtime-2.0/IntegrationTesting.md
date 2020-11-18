@@ -1,4 +1,4 @@
-# Primavera.Hydrogen.DesignTime.UnitTesting
+# Primavera.Hydrogen.DesignTime.IntegrationTesting
 
 **Class library that contains types that provide features to develop integration tests for Lithium components and microservices.**
 
@@ -19,7 +19,7 @@ SearchDataSource dataSource = new SearchDataSource()
 {
     Name = this.DataSourceName,
     Type = SearchDataSourceType.Table,
-    Credentials = new SearchDataSourceCredentials(ExternalTestResources.Azure.ClassicTableStorageConnectionString),
+    Credentials = new SearchDataSourceCredentials(ExternalTestResources.AzureResources.ClassicTableStorageConnectionString),
     Container = new SearchDataContainer(tableName)
 };
 ```
@@ -28,263 +28,160 @@ SearchDataSource dataSource = new SearchDataSource()
 
 [Microsoft.AspNetCore.TestHost.TestServer](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests) allows executing integration tests on Web servers and Web APIs.
 
-## Fixtures
+## Mocking Web Applications
 
-Hydrogen provides a set of fixtures that make the development of integration tests on the microservices Web API much more simple.
+Hydrogen provides features that make the development of integration tests on the microservices Web API and on Web applications in general much more simple.
 
-### `TestServerFixture`
+### `WebApplicationTestHostBuilder` and `IWebApplicationTestHost`
 
-This test fixture allows creating a host to execute a Web server by providing actions to configure the host.
+`WebApplicationTestHostBuilder` allows building a test host to execute a Web server.
 
 Example:
 
 ```csharp
+public class IntegrationTestFixture
+{
+    public IWebApplicationTestHost Application
+    {
+        get;
+        private set;
+    }
+        
+    public IntegrationTestFixture()
+    {
+        this.Initialize();
+    }
+
+    private void Initialize()
+    {
+        this.Application = WebApplicationTestHostBuilder
+            .Create()
+            .UseStartup<MockStartup>()
+            .Build();
+    }
+}
+
 [Fact]
-public async Task ApiModelValidation_PlainModel_Valid()
+public async Task ApiResourcesController_Create()
 {
-    using TestServerFixture fixture = new TestServiceFixture()
-        {
-            ConfigureLoggingAction =
-                (context, builder) =>
-                {
-                    // (...)
-                },
-            ConfigureServicesAction =
-                (context, services) =>
-                {
-                    // (...)
-                },
-            ConfigureAction =
-                (app) =>
-                {
-                    // (...)
-                }
-        };
+    using IntegrationTestFixture fixture = new IntegrationTestFixture();
             
-    fixture.Build();
+    Uri requestUri = Routes.Instance.Resolve(
+        new Uri("https://localhost"),
+        Routes.ApiResources.Create,
+        new Dictionary<string, object>()
+        {
+            ["version"] = ApiVersions.Literals.DefaultVersionLiteral
+        });
 
-    using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api1/v1/markets");
-    
-    using HttpResponseMessage response = await this.GetResponseAsync(request, 
-    
-    using HttpClient httpClient = new HttpClient(fixture.TestServerFixture.TestServer.CreateHandler());
-    using HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+    using HttpResponseMessage httpResponse1 = await fixture.Application.CreateRequest(
+        HttpMethod.Post,
+        requestUri)
+        .AddJsonContent(
+            new ApiResourceData()
+            {
+                DisplayName = "API Resource"
+            })
+        .SendAsync()
+        .ConfigureAwait(false);
 
-    response.StatusCode.Should().Be(HttpStatusCode.Created);
+    httpResponse1.Should().Be400BadRequest();
 }
 ```
 
-### `TestServerFixture<T>`
+## `IdentityServer4TestHostBuilder`
 
-This fixture provides the same behavior but the test host can be configured using a startup class.
+Since Lithium microservices are protected by Identity Server, to develop full integration tests on their Web APIs, we need a mechanism to "mock" Identity Server.
+
+This can also be achieved using a test host that runs Identity Server in memory.
 
 Example:
 
 ```csharp
-public sealed partial class ServiceClientTestsNoAuth : IClassFixture<TestServerFixture<ServiceClientNoAuthStartup>>
+public class IntegrationTestFixture
 {
-    public ServiceClientTestsNoAuth(TestServerFixture<ServiceClientNoAuthStartup> fixture)
-    {
-        this.TestServerFixture = fixture.Build();
-    }
-}
-```
-
-## Identity Server Test Server
-
-Since Lithium microservices are protected by Identity Server, to develop full integration tests on their Web APIs, we need a mechanism to "mock" Identity Server. This can also be achieved using the test host with a test fixture that runs Identity Server in memory.
-
-`IdentityServerTestServer` uses `TestServer` internally and allows the developer to program the Identity Server configuration (API resources, clients, etc.) in the test setup.
-
-Example:
-
-```csharp
-public class ServiceClientFixture<TStartup> : IDisposable
-    where TStartup : IServiceClientStartup, new()
-{
-    #region Fields
-
-    private bool disposed;
-
-    #endregion
-
-    #region Public Properties
-
-    public TestServerFixture TestServerFixture
+    public IWebApplicationTestHost AuthorityServer
     {
         get;
         private set;
     }
-
-    public IdentityServerTestServer IdentityServer
+        
+    public IWebApplicationTestHost Application
     {
         get;
         private set;
     }
-
-    #endregion
-
-    #region Constructors
-
-    public ServiceClientFixture()
+        
+    public IntegrationTestFixture()
     {
-        // Initialize Identity Server test server
-
-        IEnumerable<IdentityServer4.Models.ApiResource> apiResources = new List<IdentityServer4.Models.ApiResource>()
-        {
-            new IdentityServer4.Models.ApiResource(Constants.Audiences.EmployeesApi, "Hydrogen Employees API")
-        };
-
-        IEnumerable<IdentityServer4.Models.Client> clients = new List<IdentityServer4.Models.Client>()
-        {
-            new IdentityServer4.Models.Client()
-            {
-                ClientId = Constants.Clients.EmployeesClientCredentials,
-                AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ClientCredentials,
-                ClientSecrets =
-                {
-                    new IdentityServer4.Models.Secret(
-                        ComputeHashString.Sha256(
-                            Constants.ClientSecrets.EmployeesClientCredentials))
-                },
-                AllowedScopes =
-                {
-                    Constants.Scopes.EmployeesApi
-                }
-            }
-        };
-
-        this.IdentityServer = new IdentityServerTestServer(
-            null,
-            apiResources,
-            clients,
-            null,
-            null,
-            null);
-
-        this.IdentityServer.Build();
-
-        // Initialize API test server
-
-        TStartup startup = new TStartup();
-
-        this.TestServerFixture = new TestServerFixture()
-        {
-            ConfigureLoggingAction =
-                (context, builder) =>
-                {
-                    builder.SetMinimumLevel(LogLevel.Trace);
-                    builder.AddDebug();
-                },
-            ConfigureServicesAction =
-                (context, services) =>
-                {
-                    startup.ConfigureServices(services, this.IdentityServer.TestServer.CreateHandler());
-                },
-            ConfigureAction =
-                (app) =>
-                {
-                    startup.Configure(app);
-                }
-        };
-
-        this.TestServerFixture.Build();
+        this.Initialize();
     }
 
-    #endregion
-
-    #region Public Methods
-
-    public EmployeesServiceClient GetClientCredentialsClientWithCallback(
-        string clientId = Constants.Clients.EmployeesClientCredentials,
-        string clientSecret = Constants.ClientSecrets.EmployeesClientCredentials)
+    private void Initialize()
     {
-        TokenCache tokenCache = new TokenCache();
+        this.AuthorityServer = this.BuildAuthorityServer(
+            this.ClientId,
+            this.ClientSecret);
 
-        return new EmployeesServiceClient(
-            new Uri("https://localhost"),
-            async (args) =>
-            {
-                System.Diagnostics.Debug.WriteLine("Retrieving client credentials...");
-
-                string accessToken = await ClientCredentials
-                    .ForAllScopes(
-                        new Uri(args.Authority), 
-                        clientId, 
-                        clientSecret, 
-                        this.IdentityServer.TestServer.CreateHandler())
-                    .WithTokenCache(tokenCache)
-                    .RetrieveAccessTokenAsync().ConfigureAwait(false);
-
-                return accessToken;
-            },
-            this.TestServerFixture.TestServer.CreateHandler(),
-            false);
+        this.Application = this.BuildApplication();
     }
 
-    public void Dispose()
+    private IWebApplicationTestHost BuildAuthorityServer()
     {
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
+        IList<ApiResource> apiResources = (...);
+
+        IList<Client> clients = (...);
+
+        return IdentityServer4TestHostBuilder
+            .Create()
+            .UseApiResources(apiResources)
+            .UseClients(clients)
+            .Build();
     }
 
-    #endregion
-
-    #region Protected Methods
-
-    protected virtual void Dispose(bool disposing)
+    private IWebApplicationTestHost BuildApplication()
     {
-        // Already disposed?
-
-        if (this.disposed)
-        {
-            return;
-        }
-
-        // Called from Dispose()?
-
-        if (disposing)
-        {
-            if (this.TestServerFixture != null)
-            {
-                this.TestServerFixture.Dispose();
-                this.TestServerFixture = null;
-            }
-
-            if (this.IdentityServer != null)
-            {
-                this.IdentityServer.Dispose();
-                this.IdentityServer = null;
-            }
-        }
-
-        // Set flag
-
-        this.disposed = true;
+        return WebApplicationTestHostBuilder
+            .Create()
+            .ConfigureAuthorityServer(this.AuthorityServer)
+            .UseStartup<MockStartup>()
+            .Build();
     }
-
-    #endregion
 }
-```
 
-For the Web API to use the Identity Server test server it is required that the configuration sets the back-channel HTTP handler, like in the following example:
-
-```csharp
-protected virtual void AddAuthentication(IServiceCollection services, HttpMessageHandler backchannelHttpHandler)
+[Fact]
+public async Task ApiResourcesController_Create()
 {
-    services
-        .AddAuthentication(Constants.Auth.Bearer)
-        .AddJwtBearer(
-            (options) =>
+    using IntegrationTestFixture fixture = new IntegrationTestFixture();
+            
+    string accessToken = await fixture.AuthorityServer.GetClientCredentialsAccessTokenAsync(
+        fixture.ClientId,
+        fixture.ClientSecret,
+        "scope")
+        .ConfigureAwait(false);
+
+    Uri requestUri = Routes.Instance.Resolve(
+        new Uri("https://localhost"),
+        Routes.ApiResources.Create,
+        new Dictionary<string, object>()
+        {
+            ["version"] = ApiVersions.Literals.DefaultVersionLiteral
+        });
+
+    using HttpResponseMessage httpResponse1 = await fixture.Application.CreateRequest(
+        HttpMethod.Post,
+        requestUri)
+        .AddJsonContent(
+            new ApiResourceData()
             {
-                options.Authority = "https://localhost";
-                options.Audience = Constants.Audiences.EmployeesApi;
-                options.RequireHttpsMetadata = false;
-                options.IncludeErrorDetails = true;
-                options.RefreshOnIssuerKeyNotFound = true;
-                options.SaveToken = true;
-                options.BackchannelHttpHandler = backchannelHttpHandler;
-                options.Events = new HttpBearerChallengeEvents();
-            });
+                DisplayName = "API Resource"
+            })
+        .AddAuthorizationHeader("Bearer", accessToken)
+        .SendAsync()
+        .ConfigureAwait(false);
+
+    httpResponse1.Should().Be400BadRequest();
 }
 ```
+
+> `IdentityServer5TestHostBuilder` is the equivalent of `IdentityServer4TestHostBuilder` for Identity Server version 5.
