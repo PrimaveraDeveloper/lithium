@@ -89,7 +89,7 @@ public async Task ApiResourcesController_Create()
 }
 ```
 
-## `IdentityServer4TestHostBuilder`
+### `IdentityServer4TestHostBuilder`
 
 Since Lithium microservices are protected by Identity Server, to develop full integration tests on their Web APIs, we need a mechanism to "mock" Identity Server.
 
