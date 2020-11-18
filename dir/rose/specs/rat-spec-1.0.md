@@ -1,8 +1,8 @@
-# Primavera.Lithium.RoseAsyncTasks
+# ROSE Asynchronous Tasks Service (RAT) Specification v1.0
 
 Provides asynchronous multi-task processing for ROSE applications or services that need to improve performance, scalability, and reusability. This component implements the asynchronous operation behavior in the PRIMAVERA Elevation Platform.
 
-## RAT Architecture
+## Architecture
 
 The RAT microservice implements the Taskbox library to achieve the multi-task processing behavior. To know more about this feature see the [Primavera.Taskbox.](../../../ref/taskbox-1.0/Taskbox.md)
 
@@ -265,11 +265,11 @@ public sealed class MyVerifier : VerifierBase
 
 To map you can use the `MapConfig` feature, which allows you to configure how and what properties will be mapped. This is composed of
 
-- ElementsToInclude, the properties that you want to include in the output;
-- ElemenstsToInclude, the properties that you want to exclude from the output;
-- ElementsToMerge, the properties that you want to merge from other input;
-- Items, the properties where you want to change its destiny name;
-- NewItems, the new properties that you want to add.
+- `ElementsToInclude`, the properties that you want to include in the output;
+- `ElemenstsToInclude`, the properties that you want to exclude from the output;
+- `ElementsToMerge`, the properties that you want to merge from other input;
+- `Items`, the properties where you want to change its destiny name;
+- `NewItems`, the new properties that you want to add.
 
 Consider following examples.
 

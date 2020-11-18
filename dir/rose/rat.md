@@ -1,8 +1,6 @@
-# ROSE Async Tasks (RAT)
+# ROSE Asynchronous Tasks Service (RAT)
 
-The Rose async tasks provides features for all the ROSE products.
-
-This microservice is responsible for processing asynchronous tasks and pipelines in order to uncouple long-running processes from the product.
+The ROSE Asynchronous Tasks Service is responsible for processing asynchronous tasks and pipelines in order to uncouple long-running processes from the product.
 
 ## Specification
 
@@ -22,17 +20,6 @@ This microservice is responsible for processing asynchronous tasks and pipelines
 | Scope | Description |
 | - | - |
 | `lithium-roseasynctasks` | Access all the endpoints in the API |
-
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | --- |
-| Staging (NE) | --- |
-| Development | Yes |
 
 ## Reference Documentation
 
