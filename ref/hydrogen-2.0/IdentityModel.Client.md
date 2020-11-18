@@ -51,7 +51,7 @@ using (IDiscoveryClient client = new DiscoveryClient())
 
 Responses from each distinct discovery endpoint are cached in memory for a default duration of one day.
 
-The cache used can also be customized:
+The cache can be disabled:
 
 ```csharp
 using (IDiscoveryClient client = new DiscoveryClient())
@@ -59,7 +59,7 @@ using (IDiscoveryClient client = new DiscoveryClient())
     DiscoveryDocumentResponse response = await client.GetDocumentAsync(
         new DiscoveryDocumentRequest("https://server.io")
         {
-            Cache = new MyCustomCache(),
+            CacheEnabled = false
         }).ConfigureAwait(false);
     if (!response.IsError)
     {
@@ -261,7 +261,7 @@ TokenRequest request = new TokenRequest()
 
 Responses from each distinct endpoint are cached in memory for a default duration of 12 hours or until the token itself expires.
 
-The cache used can be customized:
+The cache can be disabled:
 
 ```csharp
 using (ITokenClient client = new TokenClient())
@@ -270,7 +270,7 @@ using (ITokenClient client = new TokenClient())
         new ClientCredentialsTokenRequest("https://server.io")
         {
             // ...
-            Cache = new MyCustomCache()
+            CacheEnabled = false
         }).ConfigureAwait(false);
 }
 ```
