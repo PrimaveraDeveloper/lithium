@@ -8,20 +8,22 @@ The following validation rules are available:
 
 | Data Type | Validations |
 | - | - |
-| `Boolean` | None |
-| `ByteArray` | `IsRequired` |
-| `DateTime` | None |
-| `Double` | `GreaterThan`, `LessThan` |
-| `Email` | `IsRequired`, `MaxLength`, `MinLength`, `RegularExpression` |
-| `Guid` | None |
-| `Integer` | `GreaterThan`, `LessThan` |
-| `Long` | `GreaterThan`, `LessThan` |
-| `Password` | `IsRequired`, `MaxLength`, `MinLength`, `RegularExpression` |
-| `PhoneNumber` | `IsRequired` |
-| `String` | `IsRequired`, `MaxLength`, `MinLength`, `RegularExpression` |
-| `Url` | `IsRequired` |
-| Enumeration | None |
-| Model | `IsRequired` |
+| `Boolean` | `IsRequired` (\*), `NotEmpty` (\*) |
+| `ByteArray` | `IsRequired`, `NotEmpty` (\*) |
+| `DateTime` | `IsRequired` (\*), `NotEmpty` (\*) |
+| `Double` | `IsRequired` (\*), `GreaterThan`, `LessThan`, `NotEmpty` (\*) |
+| `Email` | `IsRequired`, `MaxLength`, `MinLength`, `NotEmpty` (\*), `RegularExpression` |
+| `Guid` | `IsRequired` (\*), `NotEmpty` (\*) |
+| `Integer` | `IsRequired` (\*), `GreaterThan`, `LessThan`, `NotEmpty` (\*) |
+| `Long` | `IsRequired` (\*), `GreaterThan`, `LessThan`, `NotEmpty` (\*) |
+| `Password` | `IsRequired`, `MaxLength`, `MinLength`, `NotEmpty` (\*), `RegularExpression` |
+| `PhoneNumber` | `E.164`, `IsRequired`, `NotEmpty` (\*) |
+| `String` | `IsRequired`, `MaxLength`, `MinLength`, `NotEmpty` (\*), `RegularExpression` |
+| `Url` | `Absolute`, `IsRequired`, `NotEmpty` (\*) |
+| `Enumeration` | `IsRequired` (\*), `NotEmpty` (\*) |
+| `Model` | `IsRequired`, `NotEmpty` (\*) |
+
+> Rules marked with (\*) are only available if the property/parameter has a cardinality of `List` or `Dictionary`.
 
 ## Validation Rules
 
@@ -29,11 +31,14 @@ The validation rules available are the following:
 
 | Rule | Input | Description |
 | - | - | - |
-| `IsRequired` | -- | The value should not be null or empty. |
+| `Absolute` | -- | The value should be an absolute URI. |
+| `E.164` | -- | The value should a phone number expressed in the E.164 format. |
+| `IsRequired` | -- | The value should not be null. |
 | `GreaterThan` | `MinValue` | The value should be greater than `MinValue`. |
 | `LessThan` | `MaxValue` | The value should be less than `MaxValue`. |
 | `MaxLength` | `MaxLen` | The length of the value should be less than or equal to `MaxLen`. |
 | `MinLength` | `MinLen` | The length of the value should be greater than or equal to `MinLen`. |
+| `NotEmpty` | -- | The value should not be empty. |
 | `RegularExpression` | `RegEx` | The value should match the regular expression `RegEx`. |
 
 ## Validation Rules on Model Properties
@@ -53,6 +58,20 @@ To specify the validation rules of a controller action parameter:
 1. Select that parameter in the service designer.
 2. In the properties window, expand the property `Validation Rules`.
 3. Set the value of the desired validation rules.
+
+## Validation Rules on Controller Parameters
+
+To specify the validation rules of a controller parameter:
+
+1. Select that parameter in the service designer.
+2. In the properties window, expand the property `Validation Rules`.
+3. Set the value of the desired validation rules.
+
+## Lists or Dictionaries
+
+When the model property or controller parameter has a cardinality of `List` or `Dictionary`, the validation rules also apply to the elements in the list/dictionary.
+
+This means, for example, that if a model property has a cardinality of `List` and a validation rule `IsRequired`, the property cannot be null, neither any element in the list can be null.
 
 ## Generated Code
 
@@ -77,9 +96,9 @@ public virtual IList<Primavera.Lithium.Certificates.Models.PropertyData> Propert
 }
 ```
 
-### Action Parameters
+### Controller and Action Parameters
 
-For action parameters, the validations are set in the Web API controller (see `WebApi\Controllers.gen.cs`) and in the Client Library controller (see `ClientLib\Controllers.gen.cs`):
+For controller and action parameters, the validations are set in the Web API controller (see `WebApi\Controllers.gen.cs`) and in the Client Library controller (see `ClientLib\Controllers.gen.cs`):
 
 ```csharp
 public virtual Task<IActionResult> GetCertificateAsync([FromRoute] string certificateName)

@@ -337,27 +337,60 @@ It includes multiple overloads for various types and supports many scenarios, su
 ## Validation Attributes
 
 The `Primavera.Hydrogen.ComponentModel.DataAnnotations` namespace provides a set of validation attributes that can be used
-to validate objects using `ObjectValidator`, `ObjectGraphValidator`, and even `System.ComponentModel.DataAnnotations.Validator`.
+to validate objects using `ObjectGraphValidator`, and even `System.ComponentModel.DataAnnotations.Validator`.
 
 Attributes like:
 
+- `EmailAttribute`
 - `GreaterThanAttribute`
 - `LessThanOrEqualToAttribute`
 - `NotEmptyAttribute`
+- `RegularExpressionAttribute`
+- `RequiredAttribute`
 - `TextMinLengthAttribute`
 - `ValidCharactersAttribute`
 
+Note that these attributes are capable of dealing with "simple" properties (a property of type string for example) and enumerable properties (a list of strings for example). This means the following examples are valid:
+
+```csharp
+public class MyModel
+{
+    [Required]
+    public string Value
+    {
+        get;
+        set;
+    }
+
+    [Required]
+    public IList<string> List
+    {
+        get;
+        set;
+    }
+
+    [Required]
+    public IDictionary<string, string> Dictionary
+    {
+        get;
+        set;
+    }
+}
+```
+
+The `Required` attribute will work for the three properties:
+
+- It will validate that `Value` is not null or empty.
+- It will validate that `List` is not null and that it does not contain any item null or empty.
+- It will validate that `Dictionary` is not null and that it does not contain any item with a key or a value null or empty.
+
+> This is true for all attributes defined in `Primavera.Hydrogen.ComponentModel.DataAnnotations`.
+
 ## Validation
 
-Validating objects (models) can be performed with two types provided in this library. These classes should be used instead of `System.ComponentModel.DataAnnotations.Validator`.
+Validating complex objects (models) should be performed using `ObjectGraphValidator`, which validates the entire object graph.
 
-### `ObjectValidator`
-
-`ObjectValidator` validates an object pretty much as `Validator`, meaning that will only consider the main properties of the object and will not traverse complex object graphs (when a property of the project is itself an object that should be validated).
-
-### `ObjectGraphValidator`
-
-This type should be used when the entire object graph needs to be validated.
+> This class should be used instead of `System.ComponentModel.DataAnnotations.Validator`.
 
 ## Other Classes
 
