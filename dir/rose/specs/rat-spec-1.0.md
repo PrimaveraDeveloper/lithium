@@ -253,7 +253,7 @@ public sealed class MyVerifier : VerifierBase
 
 ```
 
-#### `Mapper`
+### `Mapper`
 
 To map you can use the `MapConfig` feature, which allows you to configure how and what properties will be mapped. This is composed of
 
@@ -265,9 +265,9 @@ To map you can use the `MapConfig` feature, which allows you to configure how an
 
 Consider following examples.
 
-Example 1
+#### Example 1
 
-Map Configuration
+- Map Configuration
 
 ```Json
 {
@@ -275,7 +275,7 @@ Map Configuration
 }
 ```
 
-Input
+- Input
 
 ```Json
 [
@@ -302,7 +302,7 @@ Input
 ]
 ```
 
-Output
+- Output
 
 ```Json
 [
@@ -326,9 +326,9 @@ Output
 
 ```
 
-Example 2
+#### Example 2
 
-Map Configuration
+- Map Configuration
 
 ```Json
 {
@@ -336,7 +336,7 @@ Map Configuration
 }
 ```
 
-Input
+- Input
 
 ```Json
 [
@@ -363,7 +363,7 @@ Input
 ]
 ```
 
-Output
+- Output
 
 ```Json
 [
@@ -391,9 +391,9 @@ Output
 
 ```
 
-Example 3
+#### Example 3
 
-Map Configuration
+- Map Configuration
 
 ```Json
 {
@@ -402,7 +402,7 @@ Map Configuration
 }
 ```
 
-Input
+- Input
 
 ```Json
 [
@@ -429,7 +429,7 @@ Input
 ]
 ```
 
-Output
+- Output
 
 ```Json
 [
@@ -453,15 +453,15 @@ Output
 
 ```
 
-Example 4
+#### Example 4
 
-Map Configuration
+- Map Configuration
 
 ```Json
 {
-  "elementsToInclude": [ "*"],
-  "elementsToExclude": [ "description"],
-    "items": [
+  "elementsToInclude": [ "*" ],
+  "elementsToExclude": [ "description" ],
+  "items": [
     {
       "origin": "id",
       "destiny": "theId"
@@ -472,14 +472,16 @@ Map Configuration
     }
   ],
   "newItems": [
-   {
-    "key": "theDescription",
-    "value": "my description"
-   }
+    {
+      "key": "theDescription",
+      "value": "my description"
+    }
+  ]
 }
+
 ```
 
-Input
+- Input
 
 ```Json
 [
@@ -506,7 +508,7 @@ Input
 ]
 ```
 
-Output
+- Output
 
 ```Json
 [
