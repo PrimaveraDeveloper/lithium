@@ -271,6 +271,18 @@ To map you can use the `MapConfig` feature, which allows you to configure how an
 - `Items`, the properties where you want to change its destiny name;
 - `NewItems`, the new properties that you want to add.
 
+Consider the following example on how to use the `MapConfig`.
+
+```csharp
+MapConfig mapConfig = MapConfig.Create(myJSONConfig);
+
+using JsonDocument doc = JsonDocument.Parse(inputJSON, new JsonDocumentOptions { AllowTrailingCommas = false });
+
+JsonWriterOptions options = new JsonWriterOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, Indented = true };
+
+string outputJSON = mapConfig.MapArray(doc, options, Encoding.UTF8);
+```
+
 Consider following examples.
 
 #### Example 1
