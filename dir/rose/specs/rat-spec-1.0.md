@@ -252,3 +252,284 @@ public sealed class MyVerifier : VerifierBase
 }
 
 ```
+
+#### `Mapper`
+
+To map you can use the `MapConfig` feature, which allows you to configure how and what properties will be mapped. This is composed of
+
+- ElementsToInclude, the properties that you want to include in the output;
+- ElemenstsToInclude, the properties that you want to exclude from the output;
+- ElementsToMerge, the properties that you want to merge from other input;
+- Items, the properties where you want to change its destiny name;
+- NewItems, the new properties that you want to add.
+
+Consider following examples.
+
+Example 1
+
+Map Configuration
+
+```Json
+{
+  "elementsToInclude": [ "id", "name"]
+}
+```
+
+Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+```
+
+Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname"
+  },
+  {
+    "id": "2",
+    "name": "myname"
+  },
+  {
+    "id": "3",
+    "name": "myname"
+  },
+  {
+    "id": "4",
+    "name": "myname"
+  }
+]
+
+```
+
+Example 2
+
+Map Configuration
+
+```Json
+{
+  "elementsToInclude": [ "*"]
+}
+```
+
+Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+```
+
+Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+
+```
+
+Example 3
+
+Map Configuration
+
+```Json
+{
+  "elementsToInclude": [ "*"],
+  "elementsToExclude": [ "description"],
+}
+```
+
+Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+```
+
+Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname"
+  },
+  {
+    "id": "2",
+    "name": "myname"
+  },
+  {
+    "id": "3",
+    "name": "myname"
+  },
+  {
+    "id": "4",
+    "name": "myname"
+  }
+]
+
+```
+
+Example 4
+
+Map Configuration
+
+```Json
+{
+  "elementsToInclude": [ "*"],
+  "elementsToExclude": [ "description"],
+    "items": [
+    {
+      "origin": "id",
+      "destiny": "theId"
+    },
+    {
+      "origin": "name",
+      "destiny": "theName"
+    }
+  ],
+  "newItems": [
+   {
+    "key": "theDescription",
+    "value": "my description"
+   }
+}
+```
+
+Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+```
+
+Output
+
+```Json
+[
+  {
+    "theId": "1",
+    "theName": "myname",
+    "theDescription": "my description"
+  },
+  {
+    "theId": "2",
+    "theName": "myname",
+    "theDescription": "my description"
+  },
+  {
+    "theId": "3",
+    "theName": "myname",
+    "theDescription": "my description"
+  },
+  {
+    "theId": "4",
+    "theName": "myname",
+    "theDescription": "my description"
+  }
+]
+
+```
