@@ -266,7 +266,7 @@ public sealed class MyVerifier : VerifierBase
 To map you can use the `MapConfig` feature, which allows you to configure how and what properties will be mapped. This is composed of
 
 - `ElementsToInclude`, the properties that you want to include in the output;
-- `ElemenstsToInclude`, the properties that you want to exclude from the output;
+- `ElementsToExclude`, the properties that you want to exclude from the output;
 - `ElementsToMerge`, the properties that you want to merge from other input;
 - `Items`, the properties where you want to change its destiny name;
 - `NewItems`, the new properties that you want to add.
