@@ -26,7 +26,7 @@ public ServiceOperationResult<double> GetDevaluationIndex(int year, int referenc
 #### Returns
 
 | Return Type | Description |
-| - | - | - | - |
+| - | - |
 | `double` | Returns a double value that represents the index value for the specified year. |
 
 ### Get Devaluation Index Range (Portugal)
