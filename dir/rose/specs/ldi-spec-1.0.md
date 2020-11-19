@@ -79,7 +79,7 @@ public ServiceOperationResult<double> GetEarningsAndLosses(int referenceYear, in
 #### Returns
 
 | Return Type | Description |
-| - | - | - | - |
+| - | - |
 | `double` | Returns a double value that represents the earnings or losses for the specified asset. |
 
 ## Using the service
