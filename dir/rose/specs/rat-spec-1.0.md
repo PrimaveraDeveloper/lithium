@@ -60,6 +60,7 @@ The parameters that can be configured, are the ones that follow:
 |isAccountingGroupReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
 |isClientAccountingsReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
 |isPageReader| true, false |If it's true after each request it evaluates if the response has another page, If there is, this performs requests and agglomerates the data until there is no next page.|
+|inputProperty| text | The input property key.|
 |credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
 |applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
 |authorityserveruri  | ****** |The address to get the client credentials token.|
@@ -93,6 +94,22 @@ The parameters that can be configured, are the ones that follow:
 - Gets the tax report setups;
 - Gets the with holding tax types;
 
+### `ConfigSubTransformer - Configuration`
+
+The parameters that can be configured, are the ones that follow:
+
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|map| true, false |If it is to perform a map operation.|
+|merge| true, false |If it is to perform a merge operation.|
+|cleanUp| true, false |If it is to perform clean up operation.|
+|cleanUpInlineArray| true, false |If it is to perform a cleanup array operation.|
+|convertToItemsList| true, false |If it is to perform a convert to list operation.|
+|inputProperty| text | The input property key.|
+|mergeProperty| text | The merge property key.|
+|mapPath| text | The map path.|
+|isArray| true, false | If, the input data is an JSON array.|
+
 > The tranform operations, such as convert, merge, map, clean, are performed in the following order:
 
 - Transforms customer input data;
@@ -105,6 +122,27 @@ The parameters that can be configured, are the ones that follow:
 - Transforms purchases acct determinations input data;
 - Transforms materials acct determinations input data;
 - Transforms tax report setups input data;
+
+The parameters that can be configured, are the ones that follow:
+
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|isArrayOrList| true, false |If, the payload is a list of items.|
+|identifier| true, false |The key that identifies the element that will be written.|
+|category| text | The category of the element that will be written.|
+|inputProperty| text | The input property key.|
+|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
+|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
+|authorityserveruri  | ****** |The address to get the client credentials token.|
+|clientid| ******|The client id to get the client credentials token.|
+|clientsecret  | ****** |The client secret to get the client credentials token.|
+|endpoint| text |The request endpoint.|
+|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
+|retryattempts| n|The number of retry attempts.|
+|minbackoff  | 0|Minimum exponential backoff value. |
+|maxbackoff| 30|Maximum exponential backoff value.|
+|deltabackoff  |2| Delta exponential backoff value.|
+|maxdegreeofparallelism  |10| The maximum of parallel write operations.|
 
 > The write operations are performed in the following order:
 
