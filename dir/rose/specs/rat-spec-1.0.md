@@ -34,9 +34,98 @@ This pipeline is responsible for processing the SAFT import data asynchronously.
 
 ![Import SAFT](_assets/importsaft.png)
 
-#### `Intialize Subscription`
+#### `Configure Subscription`
 
-[UNDER DEVELOPMENT]
+This pipeline is responsible for configuring a rose subscription asynchronously. This pipeline consists of 46 handlers of 4 types.
+
+- `ConfigSubMultiReader` - responsible for performing read operations;
+- `ConfigSubTransformer` - responsible for performing map, merge, clean and convert operations;
+- `ConfigSubMultiWriter` - responsible for performing write operations;
+- `ConfigSubPublisher` - responsible for writing the result to the product;
+
+![Configure Subscription](_assets/configuresubscription.png)
+
+The first 18 handlers are readers, these use the `ConfigSubMultiReader` to achieve that kind of behavior. This handler implements the `ReaderBase` class.
+
+### `ConfigSubMultiReader - Configuration`
+
+The parameters that can be configured, are the ones that follow:
+
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|isoDataReader| true, false |If, while building the endpoint, is necessary to include odata filters.|
+|hasOdataFilter| true, false |If it has odata filters.|
+|oDataFilter| text | The odata filters.|
+|isCompanyReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
+|isAccountingGroupReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
+|isClientAccountingsReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
+|isPageReader| true, false |If it's true after each request it evaluates if the response has another page, If there is, this performs requests and agglomerates the data until there is no next page.|
+|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
+|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
+|authorityserveruri  | ****** |The address to get the client credentials token.|
+|clientid| ******|The client id to get the client credentials token.|
+|clientsecret  | ****** |The client secret to get the client credentials token.|
+|endpoint| text |The request endpoint.|
+|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
+|retryattempts| n|The number of retry attempts.|
+|minbackoff  | 0|Minimum exponential backoff value. |
+|maxbackoff| 30|Maximum exponential backoff value.|
+|deltabackoff  |2| Delta exponential backoff value.|
+
+> The read operations are performed in the following order:
+
+- Gets the taxonomy classes;
+- Gets the chart of accounts;
+- Gets the GL accounts;
+- Gets the ledgers;
+- Gets the financial statements;
+- Gets the financial calendars;
+- Gets the client accoutings;
+- Gets the accouting groups;
+- Gets the customer parties;
+- Gets the financial account determinations;
+- Gets the customer posting profiles;
+- Gets the sales account determinations;
+- Gets the supplier posting profiles;
+- Gets the purchases acct determinations;
+- Gets the materials acct determinations;
+- Gets the posting categories;
+- Gets the tax report setups;
+- Gets the with holding tax types;
+
+> The tranform operations, such as convert, merge, map, clean, are performed in the following order:
+
+- Transforms customer input data;
+- Transforms financial statements input data;
+- Transforms financial calendars input data;
+- Transforms with holding tax types input data;
+- Transforms customer posting profiles input data;
+- Transforms sales account determinations input data;
+- Transforms supplier posting profiles input data;
+- Transforms purchases acct determinations input data;
+- Transforms materials acct determinations input data;
+- Transforms tax report setups input data;
+
+> The write operations are performed in the following order:
+
+- Writes the taxonomy classes;
+- Writes the chart of accounts;
+- Writes the GL accounts;
+- Writes the ledgers;
+- Writes the financial statements;
+- Writes the financial calendars;
+- Writes the client accoutings;
+- Writes the accouting groups;
+- Writes the customer parties;
+- Writes the financial account determinations;
+- Writes the customer posting profiles;
+- Writes the sales account determinations;
+- Writes the supplier posting profiles;
+- Writes the purchases acct determinations;
+- Writes the materials acct determinations;
+- Writes the posting categories;
+- Writes the tax report setups;
+- Writes the with holding tax types;
 
 ### `Handlers`
 
@@ -268,8 +357,7 @@ To map you can use the `MapConfig` feature, which allows you to configure how an
 - `ElementsToInclude`, the properties that you want to include in the output;
 - `ElementsToExclude`, the properties that you want to exclude from the output;
 - `ElementsToMerge`, the properties that you want to merge from other input;
-- `Items`, the properties where you want to change its destiny name;
-- `NewItems`, the new properties that you want to add.
+- `Items`, the properties where you can customize the target document;
 
 Consider the following example on how to use the `MapConfig`.
 
@@ -280,18 +368,21 @@ using JsonDocument doc = JsonDocument.Parse(inputJSON, new JsonDocumentOptions {
 
 JsonWriterOptions options = new JsonWriterOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, Indented = true };
 
-string outputJSON = mapConfig.MapArray(doc, options, Encoding.UTF8);
+string outputJSON = mapConfig.Map(doc, options, Encoding.UTF8, true);
 ```
 
 Consider following examples.
 
-#### Example 1
+#### Example 1 - Include
 
 - Map Configuration
 
 ```Json
 {
-  "elementsToInclude": [ "id", "name"]
+  "elementsToInclude": [
+    "id",
+    "name"
+  ]
 }
 ```
 
@@ -346,13 +437,18 @@ Consider following examples.
 
 ```
 
-#### Example 2
+#### Example 2 - Exclude
 
 - Map Configuration
 
 ```Json
 {
-  "elementsToInclude": [ "*"]
+  "elementsToInclude": [
+    "*"
+  ],
+  "elementsToExclude": [
+    "description"
+  ]
 }
 ```
 
@@ -381,72 +477,7 @@ Consider following examples.
     "description": "my description"
   }
 ]
-```
 
-- Output
-
-```Json
-[
-  {
-    "id": "1",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "2",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "3",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "4",
-    "name": "myname",
-    "description": "my description"
-  }
-]
-
-```
-
-#### Example 3
-
-- Map Configuration
-
-```Json
-{
-  "elementsToInclude": [ "*"],
-  "elementsToExclude": [ "description"],
-}
-```
-
-- Input
-
-```Json
-[
-  {
-    "id": "1",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "2",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "3",
-    "name": "myname",
-    "description": "my description"
-  },
-  {
-    "id": "4",
-    "name": "myname",
-    "description": "my description"
-  }
-]
 ```
 
 - Output
@@ -473,28 +504,104 @@ Consider following examples.
 
 ```
 
-#### Example 4
+#### Example 3 - Fixed Value
 
 - Map Configuration
 
 ```Json
 {
-  "elementsToInclude": [ "*" ],
-  "elementsToExclude": [ "description" ],
+  "elementsToInclude": [
+    "*"
+  ],
   "items": [
     {
-      "origin": "id",
-      "destiny": "theId"
-    },
-    {
-      "origin": "name",
-      "destiny": "theName"
+      "target": "anotherDescription",
+      "customize": {
+        "apply": true,
+        "fixedValue": "fixed"
+      }
     }
+  ]
+}
+```
+
+- Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+```
+
+- Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": "fixed"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": "fixed"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": "fixed"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": "fixed"
+  }
+]
+
+```
+
+#### Example 4 - Prefix
+
+- Map Configuration
+
+```Json
+{
+  "elementsToInclude": [
+    "id",
+    "name"
   ],
-  "newItems": [
+  "items": [
     {
-      "key": "theDescription",
-      "value": "my description"
+      "source": "description",
+      "target": "description",
+      "customize": {
+        "apply": true,
+        "prefix": "prefixApplied"
+      }
     }
   ]
 }
@@ -533,25 +640,107 @@ Consider following examples.
 ```Json
 [
   {
-    "theId": "1",
-    "theName": "myname",
-    "theDescription": "my description"
+    "id": "1",
+    "name": "myname",
+    "prefixApplieddescription": "my description"
   },
   {
-    "theId": "2",
-    "theName": "myname",
-    "theDescription": "my description"
+    "id": "2",
+    "name": "myname",
+    "prefixApplieddescription": "my description"
   },
   {
-    "theId": "3",
-    "theName": "myname",
-    "theDescription": "my description"
+    "id": "3",
+    "name": "myname",
+    "prefixApplieddescription": "my description"
   },
   {
-    "theId": "4",
-    "theName": "myname",
-    "theDescription": "my description"
+    "id": "4",
+    "name": "myname",
+    "prefixApplieddescription": "my description"
   }
 ]
 
 ```
+
+#### Example 5 - Suffix
+
+- Map Configuration
+
+```Json
+{
+  "elementsToInclude": [
+    "id",
+    "name"
+  ],
+  "items": [
+    {
+      "source": "description",
+      "target": "description",
+      "customize": {
+        "apply": true,
+        "suffix": "SuffixApplied"
+      }
+    }
+  ]
+}
+
+```
+
+- Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+
+```
+
+- Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "descriptionSuffixApplied": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "descriptionSuffixApplied": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "descriptionSuffixApplied": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "descriptionSuffixApplied": "my description"
+  }
+]
+
+```
+
+> Notice, that to use the `Customize` an item you have to set the "apply" to "true".
