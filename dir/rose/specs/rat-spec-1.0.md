@@ -179,6 +179,7 @@ public class ExampleReader: ReaderBase
     }
 
 }
+```
 
 |Parameter | Value | Description |
 | :--------|:------| :-----------|
@@ -195,8 +196,6 @@ public class ExampleReader: ReaderBase
 |minbackoff  | 0|Minimum exponential backoff value. |
 |maxbackoff| 30|Maximum exponential backoff value.|
 |deltabackoff  |2| Delta exponential backoff value.|
-
-```
 
 #### `MultiWriterBase`
 
