@@ -171,7 +171,50 @@ The parameters that can be configured, are the ones that follow:
 
 These are handlers that were built to speed up and facilitate the process of building a pipeline. A handler is a piece of a pipeline, one pipeline is composed of n handlers.
 
-#### `HTTPMultiWriterBase`
+#### `ReaderBase`
+
+This handler's purpose is to perform a "Get" request, a read operation. If the response has a next page, this handler can perform several requests until there are no remaining pages. Also, it will build the result by agglomerating the responses. The result will be added to the context with the "input Property" as key.
+
+```Json
+{
+    "id": "example-reader",
+    "order": "1",
+    "tag": "example-reader",
+    "type": "Primavera.Lithium.RoseAsyncTasks.WebApi.Handlers.ExampleReader, Primavera.Lithium.RoseAsyncTasks.WebApi",
+    "configStr": "isPageReader=true; inputProperty=taxonomyclass; credentialsrequired=true; httpmethod=get; authorityserveruri=%authorityserveruri%; applicationscopes=%applicationscopes%; endpoint=%endpoint%; clientid=%clientid%; clientsecret=%clientsecret%; retryonfailure=true; retryattempts=3; minbackoff=0; maxbackoff=30; deltabackoff=2",
+    "active": "True"
+}
+
+```
+
+```csharp
+
+public class ExampleReader: ReaderBase
+{
+    #region Constructor
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExampleReader"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider.</param>
+    public ExampleReader(IServiceProvider serviceProvider)
+        : base(serviceProvider)
+    {
+    }
+
+    #endregion
+
+    /// <inheritdoc/>
+    public override string SetRequestEndpoint()
+    {
+        return this.ConfigStr.GetValue<string>("endpoint");;
+    }
+
+}
+
+```
+
+#### `MultiWriterBase`
 
 This handler's purpose is to write a given list of items. To accomplish this, the handler will perform several posts at the same time until the list of items runs out. The property "maxdegreeofparallelism" can configure the number of items that will be written at the same time.
 
@@ -191,7 +234,7 @@ To accomplish the multi-writer behavior you just need to implement the abstract 
 
 ```csharp
 
-public class ExampleMultiWriter : HttpMultiWriter
+public class ExampleMultiWriter : MultiWriterBase
 {
     #region Constructor
 
@@ -207,10 +250,11 @@ public class ExampleMultiWriter : HttpMultiWriter
     #endregion
 
     /// <inheritdoc/>
-    public override string BuildEndpoint()
+    public override string SetEndpoint()
     {
         return this.ConfigStr.GetValue<string>("endpoint");;
     }
+
 }
 
 ```
@@ -235,24 +279,24 @@ public class ResultBase : DataTransferObject
     /// </summary>
     public ResultBase()
     {
-        this.Logs = new List<Log>();
+        this.Details = new List<Detail>();
     }
 
     #endregion
 
     /// <summary>
-    /// Gets or sets the title.
+    /// Gets or sets the details.
     /// </summary>
-    public IList<Log> Logs
+    public IList<Detail> Details
     {
         get
         {
-            return this.GetValue<IList<Log>>(nameof(this.Logs));
+            return this.GetValue<IList<Detail>>(nameof(this.Details));
         }
 
         set
         {
-            this.SetValue(nameof(this.Logs), value);
+            this.SetValue(nameof(this.Details), value);
         }
     }
 
@@ -331,8 +375,6 @@ public sealed class MyPublisher : PublishResultBase<MyResult>
     /// <inheritdoc/>
     public override Task<MyResult> BuildPublishResultAsync(BaseContext context, CancellationToken cancellationToken)
     {
-        MyResult myResult = this.Data.Responses.GetValue<MyResult>("myResult");
-
         return Task.FromResult(myResult);
     }
 
@@ -389,6 +431,8 @@ public sealed class MyVerifier : VerifierBase
 }
 
 ```
+
+> Notice, that all the handlers have the possibility to break on error. This can be accomplished by adding the property `breakOnError=true` to the handler configuration.
 
 ### `Mapper`
 
