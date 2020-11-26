@@ -59,19 +59,6 @@ Implements the `ReaderBase`. The parameters that can be configured, are the ones
 |isCompanyReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
 |isAccountingGroupReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
 |isClientAccountingsReader| true, false |If it's true builds the endpoint with the necessary data to perform the request.|
-|isPageReader| true, false |If it's true after each request it evaluates if the response has another page, If there is, this performs requests and agglomerates the data until there is no next page.|
-|inputProperty| text | The input property key.|
-|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
-|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
-|authorityserveruri  | ****** |The address to get the client credentials token.|
-|clientid| ******|The client id to get the client credentials token.|
-|clientsecret  | ****** |The client secret to get the client credentials token.|
-|endpoint| text |The request endpoint.|
-|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
-|retryattempts| n|The number of retry attempts.|
-|minbackoff  | 0|Minimum exponential backoff value. |
-|maxbackoff| 30|Maximum exponential backoff value.|
-|deltabackoff  |2| Delta exponential backoff value.|
 
 > The read operations are performed in the following order:
 
@@ -125,26 +112,7 @@ The parameters that can be configured, are the ones that follow:
 
 `ConfigSubMultiWriter`
 
-Implements the `MultiWriterBase`. The parameters that can be configured, are the ones that follow:
-
-|Parameter | Value | Description |
-| :--------|:------| :-----------|
-|isArrayOrList| true, false |If, the payload is a list of items.|
-|identifier| true, false |The key that identifies the element that will be written.|
-|category| text | The category of the element that will be written.|
-|inputProperty| text | The input property key.|
-|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
-|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
-|authorityserveruri  | ****** |The address to get the client credentials token.|
-|clientid| ******|The client id to get the client credentials token.|
-|clientsecret  | ****** |The client secret to get the client credentials token.|
-|endpoint| text |The request endpoint.|
-|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
-|retryattempts| n|The number of retry attempts.|
-|minbackoff  | 0|Minimum exponential backoff value. |
-|maxbackoff| 30|Maximum exponential backoff value.|
-|deltabackoff  |2| Delta exponential backoff value.|
-|maxdegreeofparallelism  |10| The maximum of parallel write operations.|
+Implements the `MultiWriterBase`. The parameters that can be configured are the ones defined in the base class.
 
 > The write operations are performed in the following order:
 
@@ -212,6 +180,22 @@ public class ExampleReader: ReaderBase
 
 }
 
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|isPageReader| true, false | If its true after each request it evaluates if the response has another page, If there is, this performs requests and agglomerates the data until there is no next page.|
+|inputProperty| text | The input property key.|
+|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
+|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
+|authorityserveruri  | ****** |The address to get the client credentials token.|
+|clientid| ******|The client id to get the client credentials token.|
+|clientsecret  | ****** |The client secret to get the client credentials token.|
+|endpoint| text |The request endpoint.|
+|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
+|retryattempts| n|The number of retry attempts.|
+|minbackoff  | 0|Minimum exponential backoff value. |
+|maxbackoff| 30|Maximum exponential backoff value.|
+|deltabackoff  |2| Delta exponential backoff value.|
+
 ```
 
 #### `MultiWriterBase`
@@ -258,6 +242,25 @@ public class ExampleMultiWriter : MultiWriterBase
 }
 
 ```
+
+|Parameter | Value | Description |
+| :--------|:------| :-----------|
+|isArrayOrList| true, false |If, the payload is a list of items.|
+|identifier| true, false |The key that identifies the element that will be written.|
+|category| text | The category of the element that will be written.|
+|inputProperty| text | The input property key.|
+|credentialsrequired| true, false |If, to perform the Http request, is necessary to have credentials this option should be defined has 'true'.|
+|applicationscopes | ******|The application scopes that will be used to get the client credentials token.|
+|authorityserveruri  | ****** |The address to get the client credentials token.|
+|clientid| ******|The client id to get the client credentials token.|
+|clientsecret  | ****** |The client secret to get the client credentials token.|
+|endpoint| text |The request endpoint.|
+|retryonfailure  |true, false| This option should be defined has 'true' if you want to activate the retry on failure.|
+|retryattempts| n|The number of retry attempts.|
+|minbackoff  | 0|Minimum exponential backoff value. |
+|maxbackoff| 30|Maximum exponential backoff value.|
+|deltabackoff  |2| Delta exponential backoff value.|
+|maxdegreeofparallelism  |10| The maximum of parallel write operations.|
 
 #### `PublishResultBase{T}`
 
