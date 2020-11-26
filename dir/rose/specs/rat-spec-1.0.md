@@ -47,7 +47,7 @@ This pipeline is responsible for configuring a rose subscription asynchronously.
 
 The first 18 handlers are readers, these use the `ConfigSubMultiReader` to achieve that kind of behavior. This handler implements the `ReaderBase` class.
 
-### `ConfigSubMultiReader - Configuration`
+`ConfigSubMultiReader`
 
 The parameters that can be configured, are the ones that follow:
 
@@ -94,7 +94,7 @@ The parameters that can be configured, are the ones that follow:
 - Gets the tax report setups;
 - Gets the with holding tax types;
 
-### `ConfigSubTransformer - Configuration`
+`ConfigSubTransformer`
 
 The parameters that can be configured, are the ones that follow:
 
@@ -122,6 +122,8 @@ The parameters that can be configured, are the ones that follow:
 - Transforms purchases acct determinations input data;
 - Transforms materials acct determinations input data;
 - Transforms tax report setups input data;
+
+`ConfigSubMultiWriter`
 
 The parameters that can be configured, are the ones that follow:
 
