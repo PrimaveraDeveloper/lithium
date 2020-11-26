@@ -49,7 +49,7 @@ The first 18 handlers are readers, these use the `ConfigSubMultiReader` to achie
 
 `ConfigSubMultiReader`
 
-The parameters that can be configured, are the ones that follow:
+Implements the `ReaderBase`. The parameters that can be configured, are the ones that follow:
 
 |Parameter | Value | Description |
 | :--------|:------| :-----------|
@@ -125,7 +125,7 @@ The parameters that can be configured, are the ones that follow:
 
 `ConfigSubMultiWriter`
 
-The parameters that can be configured, are the ones that follow:
+Implements the `MultiWriterBase`. The parameters that can be configured, are the ones that follow:
 
 |Parameter | Value | Description |
 | :--------|:------| :-----------|
@@ -218,7 +218,7 @@ public class ExampleReader: ReaderBase
 
 This handler's purpose is to write a given list of items. To accomplish this, the handler will perform several posts at the same time until the list of items runs out. The property "maxdegreeofparallelism" can configure the number of items that will be written at the same time.
 
-To accomplish the multi-writer behavior you just need to implement the abstract Http MultiWriter class and override the necessary methods. The next example shows how to do that.
+To accomplish the multi-writer behavior you just need to implement the abstract MultiWriterBase class and override the necessary methods. The next example shows how to do that.
 
 ```Json
 {
