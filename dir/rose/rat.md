@@ -21,10 +21,21 @@ The ROSE Asynchronous Tasks Service is responsible for processing asynchronous t
 | - | - |
 | `lithium-roseasynctasks` | Access all the endpoints in the API |
 
+## Environments
+
+| Environment | Available |
+| - | - |
+| Production | --- |
+| Preview (WE) | --- |
+| Preview (NE) | --- |
+| Staging (WE) | Yes |
+| Staging (NE) | --- |
+| Development | Yes |
+
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
 | Spec | [1.0](./specs/rat-spec-1.0.md) |
-| Client Library | Not available yet |
+| Client Library | [1.0](https://dv-rat.lithium.primaverabss.com/.doc/clientlib#root) |
 | Web API | [1.0](https://dv-rat.lithium.primaverabss.com/.doc/webapi/index.html) |
