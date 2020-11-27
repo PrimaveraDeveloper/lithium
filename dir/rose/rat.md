@@ -27,4 +27,4 @@ The ROSE Asynchronous Tasks Service is responsible for processing asynchronous t
 | - | - |
 | Spec | [1.0](./specs/rat-spec-1.0.md) |
 | Client Library | Not available yet |
-| Web API | Not available yet |
+| Web API | [1.0](https://dv-rat.lithium.primaverabss.com/.doc/webapi/index.html) |
