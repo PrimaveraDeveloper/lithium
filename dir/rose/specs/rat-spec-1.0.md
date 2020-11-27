@@ -829,4 +829,169 @@ Consider following examples.
 
 ```
 
+#### Example 6 - JSON Fixed Value
+
+- Map Configuration
+
+```Json
+{
+  "elementsToInclude": [
+    "*"
+  ],
+  "items": [
+    {
+      "target": "anotherDescription",
+      "customize": {
+        "apply": true,
+        "isJson": true,
+        "isJsonArray": false,
+        "fixedValue": "{\"a\":true, \"b\":\"hello\"}"
+      }
+    }
+  ]
+}
+
+```
+
+- Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+
+```
+
+- Output
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": {"a":true, "b":"hello"}
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": {"a":true, "b":"hello"}
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": {"a":true, "b":"hello"}
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description",
+    "anotherDescription": {"a":true, "b":"hello"}
+  }
+]
+
+```
+
+#### Example 7 - Condition
+
+- Map Configuration
+
+```Json
+{
+  "elementsToInclude": [
+    "id",
+    "name"
+  ],
+  "items": [
+    {
+      "source": "id",
+      "target": "conditionResult",
+      "customize": {
+        "apply": true,
+        "condition": "1",
+        "validConditionResult": "true",
+        "invalidConditionResult": "false"
+      }
+    }
+  ]
+}
+```
+
+- Input
+
+```Json
+[
+  {
+    "id": "1",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "2",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "3",
+    "name": "myname",
+    "description": "my description"
+  },
+  {
+    "id": "4",
+    "name": "myname",
+    "description": "my description"
+  }
+]
+
+```
+
+- Output
+
+```Json
+[
+  {
+    "id": "1",
+    "conditionResult": "true",
+    "name": "myname"
+  },
+  {
+    "id": "2",
+    "conditionResult": "false",
+    "name": "myname"
+  },
+  {
+    "id": "3",
+    "conditionResult": "false",
+    "name": "myname"
+  },
+  {
+    "id": "4",
+    "conditionResult": "false",
+    "name": "myname"
+  }
+]
+
+```
+
 > Notice, that to use the `Customize` an item you have to set the "apply" to "true".
