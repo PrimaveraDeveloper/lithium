@@ -10,7 +10,7 @@ The current version of the service provides only a client library and the follow
 
 ## Validation (and Lookup) Algorithms
 
-The OBS service provides implements - through the client library only - a set of algorithms that allow validating banking numbers and codes. These algorithms also allow extracting useful information from those numbers/codes - like, for example, the account number from an IBAN.
+The OBS service implements - through the client library only - a set of algorithms that allow validating banking numbers and codes. These algorithms also allow extracting useful information from those numbers/codes - like, for example, the account number from an IBAN.
 
 The algorithms available are:
 
@@ -43,16 +43,14 @@ using (OpenBankingClient serviceClient = new OpenBankingClient(
 `IBANValidationState` indicates the result of the validation. It has 3 possible values:
 
 - `Valid`: the IBAN is valid.
-- `Invalid`: the IBAN is valid.
+- `Invalid`: the IBAN is invalid.
 - `NotValidated`: if, for any reason, the service is not capable of validating the number.
 
 > Since the validation algorithm is implemented in the client library - there is no communication whatsoever with the cloud service - the service client can be created like in the previous example (the service URI is not used and there is no need to pass in the service credentials).
 
 #### Lookup
 
-To lookup an IBAN number:
-
-Lookup works the same, only the result is different, including additional information about the IBAN number:
+Lookup works the same as validation, only the result is different, including additional information about the IBAN number:
 
 ```csharp
 using (OpenBankingClient serviceClient = new OpenBankingClient(
@@ -106,7 +104,7 @@ using (OpenBankingClient serviceClient = new OpenBankingClient(
 `BICValidationState` indicates the result of the validation. It has 3 possible values:
 
 - `Valid`: the BIC is valid.
-- `Invalid`: the BIC is valid.
+- `Invalid`: the BIC is invalid.
 - `NotValidated`: if, for any reason, the service is not capable of validating the code.
 
 #### Lookup
@@ -139,7 +137,9 @@ The `BIC` property in `BICLookupResult` includes the additional information (onl
 
 ### NIB
 
-Validation and lookup of NIB numbers works basically the same as IBAN numbers, except that only Portuguese numbers will be validated (the country code and check digits are optional since they are not part of the NIB specification).
+Validation and lookup of NIB numbers works basically the same as for IBAN numbers, except that only Portuguese numbers will be validated.
+
+> The country code and check digits are optional since they are not part of the NIB specification.
 
 ## Open Banking Services
 
