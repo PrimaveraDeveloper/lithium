@@ -81,10 +81,6 @@ The following example is the only required fields for a notification:
 }
 ```
 
-<!-- markdown-link-check-disable -->
-Tha available endpoints can be found [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
-<!-- markdown-link-check-enable -->
-
 ## By an event (EventBus)
 
 The service is listening to eventBus events with specified filters that can be changed in the configuration. The notification must follow the same structure as the API, and the object sent to eventBus must be of type ```DataTransferObject```.
