@@ -45,7 +45,7 @@ To push notifications via API, it must have the following example structure:
   "ExpiresOn": "2020-02-12T18:00:00Z",
   "Source": "Alerts",
   "Targets": [
-    "JasminPremium$800001$800001-0445$Sales"
+    "JasminPremium$800001$800001-0445$d9e7a021-9fae-4ee5-ad70-27764b2ae923"
   ]
 }
 ```
@@ -55,7 +55,7 @@ To push notifications via API, it must have the following example structure:
 > * To correctly display the notifications in the [notifications central UI](_assets/notifications_v3.png), the message must have as key a ```Title``` and a ```Message```;
 > * The notificationType, if not provided, default value will be 0 (Information);
 > * The expiration date of a notification will be defined by time to live configuration or, if provided, the ExpiresOn parameter;
-> * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2Fcommon%2FPNS%2FMainline%2Freadme.md&version=T&_a=preview).
+> * Targets are constructed when the client is connected with the server. To see how targets are constructed to send notifications to correct target, read this [documentation (TFS)](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2Fpns%2Fmainline%2Fserver%2Freadme.md&version=T&_a=preview).
 <!-- markdown-link-check-enable -->
 
 The following example is the only required fields for a notification:
@@ -76,7 +76,7 @@ The following example is the only required fields for a notification:
   ],
   "Source": "Marketing",
   "Targets": [
-    "JasminPremium$800001$800001-0445$Sales"
+    "JasminPremium$800001$800001-0445$d9e7a021-9fae-4ee5-ad70-27764b2ae923"
   ]
 }
 ```
