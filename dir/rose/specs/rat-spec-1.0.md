@@ -491,4 +491,5 @@ string outputJSON = mapConfig.Map(doc, options, Encoding.UTF8, true);
 }
 
 ```
+
 > Notice, that to use the `Customize` an item you have to set the "apply" to "true".
