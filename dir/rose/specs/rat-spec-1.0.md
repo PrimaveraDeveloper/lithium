@@ -34,9 +34,19 @@ This pipeline is responsible for processing the SAFT import data asynchronously.
 
 ![Import SAFT](_assets/importsaft.png)
 
+#### `Initialize Subscription`
+
+- `InitSubValidateResources` - responsible for validating the app definition;
+- `InitSubCreateResources` - responsible for creating the app instance;
+- `InitSubErrorPublisher` - responsible for publishing the result when the process of create resources has failed;
+- `InitSubProcessPendingRequest` - responsible for obtaining the data for the initialize process based on the app instance key;
+- `InitSubResultPublisher` - responsible for publishing the initialization result.
+
+![Initialize Subscription](_assets/initsubscription.png)
+
 #### `Configure Subscription`
 
-This pipeline is responsible for configuring a rose subscription asynchronously. This pipeline consists of 46 handlers of 4 types.
+This pipeline is responsible for configuring a rose subscription asynchronously. This pipeline consists of 50 handlers of 4 types.
 
 - `ConfigSubMultiReader` - responsible for performing read operations;
 - `ConfigSubTransformer` - responsible for performing map, merge, clean and convert operations;
@@ -80,6 +90,7 @@ Implements the `ReaderBase`. The parameters that can be configured, are the ones
 - Gets the posting categories;
 - Gets the tax report setups;
 - Gets the with holding tax types;
+- Gets the fiscal document types;
 
 `ConfigSubTransformer`
 
@@ -99,6 +110,7 @@ The parameters that can be configured, are the ones that follow:
 
 > The tranform operations, such as convert, merge, map, clean, are performed in the following order:
 
+- Trasnforms the fiscal document types data;
 - Transforms customer input data;
 - Transforms financial statements input data;
 - Transforms financial calendars input data;
@@ -134,6 +146,8 @@ Implements the `MultiWriterBase`. The parameters that can be configured are the 
 - Writes the posting categories;
 - Writes the tax report setups;
 - Writes the with holding tax types;
+- Writes the memo types;
+- Writes the invoice types;
 
 ### `Handlers`
 
