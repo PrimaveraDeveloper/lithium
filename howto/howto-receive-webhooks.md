@@ -34,12 +34,16 @@ Here's a very simple example:
 ```csharp
 protected override async Task<IActionResult> CustomerCreatedCallbackCoreAsync()
 {
-    using (StreamReader reader = new StreamReader(this.Request.Body))
-    {
-        string body = await reader.ReadToEndAsync().ConfigureAwait(false);
+    WebhookHeaders headers = this.Request.GetWebhookHeaders();
 
-        // Do something
+    string payload = await this.Request.ReadWebhookPayloadAsStringAsync().ConfigureAwait(false);
+
+    if (!headers.IsSignatureValid("the-secret", payload))
+    {
+        (...)
     }
+
+    (...)
 
     return this.Ok();
 }
@@ -47,9 +51,17 @@ protected override async Task<IActionResult> CustomerCreatedCallbackCoreAsync()
 
 > The callback endpoint should return `HttpStatusCode.Ok` to indicate to the publisher that the webhook was processed successfully.
 
+> `WebhookHeaders` and the `GetWebhookHeaders()` and `ReadWebhookPayloadAsStringAsync()` extension methods for `HttpRequest` are available in the `Primavera.Hydrogen.AspNetCore.Webhooks` namespace.
+
 ## Subscribing the webhook
 
-The publisher microservice provides an endpoint that allows subscribing multiple webhooks in one operation. You can invoke directly but you can also use the microservice's client library to subscribe webhooks.
+The publisher microservice provides an endpoint that allows subscribing multiple webhooks in one operation.
+
+You can:
+
+- Invoke this endpoint directly (e.g. `HttpClient`).
+- Use the microservice's client library (like in the following example).
+- Use the generic `WebhooksSubscriptionsClient` available on [Rest.Client](../ref/hydrogen-2.0/Rest.Client.md).
 
 Here's an example:
 
@@ -69,12 +81,14 @@ ServiceOperationResult<string> response = await serviceClient.Webhooks
     .ConfigureAwait(false);
 ```
 
-Notice the properties in `CreateWebhookSubscriptionRequest`:
+`CreateWebhookSubscriptionRequest` has the following properties:
 
 - `ClientId` - this is a unique identifier for the application subscribing the webhooks.
 - `EventNames` - a list containing the names of the webhooks that should be subscribed (these names must match the names as advertised by the publisher).
 - `CallbackUrl` - the address of the callback (e.g. `https://myserver/api/v1.0/callbacks/customercreated`)
 - `Secret` - a secret defined by the client that will be returned in the callback headers and that can be used to authenticate the callback (to make sure it was sent by the correct publisher).
+- `Filters` - a dictionary of filters to match the events published (see [AspNetCore.Webhooks.Abstractions](../ref/hydrogen-2.0/AspNetCore.Webhooks.Abstractions.md)).
+- `Properties` - a dictionary of client-specific data that will be returned in the callback headers for every event.
 
 > Notice that this design allows for a single endpoint to serve as callback for multiple webhooks. When receiving each callback, the request will contain the actual event name in the headers, allowing the implementation of different logic, depending on the webhook received.
 

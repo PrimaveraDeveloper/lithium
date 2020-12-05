@@ -2,16 +2,16 @@
 
 **Class library that contains types that define services for providing webhooks in ASP.NET Core applications.**
 
-This library provides a default implementation of the webhooks services with the following characteristics:
+This library provides a default implementation of the webhooks services available in Primavera.Hydrogen.AspNetCore.Webhooks.Abstractions with the following characteristics:
 
 - Subscriptions are stored in table storage (service `TableStorageWebhooksSubscriptionsService`).
-- Webhooks events are published (service `InProcessWebhooksService`) and sent to subscribers using a background service automatically setup in the client application. This background service uses a background queue. It does not retry publications when the client application does not respond, and it will stop trying to publish a given webhook event if it fails a certain number of times consecutively.
+- Webhooks events are published and sent to subscribers using a background service automatically setup in the client application. This background service uses a background queue (service `InProcessWebhooksService`). It does not retry publications when the client application does not respond, and it will stop trying to publish a given webhook event if it fails a certain number of times consecutively.
 
 The implementation is extensible in the sense that these default services can be replaced and other services may be registered. This is ensured by the webhooks builder.
 
 ## Webhooks builder (`IWebhooksBuilder`)
 
-To setup webhooks on an application the following extension method for IServiceCollection should be used:
+To setup webhooks on an application the following extension method for `IServiceCollection` should be used:
 
 ```csharp
 IServiceCollection services = (...);
@@ -32,10 +32,10 @@ The builder then allows registering additional services.
 This configuration class provides the following options:
 
 - `ApplicationName` (required) (no default value) - the application name.
-- `EventsSupported` (required) (no default value) - the description of all the webhook events supported in the application.
+- `EventsSupported` (required) (no default value) - the description of all the webhook events supported by the application.
 - `CallbackTimeout` (default value is 5 seconds) - the timeout when invoking the subscribers callbacks.
 - `CallbackMaxRetries` (default is 3) - the maximum number of times the callback for a subscription will be invoked (if it fails) before the subscription is inactivated.
-- `Events` (optional) - allows the application to receive events from the webhooks services.
+- `Events` (optional) - allows the application to receive events from the webhooks services themselves.
 
 ### Events supported
 
@@ -72,13 +72,13 @@ IWebhooksBuilder builder = services.AddWebhooks(
 
 Notice that each event requires the following information:
 
-- The event name, in the form `Entity_Verb`.
+- The event name (in the form `Entity_Verb`).
 - The event descriptions (indexed by culture).
 - The payload descriptions (indexed by culture).
 
 ### Services events
 
-The application can subscribe events raised by the webhooks services using the `Event` option. This exists to support custom behavior on new subscriptions, when publishing events, etc.
+The application can subscribe events raised by the webhooks services using the `Event` configuration option. This allows to implement application-specific behavior on new subscriptions, when publishing events, etc.
 
 For example:
 
@@ -115,9 +115,9 @@ The `TableStorageWebhooksSubscriptionsService` implements the `IWebhooksSubscrip
 
 The `InProcessWebhooksService` implements the `IWebhooksService` using a background service.
 
-As stated above, when the webhooks builder is initialized only the subscriptions service is registered. This means that, to publish webhooks, the `IWebhooksService` needs to be registered using the builder.
+As stated before, when the webhooks builder is initialized only the subscriptions service is registered. This means that, to publish webhooks, the `IWebhooksService` needs to be registered using the builder.
 
-This is achieved using an extension method on IWebhooksBuilder:
+This is achieved using an extension method on `IWebhooksBuilder`:
 
 ```csharp
 IServiceCollection services = (...);
@@ -153,17 +153,19 @@ await this.WebhooksService.PublishEventAsync(
     .ConfigureAwait(false);
 ```
 
+> Filters are supported when publishing events. For more information see [AspNetCore.Webhooks.Abstractions](./AspNetCore.Webhooks.Abstractions.md).
+
 ### Callback action
 
-When a given event is published by the application, the webhooks service will determine the subscribers and invoke their callback action one at a time.
+When a given event is published by the application, the webhooks service will determine the matching subscribers and invoke their callback actions, one at a time.
 
 This message will have the following characteristics:
 
-- The request is a POST.
-- It includes the payload in the request body.
-- It includes a set of headers that provide additional information about the callback to the client application.
-- It is expected to return OK as a response. Otherwise it will be considered failed.
-- The callback is expected to respond within period of time (see `WebhooksOptions.CallbackTimeout`). Otherwise it will be considered as timed-out.
+- The request is a **POST**.
+- It includes the **payload in the request body**.
+- It includes a **set of headers** that provide additional information about the callback to the client application.
+- It is **expected to return OK** as a response. Otherwise it will be considered failed.
+- The callback is **expected to respond within period of time** (see `WebhooksOptions.CallbackTimeout`). Otherwise it will be considered as timed-out.
 
 ### Callback payload
 
@@ -176,6 +178,7 @@ The webhook also includes the following headers in the callback:
 - `X-Webhook-Application` - the name of the application that is sending the webhook (see WebhooksOptions.ApplicationName).
 - `X-Webhook-Event` - the name of the event that triggered the callback (useful because the same callback can respond to callbacks from a single subscription that subscribes multiple webhook events).
 - `X-Webhook-Delivery` - a unique identifier of the callback (retries should have the same identifier).
+- `X-Webhook-Properties` - a string containing all properties provided by the client application when the subscription was created/updated.
 - `X-Webhook-Signature` - the HMAC SHA256 signature of the payload.
 
 ### Signature
@@ -186,24 +189,26 @@ After the payload is serialized, the service will compute a HMAC SHA256 hash of 
 
 ### Limitations
 
-The current implementation uses a background service and a background queue to deliver webhooks events to subscriptions, thus it is called "in-process". This is the most important limitation of this implementation. It does NOT guarantee the delivery of events to all subscribers in all cases. It there is any problem with the queue or the background service, the events occurred during that period will not be delivered.
+The current implementation uses a background service and a background queue to deliver webhooks events to subscriptions, thus it is called "in-process". This is the most important limitation of this implementation. It does NOT guarantee the delivery of events to all subscribers in all cases. If there is any problem with the queue or the background service, the events occurred during that period will not be delivered.
 
-The service also does not implement any retry mechanism when the client application callback fails for some reason. It simply marks it as failed and does not retry to send the event.
+The service also does not implement any retry mechanism when the client application callback fails for some reason. It simply marks it as failed and does not retry to send the same event instance.
 
-Furthermore, if the callback for a given subscription fails consecutively a certain number of times (see `WebhooksOptions.CallbackMaxRetries`), the service stops trying to send events by rendering the subscription inactive (the client application will be required to activate it again after the problem is resolved).
+Furthermore, if the callback for a given subscription fails consecutively a certain number of times (see `WebhooksOptions.CallbackMaxRetries`), the service stops trying to send any event for that subscription by rendering the it inactive (the client application will be required to activate it again after the problem is resolved).
 
 ## Validation
 
-The service enforce string validation rules on various pieces of data used for describing events, and subscriptions. The regular expressions used are the following:
+The service enforces string validation rules on various pieces of data used for describing events, and subscriptions. The regular expressions used are the following:
 
 - Application name: `^([A-Z])(\d|[A-Z])*$`
 - Client identifier: `^(\d|[a-z]|[A-Z]|-)*$`
 - Subscription identifier: `^(\d|[a-z]|[A-Z]|-)*$`
-- Event name: `^([A-Z])([a-z])*(_)([A-Z])([a-z])*$`
+- Event name: `^([A-Z])([a-z]|[A-Z])*(_)([A-Z])([a-z])*$`
 
 ## Future work
 
-As stated above, the current version of these services have some limitations. In the future, these services may evolve or new services may me implemented to implement features like:
+As stated above, the current version of these services has some limitations.
+
+In the future, these services may evolve (or new services may me implemented) to support features like:
 
 - Resilience when invoking the callback actions.
 - Retry policies when invoking the callback actions.

@@ -8,7 +8,7 @@ Webhooks are automated messages sent to subscribers (applications or other micro
 
 Each webhook will have a payload - data about the event - associated with it.
 
-To add webhooks to a microservice, first you need to describe the events available - so that subscribers can subscribes to receive the webhooks for those events - and then publish the actual events from microservice's custom logic.
+To add webhooks to a microservice, first you need to describe the events available - so that subscribers can subscribe to receive the webhooks for those events - and then publish the actual events from microservice's custom logic.
 
 ## Adding webhooks
 
@@ -24,7 +24,7 @@ You can add as many webhooks as needed.
 
 > The event name must be in the form 'Entity_Verb' to describe the entity affected and what happened. Example: 'Customer_Created'.
 
-> The event and the payload descriptions are important so that the subscribers can understand what the event represents and what data it will receive when the webhook is triggered.
+> The event and the payload descriptions are important so that the subscribers can understand what the event represents and what data they will receive when the webhook is triggered.
 
 ### Generated code
 
@@ -67,7 +67,7 @@ protected virtual void AddWebhooks(IServiceCollection services, HostConfiguratio
 }
 ```
 
-StartupBase.ConfigureWebhooksOptions():
+`StartupBase.ConfigureWebhooksOptions()`:
 
 ```csharp
 /// <summary>
@@ -115,40 +115,41 @@ To allow for applications to subscribe the webhooks, the microservice will inclu
 Here's an example of one of these controller actions:
 
 ```csharp
-/// <inheritdoc />
+[Authorize(Constants.Policies.Webhooks)]
 [HttpPost(Primavera.Lithium.WebhooksPublisher.Models.Metadata.Routes.Webhooks.CreateSubscription)]
 [ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.BadRequest)]
 [ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.Conflict)]
 [ProducesResponseType(typeof(string), (int)HttpStatusCode.Created)]
 public virtual async Task<IActionResult> CreateSubscriptionAsync(CreateWebhookSubscriptionRequest request)
 {
-    // Use service
+    OperationResult validationResult = await this.ValidateSubscriptionRequestAsync(
+        request)
+        .ConfigureAwait(false);
+
+    if (validationResult.IsFailure)
+    {
+        return this.BadRequest(
+            ServiceError.FromOperationResult(
+                validationResult));
+    }
 
     OperationResult<string> result = await this.WebhooksSubscriptionsService
         .CreateSubscriptionAsync(
             request)
         .ConfigureAwait(false);
 
-    // Failure?
-
     if (result.IsFailureWith(WebhooksErrorCodes.EventAlreadySubscribed))
     {
-        // Conflict
-
-        return this.BadRequest(
+        return this.Conflict(
             ServiceError.FromOperationResult(
                 result));
     }
     else if (result.IsFailure)
     {
-        // BadRequest
-
         return this.BadRequest(
             ServiceError.FromOperationResult(
                 result));
     }
-
-    // Created
 
     return this.Created(
         this.HttpContext.Request.GetWebhookSubscriptionLocationUri(
@@ -156,11 +157,54 @@ public virtual async Task<IActionResult> CreateSubscriptionAsync(CreateWebhookSu
             result.Data),
         result.Data);
 }
+
+protected virtual Task<OperationResult> ValidateSubscriptionRequestAsync(CreateWebhookSubscriptionRequest request)
+{
+    return Task.FromResult(
+        OperationResult.Success());
+}
 ```
 
-> Notice that these actions use the `IWebhooksSubscriptionService` available in Hydrogen.
+Notice the following aspects of this controller action:
 
-> The webhooks subscriptions routes are start with `/api/webhooks`.
+- The action uses OAuth authorization with a policy named `Webhooks` that enforces the client application to provide a specific scope (see Authorization, below).
+- The Webhooks controller reuses the `IWebhooksSubscriptionService` provided by Hydrogen.
+- All the webhooks subscriptions routes start with `/api/webhooks`.
+- The client application can validate and/or customize the incoming requests from client applications via the `ValidateSubscriptionRequestAsync()` method (see Validation bellow).
+
+##### Authorization
+
+All webhooks routes are secured by a policy that requires the caller to provide the `Models.Metadata.Scopes.Webhooks` scope. This scope's name is automatically generated from the micro service default scope by adding the `-wh` suffix. It that default scope is, for example, `identityserver4`, the Webhooks scope will be `identityserver4-wh`.
+
+This allows for a more fine-grained tuning of authorization. A client application that has access to the micro service API (the default scope) may not be allowed to subscribe and receive webhooks.
+
+##### Validation
+
+The `ValidateSubscriptionRequestAsync()` permits implementing custom logic to validate incoming subscription requests (create or update). It also allows customizing the requests by complementing them with application-specific logic, like in the following example:
+
+```csharp
+protected virtual async Task<OperationResult> ValidateSubscriptionRequestAsync(CreateWebhookSubscriptionRequest request)
+{
+    string clientId = request.ClientId;
+
+    string subscription = await this.FindSubscriptionForClientAsync(clientId).ConfigureAwait(false);
+    if (string.IsNullOrEmpty(subscription))
+    {
+        return OperationResult.Failure(
+            new OperationError(
+                "OperationNotAllowed",
+                "Operation is not allowed because the client id is not recognized."
+            ));
+    }
+
+    request.Filters = Dictionary<string, string>()
+    {
+        ["Subscription"] = subscription
+    };
+
+    return OperationResult.Success();
+}
+```
 
 #### Client library (webhooks subscriptions)
 
@@ -213,3 +257,5 @@ await this.WebhooksService.PublishEventAsync(
     payload)
     .ConfigureAwait(false);
 ```
+
+> The publisher can also provide filters to customize whose subscribers match the event. For more information see [AspNetCore.Webhooks.Abstractions](../ref/hydrogen2.0/AspNetCore.Webhooks.Abstractions.md).
