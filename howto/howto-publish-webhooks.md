@@ -63,7 +63,9 @@ protected virtual void AddWebhooks(IServiceCollection services, HostConfiguratio
 
     services
         .AddWebhooks(this.ConfigureWebhooksOptions)
-        .AddPublisherInProcess();
+        .AddBackgroundQueuePublisher()
+        .AddTimedRetry()
+        .AddAzureTableStorage();
 }
 ```
 
@@ -133,7 +135,7 @@ public virtual async Task<IActionResult> CreateSubscriptionAsync(CreateWebhookSu
                 validationResult));
     }
 
-    OperationResult<string> result = await this.WebhooksSubscriptionsService
+    OperationResult<string> result = await this.SubscriptionsService
         .CreateSubscriptionAsync(
             request)
         .ConfigureAwait(false);

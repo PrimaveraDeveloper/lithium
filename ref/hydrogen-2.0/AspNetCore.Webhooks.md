@@ -4,8 +4,9 @@
 
 This library provides a default implementation of the webhooks services available in Primavera.Hydrogen.AspNetCore.Webhooks.Abstractions with the following characteristics:
 
-- Subscriptions are stored in table storage (service `TableStorageWebhooksSubscriptionsService`).
-- Webhooks events are published and sent to subscribers using a background service automatically setup in the client application. This background service uses a background queue (service `InProcessWebhooksService`). It does not retry publications when the client application does not respond, and it will stop trying to publish a given webhook event if it fails a certain number of times consecutively.
+- Subscriptions are stored in table storage (service `TableStorageSubscriptionsService`).
+- Webhooks events are published and sent to subscribers using a background service automatically setup in the client application. This background service (service `BackgroundQueuePublishService`) uses a background queue.
+- Failed webhooks - that is, webhooks events that could not be published to a subscriber or whose subscriber responded with an unexpected status - will be retried by a different background service (service `TimedRetryService`) up to a certain number of times.
 
 The implementation is extensible in the sense that these default services can be replaced and other services may be registered. This is ensured by the webhooks builder.
 
@@ -23,7 +24,7 @@ IWebhooksBuilder builder = services.AddWebhooks(
     });
 ```
 
-> This method creates the builder, the configuration options (`WebhooksOptions`) and the subscription service (`IWebhooksSubscriptionsService`). It does NOT register the publisher.
+> This method creates the builder and the configuration options (`WebhooksOptions`). It does NOT register any other service (neither the publisher or the storage).
 
 The builder then allows registering additional services.
 
@@ -34,7 +35,7 @@ This configuration class provides the following options:
 - `ApplicationName` (required) (no default value) - the application name.
 - `EventsSupported` (required) (no default value) - the description of all the webhook events supported by the application.
 - `CallbackTimeout` (default value is 5 seconds) - the timeout when invoking the subscribers callbacks.
-- `CallbackMaxRetries` (default is 3) - the maximum number of times the callback for a subscription will be invoked (if it fails) before the subscription is inactivated.
+- `CallbackMaxRetries` (default is 10) - the maximum number of times the callback for a subscription will be invoked (if it fails) before the subscription is inactivated.
 - `Events` (optional) - allows the application to receive events from the webhooks services themselves.
 
 ### Events supported
@@ -103,21 +104,16 @@ IWebhooksBuilder builder = services.AddWebhooks(
 )
 ```
 
-## Store subscriptions (`TableStorageWebhooksSubscriptionsService`)
+## Store subscriptions (`TableStorageSubscriptionsService`)
 
-The `TableStorageWebhooksSubscriptionsService` implements the `IWebhooksSubscriptionsService` using Table Storage. It stores subscriptions using 3 tables:
+The `TableStorageSubscriptionsService` implements the `ISubscriptionsService` using Table Storage. It stores subscriptions using 4 tables:
 
 - `WebhooksSubscriptions` - stores all the subscriptions.
 - `WebhooksSubscriptionsClients` - indexes the subscriptions per client application.
 - `WebhooksSubscriptionsEvents` - indexes the subscriptions per event name.
+- `WebhooksFailing` - stores the webhook callback requests that failed.
 
-## Publish webhooks events (`InProcessWebhooksService`)
-
-The `InProcessWebhooksService` implements the `IWebhooksService` using a background service.
-
-As stated before, when the webhooks builder is initialized only the subscriptions service is registered. This means that, to publish webhooks, the `IWebhooksService` needs to be registered using the builder.
-
-This is achieved using an extension method on `IWebhooksBuilder`:
+To store the subscriptions, the `ISubscriptionsService` needs to be registered using the builder. This is achieved using an extension method on `IWebhooksBuilder`:
 
 ```csharp
 IServiceCollection services = (...);
@@ -128,7 +124,25 @@ IWebhooksBuilder builder = services.AddWebhooks(
         // (...)
     });
 
-builder.AddPublisherInProcess();
+builder.AddAzureTableStorage();
+```
+
+## Publish webhooks events (`BackgroundQueuePublishService`)
+
+The `BackgroundQueuePublishService` implements the `IWebhooksService` using a background queue.
+
+To publish webhooks, the `IWebhooksService` needs to be registered using the builder:
+
+```csharp
+IServiceCollection services = (...);
+
+IWebhooksBuilder builder = services.AddWebhooks(
+    (options) =>
+    {
+        // (...)
+    });
+
+builder.AddBackgroundQueuePublisher();
 ```
 
 Publishing a webhook event is straightforward:
@@ -191,9 +205,32 @@ After the payload is serialized, the service will compute a HMAC SHA256 hash of 
 
 The current implementation uses a background service and a background queue to deliver webhooks events to subscriptions, thus it is called "in-process". This is the most important limitation of this implementation. It does NOT guarantee the delivery of events to all subscribers in all cases. If there is any problem with the queue or the background service, the events occurred during that period will not be delivered.
 
-The service also does not implement any retry mechanism when the client application callback fails for some reason. It simply marks it as failed and does not retry to send the same event instance.
+Furthermore, if the callback for a given webhook event fails consecutively a certain number of times (see `WebhooksOptions.CallbackMaxRetries`), the service stops trying to send any event for that subscription by rendering it inactive (the client application will be required to activate it again after the problem is resolved).
 
-Furthermore, if the callback for a given subscription fails consecutively a certain number of times (see `WebhooksOptions.CallbackMaxRetries`), the service stops trying to send any event for that subscription by rendering the it inactive (the client application will be required to activate it again after the problem is resolved).
+## Retry (`TimedRetryService`)
+
+The `TimedRetryService` implements a simple retry mechanism for webhook callbacks failing.
+
+This service also needs to be registered using the builder (otherwise, failed webhooks will not be retried):
+
+```csharp
+IServiceCollection services = (...);
+
+IWebhooksBuilder builder = services.AddWebhooks(
+    (options) =>
+    {
+        // (...)
+    });
+
+builder.AddTimedRetry();
+```
+
+The retry policy applies the following rules:
+
+- A failed webhook callback request is any invocation of a webhook subscription callback for a specific event that failed for any reason.
+- These requests will fail if the subscriber fails to respond with 200 (OK) status code, the request times-out or any other exception occurs.
+- The failed callbacks will be retried up to the maximum number of times defined in the configuration options (see `CallbackMaxRetries`).
+- Each retry will be executed after a period of time (exponential) elapses since the last invocation. It starts at 10 seconds after the first try.
 
 ## Validation
 
@@ -203,15 +240,3 @@ The service enforces string validation rules on various pieces of data used for 
 - Client identifier: `^(\d|[a-z]|[A-Z]|-)*$`
 - Subscription identifier: `^(\d|[a-z]|[A-Z]|-)*$`
 - Event name: `^([A-Z])([a-z]|[A-Z])*(_)([A-Z])([a-z])*$`
-
-## Future work
-
-As stated above, the current version of these services has some limitations.
-
-In the future, these services may evolve (or new services may me implemented) to support features like:
-
-- Resilience when invoking the callback actions.
-- Retry policies when invoking the callback actions.
-- Events storage (e.g. Event Bus).
-- Different kinds of webhooks (e.g. fire and forget, ensure delivery, etc.)
-- Etc.

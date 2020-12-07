@@ -11,14 +11,14 @@ Hydrogen includes 2 services that allow implementing this feature in application
 - One to manage the subscriptions from a given client application to the webhooks available.
 - One to publish the webhooks events and route them to the adequate subscribers.
 
-## Store subscriptions (`IWebhooksSubscriptionsService`)
+## Store subscriptions (`ISubscriptionsService`)
 
-The `IWebhooksSubscriptionsService` provides operations to manage the subscriptions (create, update, delete, etc.). This service is designed to be exposed, for example, via API routes on the webhooks server, so that client applications can subscribe the webhooks available.
+The `ISubscriptionsService` provides operations to manage the subscriptions (create, update, delete, etc.). This service is designed to be exposed in some parts, for example, via API routes on the webhooks server, so that client applications can subscribe the webhooks available.
 
 Example:
 
 ```csharp
-IWebhooksSubscriptionService service = this.ServiceProvider.GetRequiredService<IWebhooksSubscriptionService>();
+ISubscriptionsService service = this.ServiceProvider.GetRequiredService<ISubscriptionsService>();
 
 CreateWebhookSubscriptionRequest request = new CreateWebhookSubscriptionRequest()
 {
