@@ -258,4 +258,4 @@ await this.WebhooksService.PublishEventAsync(
     .ConfigureAwait(false);
 ```
 
-> The publisher can also provide filters to customize whose subscribers match the event. For more information see [AspNetCore.Webhooks.Abstractions](../ref/hydrogen2.0/AspNetCore.Webhooks.Abstractions.md).
+> The publisher can also provide filters to customize whose subscribers match the event. For more information see [AspNetCore.Webhooks.Abstractions](../ref/hydrogen-2.0/AspNetCore.Webhooks.Abstractions.md).
