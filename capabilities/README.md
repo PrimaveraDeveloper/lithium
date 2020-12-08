@@ -10,6 +10,7 @@ This the list of all the capabilities (order alphabetically):
 - [Background Services](./background-services.md)
 - Blobs (see [Storage](./storage.md))
 - [Caching](./caching.md)
+- [Code Analysis](./codeanalysis.md)
 - [Client Libraries](./client-libraries.md)
 - [Configuration](./configuration.md)
 - [Console Applications](./console-applications.md)
