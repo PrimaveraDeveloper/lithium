@@ -10,7 +10,7 @@ This library includes types and components that provide features that simplify t
 
 ## External Test Resources
 
-ExternalTestResources defines constants that identify external resources (e.g. connection strings to Windows Azure Table Storage instances) that can be used in the integration tests.
+`ExternalTestResources` defines constants that identify external resources (e.g. connection strings to Windows Azure Table Storage instances) that can be used in the integration tests.
 
 Example:
 
@@ -34,7 +34,7 @@ Hydrogen provides features that make the development of integration tests on the
 
 ### `WebApplicationTestHostBuilder` and `IWebApplicationTestHost`
 
-`WebApplicationTestHostBuilder` allows building a test host to execute a Web server.
+`WebApplicationTestHostBuilder` allows building a test host to execute a Web server. It leverages the features of the `TestServer` mentioned above.
 
 Example:
 
