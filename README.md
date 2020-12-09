@@ -42,6 +42,12 @@ Given the changes in .NET Core, this release includes various changes in the cod
 
 This was the first release of the framework that evolved for almost 2 years since 2018. It supported the development of microservices on .NET Core 2.0 and Visual Studio 2017.
 
+## Release Notes
+
+- [Lithium SDK](./ref/sdk-2.0/release-notes.md)
+- [Hydrogen](./ref/hydrogen-2.0/release-notes.md)
+- [Hydrogen DesignTime](./ref/hydrogen-designtime-2.0/release-notes.md)
+
 ## Contributing and Feedback
 
 Contribution is limited, for the time being, to the Lithium development team.

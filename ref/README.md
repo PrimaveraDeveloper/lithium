@@ -4,7 +4,7 @@ This chapter includes reference documentation about the framework components.
 
 ## SDK
 
-The Lithium SDK includes two extensions for Visual Studio 2019 that provide the Service Designer and a set of additional tools.
+The [Lithium SDK](./sdk-2.0/README.md) includes two extensions for Visual Studio 2019 that provide the Service Designer and a set of additional tools.
 
 | Component | Description |
 | - | - |
