@@ -19,6 +19,6 @@
 **Primavera.Hydrogen.Storage.Azure**
 
 - Replaced the Azure Blob Storage external package to use `Azure.Storage.Blobs` (version 12.7.0).
-- **[Breaking]**Removed the `IBlockBlobReference.UploadFromStreamAsync()` overload that accepted `length`.
-- **[Breaking]**Removed `mode` from `IBlockBlobReference.DownloadToFileAsync()`.
-- **[Breaking]**Removed `IBlobReference.Properties` `IBlobReference.BlobType`. Use `IBlobReference.GetPropertiesAsync()` instead.
+- **[Breaking]** Removed the `IBlockBlobReference.UploadFromStreamAsync()` overload that accepted `length`.
+- **[Breaking]** Removed `mode` from `IBlockBlobReference.DownloadToFileAsync()`.
+- **[Breaking]** Removed `IBlobReference.Properties` `IBlobReference.BlobType`. Use `IBlobReference.GetPropertiesAsync()` instead.
