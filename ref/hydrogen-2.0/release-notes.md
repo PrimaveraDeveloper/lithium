@@ -14,11 +14,11 @@
 **General**
 
 - Updated Primavera.Hydrogen.DesignTime.Configuration to 2.0.0.48.
-- <span style="color:red">[Breaking]</span> Removed all obsolete types (e.g. `TestServerFixture`) and obsolete members (e.g. `SmartGuard.IsEmail()`).
+- **[Breaking]** Removed all obsolete types (e.g. `TestServerFixture`) and obsolete members (e.g. `SmartGuard.IsEmail()`).
 
 **Primavera.Hydrogen.Storage.Azure**
 
 - Replaced the Azure Blob Storage external package to use `Azure.Storage.Blobs` (version 12.7.0).
-- <span style="color:red">[Breaking]</span> Removed the `IBlockBlobReference.UploadFromStreamAsync()` overload that accepted `length`.
-- <span style="color:red">[Breaking]</span> Removed `mode` from `IBlockBlobReference.DownloadToFileAsync()`.
-- <span style="color:red">[Breaking]</span> Removed `IBlobReference.Properties` `IBlobReference.BlobType`. Use `IBlobReference.GetPropertiesAsync()` instead.
+- **[Breaking]**Removed the `IBlockBlobReference.UploadFromStreamAsync()` overload that accepted `length`.
+- **[Breaking]**Removed `mode` from `IBlockBlobReference.DownloadToFileAsync()`.
+- **[Breaking]**Removed `IBlobReference.Properties` `IBlobReference.BlobType`. Use `IBlobReference.GetPropertiesAsync()` instead.
