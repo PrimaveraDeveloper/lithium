@@ -5,8 +5,8 @@
 ### Version 57 (not released yet)
 
 - Changed the configuration for code analysis, now using Microsoft.CodeAnalysis.NetAnalyzers and rules defined in global.editorconfig.
-- Updated Hydrogen packages to version [2.0.7.347](../hydrogen-2.0/release-notes.md#2.0.7.347).
-- Updated Hydrogen Design-time packages to version [2.0.0.48](../hydrogen-designtime-2.0/release-notes.md#2.0.0.48).
+- Updated Hydrogen packages to version [2.0.7.347](../hydrogen-2.0/release-notes.md).
+- Updated Hydrogen Design-time packages to version [2.0.0.48](../hydrogen-designtime-2.0/release-notes.md).
 
 ### Version 56 (6/12/2020)
 

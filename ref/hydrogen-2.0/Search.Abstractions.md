@@ -27,9 +27,11 @@ SearchDataSource dataSource = new SearchDataSource()
     Type = SearchDataSourceType.Table,
     Credentials = new SearchDataSourceCredentials(connectionString),
     Container = new SearchDataContainer("MyTable"),
-    DataDeletionDetectionPolicy = new AzureSearch.Models.SoftDeleteColumnDeletionDetectionPolicy(
-        "RecordIsDeleted",
-        "true")
+    DataDeletionDetectionPolicy = new SoftDeleteColumnDeletionDetectionPolicy()
+    {
+        SoftDeleteColumnName = "RecordIsDeleted",
+        SoftDeleteMarkerValue = "true"
+    }
 };
 
 await service.DataSources.CreateAsync(dataSource).ConfigureAwait(false);
