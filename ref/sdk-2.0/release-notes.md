@@ -2,10 +2,11 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
-### Version 57 (not released yet)
+### Version 57 (10/12/2020)
 
+- Fixed generated code for AzureKeyVaultSecretsStorageOptions, required by changes introduced in Hydrogen.
 - Changed the configuration for code analysis, now using Microsoft.CodeAnalysis.NetAnalyzers and rules defined in global.editorconfig.
-- Updated Hydrogen packages to version [2.0.7.347](../hydrogen-2.0/release-notes.md).
+- Updated Hydrogen packages to version [2.0.7.350](../hydrogen-2.0/release-notes.md).
 - Updated Hydrogen Design-time packages to version [2.0.0.48](../hydrogen-designtime-2.0/release-notes.md).
 
 ### Version 56 (6/12/2020)
