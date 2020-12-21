@@ -91,6 +91,7 @@ Implements the `ReaderBase`. The parameters that can be configured, are the ones
 - Gets the tax report setups;
 - Gets the with holding tax types;
 - Gets the fiscal document types;
+- Gets the item account types;
 
 `ConfigSubTransformer`
 
@@ -148,6 +149,7 @@ Implements the `MultiWriterBase`. The parameters that can be configured are the 
 - Writes the with holding tax types;
 - Writes the memo types;
 - Writes the invoice types;
+- Writes the item account types;
 
 ### `Handlers`
 
