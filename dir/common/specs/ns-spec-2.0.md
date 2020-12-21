@@ -110,8 +110,6 @@ The service provides additional operations on email notifications:
 - `GetEmailNotification()` - allows retrieving the definition of an email notification.
 - `GetEmailNotificationState()` - allows retrieving the state of an email notification (per receiver).
 - `GetEmailNotificationsState()` - allows retrieving the state of a set of email notifications.
-- `CancelEmailNotification()` - allows canceling an email notification (provided that the worker has not yet processed it).
-- `RetryEmailNotification()` - allows retrying sending an email notification that failed for at least one receiver.
 
 ## SMS Notifications
 
@@ -202,8 +200,6 @@ The service provides additional operations on SMS notifications:
 - `GetSmsNotification()` - allows retrieving the definition of a SMS notification.
 - `GetSmsNotificationState()` - allows retrieving the state of a SMS notification (per receiver).
 - `GetSmsNotificationsState()` - allows retrieving the state of a set of SMS notifications.
-- `CancelSmsNotification()` - allows canceling a SMS notification (provided that the worker has not yet processed it).
-- `RetrySmsNotification()` - allows retrying sending a SMS notification that failed for at least one receiver.
 
 ## Background Worker
 
@@ -216,7 +212,6 @@ An email notification may have the following states:
 - `Queued` - the notification is queued to be sent.
 - `Sent` - the notification has been sent to the receiver.
 - `Failed` - the notification could not be sent to the receiver.
-- `Canceled` - the notification was canceled.
 
 Then it sends SMS notifications using a SMS gateway.
 
@@ -228,7 +223,6 @@ A SMS notification may have the following states:
 - `Sending` - the notification has been transmitted to the SMS gateway but there is no information yet about if it has been sent to the receiver.
 - `Sent` - the notification has been sent to the receiver by the SMS gateway.
 - `Failed` - the notification could not be sent to the receiver.
-- `Canceled` - the notification was canceled.
 
 ## Configuration
 
@@ -236,9 +230,13 @@ The service provides the following configuration options to customize its behavi
 
 - `WorkerEnabled`: a value indicating whether the notifications worker is enabled. The default value is true.
 - `WorkerWaitInterval`: the period of time between executions of the background worker. The default value is 30 seconds.
+- `CleanUpWaitInterval`: the period of time between executions of the background worker that deletes probe email templates. The default value is 1 day.
 - `DefaultManagers` : a list of default managers (the email addresses of these users) (see back-office).
+- `EmailNotificationsPerCycle`: the maximum number of email notifications processed by the work per execution. The default value is 50.
 - `EmailNotificationsTimeout`: the timeout (in minutes) for email notifications. The default value is 180 minutes.
+- `SmsNotificationsPerCycle` : the maximum number of SMS notifications processed by the work per execution. The default value is 50.
 - `SmsNotificationsTimeout`: the timeout (in minutes) for SMS notifications. The default value is 180 minutes.
+- `NotificationsTimeToLive`: the maximum amount of time notifications are persisted in storage (and then deleted). The default value is 180 days.
 
 > Any notification that is not processed by the background worker before the corresponding timeout (`EmailNotificationsTimeout` or `SmsNotificationsTimeout`) as elapsed is abandoned and marked as failed.
 
@@ -248,9 +246,7 @@ The Notifications Service also provides a back-office that allows some users - k
 
 This back-office is accessible via the /management route and allows:
 
-- Creating, editing, and deleting email templates.
-- Creating, editing, and deleting SMS templates.
-- Creating, and deleting managers.
 - Viewing an overview of the notifications processed by the service (a set of counters).
-
-The back-office does not provide operations to oversee the actual notifications sent. This kind of monitoring is only available in App Insights.
+- Creating, editing, and deleting templates (email and SMS).
+- Creating, and deleting managers.
+- Viewing the notifications (email and SMS) processed.
