@@ -122,6 +122,7 @@ The parameters that can be configured, are the ones that follow:
 - Transforms purchases acct determinations input data;
 - Transforms materials acct determinations input data;
 - Transforms tax report setups input data;
+- Transforms item account types to generic sales item;
 
 `ConfigSubMultiWriter`
 
@@ -149,7 +150,7 @@ Implements the `MultiWriterBase`. The parameters that can be configured are the 
 - Writes the with holding tax types;
 - Writes the memo types;
 - Writes the invoice types;
-- Writes the item account types;
+- Writes the generic sales item;
 
 ### `Handlers`
 
