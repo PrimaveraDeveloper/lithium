@@ -273,8 +273,8 @@ Consider the following examples on how to interact with the `TaskboxService`.
 
 ### `TaskboxClustering`
 
-The Taskbox Clustering is used to achieve load balancing, manage the task states, instances heartbeat and recover instance and tasks failures. This mechanism uses CosmosDb database for storage and Redis-Cache to archive read locks.
-When the Taskbox service starts, the cluster will register the instance, see the example below.
+The Taskbox Clustering is used to achieve load balancing, manage the task states, instances heartbeat and recover instance and tasks failures. This mechanism uses CosmosDb database for storage and REDIS to implement read locks.
+When the Taskbox service starts, the cluster will register the instance as in the example below:
 
 ```json
 {

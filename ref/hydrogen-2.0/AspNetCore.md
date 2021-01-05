@@ -585,12 +585,34 @@ public void ConfigureServices(IServiceCollection services)
 
 #### Concurrency
 
-You need to keep in mind the host application environment when building background services. Depending on that environment, you will need to deal with concurrency - in the sense of multiple instances of same background service executing the same "job".
+You need to keep in mind the host application environment when building background services. Depending on that environment, you will need to deal with concurrency - in the sense of multiple instances of the same background service executing the same "job".
 
-When you host an application in Azure, typically you also implement scalling and fail-over mechanisms and that will result in multiple instances of the application running at the same time. The imediate effect of that is that will you have multiple instances of the same background service running. So you will need to implement a strategy to avoid them conflicting with each other (e.g. executing the same operation at the same, resulting in duplicate behavior).
+When you host an application in Azure, typically you also implement scalling and fail-over mechanisms and that will result in multiple instances of the application running at the same time. The imediate effect of that is that you will have multiple instances of the same background service running at the same time.
 
-The abstract classes in Hydrogen provide some features to help with that:
+So you will need to implement a strategy to avoid them conflicting with each other (e.g. executing the same operation at the same, resulting in duplicate behavior).
+
+The BackgroundService and BackgroundWorker base classes provide a feature to help with that: **automatic locking**.
+
+This mechanism uses a blob - see [Blob Storage](../../capabilities/storage.md) - to hold a lock that ensures that only one instance is running at any time.
+
+To active it, you need to override the UseLocking property in the background service or background worker:
+
+```csharp
+public partial class MyBackgroundService
+{
+    protected override bool UseLocking
+    {
+        get
+        {
+            return true;
+        }
+    }
+}
+```
+
+This behavior triggers the `TryAcquireLockAsync()` and `TryReleaseLockAsync()` methods - that implement the feature - and can be customized further overriding the following properties: `LockContainerName`, `LockName`, `LockRetries`, `LockWaitTime`, and `LockAbsoluteExpiration`.
+
+Other features may also help:
 
 - The `Enabled` property allows to simply disable the service/worker instance based on some condition (e.g. the environment where the service/worker is running).
-- `AcquireLockAsync` and `ReleaseLockAsync` provide a simple locking mechanism (based on a record store in a distributed cache) to ensure that only one instance of each background service is running at any given moment.
-- `IHostEnvironmentExtensions` is a service that provides additional information about the environment that can be used in complement with the two previous features. For example, the `IsPreviewSlot()` method allows recognizing that the service/worker is running the preview slot of the production environment (to avoid conflicts between the "old instances", those running in the preview slot, and the "new instances", those running in production).
+- `IHostEnvironmentExtensions` is a service that provides additional information about the environment that can be used in complement with the two previous features. For example, the `IsPreviewSlot()` method allows recognizing that the service/worker is running in the preview slot of the production environment (to avoid conflicts between the "old instances", those running in the preview slot, and the "new instances", those running in production).

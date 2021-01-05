@@ -2,24 +2,34 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
+### Version 58 (5/1/2021)
+
+- New domain property `BackgroundService.UseLocking` to enable or disable automatic locking (to prevent multiple instances of different servers from running at the same time).
+- New domain property `BackgroundWorker.UseLocking` to enable or disable automatic locking.
+- Refactoring on the code generated for background services to support automatic locking.
+- New domain types `DateTimeOffset` and `Time`.
+- Fixed bug in routes validation.
+- New generated file in the `Models` project to specify constants that identity the webhooks event names.
+- Updated Hydrogen packages to version [2.0.8.357](../hydrogen-2.0/release-notes.md).
+
 ### Version 57 (10/12/2020)
 
-- Fixed generated code for AzureKeyVaultSecretsStorageOptions, required by changes introduced in Hydrogen.
-- Changed the configuration for code analysis, now using Microsoft.CodeAnalysis.NetAnalyzers and rules defined in global.editorconfig.
+- Fixed generated code for `AzureKeyVaultSecretsStorageOptions`, required by changes introduced in Hydrogen.
+- Changed the configuration for code analysis, now using `Microsoft.CodeAnalysis.NetAnalyzers` and rules defined in `global.editorconfig`.
 - Updated Hydrogen packages to version [2.0.7.350](../hydrogen-2.0/release-notes.md).
 - Updated Hydrogen Design-time packages to version [2.0.0.48](../hydrogen-designtime-2.0/release-notes.md).
 
 ### Version 56 (6/12/2020)
 
-- Improved support for Webhooks, including retry logic.
+- Improved support for webhooks, including retry logic.
 - Updated Hydrogen packages to version 2.0.7.341.
 
 ### Version 55 (5/12/2020)
 
-- Improved support for Webhooks, including new overloads to allows customizing requests from client applications.
+- Improved support for webhooks, including new overloads to allows customizing requests from client applications.
 - Improved the code generated for regular expressions to facilitate reuse.
-- Improved the code generated for Client.Console.
-- Bug fixing on the code generated for validating properties and controller action parameters of type Guid.
+- Improved the code generated for `Client.Console`.
+- Bug fixing on the code generated for validating properties and controller action parameters of type `Guid`.
 - Added the ability to ignore named text templates when transforming templates by adding options to the service project template.
 - Updated Hydrogen Design-time packages to version 2.0.0.44.
 - Updated Hydrogen packages to version 2.0.5.339.
@@ -47,8 +57,8 @@
 - Reviewed the code generated for models validation.
 - Reviewed the code generated for controller actions validation.
 - Added support to model nullable enumeration properties.
-- Improved the type editor for the ModelTypeEnumProperty.DefaultValue domain property.
-- Added a new validation rule for the URL domain type to check that the URL is absolute.
+- Improved the type editor for the `ModelTypeEnumProperty.DefaultValue` domain property.
+- Added a new validation rule for the `Url` domain type to check that the URL is absolute.
 - Added a new validation rule for all model properties with not single cardinality to check that their not empty.
 - Added a new validation rule for all controller action parameters with not single cardinality to check that their not empty.
 - Bug fixing on the designer.
@@ -59,20 +69,20 @@
 ### Version 51 (27/10/2020)
 
 - Improved the code generated for the Taskbox dependency.
-- Bug fixing on the code generated for DELETE controller actions.
+- Bug fixing on the code generated for `DELETE` controller actions.
 - Updated generated code to support Azure AppConfiguration latest version.
 - Updated Hydrogen Design-time packages to version 2.0.0.41.
 - Updated Hydrogen packages to version 2.0.3.299.
 
 ### Version 50 (19/10/2020)
 
-- Added domain property ModelType.CustomAttributes to allows specifying custom attributes to include in the code generated for the model.
-- Added domain property ModelTypeProperty.CustomAttributes to allows specifying custom attributes to include in the code generated for the model property.
-- Added domain property ModelTypeProperty.Kind to support calculated properties.
-- Added domain property ModelTypeProperty.GetAccessorModifier to allow modifying the get accessor access modifier.
-- Added domain property ModelTypeProperty.SetAccessorModifier to allow modifying the set accessor access modifier.
-- Added domain property ModelTypeProperty.ReadOnlyModifier to allow defining properties with the get accessor only (replaces ModelTypeProperty.GetAccessorOnly).
-- Added domain property ModelTypeProperty.SerializationIgnore to allow specifying that a property is not serialized (replaces ModelTypeProperty.IgnoreSerialization).
+- Added domain property `ModelType.CustomAttributes` to allows specifying custom attributes to include in the code generated for the model.
+- Added domain property `ModelTypeProperty.CustomAttributes` to allows specifying custom attributes to include in the code generated for the model property.
+- Added domain property `ModelTypeProperty.Kind` to support calculated properties.
+- Added domain property `ModelTypeProperty.GetAccessorModifier` to allow modifying the get accessor access modifier.
+- Added domain property `ModelTypeProperty.SetAccessorModifier` to allow modifying the set accessor access modifier.
+- Added domain property `ModelTypeProperty.ReadOnlyModifier` to allow defining properties with the get accessor only (replaces `ModelTypeProperty.GetAccessorOnly`).
+- Added domain property `ModelTypeProperty.SerializationIgnore` to allow specifying that a property is not serialized (replaces `ModelTypeProperty.IgnoreSerialization`).
 - Added a new validation rule for phone numbers to check for the E.164 format.
 - Improved the code generated for throttling.
 - Improved the code generated to validate email addresses and phone numbers.
@@ -93,26 +103,26 @@
 
 ### Version 48 (6/10/2020)
 
-- Added new domain entity ServiceDependency. This allows defining dependencies on other Lithium services.
+- Added new domain entity `ServiceDependency`. This allows defining dependencies on other Lithium services.
 - Updated Hydrogen packages to version 2.0.2.270.
 
 ### Version 47 (29/9/2020)
 
-- Added domain property ModelTypeProperty.Cardinality to allow defining model properties as lists or dictionaries. Domain properties IsList and IsDictionary were removed.
-- Added domain property ModelType.Visibility to allow defining whether a model is visible in the Web API and/or the client library.
-- Added domain property ControllerType.AccessModifier to allow making a controller internal in the client library.
-- Added domain property ControllerType.Visibility to allow defining whether a controller is visible in the Web API and/or the client library.
-- Added domain property ControllerTypeAction.Visibility to allow defining whether a controller action is visible in the Web API and/or the client library.
-- Added domain property ControllerTypeAction.ReturnValueCardinality to allow defining controller action return values as lists or dictionaries. Domain property IsList was removed.
-- Added domain property ControllerTypeActionParameter.Cardinality to allow defining controller action parameters as lists or dictionaries. Domain property IsList was removed.
+- Added domain property `ModelTypeProperty.Cardinality` to allow defining model properties as lists or dictionaries. Domain properties `IsList` and `IsDictionary` were removed.
+- Added domain property `ModelType.Visibility` to allow defining whether a model is visible in the Web API and/or the client library.
+- Added domain property `ControllerType.AccessModifier` to allow making a controller internal in the client library.
+- Added domain property `ControllerType.Visibility` to allow defining whether a controller is visible in the Web API and/or the client library.
+- Added domain property `ControllerTypeAction.Visibility` to allow defining whether a controller action is visible in the Web API and/or the client library.
+- Added domain property `ControllerTypeAction.ReturnValueCardinality` to allow defining controller action return values as lists or dictionaries. Domain property `IsList` was removed.
+- Added domain property `ControllerTypeActionParameter.Cardinality` to allow defining controller action parameters as lists or dictionaries. Domain property `IsList` was removed.
 - Updated Service Solution to version 13.
 - Updated Hydrogen packages to version 2.0.2.266.
 
 ### Version 46 (21/09/2020)
 
-- Added domain property AutorizationPolicy.Kind to support policies that require scopes and custom policies (entirely specified in custom code).
-- Added domain property ControllerTypeAction.AuthorizationPolicy to allow specifying authorization policies per action (no longer only per controller).
-- Added domain property ControllerType.RouteParametersPlacement to allow specifying where the controller parameters should be placed in the route (after or before the controller name).
+- Added domain property `AutorizationPolicy.Kind` to support policies that require scopes and custom policies (entirely specified in custom code).
+- Added domain property `ControllerTypeAction.AuthorizationPolicy` to allow specifying authorization policies per action (no longer only per controller).
+- Added domain property `ControllerType.RouteParametersPlacement` to allow specifying where the controller parameters should be placed in the route (after or before the controller name).
 - Fixed bug with generated file encoding that prevented to import Postman collections.
 - Updated Service Solution to version 12.
 - Updated Hydrogen packages to version 2.0.2.253.
@@ -127,8 +137,8 @@
 
 ### Version 44 (07/09/2020)
 
-- Added new domain entity ControllerTypeParameter. This allows defining parameters on controllers, used in the route, and shared among all the controller's actions.
-- Deprecated domain property RouteWithActionName from ControllerTypeAction.
+- Added new domain entity `ControllerTypeParameter`. This allows defining parameters on controllers, used in the route, and shared among all the controller's actions.
+- Deprecated domain property `RouteWithActionName` from `ControllerTypeAction`.
 - Updated Hydrogen packages to version 2.0.2.240.
 
 ### Version 43 (18/08/2020)
@@ -173,16 +183,16 @@
 ### Version 37 (18/05/2020)
 
 - Added new scalar domain type decimal.
-- Added new domain entity ControllerTypeActionEnumParameter to support defining parameters on controller actions that reference enumerations.
+- Added new domain entity `ControllerTypeActionEnumParameter` to support defining parameters on controller actions that reference enumerations.
 - Updated Hydrogen packages to version 2.0.1.184.
 
 ### Version 36 (11/05/2020)
 
-- Removed domain property IsReadOnly from ModelType.
-- Added support to define dictionary properties on models (domain property IsDictionary).
-- Added support to ignore model properties in serialization (domain property IgnoreSerialization).
-- Added support to define model properties only with get accessor (domain property GetAccessorOnly).
-- Added support for result status code Redirect.
+- Removed domain property `IsReadOnly` from `ModelType`.
+- Added support to define dictionary properties on models (domain property `IsDictionary`).
+- Added support to ignore model properties in serialization (domain property `IgnoreSerialization`).
+- Added support to define model properties only with get accessor (domain property `GetAccessorOnly`).
+- Added support for result status code `Redirect`.
 - Added new command to recheck the current solution (after upgrades or updating packages).
 - Added the base model name to the model shape.
 - Bug fixing.
@@ -230,8 +240,8 @@
 
 ### Version 29 (24/02/2020)
 
-- New property on ServiceModel to active the code generation required to setup OIDC (OpenID Connect).
-- New domain entity AuthorizationPolicy. This allows specifying custom authorization policies.
+- New property on `ServiceModel` to activate the code generation required to setup OIDC (OpenID Connect).
+- New domain entity `AuthorizationPolicy`. This allows specifying custom authorization policies.
 - Updated Hydrogen packages to version 2.0.1.98.
 
 ### Version 28 (17/02/2020)
@@ -285,7 +295,7 @@
 
 ### Version 22 (11/11/2019)
 
-- Added a new test project called Integration.Tests specifically for integration tests.
+- Added a new test project called `Integration.Tests` specifically for integration tests.
 - Updated Service Solution to version 7.
 - Updated Hydrogen packages to version 2.0.1.16.
 - Updated Hydrogen Design-time packages to version 2.0.0.19.
@@ -293,8 +303,8 @@
 ### Version 21 (6/11/2019)
 
 - Added generation of a Postman collection to test the service (in Design project).
-- Brought back the Is Read-only property for ModelProperty, although it has no effect yet on how models are generated.
-- New domain entity ApiVersion. This allows modeling backwards-compatibility for the service API versions.
+- Brought back the `Is Read-only` property for `ModelProperty`, although it has no effect yet on how models are generated.
+- New domain entity `ApiVersion`. This allows modeling backwards-compatibility for the service API versions.
 - Updated Hydrogen packages to version 2.0.1.14.
 - Updated Hydrogen Design-time packages to version 2.0.0.18.
 
@@ -303,11 +313,11 @@
 - Upgrade to .NET Core 3.0 (see Lithium documentation for instructions about changes required in custom code, settings, etc.).
 - New property on Model to allow specifying a base model (inheritance).
 - New property on Model to support modeling abstract models.
-- New domain entity RegularExpression to support reusing the same regular expression on multiple validation rules.
-- New property on ControllerAction to model its authorization mode.
-- New property on BackgroundService, TimedBackgroundService, and QueueBackgroundService to allow specifying if the background service uses a worker or not.
+- New domain entity `RegularExpression` to support reusing the same regular expression on multiple validation rules.
+- New property on `ControllerAction` to model its authorization mode.
+- New property on `BackgroundService`, `TimedBackgroundService`, and `QueueBackgroundService` to allow specifying if the background service uses a worker or not.
 - New dependency kind DataProtection to configure data protection services using a shared blob storage.
-- Removed property Is Read Only from ModelProperty because the new JsonSerializer does not support deserializing read-only properties.
+- Removed property `Is Read Only` from ModelProperty because the new `JsonSerializer` does not support deserializing read-only properties.
 - Copy/paste is now fully supported in the designer.
 - Major refactoring on generated code (because of .NET Core 3).
 - New menu command to access the help site.
@@ -335,21 +345,21 @@
 ### Version 12 (22/04/2019)
 
 - SDK is now installable using a setup (MSI).
-- New project template: Lithium Microservice (Client Library only). Allows modeling only a client library for an existing Web API or for InProc services.
-- New project template: Lithium Microservice (Web API only). Allows modeling a microservice without generating the client library.
+- New project template: `Lithium Microservice (Client Library only)`. Allows modeling only a client library for an existing Web API or for InProc services.
+- New project template: `Lithium Microservice (Web API only)`. Allows modeling a microservice without generating the client library.
 - Added support to request localization on client libraries (property AcceptLanguage).
 - Updated Hydrogen packages to v.1.1.3.47.
 
 ### Version 11 (15/04/2019):
 
-- Added property Identifier to the service domain class. This property must be a globally unique string used to identify the service. The value should be a string with 2..5 characters (e.g. 'NS').
+- Added property `Identifier` to the service domain class. This property must be a globally unique string used to identify the service. The value should be a string with 2..5 characters (e.g. 'NS').
 - Fixed a bug in transformation that caused problems on check-in with resources files introduced by the Orinoco translation process.
 
 ### Version 10 (08/04/2019):
 
-- New domain entity BackgroundWorker. This allows sharing the same worker between different background services.
-- Support for Queue background services.. This kind of background services run the underlying worker automatically when a new instance becomes available in a queue (IBackgroundWorkerQueue).
-- Support for Timed background services. This kind of background services run the underlying worker automatically at fixed time intervals, by queuing their execution to a queue shared with a queue background service.
+- New domain entity `BackgroundWorker`. This allows sharing the same worker between different background services.
+- Support for `Queue background services`. This kind of background services run the underlying worker automatically when a new instance becomes available in a queue (IBackgroundWorkerQueue).
+- Support for `Timed background services`. This kind of background services run the underlying worker automatically at fixed time intervals, by queuing their execution to a queue shared with a queue background service.
 - Refactoring on the code generated for background services to include timed and queue background services.
 - New menu command to view the release notes.
 - Updated Hydrogen packages to v.1.1.3.46.

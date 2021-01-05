@@ -58,7 +58,6 @@ protected virtual void AddBackgroundServices(IServiceCollection services, HostCo
 
     // Add queues
 
-
     // Add background services
 
     services.AddBackgroundService<ExecutorService>();
@@ -76,6 +75,19 @@ protected virtual void AddBackgroundServices(IServiceCollection services, HostCo
 internal abstract partial class ExecutorServiceBase : BackgroundService
 {
     #region Code
+
+    #region Protected Properties
+
+    /// <inheritdoc />
+    protected override bool UseLocking
+    {
+        get
+        {
+            return true;
+        }
+    }
+
+    #endregion
 
     #region Protected Constructors
 
@@ -141,12 +153,14 @@ internal partial class ExecutorService : ExecutorServiceBase
 
 ### Custom Code
 
-To complete the background service you will need to add a custom class for that service (`ExecutorService` in the example) and implement the `ExecuteAsync()` method.
+To complete the background service you will need to add a custom class for that service (`ExecutorService` in the example) and implement the `ExecuteAsync()` method and other properties.
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class ExecutorService
 {
+    // (...)
+
     #region Protected Methods
 
     /// <inheritdoc />
@@ -177,16 +191,18 @@ Notice the code generated in `BackgroundServices.gen.cs` for this new background
 
 ### Custom Code
 
-To complete the background service you will need to add a custom class for that service (`TimedExecutorService` in the example) and implement the `WaitPeriod` property and the `ExecuteWorkAsync()` method.
+To complete the background service you will need to add a custom class for that service (`TimedExecutorService` in the example) and implement the `ExecuteWorkAsync()` method, the `WaitPeriod` property and other properties.
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class TimedExecutorService
 {
-    #region Public Properties
+    // (...)
+
+    #region Protected Properties
 
     /// <inheritdoc />
-    public override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+    protected override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
 
     #endregion
 
@@ -220,16 +236,18 @@ Notice the code generated in `BackgroundServices.gen.cs` for this new background
 
 ### Custom Code
 
-To complete the background service you will need to add a custom class for that service (`QueuedExecutor` in the example) and implement the `Queue` property and the `ExecuteWorkAsync()` method.
+To complete the background service you will need to add a custom class for that service (`QueuedExecutor` in the example) and implement the `ExecuteWorkAsync()` method, the `Queue` property and other properties.
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class QueuedExecutorService
 {
-    #region Public Properties
+    // (...)
+
+    #region Protected Properties
 
     /// <inheritdoc />
-    public override IBackgroundWorkQueue<object> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<object>>();
+    protected override IBackgroundWorkQueue<object> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<object>>();
 
     #endregion
 
@@ -266,12 +284,14 @@ Inspect also `BackgroundServices.gen.cs` to view how the background services ref
 
 ### Custom Code
 
-To complete the background worker you will need to add a custom class for that service (`SharedExecutor` in the example) and implement the `ExecuteAsync()` method.
+To complete the background worker you will need to add a custom class for that service (`SharedExecutor` in the example) and implement the `ExecuteAsync()` method and other properties.
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class SharedExecutorWorker
 {
+    // (...)
+
     #region Public Methods
 
     /// <inheritdoc />
@@ -286,26 +306,27 @@ internal partial class SharedExecutorWorker
 }
 ```
 
-Any timed background service that uses the background worker should override `WaitPeriod` and `Worker` only:
+Any timed background service that uses the background worker should override `WaitPeriod` and `InitializeWorker()`:
 
 ```csharp
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class TimedExecutorService
 {
-    #region Public Properties
+    #region Protected Properties
 
     /// <inheritdoc />
-    public override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+    protected override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+
+    #endregion
+
+    #region Protected Methods
 
     /// <inheritdoc />
-    public override SharedExecutorWorker Worker
+    protected override SharedExecutorWorker InitializeWorker()
     {
-        get
-        {
-            return new SharedExecutorWorker(
-                this.ServiceProvider,
-                this.ServiceProvider.GetRequiredService<ILogger<SharedExecutorWorker>>());
-        }
+        return new SharedExecutorWorker(
+            this.ServiceProvider,
+            this.ServiceProvider.GetRequiredService<ILogger<SharedExecutorWorker>>());
     }
 
     #endregion
@@ -324,14 +345,14 @@ You can modify this behavior by registering the background worker in custom code
     /// <inheritdoc />
     protected override void AddBackgroundServices(IServiceCollection services, HostConfiguration hostConfiguration)
     {
-            // Default behavior
+        // Default behavior
 
-            base.AddBackgroundServices(services, hostConfiguration);
+        base.AddBackgroundServices(services, hostConfiguration);
 
-            // Register the worker
+        // Register the worker
 
-            services
-                .AddTransient<SharedExecutorWorker>();
+        services
+            .AddTransient<SharedExecutorWorker>();
     }
 }
 ```
@@ -342,18 +363,19 @@ Now the instance can be resolved using the service provider:
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class TimedExecutorService
 {
-    #region Public Properties
+    #region Protected Properties
 
     /// <inheritdoc />
-    public override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+    protected override TimeSpan WaitPeriod => TimeSpan.FromMinutes(5);
+
+    #endregion
+
+    #region Protected Methods
 
     /// <inheritdoc />
-    public override SharedExecutorWorker Worker
+    protected override SharedExecutorWorker InitializeWorker()
     {
-        get
-        {
-            return this.ServiceProvider.GetRequiredService<SharedExecutorWorker>();
-        }
+        return this.ServiceProvider.GetRequiredService<SharedExecutorWorker>();
     }
 
     #endregion
@@ -366,10 +388,10 @@ Queue background service that use the background worker should override `Queue`:
 [SuppressMessage("StyleCop:DocumentationRules", "SA1601:PartialElementsMustBeDocumented")]
 internal partial class QueuedExecutorService
 {
-    #region Public Properties
+    #region Protected Properties
 
     /// <inheritdoc />
-    public override IBackgroundWorkQueue<SharedExecutorWorker> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<SharedExecutorWorker>>();
+    protected override IBackgroundWorkQueue<SharedExecutorWorker> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<SharedExecutorWorker>>();
 
     #endregion
 }
@@ -404,3 +426,13 @@ private void TriggerWork()
     );
 }
 ```
+
+## Locking
+
+Be aware that background services are automatically initialized by .NET when the application starts. If the same application starts on multiple servers at the same you will end up having multiple (1 per server) of each background service running at the same time.
+
+This can lead to race conditions among these instances of the background service like, for example, all trying to execute the same task (e.g. sending an email notification) at the same time (duplicating the output intended).
+
+This is something that you will need to consider and deal with.
+
+Hydrogen background services provide a simple pessimistic locking mechanism that can be used to avoid situations. For more information see [Primavera.Hydrogen.AspNetCore](../ref/hydrogen-2.0/AspNetCore.md).

@@ -18,6 +18,7 @@ The microservices are classified, for the purpose of logical organization, in ca
 
 ## Endpoints
 
-<!-- markdown-link-check-disable -->
-A directory of the all the services endpoints is available [here](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2F_doc%2Flithium-endpoints.md).
-<!-- markdown-link-check-enable -->
+| Service | Development | Staging | Preview | Production |
+| - | - | - | - | - |
+| NS | [dv-ns](https://dv-ns.lithium.primaverabss.com/) | [st-ns](https://st-ns.lithium.primaverabss.com/) | [ns-preview](https://ns-preview.lithium.primaverabss.com/) | [ns](ns://taxpt.lithium.primaverabss.com/) |
+| TAXPT | [dv-taxpt](https://dv-taxpt.lithium.primaverabss.com/) | [st-taxpt](https://st-taxpt.lithium.primaverabss.com/) | [taxpt-preview](https://taxpt-preview.lithium.primaverabss.com/) | [taxpt](https://taxpt.lithium.primaverabss.com/) |

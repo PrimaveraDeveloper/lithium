@@ -2,6 +2,15 @@
 
 > These release notes include only the most important releases.
 
+### <a name="2.0.8.357"></a>Version 2.0.8.357
+
+**Primavera.Hydrogen.AspNetCore**
+
+- Refactored `BackgroundService` and `BackgroundWorker` to support automatic locking (optional), a pessimistic locking mechanism that uses a shared blob to prevent different instances from running at the same time and create race conditions (e.g. performing the same work multiple times).
+- **[Breaking]** `BackgroundService.AcquireLockAsync()` is replaced with `BackgroundService.TryAcquireLockAsync()` and `BackgroundService.ReleaseLockAsync()` is replaced with `BackgroundService.TryReleaseLockAsync().` These new methods should not be invoked directly from the service's custom code.
+- **[Breaking]** `BackgroundWorker.AcquireLockAsync()` is replaced with `BackgroundWorker.TryAcquireLockAsync()` and `BackgroundWorker.ReleaseLockAsync()` is replaced with `BackgroundWorker.TryReleaseLockAsync()`. These new methods should not be invoked directly from the worker's custom code.
+- **[Breaking]** `BackgroundService` and `BackgroundWorker` now include an abstract property called `UseLocking` to specify whether automatic locking is enabled.
+
 ### <a name="2.0.7.350"></a>Version 2.0.7.350
 
 **Primavera.Hydrogen.Security.Azure**
