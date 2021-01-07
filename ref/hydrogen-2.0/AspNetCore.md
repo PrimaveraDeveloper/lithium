@@ -610,6 +610,8 @@ public partial class MyBackgroundService
 }
 ```
 
+> Notice that background services that use workers should not have locking enabled. Locking should occur in the background worker.
+
 This behavior triggers the `TryAcquireLockAsync()` and `TryReleaseLockAsync()` methods - that implement the feature - and can be customized further overriding the following properties: `LockContainerName`, `LockName`, `LockRetries`, `LockWaitTime`, and `LockAbsoluteExpiration`.
 
 Other features may also help:
