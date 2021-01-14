@@ -160,7 +160,7 @@ The notification will be broadcasted to those two clients immediately if they ar
   "ExpiresOn": "2019-12-09T11:30:00Z",
   "Source": "Marketing",
   "Targets": [
-    "Rose", "RosePeople"
+    "Jasmin", "JasminPremium"
   ]
 }
 ```
