@@ -2,6 +2,13 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
+### Version 59 (14/1/2021)
+
+- Refactoring of generated code concerning localization.
+- Refactoring of generated for hybrid client and client credentials client.
+- Updated Hydrogen packages to version [2.0.9.360](../hydrogen-2.0/release-notes.md).
+- Updated .NET Core packages to version 3.1.11.
+
 ### Version 58 (5/1/2021)
 
 - New domain property `BackgroundService.UseLocking` to enable or disable automatic locking (to prevent multiple instances of different servers from running at the same time).

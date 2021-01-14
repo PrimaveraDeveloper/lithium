@@ -2,6 +2,10 @@
 
 > These release notes include only the most important releases.
 
+### <a name="2.0.9.360"></a>Version 2.0.9.360
+
+- Updated dependencies to .NET Core 3.1.11.
+
 ### <a name="2.0.8.357"></a>Version 2.0.8.357
 
 **Primavera.Hydrogen.AspNetCore**
