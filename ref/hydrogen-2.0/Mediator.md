@@ -10,9 +10,9 @@
 
 ## About
 
-This class library is the default implementation of the [Primavera.Hydrogen.Mediator.Abstractions][REF_MDA].  The main purpose of this implementation is to support the InProc message processing. Also there is support for easy to use CQRS design pattern implementation using this implementation.
+This class library is the default implementation of the [Primavera.Hydrogen.Mediator.Abstractions][REF_MDA].  The main purpose of this implementation is to support InProc message processing between diferent layers of an application. Also there is support for CQRS integration using this implementation.
 
-Although it is possible the mediator should not be used as a away to orchestrate processes, that is, invoking the mediator within the mediator. For instance if you have "CreateSomethingCommand", within the handler that handles this message you should only use the mediator to send Events, and not other Commands or Queries.
+Although it is possible the mediator should not be used as a away to orchestrate processes, that is, invoking the mediator within the mediator. For instance if you have "CreateSomethingCommand", within the handler that handles this type of message you should only use the mediator to send Events, and not other Commands or Queries.
 
 
 ## Getting Started
