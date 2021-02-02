@@ -2,6 +2,10 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
+### Version 60 (Not released yet)
+
+- Added validation to prevent having projects in `Primavera.Hydrogen.DesignTime.Configuration` misconfigured.
+
 ### Version 59 (14/1/2021)
 
 - Refactoring of generated code concerning localization.
