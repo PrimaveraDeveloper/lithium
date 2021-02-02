@@ -22,6 +22,8 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.EventBus.InMemory`](./EventBus.InMemory.md) | Contains types that define generic event bus services that use an in-memory implementation |
 | [`Primavera.Hydrogen.IdentityModel`](./IdentityModel.md) | Contains core types and helpers for OpenID Connect, OAuth and claims-based Identity |
 | [`Primavera.Hydrogen.IdentityModel.Client`](./IdentityModel.Client.md) | Contains core types, helpers and client libraries for OpenID Connect, OAuth and claims-based Identity |
+| [`Primavera.Hydrogen.Mediator`](./Mediator.md) | Contains types that implement the Mediator design pattern InProc |
+| [`Primavera.Hydrogen.Mediator.Abstractions`](./Mediator.Abstractions.md) | Contains types that define abstractions for the mediator pattern and cqrs pattern integration |
 | [`Primavera.Hydrogen.Pipeboxes.Abstractions`](./Pipeboxes.Abstractions.md) | Contains types that define abstractions for the Pipeline design pattern with multiple execution flows |
 | [`Primavera.Hydrogen.Pipeboxes`](./Pipeboxes.md) | Contains types that implement the Pipeline design pattern with multiple execution flows |
 | [`Primavera.Hydrogen.Pipelines`](./Pipelines.md) | Contains types that implement the Pipeline design pattern |

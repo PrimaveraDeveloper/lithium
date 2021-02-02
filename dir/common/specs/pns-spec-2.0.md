@@ -24,7 +24,7 @@ On the product configuration, the following settings should be added to the `Web
 
 <pnsConfiguration>
 	<elements>
-		<add name="default" pnsUri="https://st-pns.lithium.primaverabss.com" clientCredentialsId="yourClientCredentials" clientCredentialsSecret="yourClientSecret" clientCredentialsScope="lithium-pushnotifications" />
+		<add name="default" pnsUri="pnsUrlHere" clientCredentialsId="yourClientCredentials" clientCredentialsSecret="yourClientSecret" clientCredentialsScope="lithium-pushnotifications" />
 	</elements>
 </pnsConfiguration>
 ```
