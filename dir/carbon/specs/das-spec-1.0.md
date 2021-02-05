@@ -97,7 +97,7 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
  
  ```
  
- All of the keys are optional and the accepted int states are 4, 5 and 6.
+ All of the keys are optional and the accepted int states are 4 (Stored Fiscal Relevant), 5(Stored Not Fiscal Relevant) and 6(In Accounting).
  
  
  For example:  
@@ -145,3 +145,60 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 	}
 	
  ```
+ 
+ ## To send a file by Client:
+
+```csharp
+	using DigitalArquiveClient client = new DigitalArquiveClient(...);
+	
+	try
+		{
+			metadata = File.ReadAllText(metadataJsonFilePath);
+
+			using (FileStream digitalArchiveFile = File.OpenRead(filePath))
+			{
+				ServiceOperationResult<UploadMessage> response = await client.Archives.UploadDigitalArchivesAsync(metadata, digitalArchiveFile).ConfigureAwait(false);
+			
+			}
+		
+		}
+	// (...)
+	}
+	catch (ServiceException ex)
+	{
+		// (...)
+	}
+	
+ ```
+ 
+ ## To update a file by Client:
+
+```csharp
+	using DigitalArquiveClient client = new DigitalArquiveClient(...);
+	
+	try
+		{
+			archiveJsom = File.ReadAllText(archiveJsonFilePath);
+			
+			ArchiveMessage archive = JsonSerializer.Deserialize<ArchiveMessage>(archiveJsom);
+
+			ServiceOperationResult<UploadMessage> response = await client.Archives.UpdateDigitalArchivesAsync(businessKey, id, archive).ConfigureAwait(false);
+			
+		}
+	// (...)
+	}
+	catch (ServiceException ex)
+	{
+		// (...)
+	}
+	
+ ```
+ 
+ ### Other Operations on Digital Archive
+
+The service provides additional operations on digital archive:
+
+- `GetDocumentAsync(string businessKey, string id)` - allows getting the sended digital archive (file and metadata).
+- `GetDocumentFileAsync(string businessKey, string id)` - allows getting the sended digital archive file.
+- `GettDigitalArchiveMetadataAsync(string businessKey, int state, DateTime startDate, DateTime endDate, int pageIndex, int pageSize, string category)` - allows viewing a list of sended digital archive metadatas.
+- `DeleteDigitalArchivesAsync(string businessKey, string id)` - allows deleting the sended digital archive file.
