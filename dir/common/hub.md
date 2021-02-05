@@ -8,14 +8,16 @@ The current version includes the following third-party APIs:
 
 ## Specification
 
+<!-- markdown-link-check-disable -->
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.HubServices |
-| Version | 1.0 |
-| API Versions | 1.0 |
-| Client Library | Primavera.Lithium.HubServices.dll |
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
+| Client Library | [Primavera.Lithium.HubServices.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.HubServices) (single assembly) |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
+<!-- markdown-link-check-enable -->
 
 ## Scopes
 
@@ -23,20 +25,10 @@ The current version includes the following third-party APIs:
 | - | - |
 | `lithium-hub` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | --- |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Spec | Not available yet |
+| Client Library | [2.0](https://hub.lithium.primaverabss.com/.doc/clientlib) |
+| Web API | [2.0](https://hub.lithium.primaverabss.com/.doc/webapi) |

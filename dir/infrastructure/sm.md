@@ -12,7 +12,7 @@ The Service Management Service allows invoking the operations in the Service Man
 | API Versions | N/A |
 | Client Library | [Primavera.Lithium.ServiceManagement.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ServiceManagement) (single assembly) |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes
@@ -20,17 +20,6 @@ The Service Management Service allows invoking the operations in the Service Man
 | Scope | Description |
 | - | - |
 | `service-management` | Access the basic endpoints in the Service Management API |
-
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | --- |
-| Staging (NE) | --- |
-| Development | --- |
 
 ## Reference Documentation
 

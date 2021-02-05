@@ -1,6 +1,6 @@
 # eCommerce Connect Service (ECCO)
 
-The eCommerce Connect Service provides a middleware to integration products (Jasmin, V10, etc.) with eCommerce platforms.
+The eCommerce Connect Service provides a middleware to integration products (Jasmin, V10, etc.) with eCommerce platforms such as Dott and Shopify.
 
 ## Specification
 
@@ -12,7 +12,7 @@ The eCommerce Connect Service provides a middleware to integration products (Jas
 | API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.ECommerceConnect.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.ECommerceConnect) (single assembly) |
 | Web UI | Yes |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes

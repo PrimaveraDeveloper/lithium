@@ -7,11 +7,11 @@ The Fiscal Reports Service allows producing fiscal reports (for Tax Authorities)
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.FiscalReports |
-| Version | 1.0 |
-| API Versions | 1.0 |
-| Client Library | --- |
-| Web UI | No |
-| Depends on | IDS |
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
+| Client Library | N/A |
+| Web UI | Yes |
+| Depends on | --- |
 
 ## Scopes
 
@@ -20,20 +20,10 @@ The Fiscal Reports Service allows producing fiscal reports (for Tax Authorities)
 | `lithium-fiscalreports` | Access endpoints in the API for producing reports |
 | `lithium-reportmanagement` | Access endpoints in the API for defining report models |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | Yes |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
-| Client Library | Not available yet |
+| Spec | Not available yet |
+| Client Library | N/A |
 | Web API | Not available yet |

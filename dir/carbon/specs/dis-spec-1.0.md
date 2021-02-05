@@ -1,6 +1,6 @@
 # Data Ingestion Service (DIS) Specification v1.0
 
-The Data Ingestion Service allows to ingest data files like saft and persist this files in Carbon BigData.
+The Data Ingestion Service allows ingesting data files like SAF-T and persist these in the Big Data.
 
 ## To send a file by API:
 

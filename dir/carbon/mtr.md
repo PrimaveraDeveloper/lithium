@@ -7,10 +7,11 @@ The Metrics Service allows saving and serving metrics to applications from the C
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.Metrics |
-| Current Version | 1.0 |
-| Client Library | Primavera.Lithium.Metrics.dll |
-| Web UI | Yes |
-| Depends on | IDS
+| Version | 2.0 |
+| API Versions | 2.0, 1.0 |
+| Client Library | [Primavera.Lithium.Metrics.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Metrics) (single assembly) |
+| Web UI | No |
+| Depends on | --- |
 
 ## Scopes
 
@@ -18,20 +19,10 @@ The Metrics Service allows saving and serving metrics to applications from the C
 | - | - |
 | `lithium-metrics` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | --- |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
+| Spec | Not available yet |
 | Client Library | Not available yet |
 | Web API | Not available yet |

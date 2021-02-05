@@ -1,6 +1,6 @@
 # Legal Devaluation Indexes Service (LDI) Specification v1.0
 
-The current version of this service (only available for Portugal) allows to retrieve the devaluation indexes for a reference year. 
+The current version of this service (only available for Portugal) allows retrieving the devaluation indexes for a reference year. 
 
 ## Legal Devaluation Indexes Operations
 

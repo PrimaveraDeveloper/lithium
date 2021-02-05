@@ -10,8 +10,8 @@ The Nitrogen Service provides the support services for the cloud products app st
 | Version | 1.0 |
 | API Versions | 1.0 |
 | Client Library | --- |
-| Web UI | No |
-| Depends on | IDS |
+| Web UI | Yes |
+| Depends on | --- |
 
 ## Scopes
 
@@ -19,20 +19,10 @@ The Nitrogen Service provides the support services for the cloud products app st
 | - | - |
 | `lithium-nitrogen` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
 ## Reference Documentation
 
 | Documentation | Link |
 | - | - |
+| Spec | Not available yet |
 | Client Library | Not available yet |
 | Web API | Not available yet |

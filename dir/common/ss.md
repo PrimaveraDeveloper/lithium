@@ -12,7 +12,7 @@ The Settings Service allows storing name/value settings per user, per product, a
 | API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.Settings.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Settings) (single assembly) |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes

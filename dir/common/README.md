@@ -10,7 +10,6 @@ These services are core to the Lithium Framework and provide common features, ap
 | [FRS](./frs.md) | Fiscal Reports Service | Allows producing fiscal reports (for Tax Authorities) from predefined models | --- |
 | [FS](./fs.md) | File Store Service | Allows sharing and automatically update files used by applications | [2.0](./specs/fs-spec-2.0.md) |
 | [HUB](./hub.md) | Hub Service | Nanoservices that act as proxies to third-party APIs | --- |
-| [IDS](./ids.md) | Identity Server | Provides identity management (user authentication and client applications authorization) for applications and microservices | --- |
 | [NS](./ns.md) | Notifications Service | Allows sending email and SMS notifications using templates | [2.0](./specs/ns-spec-2.0.md) |
 | [NTR](./ntr.md) | Nitrogen Service | Supports the app store for cloud products | --- |
 | [OBS](./obs.md) | Open Banking Service | Provides integration with third-party open banking services and other operations related with banking | [1.0](./specs/obs-spec-1.0.md) |

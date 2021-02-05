@@ -1,4 +1,4 @@
-# ROSE Asynchronous Tasks Service (RAT) Specification v1.0
+# Asynchronous Tasks Service (RAT) Specification v1.0
 
 Provides asynchronous multi-task processing for ROSE applications or services that need to improve performance, scalability, and reusability. This component implements the asynchronous operation behavior in the PRIMAVERA Elevation Platform.
 

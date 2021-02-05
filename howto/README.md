@@ -22,7 +22,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to **define complex actions** on microservices](./howto-add-complex-actions.md)
 - [How to **define validation rules** on microservices models and actions parameters](./howto-define-validation-rules.md)
 - [How to **specify documentation** on a microservice](./howto-specify-documentation.md)
-- How to **setup authorization** in a microservice
 
 ## Adding custom code to a microservice
 
@@ -37,8 +36,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to add **support for Table Storage** to a microservice](./howto-add-table-storage.md)
 - [How to add **support for Blob Storage** to a microservice](./howto-add-blob-storage.md)
 - [How to **add a background service** to a microservice](./howto-add-background-service.md)
-- How to **add pipelines** to a microservice
-- How to **setup authentication** in a microservice
 
 ## Adding advanced features to a micro service
 
@@ -49,8 +46,6 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
 - [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
 - [How to **manage application settings externally** using Azure AppConfiguration](./howto-use-azure-appconfiguration.md)
-- How to **add throttling** to a microservice
-- How to **add data protection** to a microservice
 
 ## Testing a microservice
 
@@ -60,3 +55,13 @@ This chapter includes "how to" guides to help developing microservices with the 
 ## Upgrading a microservice
 
 - [How to **upgrade a microservice from Lithium v1.0 to Lithium v2.0**](./howto-migration-to-lithium-2.0/README.md)
+
+## Future guides
+
+- How to **setup authorization** in a microservice
+- How to **add pipelines** to a microservice
+- How to **setup authentication** in a microservice
+- How to **add throttling** to a microservice
+- How to **add data protection** to a microservice
+
+> If you miss a guide on a particular topic, please open an issue to request it.

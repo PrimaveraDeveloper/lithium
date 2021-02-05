@@ -11,7 +11,7 @@ The Product Upgrade Service provides operations to upgrade cloud product version
 | API Versions | 1.0 |
 | Client Library | --- |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 
 ## Scopes
 

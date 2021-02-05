@@ -19,7 +19,7 @@ The client library also includes validation algorithms for VAT numbers according
 | API Versions | 2.0, 1.0 |
 | Client Library | [Primavera.Lithium.DataLookup.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.DataLookup) (single assembly) |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes
@@ -28,17 +28,6 @@ The client library also includes validation algorithms for VAT numbers according
 | - | - |
 | `lithium-datalookup-vatnumber` | Access endpoints in the API for VAT numbers |
 | `lithium-datalookup-exchrate` | Access endpoints in the API for exchange rates |
-
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | Yes |
-| Preview (WE) | Yes |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | --- |
 
 ## Reference Documentation
 

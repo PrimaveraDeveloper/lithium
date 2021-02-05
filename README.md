@@ -1,6 +1,6 @@
 # PRIMAVERA Lithium Documentation
 
-Welcome to the the **Lithium Framework documentation** project.
+Welcome to the the **Lithium Framework documentation**.
 
 Here you will find all the information required to develop microservices with the Lithium SDK and the Lithium Modeling Framework for Visual Studio 2019.
 
@@ -12,21 +12,23 @@ It is a work in progress.
 
 This project is structured in a way that reflects the different kinds of documentation available.
 
-Currently it contains the following chapters:
+The following chapters are available:
 
 - [**vision**](./vision/README.md) - the vision behind Lithium and the general principles and technologies that drive its development.
 - [**capabilities**](./capabilities/README.md) - reference documentation about the Lithium Framework capabilities.
-- [**howto**](./howto/README.md) - how to guides to help development with the Lithium Framework.
-- [**samples**](./samples/README.md) - samples to jump start the development with the Lithium Framework.
+- [**how to**](./howto/README.md) - how to guides to accelerate development with the Lithium Framework.
+- [**samples**](./samples/README.md) - samples that illustrate features of the Lithium Framework.
 - [**training**](./training/README.md) - training material about the Lithium Framework.
-- [**reference**](./ref/README.md) - reference documentation for all the framework components, including the SDK, Hydrogen, and other packages.
-- [**directory**](./dir/README.md) - a directory of all the microservices currently available.
+- [**reference**](./ref/README.md) - reference documentation for all the framework components (SDK, Hydrogen, etc.).
+- [**directory**](./dir/README.md) - a directory of all the Lithium microservices currently available.
 
 ## Jump Start
 
-If you wish to start developing a microservice while going through the documentation, start with the [howto](./howto/README.md) and [samples](./samples/README.md) sections. You will need to [setup your machine](./howto/howto-setup-devopment-environment.md) before using the Lithium SDK.
+If you wish to go through the documentation before developing your microservice, start with the [how to](./howto/README.md) and [samples](./samples/README.md) sections.
 
-To model your microservice, check the [Service Designer](./ref/sdk-2.0/service-designer.md) reference.
+> You will need to [setup your machine](./howto/howto-setup-devopment-environment.md) before using the Lithium SDK.
+
+To start designing your microservice, check the [Service Designer](./ref/sdk-2.0/service-designer.md) reference to understand how a microservice is modeled with the Lithium SDK.
 
 ## Major Releases
 
@@ -34,7 +36,7 @@ The current version of the Lithium Framework is **version 2.0**.
 
 ### Lithium 2.0
 
-This is a major upgrade of the framework to support .NET Core 3.0 and Visual Studio 2019.
+This is a major upgrade of the framework to support .NET Core 3.1 and Visual Studio 2019.
 
 Given the changes in .NET Core, this release includes various changes in the code generated for microservices and in the Hydrogen libraries. It also includes a small set of new features in the modeling framework.
 
@@ -50,10 +52,10 @@ This was the first release of the framework that evolved for almost 2 years sinc
 
 ## Contributing and Feedback
 
-Contribution is limited, for the time being, to the Lithium development team.
+Contribution is limited to the Lithium development team.
 
-Any problem found in the documentation or any other suggestion should be reported in the Issues section.
+Any problem found in the documentation or any other suggestion should be reported with an issue.
 
 ## License
 
-The current version of this documentation is designed for PRIMAVERA employees only.
+This documentation is only useful for employees of PRIMAVERA BSS.

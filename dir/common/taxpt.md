@@ -18,7 +18,7 @@ The current version supports the following Tax Authority services:
 | API Versions | 3.0 |
 | Client Library | [Primavera.Lithium.TaxAuthority.Portugal.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.TaxAuthority.Portugal) (single assembly) |
 | Web UI | No |
-| Depends on | IDS, CS |
+| Depends on | -- CS |
 <!-- markdown-link-check-enable -->
 
 ## Scopes
@@ -30,10 +30,8 @@ The current version supports the following Tax Authority services:
 
 ## Reference Documentation
 
-<!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
 | Spec | [3.0](./specs/taxpt-spec-3.0.md), [2.0](./specs/taxpt-spec-2.0.md) |
 | Client Library | [3.0](https://taxpt.lithium.primaverabss.com/.doc/clientlib) |
 | Web API | [3.0](https://taxpt.lithium.primaverabss.com/.doc/webapi) |
-<!-- markdown-link-check-enable -->

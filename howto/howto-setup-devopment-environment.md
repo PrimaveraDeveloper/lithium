@@ -6,7 +6,7 @@ To use the Lithium Framework to its full extent you will need the following comp
 
 ## Visual Studio 2019
 
-Install a version of **Visual Studio 2019 greater than 16.3.0** (so it includes support for .NET Core 3.X).
+Install the latest version of **Visual Studio 2019** available.
 
 The following workloads and components are required:
 
@@ -18,11 +18,11 @@ The following workloads and components are required:
     - .NET Compiler Platform SDK
 - .NET Core cross-platform development
 
-> Be sure to always have installed the latest version of the .NET Core SDK in the development machine.
+> Be sure to always have the latest version of the .NET Core SDK installed in the development machine.
 
 ## Lithium SDK
 
-Install the **latest version of the Lithium SDK** using the setup available in the internal storage.
+Install the **latest version of the Lithium SDK** available using the setup available in the internal storage.
 
 After installed, two new extensions with the following names should be available in Visual Studio 2019:
 
@@ -35,11 +35,11 @@ After installed, two new extensions with the following names should be available
 
 To compile the microservice developed with the Lithium Framework, access to the following internal services will also be necessary:
 
-- NuGet packages repository: public-lithium-general (<span>https</span>://nuget.primaverabss.com:82/feeds/public-lithium-general)
+- NuGet packages repository: public-lithium-general
 
 ## Additional Services
 
-To fully integrate the microservices developed with the Lithium Framework in the company's CI/CD pipeline, access to the following internal services will also be necessary:
+To  integrate the microservices developed with the Lithium Framework in the company's CI/CD pipeline, access to the following internal services will also be necessary:
 
 - Source control
 - Builds management
@@ -47,14 +47,12 @@ To fully integrate the microservices developed with the Lithium Framework in the
 
 ## Optional Components
 
-The following extensions for Visual Studio are recommended but not required:
+The following extensions for Visual Studio are recommended:
 
 - GhostDoc Community - for editing XML documentation comments.
 - Visual Studio Spell Checker - for spell checking code.
-- Markdown Editor - for editing markdown (md) files.
 
 The following applications are also recommended:
 
 - Visual Studio Code - for editing documentation markdown files (like this one) from Git.
 - Windows Terminal - a terminal emulator for Windows 10, supporting Command Prompt, PowerShell, etc.
-- Fork - a Windows client for Git.

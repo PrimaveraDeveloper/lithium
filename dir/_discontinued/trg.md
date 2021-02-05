@@ -13,7 +13,7 @@ This is a way of executing batch jobs triggered by calls to given endpoints.
 | API Versions | 2.0, 1.0 |
 | Client Library | Primavera.Lithium.Triggers.dll |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 
 ## Scopes
 

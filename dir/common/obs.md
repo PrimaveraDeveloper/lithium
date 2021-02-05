@@ -18,7 +18,7 @@ The current version of the service provides only a client library and the follow
 | API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.OpenBanking.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.OpenBanking) (single assembly) |
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes

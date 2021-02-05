@@ -1,6 +1,6 @@
 # ROSE People Service (RPS) Specification v1.0
 
-The Rose People Service provides features for ROSE People.
+The ROSE People Service provides features for ROSE People.
 
 The current version of the service allows storing IRS tables for calculating income taxes.
 

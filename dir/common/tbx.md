@@ -12,7 +12,7 @@ Provides asynchronous multi-task processing for applications or services that ne
 | API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.Taskbox.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.Taskbox/2.0.2.36) (single assembly)|
 | Web UI | No |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes
@@ -21,23 +21,10 @@ Provides asynchronous multi-task processing for applications or services that ne
 | - | - |
 | `lithium-taskbox` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
 ## Reference Documentation
 
-<!-- markdown-link-check-disable -->
 | Documentation | Link |
 | - | - |
 | Spec | [2.0](./specs/tbx-spec-2.0.md) |
-| Client Library | [2.0](https://dv-tbx.lithium.primaverabss.com/.doc/clientlib#root) |
-| Web API | [2.0](https://dv-tbx.lithium.primaverabss.com/.doc/webapi/index.html) |
-<!-- markdown-link-check-enable -->
+| Client Library | Not available yet |
+| Web API | Not available yet |

@@ -1,6 +1,6 @@
 # Legal Devaluation Indexes Service (LDI)
 
-The Legal Devaluation Indexes Service allows to retrieve the devaluation indexes for a reference year. Theses indexes are used to fill the Portuguese models 31 and 32.
+The Legal Devaluation Indexes Service allows retrieving the devaluation indexes for a reference year. Theses indexes are used to fill the Portuguese models 31 and 32.
 
 ## Specification
 
@@ -12,7 +12,7 @@ The Legal Devaluation Indexes Service allows to retrieve the devaluation indexes
 | API Versions | 1.0 |
 | Client Library | [Primavera.Lithium.LegalDevaluationIndex.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.LegalDevaluationIndex) (single assembly) |
 | Web UI | Yes |
-| Depends on | IDS |
+| Depends on | --- |
 <!-- markdown-link-check-enable -->
 
 ## Scopes

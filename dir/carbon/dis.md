@@ -1,16 +1,17 @@
 # Data Ingestion Service (DIS)
 
-The Data Ingestion Service allows to ingest data files like saft and persist this files in Carbon BigData.
+The Data Ingestion Service allows ingesting data files like SAF-T and persist these in the Big Data.
 
 ## Specification
 
 | Metadata | Value |
 | - | - |
 | Namespace | Primavera.Lithium.DataIngestion |
-| Current Version | 1.0 |
-| Client Library | Primavera.Lithium.DataIngestion.dll |
-| Web UI | Yes 
-| Depends on | IDS
+| Version | 1.0 |
+| API Versions | 1.0 |
+| Client Library | [Primavera.Lithium.DataIngestion.dll](http://nuget.primaverabss.com:82/feeds/public-lithium-general/Primavera.Lithium.DataIngestion) (single assembly) |
+| Web UI | No |
+| Depends on | --- |
 
 ## Scopes
 
@@ -18,21 +19,8 @@ The Data Ingestion Service allows to ingest data files like saft and persist thi
 | - | - |
 | `lithium-dataingestionservice` | Access all the endpoints in the API |
 
-## Environments
-
-| Environment | Available |
-| - | - |
-| Production | --- |
-| Preview (WE) | --- |
-| Preview (NE) | --- |
-| Staging (WE) | Yes |
-| Staging (NE) | --- |
-| Development | Yes |
-
-## Reference Documentation
-
 | Documentation | Link |
 | - | - |
-| Spec | [1.0](./dis-spec.md) |
-| Client Library | Not available yet |
-| Web API | Not available yet |
+| Spec | [1.0](./specs/dis-spec-1.0.md) |
+| Client Library | [1.0](https://dis.lithium.primaverabss.com/.doc/clientlib)|
+| Web API | [1.0](https://dis.lithium.primaverabss.com/.doc/clientlib) |
