@@ -33,7 +33,9 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 
  ```
  
- For example  ```
+ For example  
+ 
+ ```
  
  Request - /api/v1/archives/NUCASE$CAFECENTRAL$FG01A1
  
