@@ -227,4 +227,34 @@ The service provides additional operations on digital archive:
  You need to do a delete request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}```. 
  For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1 ```
  
+ ## To send a authorized sender by Client:
+
+```csharp
+	using DigitalArquiveClient client = new DigitalArquiveClient(...);
+	
+	try
+		{
+			string businessKey = (...);
+			authoSendersJson = File.ReadAllText(authoSendersJsonFilePath);
+			
+			List<AuthSenderMessage> authoSenders = JsonSerializer.Deserialize<List<AuthSenderMessage>>(authoSendersJson);
+
+			ServiceOperationResult response = await client.AuthorizedSenders.PostAuthorizedSendersAsync(businessKey, authoSenders).ConfigureAwait(false);
+			
+		}
+	// (...)
+	}
+	catch (ServiceException ex)
+	{
+		// (...)
+	}
+	
+ ```
+  ### Other Operations on Authorized Senders
+
+The service provides additional operations on authorized senders:
+
+- `GetAuthorizedSendersAsync(string businessKey, int pageIndex, int pageSize)` - allows viewing a list of authorized senders.
+- `DeleteAuthorizedSendersAsync(string businessKey)` - allows deleting all authorized senders for a sended business key.
+- `DeleteAuthorizedSenderAsync(string businessKey, string senderId)` - allows deleting the authorized sender.
  
