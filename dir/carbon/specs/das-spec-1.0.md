@@ -119,5 +119,29 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 	]
 }
  
- ```.
+ ```
  
+## To send a file by Client:
+
+```csharp
+	using DigitalArquiveClient client = new DigitalArquiveClient(...);
+	
+	try
+		{
+			metadata = File.ReadAllText(metadataJsonFilePath);
+
+			using (FileStream digitalArchiveFile = File.OpenRead(filePath))
+			{
+				ServiceOperationResult<UploadMessage> response = await client.Archives.UploadDigitalArchivesAsync(metadata, digitalArchiveFile).ConfigureAwait(false);
+			
+			}
+		
+		}
+	// (...)
+	}
+	catch (ServiceException ex)
+	{
+		// (...)
+	}
+	
+ ```
