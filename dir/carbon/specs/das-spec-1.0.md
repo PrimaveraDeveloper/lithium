@@ -157,7 +157,7 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 			
 			ArchiveMessage archive = JsonSerializer.Deserialize<ArchiveMessage>(archiveJsom);
 
-			ServiceOperationResult<UploadMessage> response = await client.Archives.UpdateDigitalArchivesAsync(businessKey, id, archive).ConfigureAwait(false);
+			ServiceOperationResult response = await client.Archives.UpdateDigitalArchivesAsync(businessKey, id, archive).ConfigureAwait(false);
 			
 		}
 	// (...)
@@ -257,4 +257,74 @@ The service provides additional operations on authorized senders:
 - `GetAuthorizedSendersAsync(string businessKey, int pageIndex, int pageSize)` - allows viewing a list of authorized senders.
 - `DeleteAuthorizedSendersAsync(string businessKey)` - allows deleting all authorized senders for a sended business key.
 - `DeleteAuthorizedSenderAsync(string businessKey, string senderId)` - allows deleting the authorized sender.
+
+## To send a authorized route by API:
+
+ You need to do a post request, using the URL request formation: ``` /api/v1/authorizedroutes ``` and a json object like:
  
+ ```
+ 
+    {
+        "companyTaxId": "{companyTaxId}",
+        "workspace": "{workspace}",
+        "organization": "{organization}",
+	"appInstance": "{appInstance}"
+    }
+ 
+ ```
+
+ For example:  
+ 
+ ```
+ 
+ Request - /api/v1/authorizedroutes
+ 
+ Body:
+ 
+{
+	"companyTaxId": "PT$505280031",
+	"workspace": "NUCASE",
+	"organization": "CAFECENTRAL",
+	"appInstance": "FG01A5"
+}
+ 
+ ```
+ 
+## To view a list of authorized routes by API:
+
+ You need to do a get request, using the URL request formation: ```/api/v1/authorizedroutes/{business key}``` and you can send optionally by querystring the pagination parameters (pageSize and pageIndex). 
+ For example  ```/api/v1//authorizedroutes/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
+ 
+## To delete a authorized routes by API:
+
+ You need to do a delete request, using the URL request formation: ```/api/v1/authorizedroutes/{business key}```. 
+ For example  ```/api/v1//authorizedroutes/NUCASE$CAFECENTRAL$FG01A1 ```
+ 
+## To send a authorized route by Client:
+
+```csharp
+	using DigitalArquiveClient client = new DigitalArquiveClient(...);
+	
+	try
+		{
+			authRouteJson = File.ReadAllText(authRoutesJsonFilePath);
+			
+			AuthRouteMessage authRoute = JsonSerializer.Deserialize<AuthRouteMessage>(authRouteJson);
+
+			ServiceOperationResult response = await client.AuthorizedRoutes.PostAuthorizedRoutesAsync(AuthRouteMessage).ConfigureAwait(false);
+			
+		}
+	// (...)
+	}
+	catch (ServiceException ex)
+	{
+		// (...)
+	}
+	
+ ```
+  ### Other Operations on Authorized Senders
+
+The service provides additional operations on authorized senders:
+
+- `GetAuthorizedRoutesAsync(string businessKey, int pageIndex, int pageSize)` - allows viewing a list of authorized routes.
+- `DeleteAuthorizedRoutesAsync(string businessKey)` - allows deleting a authorized route.
