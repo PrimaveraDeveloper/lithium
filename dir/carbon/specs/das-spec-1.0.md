@@ -146,31 +146,6 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 	
  ```
  
- ## To send a file by Client:
-
-```csharp
-	using DigitalArquiveClient client = new DigitalArquiveClient(...);
-	
-	try
-		{
-			metadata = File.ReadAllText(metadataJsonFilePath);
-
-			using (FileStream digitalArchiveFile = File.OpenRead(filePath))
-			{
-				ServiceOperationResult<UploadMessage> response = await client.Archives.UploadDigitalArchivesAsync(metadata, digitalArchiveFile).ConfigureAwait(false);
-			
-			}
-		
-		}
-	// (...)
-	}
-	catch (ServiceException ex)
-	{
-		// (...)
-	}
-	
- ```
- 
  ## To update a file by Client:
 
 ```csharp
@@ -202,3 +177,54 @@ The service provides additional operations on digital archive:
 - `GetDocumentFileAsync(string businessKey, string id)` - allows getting the sended digital archive file.
 - `GettDigitalArchiveMetadataAsync(string businessKey, int state, DateTime startDate, DateTime endDate, int pageIndex, int pageSize, string category)` - allows viewing a list of sended digital archive metadatas.
 - `DeleteDigitalArchivesAsync(string businessKey, string id)` - allows deleting the sended digital archive file.
+
+## To send a authorized senders by API:
+
+ You need to do a post request, using the URL request formation: ``` /api/v1/authorizedsenders/{business key} ``` and a json object like:
+ 
+ ```
+ 
+[
+    {
+        "companyTaxId": "{company tax id}",
+        "sender": "{sender}",
+        "type": "{sender type}"
+    }
+]
+ 
+ ```
+
+ For example:  
+ 
+ ```
+ 
+ Request - /api/v1/authorizedsenders/NUCASE$CAFECENTRAL$FG01A1
+ 
+ Body:
+ 
+ [
+    {
+        "companyTaxId": "505280070",
+        "sender": "teste@primaverabss.com",
+        "type": "email"
+    }
+]
+ 
+ ```
+ 
+ ## To view a list of authorized senders by API:
+
+ You need to do a get request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}``` and you can send optionally by querystring the pagination parameters (pageSize and pageIndex). 
+ For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
+ 
+  ## To delete a authorized sender by API:
+
+ You need to do a delete request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}/{Authorized Sender Id}```. 
+ For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1/TESTE@PRIMAVERABSS.COM$505280069 ```
+ 
+   ## To delete a authorized senders by API:
+
+ You need to do a delete request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}```. 
+ For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1 ```
+ 
+ 
