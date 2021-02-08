@@ -7,6 +7,7 @@ This the list of all the capabilities (order alphabetically):
 - Access Tokens (see [Authorization](./authorization.md))
 - [Authentication](./authentication.md)
 - [Authorization](./authorization.md)
+- [Authorization Specification](./authorization-spec.md)
 - [Background Services](./background-services.md)
 - Blobs (see [Storage](./storage.md))
 - [Caching](./caching.md)

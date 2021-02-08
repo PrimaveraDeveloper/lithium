@@ -5,6 +5,10 @@
 ### Version 60 (Not released yet)
 
 - Added validation to prevent having projects in `Primavera.Hydrogen.DesignTime.Configuration` misconfigured.
+- Improved the code generated for `Models.Metadata.Localization.CulturesSupported`.
+- New file named `Authorization.gen.authzspec.json` generated in project `Design`. This contains the authorization spec for the service (that Identity Server v5.0 will allow to import to create the service authorization resources).
+- Modified the code generated for `Service.gen.lsspec.json` to exclude authorization resources.
+- New environment variable `LITHIUM_LOCALDEVELOPMENT`.
 
 ### Version 59 (14/1/2021)
 

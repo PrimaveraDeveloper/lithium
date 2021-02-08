@@ -10,7 +10,6 @@ It includes the specification of the service that can be directly inferred from 
 
 - Identifier, name, description, etc.
 - Dependencies.
-- Authorization resources (API resource, clients, scopes, etc.).
 - App settings (configuration options) required.
 - Features used.
 - Endpoints provided.

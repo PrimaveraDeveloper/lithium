@@ -2,6 +2,12 @@
 
 > These release notes include only the most important releases.
 
+### <a name="2.0.9.XXX"></a>Version 2.0.9.XXX
+
+- **[Breaking]** `ServiceSpec` no longer includes specification for authorization resources (API Resources, Clients, etc.). This is now provided by `AuthorizationSpec`.
+- Added `AuthorizationSpec` to specify authorization resources (API Scopes, API Resources, Clients, and Authorization Policies). This type is fully compatible with Identity Server v5.0.
+- Added subject and body encodings to `SmtpClient`.
+
 ### <a name="2.0.9.360"></a>Version 2.0.9.360
 
 - Updated dependencies to .NET Core 3.1.11.
