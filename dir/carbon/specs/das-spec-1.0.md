@@ -4,7 +4,7 @@ The Digital Archive Service allows sending digital archives to be stored.
 
 ## Accepted Digital Archive types.
 
-Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only accepted the other accepted files.
+Are only accepted pdf, jpg, tiff and zip files and inside the zip files.
 
 ## To send a file by API:
 
@@ -47,7 +47,7 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 			"name": "teste.jpg",
 			"metadata": [
 				{
-					"key": "IsFiscalRelevant",
+					"key": "isFiscalRelevant",
 					"value": "1"
 				}
 			]
@@ -62,7 +62,7 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
 ## To view a list of sended digital archive metadatas by API:
 
  You need to do a get request, using the URL request formation: ```/api/v1/archives/{business key}``` and you can send optionally by querystring the state, the category and the pagination parameters (pageSize and pageIndex). 
- For example  ```/api/v1//archives/NUCASE$CAFECENTRAL$FG01A1?state=3&category=Unknown&pagesize=5&pageindex=1 ```
+ For instance  ```/api/v1//archives/NUCASE$CAFECENTRAL$FG01A1?state=3&category=Unknown&pagesize=5&pageindex=1 ```
  
 ## To get a sended digital archive (file and metadata):
 
@@ -74,7 +74,7 @@ Are only accepted pdf, jpg, tiff and zip files and inside the zip files are only
  ## To get a sended digital archive file:
 
  You need to do a get request, using the URL request formation: ```/api/v1/archives/{business key}/{archive id}/file```. 
- For example  ```/api/v1/archives/ac2aa44d-54e5-48ac-82c9-447c7aeef257/file ```.
+ For instance  ```/api/v1/archives/ac2aa44d-54e5-48ac-82c9-447c7aeef257/file ```.
  
  This request returns the digital archive file.
  
@@ -215,7 +215,7 @@ The service provides additional operations on digital archive:
  ## To view a list of authorized senders by API:
 
  You need to do a get request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}``` and you can send optionally by querystring the pagination parameters (pageSize and pageIndex). 
- For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
+ For instance  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
  
   ## To delete a authorized sender by API:
 
@@ -225,7 +225,7 @@ The service provides additional operations on digital archive:
    ## To delete a authorized senders by API:
 
  You need to do a delete request, using the URL request formation: ```/api/v1/authorizedsenders/{business key}```. 
- For example  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1 ```
+ For instance  ```/api/v1//authorizedsenders/NUCASE$CAFECENTRAL$FG01A1 ```
  
  ## To send a authorized sender by Client:
 
@@ -293,7 +293,7 @@ The service provides additional operations on authorized senders:
 ## To view a list of authorized routes by API:
 
  You need to do a get request, using the URL request formation: ```/api/v1/authorizedroutes/{business key}``` and you can send optionally by querystring the pagination parameters (pageSize and pageIndex). 
- For example  ```/api/v1//authorizedroutes/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
+ For instance  ```/api/v1//authorizedroutes/NUCASE$CAFECENTRAL$FG01A1?pagesize=5&pageindex=1 ```
  
 ## To delete a authorized routes by API:
 

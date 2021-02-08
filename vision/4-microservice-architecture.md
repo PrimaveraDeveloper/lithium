@@ -1,6 +1,6 @@
 # Microservice Architecture
 
-The Lithium Framework defines a very simple - yet standard - architecture that all microservices must adhere to to be correctly generated, developed, and managed.
+The Lithium Framework defines a very simple - yet standard - architecture that all microservices must adhere to be correctly generated, developed, and managed.
 
 This architecture defines the pieces that compose the microservice.
 
