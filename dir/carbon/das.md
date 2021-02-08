@@ -27,6 +27,6 @@ The Digital Archive Service allows sending digital archives to be stored.
 
 | Documentation | Link |
 | - | - |
-| Spec | [1.0](./specs/das-spec-1.0.md.md) |
+| Spec | [1.0](./specs/das-spec-1.0.md) |
 | Client Library | Not available yet |
 | Web API | Not available yet |
