@@ -13,8 +13,8 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.AspNetCore.Throttling`](./AspNetCore.Throttling.md) | Contains services for implementing throttling in ASP.NET Core applications |
 | [`Primavera.Hydrogen.AspNetCore.Webhooks`](./AspNetCore.Webhooks.md) | Contains types that define services for providing webhooks in ASP.NET Core applications |
 | [`Primavera.Hydrogen.AspNetCore.Webhooks.Abstractions`](./AspNetCore.Webhooks.Abstractions.md) | Contains types that define abstractions for providing webhooks in ASP.NET Core applications |
-| [`Primavera.Hydrogen.Azure.Client`](./Azure.Client.md) | Contains tcontains types that support communication with Azure SDK services. |
-| [`Primavera.Hydrogen.Caching.Distributed`](./Caching.Distributed.md) | Contains types that provided distributed caching services |
+| [`Primavera.Hydrogen.Azure.Client`](./Azure.Client.md) | Contains types, helpers, and extension methods to integrate with Azure SDK client libraries |
+| [`Primavera.Hydrogen.Caching.Distributed`](./Caching.Distributed.md) | Contains types that provide distributed caching services |
 | [`Primavera.Hydrogen.Console`](./Console.md) | Contains types, helpers, and extension methods for console applications |
 | [`Primavera.Hydrogen.Core`](./Core.md) | Contains core types, helpers, and extension methods that can be used on all kinds of applications |
 | [`Primavera.Hydrogen.EventBus.Abstractions`](./EventBus.Abstractions.md) | Contains types that define abstractions for generic event bus services |
@@ -23,7 +23,7 @@ Hydrogen is the most fundamental part of the Lithium Framework as it includes a 
 | [`Primavera.Hydrogen.IdentityModel`](./IdentityModel.md) | Contains core types and helpers for OpenID Connect, OAuth and claims-based Identity |
 | [`Primavera.Hydrogen.IdentityModel.Client`](./IdentityModel.Client.md) | Contains core types, helpers and client libraries for OpenID Connect, OAuth and claims-based Identity |
 | [`Primavera.Hydrogen.Mediator`](./Mediator.md) | Contains types that implement the Mediator design pattern InProc |
-| [`Primavera.Hydrogen.Mediator.Abstractions`](./Mediator.Abstractions.md) | Contains types that define abstractions for the mediator pattern and cqrs pattern integration |
+| [`Primavera.Hydrogen.Mediator.Abstractions`](./Mediator.Abstractions.md) | Contains types that define abstractions for the mediator pattern and CQRS pattern integration |
 | [`Primavera.Hydrogen.Pipeboxes.Abstractions`](./Pipeboxes.Abstractions.md) | Contains types that define abstractions for the Pipeline design pattern with multiple execution flows |
 | [`Primavera.Hydrogen.Pipeboxes`](./Pipeboxes.md) | Contains types that implement the Pipeline design pattern with multiple execution flows |
 | [`Primavera.Hydrogen.Pipelines`](./Pipelines.md) | Contains types that implement the Pipeline design pattern |

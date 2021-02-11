@@ -2,11 +2,29 @@
 
 > These release notes include only the most important releases.
 
-### <a name="2.0.9.XXX"></a>Version 2.0.9.XXX
+### <a name="2.0.10.366"></a>Version 2.0.10.366
 
-- **[Breaking]** `ServiceSpec` no longer includes specification for authorization resources (API Resources, Clients, etc.). This is now provided by `AuthorizationSpec`.
-- Added `AuthorizationSpec` to specify authorization resources (API Scopes, API Resources, Clients, and Authorization Policies). This type is fully compatible with Identity Server v5.0.
+**Primavera.Hydrogen.Azure.Client**
+
+- `ChainedTokenCredentialBuilder` and `ChainedTokenCredential` allow building chains of credentials to be used as `TokenCredential` instances to initialize Azure SDK client libraries.  
+
+**Primavera.Hydrogen.Storage.Azure**
+
+- `IBlobStorageService` now supports authorization with the Azure Active Directory (like `ISecretsStorageService`).
+- New configuration options in `AzureBlobStorageOptions` to support connection using the Service URI and credentials instead of a connection string.
+
+**Primavera.Hydrogen.Security.Azure**
+
+- **[Breaking]** `AzureKeyVaultSecretsStorageOptions` was modified to support `ChainedTokenCredentialBuilder` and deal better with authorization with Azure Activity Directory using managed identity, developer credentials, and client secret credentials.
+
+**Primavera.Hydrogen.Core**
+
 - Added subject and body encodings to `SmtpClient`.
+
+**Primavera.Hydrogen.DesignTime.Specs**
+
+- **[Breaking]** `ServiceSpec` no longer includes specification for authorization resources (API resources, clients, etc.). This is now provided by `AuthorizationSpec`.
+- Added `AuthorizationSpec` to specify authorization resources (API scopes, API resources, clients, and authorization policies). This type is fully compatible with Identity Server v5.0.
 
 ### <a name="2.0.9.360"></a>Version 2.0.9.360
 

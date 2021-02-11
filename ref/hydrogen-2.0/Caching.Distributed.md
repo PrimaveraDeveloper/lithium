@@ -1,6 +1,6 @@
 # Primavera.Hydrogen.Caching.Distributed
 
-**Class library that contains types that provided distributed caching services.**
+**Class library that contains types that provide distributed caching services.**
 
 ## REDIS Cache
 

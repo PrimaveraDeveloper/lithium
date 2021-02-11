@@ -37,8 +37,10 @@ Notice that the behavior of these extension methods can be configured using `Azu
 Since these extension methods configure the application to store the keys in a blob, the IBlobStorageService needs to be configured to use Azure Blob Storage (see [Primavera.Hydrogen.Storage.Azure](./Storage.Azure.md) for more information).
 
 ```csharp
-services.Configure<AzureBlobStorageOptions>(this.Configuration.GetSection(nameof(AzureBlobStorageOptions)));
-services.Configure<AzureBlobStorageDataProtectionOptions>(this.Configuration.GetSection(nameof(AzureBlobStorageDataProtectionOptions)));
+services.Configure<AzureBlobStorageOptions>(
+    this.Configuration.GetSection(nameof(AzureBlobStorageOptions)));
+services.Configure<AzureBlobStorageDataProtectionOptions>(
+    this.Configuration.GetSection(nameof(AzureBlobStorageDataProtectionOptions)));
 services.AddAzureBlobStorage();
 services.AddDataProtectionWithBlobStorage();
 ```
