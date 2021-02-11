@@ -84,7 +84,7 @@ public class ContinuousTriggerExample : ContinuousTrigger<string>
 - `SaTrigger`, stand-alone trigger, its purpose is to execute some logic defined by those who implement this component. This component is used when there is no claim to have an trigger-action relationship but only a trigger.
 
 ```csharp
-public class TriggerActionExample : TriggerAction<string>
+public class TriggerActionExample : SaTrigger<string>
 {
     /// <inheritdoc/>
     public override async Task ExecuteAsync()
@@ -100,7 +100,7 @@ public class TriggerActionExample : TriggerAction<string>
 - `EventTrigger`, its purpose is to subscribe to events given a `PipeboxConfig` and to process them.
 
 ```csharp
-  public class EventTriggerExample : EventTriggerAction<string>
+  public class EventTriggerExample : EventTrigger<string>
   {
     /// <inheritdoc/>
     public override Task<PipeboxConfig> GetConfigurationsAsync()
@@ -167,9 +167,8 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
         "name": "ScheduledTrigger",
         "description": "The schedule trigger",
         "type": "Primavera.Hydrogen.Taskbox.ScheduledTrigger, Primavera.Hydrogen.Taskbox",
-        "configStr": "",
-        "context":"",
-        "cronExp": "0 0 * ? * *"
+        "configStr": "cronExp=0 * * ? * *",
+        "context":""
       },
       "actions": [
         {
@@ -177,8 +176,7 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
           "name": "ScheduledAction 1",
           "description": "Scheduled Action 1",
           "type": "Primavera.Hydrogen.Taskbox.ScheduledAction, Primavera.Hydrogen.Taskbox",
-          "configStr": "",
-          "continuousExecution": "False"
+          "configStr": ""
         }
       ]
     }
@@ -188,34 +186,34 @@ Consider the following example of an `TaskboxConfig` using a `EventTrigger` and 
 
 ### Task Details
 
-Name | Description
-:--- | :---
-`id` | The task identifier.
-`name` | Used by the cluster mechanism to group the tasks, its value is "Task".
-`groupName` | The task name.
-`description` | The task description.
-`active` | Used to determinate if the task is active, if true the taskbox will process.
+| Name          | Description                                                                  |
+| :------------ | :--------------------------------------------------------------------------- |
+| `id`          | The task identifier.                                                         |
+| `name`        | Used by the cluster mechanism to group the tasks, its value is "Task".       |
+| `groupName`   | The task name.                                                               |
+| `description` | The task description.                                                        |
+| `active`      | Used to determinate if the task is active, if true the taskbox will process. |
 
 ### Trigger Details
 
-Name | Description
-:--- | :---
-`id` | The trigger identifier.
-`name` | The trigger name.
-`description` | The trigger description.
-`type` | The trigger assembly name, this is used by the invoker in order to instantiate this.
-`configStr` | Used to pass parameters to the trigger.
-`context` | Used to pass a context to the trigger.
+| Name          | Description                                                                          |
+| :------------ | :----------------------------------------------------------------------------------- |
+| `id`          | The trigger identifier.                                                              |
+| `name`        | The trigger name.                                                                    |
+| `description` | The trigger description.                                                             |
+| `type`        | The trigger assembly name, this is used by the invoker in order to instantiate this. |
+| `configStr`   | Used to pass parameters to the trigger.                                              |
+| `context`     | Used to pass a context to the trigger.                                               |
 
 ### Action Details
 
-Name | Description
-:--- | :---
-`id` | The action identifier.
-`name` | The action name.
-`description` | The action description.
-`type` | The action assembly name, this is used by the invoker in order to instantiate this.
-`configStr` | Used to pass parameters to the action.
+| Name          | Description                                                                         |
+| :------------ | :---------------------------------------------------------------------------------- |
+| `id`          | The action identifier.                                                              |
+| `name`        | The action name.                                                                    |
+| `description` | The action description.                                                             |
+| `type`        | The action assembly name, this is used by the invoker in order to instantiate this. |
+| `configStr`   | Used to pass parameters to the action.                                              |
 
 **Notice**, that the communication between the trigger and the actions is established using the `Primavera.Hydrogen.EventBus.InMemory`. To know more about this component see [EventBus.InMemory](../hydrogen-2.0/EventBus.InMemory.md).
 
@@ -421,7 +419,6 @@ The `ttl` defines when the task will expire and will be removed from clustering 
 The `isMultiInstance` defines if this task should run on all available instances.
 
 The `isChild` defines that this task is a child of the multi-instance task (copy of the multi-instance parent task).
-
 
 ### `TaskboxEngine`
 
