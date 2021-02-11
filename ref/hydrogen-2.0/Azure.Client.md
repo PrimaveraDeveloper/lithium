@@ -1,6 +1,6 @@
 # Primavera.Hydrogen.Azure.Client
 
-**Contains types, helpers, and extension methods to integrate with Azure SDK client libraries**
+**Class library that contains types, helpers, and extension methods to integrate with Azure SDK client libraries.**
 
 The Azure SDK for .NET provides client libraries for most Azure services. These libraries use different approaches (although there is an ongoing effort from its development teams to unify them) for things like authorization, error handling, retry policies, etc.
 
@@ -10,7 +10,7 @@ The Azure SDK for .NET provides client libraries for most Azure services. These 
 
 The `Azure.Identity` library provides a set of classes that allow defining credentials to access Azure resources. These allow integrating with Azure Activity Directory and support thinks features Managed Identity.
 
-These token credentials can be use to authorize client applications and will be supported soon by all Azure services and the Hydrogen services that use them (like, for example, the Secret Storage service).
+These token credentials can be used to authorize client applications and will be supported soon by all Azure services and the Hydrogen services that use them (like, for example, the Secret Storage service).
 
 ### `ChainedTokenCredentialBuilder`
 
@@ -35,7 +35,7 @@ ChainedTokenCredential credential = ChainedTokenCredentialBuilder
 
 ### `ChainedTokenCredential`
 
-This type is similar to `Azure.Identity.ChainedTokenCredential` and `Azure.Identity.DefaultAzureCredential` in the sense that it allows chaining a set of token credential instances that will be tried one at a time unit authorization succeeds.
+This type is similar to `Azure.Identity.ChainedTokenCredential` and `Azure.Identity.DefaultAzureCredential` in the sense that it allows chaining a set of token credential instances that will be tried one at a time until authorization succeeds.
 
 > This type differs only in that it implements `GetHashCode()`, which is necessary to implement service client caching in some scenarios (like for the Secrets Storage service).
 
@@ -45,7 +45,7 @@ This type is similar to `Azure.Identity.ChainedTokenCredential` and `Azure.Ident
 
 `AzureCredentialsOptions` is a generic configuration type that is shared between various services so that the `ChainedTokenCredential` used can be created from configuration.
 
-> Examples of configuration types that reuse `AzureCredentialsOptions` are AzureKeyVaultSecretsStorageOptions` and `AzureBlobStorageOptions`.
+> Examples of configuration types that reuse `AzureCredentialsOptions` are `AzureKeyVaultSecretsStorageOptions` and `AzureBlobStorageOptions`.
 
 The following options are available:
 
@@ -63,4 +63,4 @@ The following options are available:
 | `ClientSecret.ClientId` | The client identifier that should be used by `ClientSecretCredential`. Required (if enabled) (no default value). |
 | `ClientSecret.ClientSecret` | The client secret that should be used by `ClientSecretCredential`. Required (if enabled) (no default value). |
 
-The way these options are used to build the credential chain will depend on the service in question. Typically, however, the order will be: managed identity, Visual Studio, Visual Studio Code, Azure CLI, and finally client secret.
+The way these options are used to build the credential chain will depend on the service in question. Typically, however, the order should be: managed identity, Visual Studio, Visual Studio Code, Azure CLI, and finally client secret.

@@ -11,7 +11,7 @@
 **Primavera.Hydrogen.Storage.Azure**
 
 - `IBlobStorageService` now supports authorization with the Azure Active Directory (like `ISecretsStorageService`).
-- New configuration options in `AzureBlobStorageOptions` to support connection using the Service URI and credentials instead of a connection string.
+- New configuration options in `AzureBlobStorageOptions` to support connecting using the Service URI and credentials instead of a connection string.
 
 **Primavera.Hydrogen.Security.Azure**
 
@@ -23,7 +23,7 @@
 
 **Primavera.Hydrogen.DesignTime.Specs**
 
-- **[Breaking]** `ServiceSpec` no longer includes specification for authorization resources (API resources, clients, etc.). This is now provided by `AuthorizationSpec`.
+- **[Breaking]** `ServiceSpec` no longer includes specification for authorization resources (API resources, clients, etc.).
 - Added `AuthorizationSpec` to specify authorization resources (API scopes, API resources, clients, and authorization policies). This type is fully compatible with Identity Server v5.0.
 
 ### <a name="2.0.9.360"></a>Version 2.0.9.360
