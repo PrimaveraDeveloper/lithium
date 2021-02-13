@@ -2,13 +2,16 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
-### Version 60 (Not released yet)
+### Version 60 (13/2/2021)
 
 - Added validation to prevent having projects in `Primavera.Hydrogen.DesignTime.Configuration` misconfigured.
 - Improved the code generated for `Models.Metadata.Localization.CulturesSupported`.
 - New file named `Authorization.gen.authzspec.json` generated in project `Design`. This contains the authorization spec for the service (that Identity Server v5.0 will allow to import to create the service authorization resources).
 - Modified the code generated for `Service.gen.lsspec.json` to exclude authorization resources.
 - New environment variable `LITHIUM_LOCALDEVELOPMENT`.
+- Modified the code generated for the Secrets Storage and Blob Storage dependencies to support managed identity better and add new configuration options.
+- Updated Hydrogen packages to version [2.0.10.368](../hydrogen-2.0/release-notes.md).
+- Updated .NET Core packages to version 3.1.12.
 
 ### Version 59 (14/1/2021)
 

@@ -2,7 +2,9 @@
 
 > These release notes include only the most important releases.
 
-### <a name="2.0.10.366"></a>Version 2.0.10.366
+### <a name="2.0.10.368"></a>Version 2.0.10.368
+
+- Updated dependencies to .NET Core 3.1.12.
 
 **Primavera.Hydrogen.Azure.Client**
 
