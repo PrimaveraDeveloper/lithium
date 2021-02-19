@@ -271,7 +271,7 @@ Consider the following examples on how to interact with the `TaskboxService`.
 
 ### `TaskboxClustering`
 
-The Taskbox Clustering is used to achieve load balancing, manage the task states, instances heartbeat and recover instance and tasks failures. This mechanism uses CosmosDb database for storage and REDIS to implement read locks.
+The Taskbox Clustering is used to achieve load balancing, manage the task states, instances heartbeat and recover instance and tasks failures. This mechanism uses CosmosDb database for task and instances storage and blob storage to implement read locks.
 When the Taskbox service starts, the cluster will register the instance as in the example below:
 
 ```json
@@ -419,6 +419,8 @@ The `ttl` defines when the task will expire and will be removed from clustering 
 The `isMultiInstance` defines if this task should run on all available instances.
 
 The `isChild` defines that this task is a child of the multi-instance task (copy of the multi-instance parent task).
+
+To correctly configure the clustering, please see [Clustering Configuration](./ClusteringConfiguration.md).
 
 ### `TaskboxEngine`
 
