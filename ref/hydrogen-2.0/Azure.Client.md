@@ -64,3 +64,19 @@ The following options are available:
 | `ClientSecret.ClientSecret` | The client secret that should be used by `ClientSecretCredential`. Required (if enabled) (no default value). |
 
 The way these options are used to build the credential chain will depend on the service in question. Typically, however, the order should be: managed identity, Visual Studio, Visual Studio Code, Azure CLI, and finally client secret.
+
+### `AzureRetryPolicyOptions`
+
+`AzureRetryPolicyOptions` provides configuration options, shared between various services to setup the retry policy that should be used to access the underlying Azure service.
+
+> Examples of the configuration types that reference `AzureRetryPolicyOptions`: `AzureSearchOptions`, `AzureKeyVaultSecretsStorageOptions`.
+
+The configuration options available are:
+
+| Option | Description |
+| - | - |
+| `Mode` | The mode that should be applied to calculate the interval between retry attempts. Required (default value is `Exponential`). |
+| `MaxRetries` | The maximum number of retries. Required (default value is 3). |
+| `Interval` | The interval between retry attempts. Required (default value is 0.8 seconds). |
+| `MaxInterval` | The maximum interval between retry attempts. Required (default value is 60 seconds). |
+| `Timeout`| The timeout for individual network operations. Required (default value is 100 seconds). |

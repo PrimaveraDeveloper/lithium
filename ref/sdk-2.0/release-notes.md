@@ -2,6 +2,16 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
+### Version 61 (21/2/2021)
+
+- New domain property `ControllerType.IgnoreInWebApiDoc` to allow hiding a controller from the Web API documentation.
+- New domain property `Webhook.Payload` to associate a webhook with the corresponding payload model (used to generate the Webhooks documentation).
+- Webhooks documentation is now generated from the model and available from the service home page.
+- Support for the active Visual Studio theme in the Service Designer surface.
+- Bug fixing on Routes Explorer and Service Explorer.
+- Modified the code generated for the Blob Storage, Secrets Storage, and Search dependencies to new retry policy options.
+- Updated Hydrogen packages to version [2.0.10.372](../hydrogen-2.0/release-notes.md).
+
 ### Version 60 (13/2/2021)
 
 - Added validation to prevent having projects in `Primavera.Hydrogen.DesignTime.Configuration` misconfigured.
@@ -138,7 +148,7 @@
 
 ### Version 46 (21/09/2020)
 
-- Added domain property `AutorizationPolicy.Kind` to support policies that require scopes and custom policies (entirely specified in custom code).
+- Added domain property `AuthorizationPolicy.Kind` to support policies that require scopes and custom policies (entirely specified in custom code).
 - Added domain property `ControllerTypeAction.AuthorizationPolicy` to allow specifying authorization policies per action (no longer only per controller).
 - Added domain property `ControllerType.RouteParametersPlacement` to allow specifying where the controller parameters should be placed in the route (after or before the controller name).
 - Fixed bug with generated file encoding that prevented to import Postman collections.

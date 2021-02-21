@@ -32,3 +32,4 @@ This options class provides the following configuration options:
 
 - `ServiceName` (required) (no default value) - the name of the Azure search service.
 - `AdminApiKey` (required) (no default value) - the API key that should be used to connect to the service.
+- `RetryPolicy` (required) - configuration options to setup the retry policy to access the service (see [`AzureRetryPolicyOptions`](./Azure.Client.md)).

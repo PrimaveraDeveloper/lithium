@@ -31,12 +31,8 @@ This will register the service using the specified configuration delete, after r
 
 This options class provides the following configuration options:
 
-- `Credentials` - configuration options to setup the credentials required to access the secrets storage service (see [`AzureCredentialsOptions`](./Azure.Client.md)).
-- `RetryPolicy` (optional) (default is `Exponential`) - the retry policy that should be applied to all requests to KeyVault.
-- `RetryPolicyMaximumAttempts` (optional) (default is 3) - the maximum number of retries for all requests to KeyVault.
-- `RetryPolicyBackoffTime` (optional) (default value is 0.8 seconds) - the initial back-off time before the first retry.
-- `RetryPolicyMaximumBackoffTime` (optional) (default value is 1 seconds) - the maximum back-off time between retries.
-- `ConfigurationStorageBaseUrl` - the base URI of the secrets storage that should be used to load app settings.
+- `Credentials` (required) - configuration options to setup the credentials required to access the secrets storage service (see [`AzureCredentialsOptions`](./Azure.Client.md)).
+- `RetryPolicy` (required) - configuration options to setup the retry policy to access the service (see [`AzureRetryPolicyOptions`](./Azure.Client.md)).
 
 ### Authorization
 

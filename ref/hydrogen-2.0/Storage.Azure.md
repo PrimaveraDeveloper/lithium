@@ -32,13 +32,9 @@ This options class provides the following configuration options:
 
 - `ConnectionString` (optional) (no default value) - the connection string to connect to the Azure storage account service.
 - `ServiceURI` (optional) (no default value) - the Azure storage account service URI.
-- `Credentials` (required) - configuration options to setup the credentials required to access the secrets storage service (see [`AzureCredentialsOptions`](./Azure.Client.md))
-- `MaximumExecutionTime` (optional) (default is 100 seconds) - the maximum execution time of the storage server requests (including all retries).
-- `RetryPolicy` (optional) (default is `Exponential`) - the retry policy that should be applied to all requests to the storage server.
-- `RetryPolicyMaximumAttempts` (optional) (default is 3) - the maximum number of retries for all requests to the storage server.
-- `RetryPolicyBackoffTime` (optional) (default is 0.8 seconds) - the initial back-off time of the retry policy applied to all requests to the storage server.
-- `RetryPolicyMaximumBackoffTime` (optional) (default is 60 seconds) - the maximum back-off time of the retry policy applied to all requests to the storage server.
 - `BlobNamingPolicy` (required) (default is `BlobNamingPolicy.CaseInsensitive`) - defines the naming policy to verify blob names.
+- `Credentials` (required) - configuration options to setup the credentials required to access the secrets storage service (see [`AzureCredentialsOptions`](./Azure.Client.md)).
+- `RetryPolicy` (required) - configuration options to setup the retry policy to access the service (see [`AzureRetryPolicyOptions`](./Azure.Client.md)).
 
 > Azure Blob Storage requires containers' names to be lower-case but blob names are case-sensitive. However, the original implementation of AzureBlockBlobReference enforced blob names to also be lower-case. Now you can modify that default behavior by setting `BlobNamingPolicy` to `BlobNamingPolicy.CaseSensitive`.
 
@@ -123,11 +119,7 @@ This will register the service using the specified configuration delegate, after
 This options class provides the following configuration options:
 
 - `ConnectionString` (required) (no default value) - the connection string to connect to the Azure storage service.
-- `ServerConnectionTimeout` (optional) (default is 5 seconds) - the timeout time when establishing a connection to the storage server.
-- `MaximumExecutionTime` (optional) (default is 60 seconds) - the maximum execution time of the storage server requests (including all retries).
-- `RetryPolicy` (optional) (default is Exponential) - the retry policy that should be applied to all requests to the storage server.
-- `RetryPolicyMaximumAttempts` (optional) (default is 3) - the maximum number of retries for all requests to the storage server.
-- `RetryPolicyBackoffTime` (optional) (default is 500 milliseconds) - the initial back-off time of the retry policy applied to all requests to the storage server.
+- `RetryPolicy` (optional) - configuration options to setup the retry policy to access the service (see [`AzureRetryPolicyOptions`](./Azure.Client.md)).
 
 ### Specific Behaviors of the Service
 
