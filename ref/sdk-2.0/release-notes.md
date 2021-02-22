@@ -9,7 +9,7 @@
 - Webhooks documentation is now generated from the model and available from the service home page.
 - Support for the active Visual Studio theme in the Service Designer surface.
 - Bug fixing on Routes Explorer and Service Explorer.
-- Modified the code generated for the Blob Storage, Secrets Storage, and Search dependencies to new retry policy options.
+- Modified the code generated for the Blob Storage, Secrets Storage, and Search dependencies to use new retry policy options.
 - Updated Hydrogen packages to version [2.0.10.372](../hydrogen-2.0/release-notes.md).
 
 ### Version 60 (13/2/2021)
