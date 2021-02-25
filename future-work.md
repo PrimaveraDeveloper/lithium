@@ -1,12 +1,12 @@
 # Future Work
 
-The following list describe epics that are part of the roadmap for future versions of the Lithium Framework.
+The following list describes epics that are part of the roadmap for future versions of the Lithium Framework.
 
 ## Technology
 
 | Feature | Description | Roadmap |
 | - | - | - |
-| .NET 5 | All packages (Hydrogen, etc.) that are .NET Standard should target .NET 5 | v3 |
+| .NET 5 | All packages (Hydrogen, etc.) that are not .NET Standard should target .NET 5 | v3 |
 
 ## SDK
 
@@ -14,20 +14,20 @@ The following list describe epics that are part of the roadmap for future versio
 | - | - | - |
 | **Solution templates (Server)** | Rename the WebApi project to Server, to clarify services that require back-office and/or complex infrastructure | v3 |
 | **Solution templates (Server Models)** | Add a new server-side project to hold models, constants, etc. available only server-side, to improve support for services that require back-office and/or complex infrastructure | v3 |
-| **Solution templates (Clean Architecture)** | New template to create service according to Clean Architecture | |
+| **Solution templates (Clean Architecture)** | New template to create services according to Clean Architecture | |
 
 ## Service Designer
 
 | Feature | Description | Roadmap |
 | - | - | - |
 | **Configuration options** | New domain entity to allow modeling and generating configuration options | v3 | 
-| **Storage abstractions** | Some kind of abstraction on storage to make decision for the developer on what services to use and how to use them | |
+| **Storage abstractions** | Abstractions on storage to make decisions for the developer on what services to use and how to use them | |
 
 ## Code Generation
 
 | Feature | Description | Roadmap |
 | - | - | - |
-| **Configuration** | Refactor the code generated for configuration to support types modeled in the designer and also services with complex infrastructure | v3 |
+| **Configuration** | Refactor the code generated for configuration to support types modeled in the designer and services with complex infrastructure | v3 |
 | **Mediators** | Refactor the code generated for controllers to add a new layer of mediators | v3 |
 | **gRPC** | Generate gRPC services |  |
 | **Source generators** | Apply source generators to simplify code generation templates | |
@@ -36,13 +36,13 @@ The following list describe epics that are part of the roadmap for future versio
 
 | Feature | Description | Roadmap |
 | - | - | - |
-| **OperationResult** | Refactor OperationResult to support complex results (NotFound, Duplicate, etc.) to avoid ceremony around OperationResult.IsFailure | v3 |
+| **OperationResult** | Refactor `OperationResult` to support complex results (NotFound, Duplicate, etc.) to avoid/simplify ceremony around `OperationResult.IsFailure` | v3 |
 | **ServiceClient authentication** | Refactor authentication on service clients to simplify it, remove authentication callback and support chained credentials (like Azure.Core) | v3 |
-| **ServiceClient logging** | Support client-side logging out of the box in service clients (including the option to send to server Telemetry) | v3 |
-| **ServiceError** | Refactor or replace ServiceError to adhere to ProblemDetails implementation (RFC7807 section 3) | |
-| **Named services** | Refactor dependency injection for services (like IBlobStorageService) to use factories (like IHttpClientFactory) and support named services (and multiple instances of the same service) | |
+| **ServiceClient logging** | Support client-side logging out of the box in service clients (including the option to send to server telemetry service) | v3 |
+| **ServiceError** | Refactor or replace `ServiceError` to adhere to the `ProblemDetails` implementation (RFC7807 section 3) | |
+| **Named services** | Refactor dependency injection for services (like `IBlobStorageService`) to use factories (like `IHttpClientFactory`) and support named services (and multiple instances of the same service) | |
 | **Extended background work** | Integration with third-party service to support background and asynchronous work that cannot be implemented easily with background services | |
-| **Webhooks event-driven** | Implementation of the webhooks service relying in a event-driven messaging framework (e.g. Service Bus) | |
+| **Webhooks event-driven** | Implementation of the webhooks services relying on a event-driven messaging framework (e.g. Service Bus) | |
 
 ## Pipeline
 
