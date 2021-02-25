@@ -2,6 +2,10 @@
 
 > These release notes include the releases of the Lithium Service Designer.
 
+### Version 62 (not published yet)
+
+- Improvements on the code generated for Authorization specs.
+
 ### Version 61 (21/2/2021)
 
 - New domain property `ControllerType.IgnoreInWebApiDoc` to allow hiding a controller from the Web API documentation.

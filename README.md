@@ -50,6 +50,10 @@ This was the first release of the framework that evolved for almost 2 years sinc
 - [Hydrogen](./ref/hydrogen-2.0/release-notes.md)
 - [Hydrogen DesignTime](./ref/hydrogen-designtime-2.0/release-notes.md)
 
+## Future Work
+
+Plans for future versions are available [here](./future-work.md).
+
 ## Contributing and Feedback
 
 Contribution is limited to the Lithium development team.
