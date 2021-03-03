@@ -1,10 +1,16 @@
 # Lithium SDK Release Notes
 
-> These release notes include the releases of the Lithium Service Designer.
+> These release notes include the releases of the Lithium SDK and the Service Designer.
 
-### Version 62 (not published yet)
+### Version 62 (3/3/2021)
 
+- Updated Service Solution to version 15.
+- Setup now distributes a machine-wide NuGet.config file called `Lithium.NuGet.Config` and stored in folder `%ProgramFiles(x86)%\NuGet\Config`. This new file allows removing all `nuget.config` files from service solutions.
+- Packages will no longer be restored to the `_packages` under the solution folder. Removing the `nuget.config` files will make the packages restore to the default packages cache (usually in folder `%userprofile%\.nuget\packages`), which will save a huge amount of disk space.
+- New commands in the Tools menu: `Show NuGet Machine Configuration Directory`, `Show NuGet User Configuration Directory`, `Show NuGet Packages Cache Directory`, and `GUID Generator`.
 - Improvements on the code generated for Authorization specs.
+- Updated Hydrogen packages to version [2.0.10.377](../hydrogen-2.0/release-notes.md).
+- Updated Hydrogen Design-time packages to version [3.0.0.52](../hydrogen-designtime-2.0/release-notes.md).
 
 ### Version 61 (21/2/2021)
 

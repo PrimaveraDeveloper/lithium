@@ -2,6 +2,13 @@
 
 These services provide features for integration with the cloud infrastructure.
 
-| Microservice | Name | Description | Spec |
-| - | - | - | - |
-| [SM](./sm.md) | Service Management Service | Provides a proxy for the Service Management application | [2.0](./specs/sm-spec-2.0.md) |
+| Microservice | Name | Description | Scopes | Client Lib | Web API | Spec |
+| - | - | - | - | - | - | - |
+| **AMS** | Account Management Service | Allows managing subscriptions and provides onboarding and subscription selection to products | `lithium-accountmanagement` | n/a | n/a | n/a |
+| **SM** | Service Management Service | Provides a proxy for the Service Management application | `service-management` | [2.0](https://tfs.primaverabss.com/tfs/P.TEC.Elevation/Lithium/_versionControl?path=%24%2FLithium%2FMicroservices%2FCommon%2FSS%2FMainline-v2%2FClientLib%2FGeneratedCode%2FClientLibDoc.gen.md) | n/a | [2.0](./specs/sm-spec-2.0.md) |
+
+# Endpoints
+
+| Service | Development | Staging | Preview | Production |
+| - | - | - | - | - |
+| **AMS** | [dv-ams](https://dv-ams.lithium.primaverabss.com/) | [st-ams](https://st-ams.lithium.primaverabss.com/) | [ams-preview](https://lithium-pd-ams-we-wap-lithium-pd-ams-we-wap-preview.azurewebsites.net/) | [ams](https://ams.lithium.primaverabss.com) |
