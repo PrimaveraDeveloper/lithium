@@ -4,7 +4,7 @@ These services provide features that are part of the Elevation Framework.
 
 | Microservice | Name | Description | Scopes | Client Lib | Web API | Spec |
 | - | - | - | - | - | - | - |
-| **PMS** | Postman Service | Allows presenting reports, built from templates, to users | `lithium-postman` | n/a | n/a | n/a |
+| **PMS** | Postman Service | Allows producing reports built from templates | `lithium-postman` | n/a | n/a | n/a |
 
 # Endpoints
 
