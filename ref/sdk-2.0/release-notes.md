@@ -9,7 +9,7 @@
 - Packages will no longer be restored to the `_packages` under the solution folder. Removing the `nuget.config` files will make the packages restore to the default packages cache (usually in folder `%userprofile%\.nuget\packages`), which will save a huge amount of disk space.
 - New commands in the Tools menu: `Show NuGet Machine Configuration Directory`, `Show NuGet User Configuration Directory`, `Show NuGet Packages Cache Directory`, and `GUID Generator`.
 - Improvements on the code generated for Authorization specs.
-- Updated Hydrogen packages to version [2.0.10.377](../hydrogen-2.0/release-notes.md).
+- Updated Hydrogen packages to version [2.0.10.379](../hydrogen-2.0/release-notes.md).
 - Updated Hydrogen Design-time packages to version [3.0.0.53](../hydrogen-designtime-2.0/release-notes.md).
 
 ### Version 61 (21/2/2021)

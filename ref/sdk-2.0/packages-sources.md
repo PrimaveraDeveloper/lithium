@@ -4,7 +4,7 @@ When the Lithium SDK is installed on a machine a file named `Lithium.NuGet.Confi
 
 This file contains references to the default packages sources used by the Lithium Framework and Lithium microservices.
 
-> This allows avoing solution-scope `NuGet.config` files and local packages caches.
+> This allows avoing solution-scoped `NuGet.config` files and packages caches.
 
 These packages sources are:
 
