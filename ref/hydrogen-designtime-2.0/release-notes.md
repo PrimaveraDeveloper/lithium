@@ -4,7 +4,7 @@
 
 ## Primavera.Hydrogen.DesignTime.Configuration
 
-### <a name="3.0.0.52"></a>Version 3.0.0.52
+### <a name="3.0.0.53"></a>Version 3.0.0.53
 
 - Bug fixing to support .NET 5.0 projects.
 - Removed old rule set.
