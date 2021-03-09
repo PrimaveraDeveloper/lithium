@@ -410,6 +410,19 @@ The Web services provided by INCM are normal SOAP (WCF) services that are broker
 
 These do not require authentication/authorization. They are, nevertheless, subject to throttling rules.
 
+## Diagnostics
+
+The client library provides operations to perform diagnostics on certain behaviors of the service (and the client library itself).
+
+Example:
+
+```csharp
+ServiceOperationResult<CertificatesDiagnosticResult> diagnosticsResult = await this.Client
+    .Diagnostics
+    .CheckCertificatesAsync()
+    .ConfigureAwait(false);
+```
+
 ## More Information
 
 <!-- markdown-link-check-disable -->
