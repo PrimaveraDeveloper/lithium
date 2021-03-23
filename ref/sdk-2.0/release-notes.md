@@ -2,6 +2,12 @@
 
 > These release notes include the releases of the Lithium SDK and the Service Designer.
 
+### Version 63 (23/3/2021)
+
+- Updated Hydrogen packages to version [2.0.13.384](../hydrogen-2.0/release-notes.md).
+- Updated Hydrogen Design-time packages to version [3.0.0.54](../hydrogen-designtime-2.0/release-notes.md).
+- Updated .NET Core packages to version 3.1.13.
+
 ### Version 62 (4/3/2021)
 
 - Updated Service Solution to version 15.
