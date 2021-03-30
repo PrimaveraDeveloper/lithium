@@ -2,6 +2,17 @@
 
 > These release notes include the releases of the Lithium SDK and the Service Designer.
 
+### Version 64 (31/3/2021)
+
+- Extended the support for multiple API versions.
+- New domain property `ControllerType.Versions` to set the API versions of a controller.
+- New domain property `ControllerTypeAction.Versions` to set the API versions of a controller action.
+- Added support for Identity Server's DV endpoint.
+- Added new services to the list of available service dependencies (APPS, BTI, PS and USG).
+- Modified the code generated for the Configuration endpoint to output the configuration debug view.
+- Minor changes to the generated Postman collection.
+- Updated Hydrogen packages to version [2.0.13.387](../hydrogen-2.0/release-notes.md).
+
 ### Version 63 (23/3/2021)
 
 - Updated Hydrogen packages to version [2.0.13.384](../hydrogen-2.0/release-notes.md).
@@ -114,7 +125,7 @@
 
 - Improved the code generated for the Taskbox dependency.
 - Bug fixing on the code generated for `DELETE` controller actions.
-- Updated generated code to support Azure AppConfiguration latest version.
+- Updated generated code to support Azure App Configuration latest version.
 - Updated Hydrogen Design-time packages to version 2.0.0.41.
 - Updated Hydrogen packages to version 2.0.3.299.
 
@@ -245,7 +256,7 @@
 ### Version 35 (21/04/2020)
 
 - Added new dependency kind for Multi-model Database.
-- Added support for externalized application settings using Azure AppConfiguration service.
+- Added support for externalized application settings using Azure App Configuration service.
 - Improved validations on service properties.
 - Updated Hydrogen packages to version 2.0.1.165.
 

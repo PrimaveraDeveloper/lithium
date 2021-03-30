@@ -1,12 +1,12 @@
-# How to manage application settings externally using Azure AppConfiguration
+# How to manage application settings externally using Azure App Configuration
 
-This guide describes how you can manage all the application settings in a microservice using the Azure AppConfiguration service.
+This guide describes how you can manage all the application settings in a microservice using the Azure App Configuration service.
 
-For more information see: [Azure AppConfiguration Overview](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
+For more information see: [Azure App Configuration Overview](https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview).
 
 ## Environments
 
-By default - because of deployment conventions - you can configure up to 4 independent Azure AppConfiguration environments as settings providers for any microservice. These are:
+By default - because of deployment conventions - you can configure up to 4 independent Azure App Configuration environments as settings providers for any microservice. These are:
 
 - `PrimaryAppConfigurationService` - Contains settings shared between several microservices.
 
@@ -18,11 +18,11 @@ By default - because of deployment conventions - you can configure up to 4 indep
 
 ## Environment variables
 
-To configure the Azure AppConfiguration settings provider you must set some enviroment variables:
+To configure the Azure App Configuration settings provider you must set some environment variables:
 
 | Name  | Required | Value Type | Description
 | --- | --- | --- | --- |
-| `<appConfigurationName>ConnectionString` | Yes | string | The connection string used to authenticate with the Azure AppConfiguration service.
+| `<appConfigurationName>ConnectionString` | Yes | string | The connection string used to authenticate with the Azure App Configuration service.
 | `<appConfigurationName>KeyFilter` | No  | string | The filter to apply to all keys when querying Azure App Configuration for key-values.
 | `<appConfigurationName>LabelFilter` | No  | string | The label filter to apply when querying Azure App Configuration for key-values.
 | `<appConfigurationName>TrimKeyPrefix` | No  | string | Trims the provided prefix from the keys of all key-values retrieved from Azure.
@@ -34,7 +34,7 @@ The `<appConfigurationName>` tag serves as a placeholder to identify the several
 For the default environments the `appConfigurationName` values are:
 
 | Environment | appConfigurationName | Sample Environment Keys
-| --- | --- | --- |
+| - | - | - |
 | `PrimaryAppConfigurationService` | `GeneralAppConfiguration` | `GeneralAppConfigurationConnectionString`, `GeneralAppConfigurationSentinelKey`
 | `PrimaryAppConfigurationServiceFailover` | `GeneralAppConfigurationFailover` | `GeneralAppConfigurationFailoverConnectionString`, `GeneralAppConfigurationFailoverTrimKeyPrefix`
 | `SecondaryAppConfigurationService` | `AppConfiguration` | `AppConfigurationConnectionString`, `AppConfigurationKeyFilter`
@@ -76,7 +76,7 @@ protected virtual void ConfigureAppConfiguration(HostBuilderContext context, ICo
     builder
         .AddAzureSecretsStorage();
 
-    // Azure AppConfiguration
+    // Azure App Configuration
 
     builder.
         AddAzureConfiguration();

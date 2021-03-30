@@ -28,6 +28,6 @@ The endpoints endpoint is available in the following route: `/api/v{version:apiV
 
 This endpoint lists all the configuration options active in the service application.
 
-> This endpoint does not return the configuration options. It saves them in a blob storage container named `ConfigAnalyzer`, if the service references the Blob Storage Service, or in a file - `.\.Config\ConfigAnalyzer.json` - otherwise.
+> This endpoint does not return the configuration options. It saves them in a blob storage container named `ConfigAnalyzer`, if the service references the Blob Storage Service, or in a local file otherwise.
 
 The configuration endpoint is available in the following route: `/api/v{version:apiVersion}/monitoring/configuration`

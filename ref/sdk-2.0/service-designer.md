@@ -49,23 +49,23 @@ The following properties are the most important for the service:
 
 | Property | Description | Example |
 | - | - | - |
-| `Authorization Mode `| A value indicating whether the service uses authorization (with Identity Server) or not | On |
-| `Id` | A unique identifier for the service | SS |
-| `Default Scope` | The name of the default scope used for authorization | lithium-settings |
-| `Display Name` | The display name of the service  | Settings Service |
-| `Name` | The name of the service | Settings |
-| `Namespace` | The namespace associated with the service | Primavera.Lithium.Settings |
-| `Version` | The service version | 1.0 |
+| `Authorization Mode `| A value indicating whether the service uses authorization (with Identity Server) or not | `On` |
+| `Id` | A unique identifier for the service | `SS` |
+| `Default Scope` | The name of the default scope used for authorization | `lithium-settings` |
+| `Display Name` | The display name of the service  | `Settings Service` |
+| `Name` | The name of the service | `Settings` |
+| `Namespace` | The namespace associated with the service | `Primavera.Lithium.Settings` |
+| `Version` | The service version | `1.0` |
 
 Other configuration properties can only be modified by opening a configuration editor that is launched by clicking the ellipsis available in the `Configuration` property:
 
 | Property | Description | Example |
 | - | - | - |
-| `Generate Client Library` | A value indicating whether the client library for the service should be generated | True |
-| `Generate Support for OIDC` | A value indicating whether the microservice should support OIDC (OpenID Connect), to allow for features that require user authentication | False |
-| `Generate Web API` | A value indicating whether the microservice generates (includes) a Web API (false only if the solution is for a client library only) | True |
-| `Use Client Credentials Client` | A value indicating whether a client for the client credentials authorization flow is to be used | True |
-| `Use Hybrid Client` | A value indicating whether a client for the hybrid authorization flow is to be used  | False |
+| `Generate Client Library` | A value indicating whether the client library for the service should be generated | `True` |
+| `Generate Support for OIDC` | A value indicating whether the microservice should support OIDC (OpenID Connect), to allow for features that require user authentication | `False` |
+| `Generate Web API` | A value indicating whether the microservice generates (includes) a Web API (false only if the solution is for a client library only) | `True` |
+| `Use Client Credentials Client` | A value indicating whether a client for the client credentials authorization flow is to be used | `True` |
+| `Use Hybrid Client` | A value indicating whether a client for the hybrid authorization flow is to be used  | `False` |
 
 ### <a name="model"></a>Model
 
@@ -83,49 +83,49 @@ The most important properties of a model are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Base Model` | Another model that acts as the base for this one (in terms of inheritance) | SettingData |
-| `Inheritance Modifier` | A modifier that allows making a model abstract (for inheritance) | None |
-| `Name` | The name of the model | ProductSettingData |
-| `Visibility` | Allows indicating whether the model is only visible in the Web API | All |
+| `Base Model` | Another model that acts as the base for this one (in terms of inheritance) | `SettingData` |
+| `Inheritance Modifier` | A modifier that allows making a model abstract (for inheritance) | `None` |
+| `Name` | The name of the model | `ProductSettingData` |
+| `Visibility` | Allows indicating whether the model is only visible in the Web API | `All` |
 
 As you would expect, a model can have one or more properties and these can be of 3 kinds:
 
-- **Scalar** - the property value is scalar, meaning that is of a framework type (string, integer, Guid, etc.)
-- **Enumeration** - the property value is a member of an enumeration defined in the service model.
-- **Model** - the property value is another model defined in the service model.
+- `Scalar` - the property value is scalar, meaning that is of a framework type (string, integer, Guid, etc.)
+- `Enumeration` - the property value is a member of an enumeration defined in the service model.
+- `Model` - the property value is another model defined in the service model.
 
-The following properties, among others, are available for **Scalar** properties:
-
-| Property | Description | Example |
-| - | - | - |
-| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
-| `Default Value` | The property default value | 0 |
-| `Display Name` | The property display name | Identifier |
-| `Is Nullable` | Indicates whether the property is nullable (for value types) | False |
-| `Kind` | The kind of property (normal or calculated) | Normal |
-| `Name` | The property name | Id |
-| `Type` | The property type | Guid |
-
-The following properties are available for **Enumeration** properties:
+The following properties, among others, are available for `Scalar` properties:
 
 | Property | Description | Example |
 | - | - | - |
-| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
-| `Default Value` | The property default value | ValueKind.Value |
-| `Display Name` | The property display name | Identifier |
-| `Name` | The property name | Id |
-| `Kind` | The kind of property (normal or calculated) | Normal |
-| `Referenced Enumeration` | The enumeration that is referenced by the property | ValueKind |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | `Single` |
+| `Default Value` | The property default value | `0` |
+| `Display Name` | The property display name | `Identifier` |
+| `Is Nullable` | Indicates whether the property is nullable (for value types) | `False` |
+| `Kind` | The kind of property (normal or calculated) | `Normal` |
+| `Name` | The property name | `Id` |
+| `Type` | The property type | `String` |
 
-The following properties are available for **Model** properties:
+The following properties are available for `Enumeration` properties:
 
 | Property | Description | Example |
 | - | - | - |
-| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | Single |
-| `Display Name` | The property display name | Identifier |
-| `Name` | The property name | Id |
-| `Kind` | The kind of property (normal or calculated) | Normal |
-| `Referenced Model` | The model that is referenced by the property | ValueData |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | `Single` |
+| `Default Value` | The property default value | `ValueKind.Value` |
+| `Display Name` | The property display name | `Identifier` |
+| `Name` | The property name | `Id` |
+| `Kind` | The kind of property (normal or calculated) | `Normal` |
+| `Referenced Enumeration` | The enumeration that is referenced by the property | `ValueKind` |
+
+The following properties are available for `Model` properties:
+
+| Property | Description | Example |
+| - | - | - |
+| `Cardinality` | Indicates whether the property value is single, a list, or a dictionary | `Single` |
+| `Display Name` | The property display name | `Identifier` |
+| `Name` | The property name | `Id` |
+| `Kind` | The kind of property (normal or calculated) | `Normal` |
+| `Referenced Model` | The model that is referenced by the property | `ValueData` |
 
 > You can model simple 1:N relations, for example, by having model A have a model property that references model B and setting that property to a be list.
 
@@ -137,7 +137,7 @@ As the name implies, an enumeration is a special kind of model that is translate
 
  Property | Description | Example |
 | - | - | - |
-| `Name` | The name of the enumeration | ValueKind |
+| `Name` | The name of the enumeration | `ValueKind` |
 
 You can specify one or more members for the enumeration (the possible values). Each member as a name and a unique value (an integer).
 
@@ -159,11 +159,12 @@ The most important properties of a controller are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Authorization Mode` | A value indicating whether the controller actions use authorization (with Identity Server) or not | On |
-| `Authorization Policy` | The name of the policy used for authorization by the controller actions | (default) |
-| `Name` | The name of the controller | UserSettings |
-| `Route` | The base route for all the child actions | /api/v{version:apiVersion}/usersettings |
-| `Visibility` | Allows indicating whether the controller is only visible in the Web API | All |
+| `Authorization Mode` | A value indicating whether the controller actions use authorization (with Identity Server) or not | `On` |
+| `Authorization Policy` | The name of the policy used for authorization by the controller actions | `(default)` |
+| `Name` | The name of the controller | `UserSettings` |
+| `Route` | The base route for all the child actions | `/api/v{version:apiVersion}/usersettings` |
+| `Versions` | Allows specifying the API versions versions supported by the controller | `2.0;1.0` |
+| `Visibility` | Allows indicating whether the controller is only visible in the Web API | `All` |
 
 > Notice that it is possible to share the same authorization policy among the controller actions but it is also possible to specify different policies for different actions of the same controller.
 
@@ -177,15 +178,16 @@ The most important properties of a controller action are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Authorization Mode` | A value indicating whether the action uses authorization (with Identity Server) or not | On |
-| `Authorization Policy` | The name of the policy used for authorization by action | (controller) |
-| `HTTP Method` | The HTTP method used | Get |
-| `Name` | The name of the operation | GetUserSetting |
-| `Return Value Cardinality` | Indicates whether the return value is single, a list, or a dictionary | Single |
-| `Return Value Type` | The type of the return value (can be scalar or a model) | Model |
-| `Route` | The complete route of the endpoint | GET /api/v{version:apiVersion}/usersettings/{userId}/{key} |
-| `Success Status Code` | The HTTP status code that is returned when the operation succeeds | Ok |
-| `Visibility` | Allows indicating whether the controller action is only visible in the Web API | All |
+| `Authorization Mode` | A value indicating whether the action uses authorization (with Identity Server) or not | `On` |
+| `Authorization Policy` | The name of the policy used for authorization by action | `(controller)` |
+| `HTTP Method` | The HTTP method used | `Get` |
+| `Name` | The name of the operation | `GetUserSetting` |
+| `Return Value Cardinality` | Indicates whether the return value is single, a list, or a dictionary | `Single` |
+| `Return Value Type` | The type of the return value (can be scalar or a model) | `Model` |
+| `Route` | The complete route of the endpoint | `GET /api/v{version:apiVersion}/usersettings/{userId}/{key}` |
+| `Success Status Code` | The HTTP status code that is returned when the operation succeeds | `Ok` |
+| `Versions` | Allows identifying the API versions supported by the action | `All` |
+| `Visibility` | Allows indicating whether the controller action is only visible in the Web API | `All` |
 
 > Note that an action may return a result or not depending on the HTTP method in use (for example, a GET always returns a value).
 
@@ -193,9 +195,9 @@ The most important properties of a controller action are:
 
 You can define zero or more parameters for the controller action and these can be of 3 kinds (similar to model properties):
 
-- **Scalar** - the parameter value is scalar, meaning that is of a framework type (string, integer, Guid, etc.)
-- **Enumeration** - the parameter value is an enumeration defined in the model.
-- **Model** - the parameter value references a model defined in the model.
+- `Scalar` - the parameter value is scalar, meaning that is of a framework type (string, integer, Guid, etc.)
+- `Enumeration` - the parameter value is an enumeration defined in the model.
+- `Model` - the parameter value references a model defined in the model.
 
 #### Controller Parameters
 
@@ -219,8 +221,8 @@ The most important properties of a background service are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Name` | The name of the background service | StorageSetup |
-| `Use Worker` | A value indicating whether a worker is associated with the background service | False |
+| `Name` | The name of the background service | `StorageSetup` |
+| `Use Worker` | A value indicating whether a worker is associated with the background service | `False` |
 
 > When "Use Worker" is true, you will need to model a background worker and set it in the "Worker" property of the associated background service.
 
@@ -243,7 +245,7 @@ A dependency as only one important property:
 
 | Property | Description | Example |
 | - | - | - |
-| `Kind` | The kind of dependency that should be added | BlobStorage |
+| `Kind` | The kind of dependency that should be added | `BlobStorage` |
 
 ### <a name="servicedependency"></a>Service Dependency
 
@@ -257,7 +259,7 @@ A service dependency as only one important property:
 
 | Property | Description | Example |
 | - | - | - |
-| `Service` | The name of the service | Certificates |
+| `Service` | The name of the service | `Certificates` |
 
 ### <a name="webhook"></a>Webhook
 
@@ -271,7 +273,7 @@ The most important properties of a webhook are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Name` | The name of the webhook | Customer_Created |
+| `Name` | The name of the webhook | `Customer_Created` |
 | `Event Description` | The description of the event that causes the webhook to be invoked | --- |
 | `Payload Description` | The description of the payload (the data) that is sent to the webhook callback | --- |
 
@@ -287,7 +289,7 @@ The most important properties of a regular expression are:
 
 | Property | Description | Example |
 | - | - | - |
-| `Name` | The name of the regular expression | IdsRegEx |
+| `Name` | The name of the regular expression | `IdsRegEx` |
 | `Value` | The actual regular expression |  |
 
 ### <a name="authorizationpolicy"></a>Authorization Policy
@@ -296,19 +298,21 @@ Authorization policies is a concept in the service model that allows specifying 
 
 ### <a name="apiversion"></a>API Version
 
-Each microservice as a version defined in the service properties. This version, among other things, sets the API version (used in the endpoint routes) that is validated by a API versioning middleware that is automatically setup by the framework.
+Each microservice has a version defined in the service properties. This version, among other things, sets the default API version (used in the endpoint routes) that is validated by a API versioning middleware that is automatically setup by the framework.
 
 ![API Version](./_assets/apiversion.png "API Version")
 
-A service can support more than one version only to some extent. Currently you can only specify that all the actions defined in the service respond to the default version (the one specified in the service properties) and to all the API versions described in the service model.
+A service can support more than one version.
 
-> A future version of the Lithium Framework will allow to specify different API versions for different controller actions.
+You can specify that all the actions defined in the service respond to the default version (the one specified in the service properties) and to all the API versions described in the service model.
+
+You can also set the API versions supported by controllers and/or controller actions, through the corresponding `Versions` property.
 
 An API version has a single relevant property:
 
 | Property | Description | Example |
 | - | - | - |
-| `Version` | The version number (in the form Major.Minor) | 2.0 |
+| `Version` | The version number (in the form Major.Minor) | `2.0` |
 
 ### Comment
 

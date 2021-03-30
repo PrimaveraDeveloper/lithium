@@ -2,7 +2,7 @@
 
 > Tags: ASP.NET, User Interface, Web API, Controllers
 
-The microservice Web API is built with ASP.NET MVC, which is configure in the application startup.
+The microservice Web API is built with ASP.NET MVC, which is configured in the application startup.
 
 `StartupBase.AddMvc()`:
 

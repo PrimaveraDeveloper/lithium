@@ -1,5 +1,7 @@
 # How To...
 
+$$$ TODO $$$
+
 This chapter includes "how to" guides to help developing microservices with the Lithium Framework.
 
 > The guides without link are not yet available. If you want to suggest new guides, please use the Issues section.
@@ -45,7 +47,8 @@ This chapter includes "how to" guides to help developing microservices with the 
 - [How to **receive webhooks** from a microservice](./howto-receive-webhooks.md)
 - [How to **publish events to Event Bus** from a microservice](./howto-publish-events-to-eventbus.md)
 - [How to **subscribe events from Event Bus** in a microservice](./howto-subscribe-events-from-eventbus.md)
-- [How to **manage application settings externally** using Azure AppConfiguration](./howto-use-azure-appconfiguration.md)
+- [How to **manage application settings externally** using Azure App Configuration](./howto-use-azure-appconfiguration.md)
+- [How to **add multiple versions** to a microservice](./howto-add-multiple-versions.md)
 
 ## Testing a microservice
 

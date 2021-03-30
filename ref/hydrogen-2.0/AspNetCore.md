@@ -132,7 +132,7 @@ services
 
 ### Versioning
 
-Versioning REST Web APIs is very important and is implemented in Hydrogen through the [`Microsoft.AspNetCore.Mvc.Versioning`](https://github.com/Microsoft/aspnet-api-versioning/) package.
+Versioning REST Web APIs is very important and is implemented in Hydrogen using the [`Microsoft.AspNetCore.Mvc.Versioning`](https://github.com/Microsoft/aspnet-api-versioning/) package.
 
 `ApiVersioningServiceCollectionExtensions` provides extension methods that allow configuring the versioning services using standard options or configuration delegates:
 
@@ -320,7 +320,10 @@ public class Startup
 }
 ```
 
-It produces a dictionary containing the configuration options:
+This service includes 2 operations:
+
+- `Analyze()` - produces a dictionary containing the configuration options.
+- `AnalyzeDebug()` - produces a string containing the configuration options and additional information describing where each value came from. 
 
 ```csharp
 using Primavera.Hydrogen.AspNetCore.Configuration;
@@ -328,7 +331,8 @@ using Primavera.Hydrogen.AspNetCore.Configuration;
 IConfigurationAnalyzerService service = this.ServiceProvider
     .GetRequiredService<IConfigurationAnalyzerService>();
 
-IDictionary<string, string> configuration = service.Analyze();
+IDictionary<string, string> config1 = service.Analyze();
+string config2 = service.AnalyzeDebug();
 ```
 
 This dictionary, serialized as JSON, would look like this:
@@ -359,6 +363,21 @@ This dictionary, serialized as JSON, would look like this:
     "ASPNETCORE_ENVIRONMENT": "Development",
     "applicationName": "Primavera.Lithium.Certificates.WebApi"
 }
+```
+
+The debug string looks like this:
+
+```
+ALLUSERSPROFILE=C:\ProgramData (EnvironmentVariablesConfigurationProvider)
+APPDATA=C:\Users\hugo.ribeiro\AppData\Roaming (EnvironmentVariablesConfigurationProvider)
+applicationName=Primavera.Lithium.Notifications.WebApi (Microsoft.Extensions.Configuration.ChainedConfigurationProvider)
+ASPNETCORE_ENVIRONMENT=Development (EnvironmentVariablesConfigurationProvider)
+ASPNETCORE_HTTPS_PORT=20005 (EnvironmentVariablesConfigurationProvider)
+ASPNETCORE_URLS=http://localhost:20004;https://localhost:20005 (EnvironmentVariablesConfigurationProvider)
+AzureBlobStorageDataProtectionOptions:
+  ApplicationName=lithium-notifications (JsonConfigurationProvider for 'GeneratedCode/appsettings.gen.json' (Required))
+  UseBlobStorage=False (JsonConfigurationProvider for 'GeneratedCode/appsettings-development.gen.json' (Optional))
+  (...)
 ```
 
 ## Hosting
