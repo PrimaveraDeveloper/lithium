@@ -8,7 +8,7 @@ A secret is any piece of information that needs to be protected from being viewe
 
 The secrets storage is provided by [ISecretsStorageService](../ref/hydrogen-2.0/Security.Abstractions.md).
 
-The [Certificates Service](../dir/common/cs.md) is an example of a microservice that uses this service.
+The [Certificates Service](../dir/common/README.md) is an example of a microservice that uses this service.
 
 ## Configuration
 

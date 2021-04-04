@@ -8,5 +8,7 @@ This file contains references to the default packages sources used by the Lithiu
 
 These packages sources are:
 
+<!-- markdown-link-check-disable -->
 - Lithium: http://nuget.primaverabss.com:82/nuget/public-lithium-general
 - Telerik: http://nuget.primaverabss.com:82/nuget/_external_public-telerik/
+<!-- markdown-link-check-enable -->

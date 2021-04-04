@@ -11,4 +11,4 @@ For more information see:
 - [How to add support for distributed caching to a microservice](../howto/howto-add-distributed-cache.md)
 - [Primavera.Hydrogen.Caching.Distributed](../ref/hydrogen-2.0/Caching.Distributed.md)
 
-Most services include this distributed cache. The [Settings Service](../dir/common/ss.md) is one example.
+Most services include this distributed cache. The [Settings Service](../dir/common/README.md) is one example.

@@ -19,7 +19,7 @@ These token credentials can be used to authorize client applications and will be
 The following Hydrogen services support this through configuration:
 
 - [Blob Storage](./Storage.Azure.md)
-- [Secrets Storage Service](/Security.Azure.md)
+- [Secrets Storage Service](./Security.Azure.md)
 
 > More service will support this as new versions of the Azure SDK libraries become available.
 

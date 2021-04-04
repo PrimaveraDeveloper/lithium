@@ -16,16 +16,16 @@ The Lithium Framework supports the following kinds of storage:
 
 Blob storage is provided by [IBlobStorageService](../ref/hydrogen-2.0/Storage.Abstractions.md).
 
-Various microservices use this kind of storage. [Settings Service](../dir/common/ss.md) is one example.
+Various microservices use this kind of storage. [Settings Service](../dir/common/README.md) is one example.
 
 ## Isolated Storage
 
 Isolated storage is provided by [IIsolatedStorageService](../ref/hydrogen-2.0/Storage.Abstractions.md).
 
-The [Certificates Service](../dir/common/cs.md) uses this kind of storage in the client library.
+The [Certificates Service](../dir/common/README.md) uses this kind of storage in the client library.
 
 ## Table Storage
 
 Table storage is provided by [ITableStorageService](../ref/hydrogen-2.0/Storage.Abstractions.md).
 
-Various microservices use this kind of storage. [Notifications Service](../dir/common/ns.md) is one example.
+Various microservices use this kind of storage. [Notifications Service](../dir/common/README.md) is one example.
