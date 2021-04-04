@@ -8,6 +8,8 @@ These services provide features related with PRIMAVERA Accounting Automation.
 
 ## Endpoints
 
-| Service | Development | Staging | Preview | Production |
-| - | - | - | - | - |
-| **AAS** | [dv-aas](https://dv-aas.lithium.primaverabss.com/) | [st-aas](https://st-aas.lithium.primaverabss.com/) | [aas-preview](https://aas-preview.lithium.primaverabss.com/) | [aas](https://aas.lithium.primaverabss.com) |
+<!-- markdown-link-check-disable -->
+| Service | Development | Staging | Production |
+| - | - | - | - |
+| **AAS** | [dv-aas](https://dv-aas.lithium.primaverabss.com/) | [st-aas](https://st-aas.lithium.primaverabss.com/) | [aas](https://aas.lithium.primaverabss.com) |
+<!-- markdown-link-check-enable -->

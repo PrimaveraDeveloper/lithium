@@ -10,8 +10,10 @@ These services provide features related with PRIMAVERA ROSE.
 
 ## Endpoints
 
-| Service | Development | Staging | Preview | Production |
-| - | - | - | - | - |
-| **LDI** | [dv-ldi](https://dv-ldi.lithium.primaverabss.com/) | ??? | ??? | ??? |
-| **RAT** | [dv-rat](https://dv-rat.lithium.primaverabss.com/) | [st-rat](https://st-rat.lithium.primaverabss.com/) | ??? | ??? |
-| **RPS** | [dv-rps](https://dv-rps.lithium.primaverabss.com/) | [st-rps](https://st-rps.lithium.primaverabss.com/) | ??? | ??? |
+<!-- markdown-link-check-disable -->
+| Service | Development | Staging | Production |
+| - | - | - | - |
+| **LDI** | [dv-ldi](https://dv-ldi.lithium.primaverabss.com/) | [st-ldi](https://st-ldi.lithium.primaverabss.com/) | [ldi](https://st-ldi.lithium.primaverabss.com/) |
+| **RAT** | [dv-rat](https://dv-rat.lithium.primaverabss.com/) | [st-rat](https://st-rat.lithium.primaverabss.com/) | [rat](https://rat.lithium.primaverabss.com/) |
+| **RPS** | [dv-rps](https://dv-rps.lithium.primaverabss.com/) | [st-rps](https://st-rps.lithium.primaverabss.com/) | ??? |
+<!-- markdown-link-check-enable -->

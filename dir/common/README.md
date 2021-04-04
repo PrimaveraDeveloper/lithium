@@ -20,18 +20,20 @@ These services are core to the Lithium Framework and provide common features, ap
 
 ## Endpoints
 
-| Service | Development | Staging | Preview | Production |
-| - | - | - | - | - |
-| **CS** | [dv-cs](https://dv-cs.lithium.primaverabss.com/) | [st-cs](https://st-cs.lithium.primaverabss.com/) | [cs-preview](https://cs-preview.lithium.primaverabss.com/) | [cs](https://cs.lithium.primaverabss.com/) |
-| **DLS** | [dv-dls](https://dv-dls.lithium.primaverabss.com/) | [st-dls](https://st-dls.lithium.primaverabss.com/) | [dls-preview](https://dls-preview.lithium.primaverabss.com/) | [dls](https://dls.lithium.primaverabss.com/) |
-| **ECCO** | [dv-ecco](https://dv-ecco.lithium.primaverabss.com/) | [st-ecco](https://st-ecco.lithium.primaverabss.com/) | [ecco-preview](https://ecco-preview.lithium.primaverabss.com/) | [ecco](https://ecco.lithium.primaverabss.com/) |
-| **FRS** | [dv-frs](https://dv-frs.lithium.primaverabss.com/) | [st-frs](https://st-frs.lithium.primaverabss.com/) | ??? | [frs](https://lithium-frs.primaverabss.com/) |
-| **FS** | [dv-fs](https://dv-fs.lithium.primaverabss.com/) | [st-fs](https://st-fs.lithium.primaverabss.com/) | [fs-preview](https://fs-preview.lithium.primaverabss.com/) | [fs](https://fs.lithium.primaverabss.com/) |
-| **HUB** | [dv-hub](https://dv-hub.lithium.primaverabss.com/) | [st-hub](https://st-hub.lithium.primaverabss.com/) | [hub-preview](https://hub-preview.lithium.primaverabss.com/) | [hub](https://hub.lithium.primaverabss.com/) |
-| **NS** | [dv-ns](https://dv-ns.lithium.primaverabss.com/) | [st-ns](https://st-ns.lithium.primaverabss.com/) | [ns-preview](https://ns-preview.lithium.primaverabss.com/) | [ns](https://ns.lithium.primaverabss.com/) |
-| **NTR** | ??? | ??? | ??? | ??? |
-| **OBS** | ??? | ??? | ??? | ??? |
-| **PNS** | [dv-pns](https://dv-pns.lithium.primaverabss.com/) | [st-pns](https://st-pns.lithium.primaverabss.com/) | [pns-preview](https://pns-preview.lithium.primaverabss.com/) | [pns](https://pns.lithium.primaverabss.com/) |
-| **SS** | [dv-ss](https://dv-ss.lithium.primaverabss.com/) | [st-ss](https://st-ss.lithium.primaverabss.com/) | [ss-preview](https://ss-preview.lithium.primaverabss.com/) | [ss](https://ss.lithium.primaverabss.com/) |
-| **TAXPT** | [dv-taxpt](https://dv-taxpt.lithium.primaverabss.com/) | [st-taxpt](https://st-taxpt.lithium.primaverabss.com/) | [taxpt-preview](https://taxpt-preview.lithium.primaverabss.com/) | [taxpt](https://taxpt.lithium.primaverabss.com/) |
-| **TBX** | [dv-tbx](https://dv-tbx.lithium.primaverabss.com/) | [st-tbx](https://st-tbx.lithium.primaverabss.com/) | [tbx-preview](https://tbx-preview.lithium.primaverabss.com/) | [tbx](https://tbx.lithium.primaverabss.com/) |
+<!-- markdown-link-check-disable -->
+| Service | Development | Staging | Production |
+| - | - | - | - |
+| **CS** | [dv-cs](https://dv-cs.lithium.primaverabss.com/) | [st-cs](https://st-cs.lithium.primaverabss.com/) | [cs](https://cs.lithium.primaverabss.com/) |
+| **DLS** | [dv-dls](https://dv-dls.lithium.primaverabss.com/) | [st-dls](https://st-dls.lithium.primaverabss.com/) | [dls](https://dls.lithium.primaverabss.com/) |
+| **ECCO** | [dv-ecco](https://dv-ecco.lithium.primaverabss.com/) | [st-ecco](https://st-ecco.lithium.primaverabss.com/) | [ecco](https://ecco.lithium.primaverabss.com/) |
+| **FRS** | [dv-frs](https://dv-frs.lithium.primaverabss.com/) | [st-frs](https://st-frs.lithium.primaverabss.com/) | [frs](https://lithium-frs.primaverabss.com/) |
+| **FS** | [dv-fs](https://dv-fs.lithium.primaverabss.com/) | [st-fs](https://st-fs.lithium.primaverabss.com/) | [fs](https://fs.lithium.primaverabss.com/) |
+| **HUB** | [dv-hub](https://dv-hub.lithium.primaverabss.com/) | [st-hub](https://st-hub.lithium.primaverabss.com/) | [hub](https://hub.lithium.primaverabss.com/) |
+| **NS** | [dv-ns](https://dv-ns.lithium.primaverabss.com/) | [st-ns](https://st-ns.lithium.primaverabss.com/) | [ns](https://ns.lithium.primaverabss.com/) |
+| **NTR** | ??? | ??? | ??? |
+| **OBS** | ??? | ??? | ??? |
+| **PNS** | [dv-pns](https://dv-pns.lithium.primaverabss.com/) | [st-pns](https://st-pns.lithium.primaverabss.com/) | [pns](https://pns.lithium.primaverabss.com/) |
+| **SS** | [dv-ss](https://dv-ss.lithium.primaverabss.com/) | [st-ss](https://st-ss.lithium.primaverabss.com/) | [ss](https://ss.lithium.primaverabss.com/) |
+| **TAXPT** | [dv-taxpt](https://dv-taxpt.lithium.primaverabss.com/) | [st-taxpt](https://st-taxpt.lithium.primaverabss.com/) | [taxpt](https://taxpt.lithium.primaverabss.com/) |
+| **TBX** | [dv-tbx](https://dv-tbx.lithium.primaverabss.com/) | [st-tbx](https://st-tbx.lithium.primaverabss.com/) | [tbx](https://tbx.lithium.primaverabss.com/) |
+<!-- markdown-link-check-enable -->

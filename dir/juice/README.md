@@ -11,9 +11,11 @@ These services provide features that are part of the Juice solution.
 
 # Endpoints
 
-| Service | Development | Staging | Preview | Production |
-| - | - | - | - | - |
-| **APPS** | [dv-apps](https://dv-apps.lithium.primaverabss.com/) | [st-apps](https://st-apps.lithium.primaverabss.com/) | [apps-preview](https://apps-preview.lithium.primaverabss.com/) | [apps](https://apps.lithium.primaverabss.com/) |
-| **BTI** | [dv-bti](https://dv-bti.lithium.primaverabss.com/) | [st-bti](https://st-bti.lithium.primaverabss.com/) | [bti-preview](https://bti-preview.lithium.primaverabss.com/)   | [bti](https://bti.lithium.primaverabss.com/)   |
-| **PS** | [dv-ps](https://dv-ps.lithium.primaverabss.com/) | [st-ps](https://st-ps.lithium.primaverabss.com/) | [ps-preview](https://ps-preview.lithium.primaverabss.com/) | [ps](https://ps.lithium.primaverabss.com/) |
-| **USG** | [dv-usg](https://dv-usg.lithium.primaverabss.com/) | [st-usg](https://st-usg.lithium.primaverabss.com/) | [usg-preview](https://usg-preview.lithium.primaverabss.com/) | [usg](https://usg.lithium.primaverabss.com/) |
+<!-- markdown-link-check-disable -->
+| Service | Development | Staging | Production |
+| - | - | - | - |
+| **APPS** | [dv-apps](https://dv-apps.lithium.primaverabss.com/) | [st-apps](https://st-apps.lithium.primaverabss.com/) | [apps](https://apps.lithium.primaverabss.com/) |
+| **BTI** | [dv-bti](https://dv-bti.lithium.primaverabss.com/) | [st-bti](https://st-bti.lithium.primaverabss.com/) | [bti](https://bti.lithium.primaverabss.com/) |
+| **PS** | [dv-ps](https://dv-ps.lithium.primaverabss.com/) | [st-ps](https://st-ps.lithium.primaverabss.com/) | [ps](https://ps.lithium.primaverabss.com/) |
+| **USG** | [dv-usg](https://dv-usg.lithium.primaverabss.com/) | [st-usg](https://st-usg.lithium.primaverabss.com/) | [usg](https://usg.lithium.primaverabss.com/) |
+<!-- markdown-link-check-enable -->

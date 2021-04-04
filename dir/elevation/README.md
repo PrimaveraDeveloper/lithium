@@ -8,6 +8,8 @@ These services provide features that are part of the Elevation Framework.
 
 # Endpoints
 
-| Service | Development | Staging | Preview | Production |
-| - | - | - | - | - |
-| **PMS** | [dv-pms](https://dv-pms.lithium.primaverabss.com/) | [st-pms](https://st-pms.lithium.primaverabss.com/) | ??? | [pms](https://lithium-postman.primaverabss.com/) |
+<!-- markdown-link-check-disable -->
+| Service | Development | Staging | Production |
+| - | - | - | - |
+| **PMS** | [dv-pms](https://dv-pms.lithium.primaverabss.com/) | [st-pms](https://st-pms.lithium.primaverabss.com/) | [pms](https://lithium-postman.primaverabss.com/) |
+<!-- markdown-link-check-enable -->
