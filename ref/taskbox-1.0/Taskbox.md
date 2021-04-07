@@ -479,7 +479,7 @@ services.AddTaskbox();
 
 ## Scheduling
 
-The `Primavera.Hydrogen.Scheduling` namespace provides types that support scheduling operations.
+The `Primavera.Taskbox.Scheduling` namespace provides types that support scheduling operations.
 
 ### `Cron`
 
